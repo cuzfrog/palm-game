@@ -2,36 +2,32 @@
 @panelBright: rgb(172, 222, 255);
 @panelDark: #5f92bd;
 
-@screenRatio: 10/16;
-@consoleHeight: 94vh;
-@consoleWidth: @consoleHeight * @screenRatio;
 
 .console {
-  width: @consoleWidth;
-  height: @consoleHeight;
+  width: 420px;
   position: absolute;
-  margin: 1vh;
-  padding-top: 3vh;
+  margin: 4px;
+  padding-top: 12px;
 
   background: @panelPrimary;
   border: outset @panelPrimary;
 
   .upperRect {
-    width: @consoleWidth - 14vw;
-    padding: 3vh 0 2vh;
+    width: 380px;
+    padding: 18px 0 8px;
     border: #000 solid;
-    border-width: 0 1vh 1vh;
+    border-width: 0 4px 4px;
     margin: 0 auto;
     position: relative;
 
     .screenRect {
-      width: @consoleWidth - 20vw;
-      height: @consoleHeight / 2;
-      border: solid 0.7vw;
+      width: 360px;
+      height: 420px;
+      border: solid 2px;
       border-color: @panelDark @panelBright @panelBright @panelDark;
       margin: 0 auto;
       position: relative;
-      .fullFill
+      .flexBox
     }
   }
 
@@ -40,7 +36,7 @@
   }
 }
 
-.fullFill{
+.flexBox{
   display: -ms-flex;
   display: -webkit-flex;
   display: flex;

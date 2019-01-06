@@ -54,7 +54,9 @@ const config = {
                             localIdentName: "[local]_[hash:base64:4]",
                         }
                     },
-                    'less-loader'
+                    {
+                        loader: "less-loader"
+                    }
                 ]
             },
             {
