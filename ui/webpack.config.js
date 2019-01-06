@@ -10,13 +10,16 @@ const config = {
     entry: {
         app: "./src/index.tsx"
     },
-    //externals: ['react', 'react-dom'],
     mode: "development",
     devtool: 'cheap-source-map',
     devServer: {
         contentBase: path.resolve(__dirname, 'build/dist'),
         compress: true,
-        port: 9000
+        port: 9000,
+        host: '0.0.0.0',
+        stats: {
+            children: false,
+        },
     },
     watchOptions: {
         ignored: [/node_modules/, /deprecated/, /tmp/]
@@ -69,7 +72,9 @@ const config = {
             from: 'public'
         }]),
         new ForkTsCheckerWebpackPlugin({workers: 2}),
-        new MiniCssExtractPlugin({filename: 'app.css'}),
+        new MiniCssExtractPlugin({
+            filename: 'app.css',
+        }),
     ],
     optimization: {
         splitChunks: {
@@ -81,7 +86,7 @@ const config = {
                 }
             }
         }
-    }
+    },
 };
 
 module.exports = config;
