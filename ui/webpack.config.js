@@ -26,7 +26,7 @@ const config = {
         path: path.resolve(__dirname, 'build/dist')
     },
     resolve: {
-        extensions: [".ts", ".tsx", ".js"],
+        extensions: [".ts", ".tsx", ".js", ".less"],
         symlinks: false
     },
     module: {
@@ -42,7 +42,17 @@ const config = {
             {
                 test: /\.less/,
                 include: SRC_DIR,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: true,
+                            localIdentName: "[local]_[hash:base64:4]",
+                        }
+                    },
+                    'less-loader'
+                ]
             },
             {
                 test: /\.(png|svg|jpe?g|gif|ico)$/,
