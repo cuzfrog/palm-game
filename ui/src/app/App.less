@@ -1,11 +1,27 @@
-.App {
-  text-align: center;
+body{
+  background: #060816;
+  padding: 0;margin:0;
+  font: 20px/1 "HanHei SC","PingHei","PingFang SC","STHeitiSC-Light","Helvetica Neue","Helvetica","Arial",sans-serif;
+  overflow: hidden;
+  cursor: default;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: 'liga', 'kern';
+  direction: ltr;
+  text-align: left;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.centeredParent {
+  display: flex;
+  justify-content: center;
 }
+
+.App {
+  text-align: center;
+  .centeredParent();
+}
+
 
 .App-header {
   background-color: #222;
@@ -20,9 +36,4 @@
 
 .App-intro {
   font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
