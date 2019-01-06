@@ -3,6 +3,7 @@
     "tslint:recommended",
     "tslint-react"
   ],
+  "defaultSeverity": "warning",
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
@@ -15,6 +16,7 @@
     "trailing-comma": [false],
     "object-literal-sort-keys": false,
     "ordered-imports": false,
-    "no-console": [false]
+    "no-console": [false],
+    "interface-name": [true, "never-prefix"]
   }
 }
