@@ -21,7 +21,7 @@ export default class extends React.Component<MatrixProps, {}> {
 
     private Row(actives: boolean[]) {
         return actives.map((a, ci) => (
-            <td key={ci}><Pixel isActive={a}/></td>
+            <Pixel isActive={a} key={ci}/>
         ));
     }
 }

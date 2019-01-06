@@ -8,7 +8,7 @@ interface PixelProps {
 export default class extends React.Component<PixelProps, {}> {
     public render() {
         return (
-            <div className={this.props.isActive ? style.active : style.pixel}/>
+            <td className={this.props.isActive ? style.pixelActive : style.pixel}/>
         );
     }
 }
