@@ -4,8 +4,9 @@ import React from 'react';
 import style from './Console.less';
 import Decorate from './Decorate';
 import Screen from './screen/Screen';
+import Button from './control/Button';
 
-export default class Console extends React.Component<{}, {}> {
+export default class Console extends React.PureComponent<{}, {}> {
 
     public render() {
         return (
@@ -18,6 +19,7 @@ export default class Console extends React.Component<{}, {}> {
                 </div>
                 <div className={style.lowerRect}>
                     <p>lower rect</p>
+                    <Button style={'A'}/>
                 </div>
             </div>
         );
