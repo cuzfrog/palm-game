@@ -54,9 +54,8 @@ const config = {
                             localIdentName: "[local]_[hash:base64:4]",
                         }
                     },
-                    {
-                        loader: "less-loader"
-                    }
+                    "postcss-loader",
+                    "less-loader",
                 ]
             },
             {
@@ -76,7 +75,7 @@ const config = {
         new ForkTsCheckerWebpackPlugin({workers: 2}),
         new MiniCssExtractPlugin({
             filename: 'app.css',
-        }),
+        })
     ],
     optimization: {
         splitChunks: {
