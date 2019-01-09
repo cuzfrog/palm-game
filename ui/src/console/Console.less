@@ -4,25 +4,27 @@
 
 
 .console {
-  width: 420px;
+  width: 480px;
   position: absolute;
-  padding-top: 12px;
+  padding-top: 50px;
+  z-index: -2;
 
   background: @panelPrimary;
   border: outset 3px @panelPrimary;
+  border-radius: 10px;
 
   .upperRect {
-    width: 360px;
-    padding: 18px 0 8px;
+    width: 380px;
+    padding: 28px 0 16px;
     border: #000 solid;
-    border-width: 0 4px 4px;
+    border-width: 0 6px 6px;
     margin: 0 auto;
     position: relative;
 
     .screenRect {
       width: 340px;
       height: 400px;
-      border: solid 2px;
+      border: solid 5px;
       border-color: @panelDark @panelBright @panelBright @panelDark;
       margin: 0 auto;
       position: relative;
@@ -31,12 +33,13 @@
   }
 
   .lowerRect {
+    width: 360px;
 
+    padding: 20px 40px 20px;
+    z-index: 1;
   }
 }
 
 .flexBox{
-  display: -ms-flex;
-  display: -webkit-flex;
   display: flex;
 }
