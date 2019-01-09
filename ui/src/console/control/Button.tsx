@@ -1,11 +1,11 @@
 import React from 'react';
 import style from './Button.less';
 
-interface BtnProps {
+export interface BtnProps {
     style: string;
 }
 
-interface BtnState {
+export interface BtnState {
     btnPos: BtnPosition;
 }
 
@@ -25,8 +25,8 @@ export default class extends React.Component<BtnProps, BtnState> {
 
     public render() {
         return (
-            <div className={style.funcBtn} onMouseDown={this.down} onMouseUp={this.up} onMouseLeave={this.up}>
-                <p>{this.state.btnPos}</p>
+            <div className={style.button} onMouseDown={this.down} onMouseUp={this.up} onMouseLeave={this.up}>
+                A
             </div>
         );
     }
