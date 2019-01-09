@@ -5,7 +5,7 @@ export interface BtnProps {
     style: string;
 }
 
-export interface BtnState {
+interface BtnState {
     btnPos: BtnPosition;
 }
 
@@ -25,7 +25,7 @@ export default class extends React.Component<BtnProps, BtnState> {
 
     public render() {
         return (
-            <div className={style.button} onMouseDown={this.down} onMouseUp={this.up} onMouseLeave={this.up}>
+            <div className={style.roundButton} onMouseDown={this.down} onMouseUp={this.up} onMouseLeave={this.up}>
                 A
             </div>
         );
