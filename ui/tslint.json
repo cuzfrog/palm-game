@@ -19,6 +19,7 @@
     "no-console": [false],
     "interface-name": [true, "never-prefix"],
     "no-trailing-whitespace": false,
-    "semicolon": [true, "always", "ignore-bound-class-methods"]
+    "semicolon": [true, "always", "ignore-bound-class-methods"],
+    "max-line-length": [true, 130]
   }
 }

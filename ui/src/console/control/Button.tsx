@@ -2,44 +2,38 @@ import React from 'react';
 import style from './Button.less';
 
 export interface BtnProps {
-    style: string;
+    readonly type: BtnType;
+    readonly caption?: string;
+    readonly downHandler?: (event: React.MouseEvent<HTMLInputElement>) => void;
+    readonly upHandler?: (event: React.MouseEvent<HTMLInputElement>) => void;
+    readonly clickHandler?: (event: React.MouseEvent<HTMLInputElement>) => void;
 }
 
-interface BtnState {
-    btnPos: BtnPosition;
+export enum BtnType {
+    MAIN = style.mainButton,
+    FUNC = style.funcButton,
+    UP = style.upButton,
+    LEFT = style.leftButton,
+    RIGHT = style.rightButton,
+    DOWN = style.downButton
 }
 
-enum BtnPosition {
-    UP, DOWN
-}
-
-export default class extends React.Component<BtnProps, BtnState> {
+export default class extends React.PureComponent<BtnProps, {}> {
     constructor(props: BtnProps) {
         super(props);
-        this.state = {
-            btnPos: BtnPosition.UP
-        };
-        this.down = this.down.bind(this);
-        this.up = this.up.bind(this);
     }
 
     public render() {
         return (
-            <div className={style.roundButton} onMouseDown={this.down} onMouseUp={this.up} onMouseLeave={this.up}>
-                A
+            <div
+                className={this.props.type.toString()}
+                onMouseDown={this.props.downHandler}
+                onMouseUp={this.props.upHandler}
+                onMouseLeave={this.props.upHandler}
+                onClick={this.props.clickHandler}
+            >
+                {this.props.caption}
             </div>
         );
-    }
-
-    private down() {
-        this.setState({
-            btnPos: BtnPosition.DOWN
-        });
-    }
-
-    private up() {
-        this.setState({
-            btnPos: BtnPosition.UP
-        });
     }
 }
