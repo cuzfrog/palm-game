@@ -1,0 +1,70 @@
+@depth: 5px;
+
+@blue: #108FE8;
+@yellow: #FFC334;
+@red: #E53030;
+@green: #0EC518;
+
+.button {
+  border: 2px solid #1b1b1b;
+  cursor: pointer;
+  display: inline-block;
+}
+
+@mainDiameter: 80px;
+@mainColor: @blue;
+
+.mainButton {
+  .button;
+  background: @mainColor;
+  border-radius: 100%;
+  box-shadow: 0 -2px 1px 2px darken(@mainColor, 10%) inset, 0 5px 3px rgba(darken(@mainColor, 40%), 0.17), 0 5px 3px rgba(#fff, 0.20) inset;
+
+  height: @mainDiameter;
+  width: @mainDiameter;
+
+  font-size: @mainDiameter/2;
+  text-decoration: none;
+  font-weight: bold;
+  color: darken(@mainColor, 20%);
+  text-shadow: 0 -2px 0 darken(@mainColor, 20%), 0 1px 1px lighten(@mainColor, 20%);
+  line-height: @mainDiameter;
+  text-align: center;
+
+  &:active {
+    box-shadow: 0 -2px 2px 2px darken(@mainColor, 13%) inset;
+    text-shadow: 0 -2px 0 darken(@mainColor, 20%), 0 1px 1px lighten(@mainColor, 15%);
+  }
+}
+
+@funcColor: @blue;
+
+.funcButton {
+  .button;
+  background: @funcColor;
+  border-radius: 7px;
+  box-shadow: 0 -2px 1px 1px darken(@mainColor, 10%) inset, 0 3px 3px rgba(darken(@mainColor, 40%), 0.17), 0 3px 2px rgba(#fff, 0.20) inset;
+
+  height: 12px;
+  width: 40px;
+
+  &:active {
+    box-shadow: 0 -2px 2px 1px darken(@mainColor, 13%) inset;
+  }
+}
+
+.upButton {
+
+}
+
+.leftButton {
+
+}
+
+.rightButton {
+
+}
+
+.downButton {
+
+}
