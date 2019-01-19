@@ -4,9 +4,10 @@
 @yellow: #FFC334;
 @red: #E53030;
 @green: #0EC518;
+@black: #1b1b1b;
 
 .button {
-  border: 2px solid #1b1b1b;
+  border: 2px solid @black;
   cursor: pointer;
   display: inline-block;
 }
@@ -18,10 +19,11 @@
   .button;
   background: @mainColor;
   border-radius: 100%;
-  box-shadow: 0 -2px 1px 2px darken(@mainColor, 10%) inset, 0 5px 3px rgba(darken(@mainColor, 40%), 0.17), 0 5px 3px rgba(#fff, 0.20) inset;
+  box-shadow: 0 -2px 1px 2px darken(@mainColor, 10%) inset, 0 4px 3px rgba(darken(@mainColor, 40%), 0.17), 0 4px 3px rgba(#fff, 0.20) inset;
 
   height: @mainDiameter;
   width: @mainDiameter;
+  margin: 20px;
 
   font-size: @mainDiameter/2;
   text-decoration: none;
@@ -43,22 +45,52 @@
   .button;
   background: @funcColor;
   border-radius: 7px;
-  box-shadow: 0 -2px 1px 1px darken(@mainColor, 10%) inset, 0 3px 3px rgba(darken(@mainColor, 40%), 0.17), 0 3px 2px rgba(#fff, 0.20) inset;
+  box-shadow: 0 -2px 1px 1px darken(@funcColor, 10%) inset, 0 3px 3px rgba(darken(@funcColor, 40%), 0.17), 0 3px 2px rgba(#fff, 0.20) inset;
 
   height: 12px;
   width: 40px;
 
   &:active {
-    box-shadow: 0 -2px 2px 1px darken(@mainColor, 13%) inset;
+    box-shadow: 0 -2px 2px 1px darken(@funcColor, 13%) inset;
   }
 }
+
+@arrowColor: @blue;
+@arrowSize: 40px;
 
 .upButton {
 
 }
 
 .leftButton {
+  .arrowButton;
+  border-left: @black solid 2px;
+  border-top: @black solid 2px;
+  border-bottom: @black solid 2px;
 
+  @inDarkShadow: 0 -2px 2px -1px darken(@arrowColor, 10%) inset;
+  box-shadow: @inDarkShadow, 0 6px 4px -4px rgba(darken(@arrowColor, 40%), 0.17), 0 4px 3px -2px rgba(#fff, 0.20) inset;
+
+  @inDarkShadowAfter: -3px 0 2px -2px darken(@arrowColor, 10%) inset;
+
+  &:after {
+    right: 0;
+    bottom: -2px;
+    transform-origin: 100% 100%;
+    transform: rotate(45deg);
+
+    border-top: @black solid 2px;
+    border-right: @black solid 2px;
+
+    box-shadow: @inDarkShadowAfter, 4px 0 4px -2px rgba(darken(@arrowColor, 40%), 0.17), 0 3px 2px -1px rgba(#fff, 0.20) inset;
+  }
+
+  &:active {
+    box-shadow: @inDarkShadow;
+    &:after {
+      box-shadow: @inDarkShadowAfter;
+    }
+  }
 }
 
 .rightButton {
@@ -67,4 +99,30 @@
 
 .downButton {
 
+}
+
+.arrowButton {
+  cursor: pointer;
+  display: inline-block;
+  height: @arrowSize;
+  width: @arrowSize;
+  margin: 10px;
+  position: relative;
+  background: @arrowColor;
+  border-radius: 2px;
+
+  @triangleSize: sqrt(@arrowSize*@arrowSize/2) + 1px;
+  &:after {
+    cursor: pointer;
+    width: @triangleSize;
+    height: @triangleSize;
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: @arrowColor;
+    border-radius: 2px;
+  }
+  &:active {
+
+  }
 }

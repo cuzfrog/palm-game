@@ -19,7 +19,8 @@ export default class Console extends React.PureComponent<{}, {}> {
                 </div>
                 <div className={style.lowerRect}>
                     <p>lower rect</p>
-                    <Button type={BtnType.FUNC}/>
+                    <Button type={BtnType.LEFT}/>
+                    <Button type={BtnType.MAIN}/>
                 </div>
             </div>
         );
