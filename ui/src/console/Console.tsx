@@ -20,7 +20,7 @@ export default class Console extends React.PureComponent<{}, {}> {
                 <div className={style.lowerRect}>
                     <p>lower rect</p>
                     <Button type={BtnType.LEFT}/>
-                    <Button type={BtnType.MAIN}/>
+                    <Button type={BtnType.UP}/>
                 </div>
             </div>
         );

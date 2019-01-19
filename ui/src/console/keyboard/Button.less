@@ -57,36 +57,64 @@
 
 @arrowColor: @blue;
 @arrowSize: 40px;
+@fissureBorder: @black solid 2px;
+
+
 
 .upButton {
+  .arrowButton;
+  border-bottom: none;
 
+  box-shadow: 2px 4px 3px -2px rgba(#fff, 0.20) inset;
+
+  @inDarkShadowAfter: -3px -3px 2px -2px darken(@arrowColor, 10%) inset;
+
+  &:after {
+    left: -2.5px;
+    bottom: 0;
+    transform-origin: 0 100%;
+    transform: rotate(45deg);
+
+    border-bottom: @fissureBorder;
+    border-right: @fissureBorder;
+
+    @outShadow: 4px 3px 4px -2px rgba(darken(@arrowColor, 40%), 0.17);
+    box-shadow: @inDarkShadowAfter, @outShadow, 0 2.5px 2px -1px rgba(#fff, 0.20) inset;
+  }
+
+  &:active {
+    box-shadow: none;
+    &:after {
+      box-shadow: @inDarkShadowAfter;
+    }
+  }
 }
 
 .leftButton {
   .arrowButton;
-  border-left: @black solid 2px;
-  border-top: @black solid 2px;
-  border-bottom: @black solid 2px;
+  border-right: none;
 
-  @inDarkShadow: 0 -2px 2px -1px darken(@arrowColor, 10%) inset;
-  box-shadow: @inDarkShadow, 0 6px 4px -4px rgba(darken(@arrowColor, 40%), 0.17), 0 4px 3px -2px rgba(#fff, 0.20) inset;
+  @bottomDarkShadow: 0 -2px 2px -1px darken(@arrowColor, 10%) inset;
+  @outShadow: 0px 6px 4px -4px rgba(darken(@arrowColor, 40%), 0.17);
+  @inBrightShadow: 3px 4px 3px -2px rgba(#fff, 0.20) inset;
+  box-shadow: @bottomDarkShadow, @outShadow, @inBrightShadow;
 
-  @inDarkShadowAfter: -3px 0 2px -2px darken(@arrowColor, 10%) inset;
+  @inDarkShadowAfter: -2.5px 0 2px -2px darken(@arrowColor, 10%) inset;
 
   &:after {
     right: 0;
-    bottom: -2px;
+    bottom: -2.5px;
     transform-origin: 100% 100%;
     transform: rotate(45deg);
 
-    border-top: @black solid 2px;
-    border-right: @black solid 2px;
+    border-top: @fissureBorder;
+    border-right: @fissureBorder;
 
-    box-shadow: @inDarkShadowAfter, 4px 0 4px -2px rgba(darken(@arrowColor, 40%), 0.17), 0 3px 2px -1px rgba(#fff, 0.20) inset;
+    box-shadow: @inDarkShadowAfter, 4px 0 4px -2px rgba(darken(@arrowColor, 40%), 0.17), 0 2.5px 2px -1px rgba(#fff, 0.20) inset;
   }
 
   &:active {
-    box-shadow: @inDarkShadow;
+    box-shadow: @bottomDarkShadow;
     &:after {
       box-shadow: @inDarkShadowAfter;
     }
@@ -106,12 +134,13 @@
   display: inline-block;
   height: @arrowSize;
   width: @arrowSize;
-  margin: 10px;
+  margin: 10px 20px 10px;
   position: relative;
   background: @arrowColor;
   border-radius: 2px;
+  border: @fissureBorder;
 
-  @triangleSize: sqrt(@arrowSize*@arrowSize/2) + 1px;
+  @triangleSize: sqrt(@arrowSize*@arrowSize/2) + 2px;
   &:after {
     cursor: pointer;
     width: @triangleSize;
