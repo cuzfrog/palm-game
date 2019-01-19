@@ -4,7 +4,7 @@ import React from 'react';
 import style from './Console.less';
 import Decorate from './Decorate';
 import Screen from './screen/Screen';
-import Button, {BtnType} from './keyboard/Button';
+import ArrowKeys from './keyboard/ArrowKeys';
 
 export default class Console extends React.PureComponent<{}, {}> {
 
@@ -19,10 +19,7 @@ export default class Console extends React.PureComponent<{}, {}> {
                 </div>
                 <div className={style.lowerRect}>
                     <p>lower rect</p>
-                    <Button type={BtnType.UP}/>
-                    <Button type={BtnType.LEFT}/>
-                    <Button type={BtnType.DOWN}/>
-                    <Button type={BtnType.RIGHT}/>
+                    <ArrowKeys/>
                 </div>
             </div>
         );

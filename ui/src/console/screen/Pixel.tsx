@@ -5,7 +5,7 @@ interface PixelProps {
     isActive: boolean;
 }
 
-export default class extends React.Component<PixelProps, {}> {
+export default class extends React.PureComponent<PixelProps, {}> {
     public render() {
         return (
             <td className={this.props.isActive ? style.pixelActive : style.pixel}/>

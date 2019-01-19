@@ -1,0 +1,28 @@
+.arrowKeysContainer {
+  position: relative;
+
+  > div {
+    position: absolute;
+  }
+}
+
+@baseTop: 50px;
+@baseLeft: 48px;
+
+.upKeyPos {
+  left: @baseLeft;
+}
+
+.rightKeyPos {
+  top: @baseTop;
+  left: 100px;
+}
+
+.downKeyPos {
+  top: @baseTop + 50px;
+  left: @baseLeft;
+}
+
+.leftKeyPos {
+  top: @baseTop;
+}

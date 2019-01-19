@@ -2,16 +2,16 @@ import React from 'react';
 import style from './Screen.less';
 import Matrix from './Matrix';
 
-const T = true;
-const F = false;
+const I = true;
+const O = false;
 
-export default class Screen extends React.Component<{}, {}> {
+export default class Screen extends React.PureComponent<{}, {}> {
     public render() {
 
         const mockMarix = [
-            [F, F, F, F, F, F, F, F, F, F],
-            [F, F, F, T, F, T, F, F, F, F],
-            [F, F, F, F, F, F, F, F, F, F],
+            [O, O, O, O, O, O, O, O, O, O],
+            [O, O, O, I, O, I, O, O, O, O],
+            [O, O, O, O, O, O, O, O, O, O],
         ];
 
         return (
