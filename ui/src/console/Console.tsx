@@ -22,6 +22,7 @@ export default class Console extends React.PureComponent<{}, {}> {
                     <Button type={BtnType.UP}/>
                     <Button type={BtnType.LEFT}/>
                     <Button type={BtnType.DOWN}/>
+                    <Button type={BtnType.RIGHT}/>
                 </div>
             </div>
         );
