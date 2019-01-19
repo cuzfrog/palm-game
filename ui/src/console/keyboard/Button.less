@@ -59,15 +59,13 @@
 @arrowSize: 40px;
 @fissureBorder: @black solid 2px;
 
-
-
 .upButton {
   .arrowButton;
   border-bottom: none;
 
-  box-shadow: 2px 4px 3px -2px rgba(#fff, 0.20) inset;
-
-  @inDarkShadowAfter: -3px -3px 2px -2px darken(@arrowColor, 10%) inset;
+  @inBrightShadow: 2px 4px 3px -2px rgba(#fff, 0.20) inset;
+  @inDarkShadow: -2px 0px 2px -1px darken(@arrowColor, 10%) inset;
+  box-shadow: @inBrightShadow, @inDarkShadow;
 
   &:after {
     left: -2.5px;
@@ -78,15 +76,9 @@
     border-bottom: @fissureBorder;
     border-right: @fissureBorder;
 
+    @inDarkShadowAfter: -3px -3px 2px -2px darken(@arrowColor, 10%) inset;
     @outShadow: 4px 3px 4px -2px rgba(darken(@arrowColor, 40%), 0.17);
     box-shadow: @inDarkShadowAfter, @outShadow, 0 2.5px 2px -1px rgba(#fff, 0.20) inset;
-  }
-
-  &:active {
-    box-shadow: none;
-    &:after {
-      box-shadow: @inDarkShadowAfter;
-    }
   }
 }
 
@@ -94,12 +86,10 @@
   .arrowButton;
   border-right: none;
 
-  @bottomDarkShadow: 0 -2px 2px -1px darken(@arrowColor, 10%) inset;
+  @inDarkShadow: 0 -2px 2px -1px darken(@arrowColor, 10%) inset;
   @outShadow: 0px 6px 4px -4px rgba(darken(@arrowColor, 40%), 0.17);
   @inBrightShadow: 3px 4px 3px -2px rgba(#fff, 0.20) inset;
-  box-shadow: @bottomDarkShadow, @outShadow, @inBrightShadow;
-
-  @inDarkShadowAfter: -2.5px 0 2px -2px darken(@arrowColor, 10%) inset;
+  box-shadow: @inDarkShadow, @outShadow, @inBrightShadow;
 
   &:after {
     right: 0;
@@ -110,14 +100,8 @@
     border-top: @fissureBorder;
     border-right: @fissureBorder;
 
+    @inDarkShadowAfter: -2.5px 0 2px -2px darken(@arrowColor, 10%) inset;
     box-shadow: @inDarkShadowAfter, 4px 0 4px -2px rgba(darken(@arrowColor, 40%), 0.17), 0 2.5px 2px -1px rgba(#fff, 0.20) inset;
-  }
-
-  &:active {
-    box-shadow: @bottomDarkShadow;
-    &:after {
-      box-shadow: @inDarkShadowAfter;
-    }
   }
 }
 
@@ -126,7 +110,25 @@
 }
 
 .downButton {
+  .arrowButton;
+  border-top: none;
 
+  @inDarkShadow: -2px -2px 2px -1px darken(@arrowColor, 10%) inset;
+  @outShadow: 0px 6px 4px -4px rgba(darken(@arrowColor, 40%), 0.17);
+  @inBrightShadow: 3px 0px 3px -2px rgba(#fff, 0.20) inset;
+  box-shadow: @inDarkShadow, @outShadow, @inBrightShadow;
+
+  &:after {
+    left: -2.5px;
+    top: 0;
+    transform-origin: 0 0;
+    transform: rotate(-45deg);
+
+    border-top: @fissureBorder;
+    border-right: @fissureBorder;
+
+    box-shadow: -2px 2.5px 2px -1px rgba(#fff, 0.20) inset;
+  }
 }
 
 .arrowButton {
@@ -140,9 +142,10 @@
   border-radius: 2px;
   border: @fissureBorder;
 
-  @triangleSize: sqrt(@arrowSize*@arrowSize/2) + 2px;
+
   &:after {
     cursor: pointer;
+    @triangleSize: sqrt(@arrowSize*@arrowSize/2) + 2px;
     width: @triangleSize;
     height: @triangleSize;
     content: "";
@@ -151,7 +154,11 @@
     background: @arrowColor;
     border-radius: 2px;
   }
-  &:active {
 
+  &:active {
+    box-shadow: none;
+    &:after {
+      box-shadow: none;
+    }
   }
 }
