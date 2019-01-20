@@ -1,0 +1,47 @@
+.keysContainer {
+  position: relative;
+  > div {
+    position: absolute;
+  }
+
+  @baseTop: 50px;
+  @baseLeft: 48px;
+  .upKey {
+    left: @baseLeft;
+  }
+  .rightKey {
+    top: @baseTop;
+    left: 100px;
+  }
+  .downKey {
+    top: @baseTop + 50px;
+    left: @baseLeft;
+  }
+  .leftKey {
+    top: @baseTop;
+  }
+
+  .mainKeyA {
+    left: 100px;
+  }
+  .mainKeyB {
+    top: 40px
+  }
+
+  .selectKey {
+    .funcKey;
+  }
+  .startKey {
+    .funcKey;
+    left: 60px;
+  }
+
+  .funcKey {
+    font-size: 12px;
+    font-weight: bold;
+    p {
+      margin: 5px;
+    }
+  }
+}
+

@@ -13,6 +13,8 @@
   border: outset 3px @panelPrimary;
   border-radius: 10px;
 
+  user-select: none;
+
   .upperRect {
     width: 380px;
     padding: 28px 0 16px;
@@ -33,10 +35,12 @@
   }
 
   .lowerRect {
-    width: 360px;
+    box-sizing: border-box;
+    width: 100%;
     height: 300px;
     position: relative;
-    padding: 20px 40px 20px;
+    margin-top: 20px;
+    padding: 20px;
     z-index: 1;
   }
 }

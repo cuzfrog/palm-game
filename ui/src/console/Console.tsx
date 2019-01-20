@@ -4,7 +4,7 @@ import React from 'react';
 import style from './Console.less';
 import Decorate from './Decorate';
 import Screen from './screen/Screen';
-import MainKeys from './keyboard/MainKeys';
+import KeyBoard from './keyboard/KeyBoard';
 
 export default class Console extends React.PureComponent<{}, {}> {
 
@@ -18,8 +18,7 @@ export default class Console extends React.PureComponent<{}, {}> {
                     </div>
                 </div>
                 <div className={style.lowerRect}>
-                    <p>lower rect</p>
-                    <MainKeys/>
+                    <KeyBoard/>
                 </div>
             </div>
         );
