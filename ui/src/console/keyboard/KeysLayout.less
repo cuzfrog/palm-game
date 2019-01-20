@@ -1,20 +1,22 @@
+@import "Button";
+
 .keysContainer {
   position: relative;
   > div {
     position: absolute;
   }
 
-  @baseTop: 50px;
-  @baseLeft: 48px;
+  @baseTop: @arrowSize*1.2;
+  @baseLeft: @arrowSize*1.2;
   .upKey {
     left: @baseLeft;
   }
   .rightKey {
     top: @baseTop;
-    left: 100px;
+    left: @baseLeft*2.1;
   }
   .downKey {
-    top: @baseTop + 50px;
+    top: @baseTop*2;
     left: @baseLeft;
   }
   .leftKey {
@@ -22,10 +24,10 @@
   }
 
   .mainKeyA {
-    left: 100px;
+    left: 90px;
   }
   .mainKeyB {
-    top: 40px
+    top: 50px
   }
 
   .selectKey {

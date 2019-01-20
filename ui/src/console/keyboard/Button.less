@@ -5,9 +5,10 @@
 @red: #E53030;
 @green: #0EC518;
 @black: #1b1b1b;
+@fissureBorder: @black solid 2px;
 
 .button {
-  border: 2px solid @black;
+  border: @fissureBorder;
   cursor: pointer;
   display: inline-block;
 }
@@ -55,16 +56,15 @@
   }
 }
 
-@arrowColor: @blue;
-@arrowSize: 40px;
-@fissureBorder: @black solid 2px;
+@arrowColor: darken(@blue, 1%);
+@arrowSize: 45px;
 
 .upButton {
   .arrowButton;
   border-bottom: none;
 
-  @inBrightShadow: 2px 4px 3px -2px rgba(#fff, 0.20) inset;
-  @inDarkShadow: -2px 0px 2px -1px darken(@arrowColor, 10%) inset;
+  @inBrightShadow: 2px 5px 5px -2px rgba(#fff, 0.20) inset;
+  @inDarkShadow: -3px 0px 4px -1px darken(@arrowColor, 10%) inset;
   box-shadow: @inBrightShadow, @inDarkShadow;
 
   &:after {
@@ -76,7 +76,7 @@
     border-bottom: @fissureBorder;
     border-right: @fissureBorder;
 
-    @inDarkShadowAfter: -3px -3px 2px -2px darken(@arrowColor, 10%) inset;
+    @inDarkShadowAfter: -3px -3px 4px -1px darken(@arrowColor, 10%) inset;
     @outShadow: 4px 3px 4px -2px rgba(darken(@arrowColor, 40%), 0.17);
     box-shadow: @inDarkShadowAfter, @outShadow, 0 2.5px 2px -1px rgba(#fff, 0.20) inset;
   }
@@ -86,9 +86,9 @@
   .arrowButton;
   border-right: none;
 
-  @inDarkShadow: 0 -2px 2px -1px darken(@arrowColor, 10%) inset;
-  @outShadow: 0px 4px 3px -3px rgba(darken(@arrowColor, 40%), 0.17);
-  @inBrightShadow: 3px 4px 3px -2px rgba(#fff, 0.20) inset;
+  @inDarkShadow: 0 -3px 2px -1px darken(@arrowColor, 10%) inset;
+  @outShadow: 0px 6px 3px -3px rgba(darken(@arrowColor, 40%), 0.17);
+  @inBrightShadow: 3px 5px 3px -2px rgba(#fff, 0.20) inset;
   box-shadow: @inDarkShadow, @outShadow, @inBrightShadow;
 
   &:after {
@@ -100,7 +100,7 @@
     border-top: @fissureBorder;
     border-right: @fissureBorder;
 
-    @inDarkShadowAfter: -2.5px 0 2px -2px darken(@arrowColor, 10%) inset;
+    @inDarkShadowAfter: -4px 0 3px -2px darken(@arrowColor, 10%) inset;
     box-shadow: @inDarkShadowAfter, 4px 0 4px -2px rgba(darken(@arrowColor, 40%), 0.17), 0 2.5px 2px -1px rgba(#fff, 0.20) inset;
   }
 }
@@ -109,9 +109,9 @@
   .arrowButton;
   border-left: none;
 
-  @inDarkShadow: 0 -2px 2px -1px darken(@arrowColor, 10%) inset;
-  @outShadow: 0px 4px 3px -3px rgba(darken(@arrowColor, 40%), 0.17);
-  @inBrightShadow: 0px 4px 3px -2px rgba(#fff, 0.20) inset;
+  @inDarkShadow: 0 -3px 2px -1px darken(@arrowColor, 10%) inset;
+  @outShadow: 0px 6px 4px -3px rgba(darken(@arrowColor, 40%), 0.17);
+  @inBrightShadow: 0px 5px 3px -2px rgba(#fff, 0.20) inset;
   box-shadow: @inDarkShadow, @outShadow, @inBrightShadow;
 
   &:after {
@@ -123,9 +123,10 @@
     border-top: @fissureBorder;
     border-left: @fissureBorder;
 
-    @inDarkShadow: 2.5px 0 2px -2px darken(@arrowColor, 10%) inset;
-
-    box-shadow: @inDarkShadow, -2px 0 2px -1px rgba(darken(@arrowColor, 40%), 0.17), 0 2.5px 2px -1px rgba(#fff, 0.20) inset;
+    @inDarkShadow: 4px 0 2px -2px darken(@arrowColor, 10%) inset;
+    @outShadow: -2px 0 2px -1px rgba(darken(@arrowColor, 40%), 0.17);
+    @inBrightShadow: 0 3px 2px -1px rgba(#fff, 0.20) inset;
+    box-shadow: @inDarkShadow, @outShadow, @inBrightShadow;
   }
 }
 
@@ -133,8 +134,8 @@
   .arrowButton;
   border-top: none;
 
-  @inDarkShadow: -2px -2px 2px -1px darken(@arrowColor, 10%) inset;
-  @outShadow: 0px 6px 4px -4px rgba(darken(@arrowColor, 40%), 0.17);
+  @inDarkShadow: -3px -3px 2px -1px darken(@arrowColor, 10%) inset;
+  @outShadow: 0px 5px 4px -2px rgba(darken(@arrowColor, 40%), 0.17);
   @inBrightShadow: 3px 0px 3px -2px rgba(#fff, 0.20) inset;
   box-shadow: @inDarkShadow, @outShadow, @inBrightShadow;
 
@@ -147,21 +148,18 @@
     border-top: @fissureBorder;
     border-right: @fissureBorder;
 
-    box-shadow: -2px 2.5px 2px -1px rgba(#fff, 0.20) inset;
+    box-shadow: -3px 3px 2px -1px rgba(#fff, 0.20) inset;
   }
 }
 
 .arrowButton {
-  cursor: pointer;
-  display: inline-block;
+  .button;
   height: @arrowSize;
   width: @arrowSize;
   margin: 10px 20px 10px;
   position: relative;
   background: @arrowColor;
   border-radius: 2px;
-  border: @fissureBorder;
-
 
   &:after {
     cursor: pointer;
