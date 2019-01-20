@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'sa-digital-number';
+  src: url('./sa-digital-number.ttf');
+}
+
+.digit {
+  font-family: 'sa-digital-number', serif;
+  font-size: 15px;
+  text-align: right;
+
+  position: relative;
+
+  p {
+    position: absolute;
+  }
+
+  .foreground {
+    z-index: 2;
+  }
+
+  .background {
+    color: #879372;
+    z-index: 1;
+  }
+}

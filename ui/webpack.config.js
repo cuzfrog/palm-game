@@ -59,7 +59,7 @@ const config = {
                 ]
             },
             {
-                test: /\.(png|svg|jpe?g|gif|ico)$/,
+                test: /\.(png|svg|jpe?g|gif|ico|ttf)$/,
                 include: SRC_DIR,
                 loader: 'file-loader',
                 options: {
