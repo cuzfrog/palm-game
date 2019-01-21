@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './Screen.less';
+import styles from './Screen.less';
 import Matrix from './Matrix';
 import Digit from './digits/Digit';
 
@@ -16,9 +16,11 @@ export default class Screen extends React.PureComponent<{}, {}> {
         ];
 
         return (
-            <div className={style.screen}>
-                <Matrix actives={mockMarix}/>
-                <Digit width={8}/>
+            <div className={styles.screen}>
+                <div className={styles.matrixArea}><Matrix actives={mockMarix}/></div>
+                <div className={styles.indicationArea}>
+                    <Digit width={8} value={1563}/>
+                </div>
             </div>
         );
     }

@@ -3,15 +3,22 @@
   src: url('./sa-digital-number.ttf');
 }
 
+@fontSize: 15px;
+
 .digit {
   font-family: 'sa-digital-number', serif;
-  font-size: 15px;
-  text-align: right;
+  font-size: @fontSize;
 
   position: relative;
+  margin: 5px 0 5px;
+  height: @fontSize+2px;
 
   p {
     position: absolute;
+    margin: 0;
+    top: 1px;
+    right: 0;
+    bottom: 1px;
   }
 
   .foreground {
@@ -19,7 +26,7 @@
   }
 
   .background {
-    color: #879372;
+    color: #879372; //todo: extract color together
     z-index: 1;
   }
 }
