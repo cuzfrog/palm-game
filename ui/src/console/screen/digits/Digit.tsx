@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Digit.less';
 
-export interface DigitProps {
+interface DigitProps {
     readonly value: number;
     readonly width: number;
 }

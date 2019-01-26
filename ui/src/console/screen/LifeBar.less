@@ -1,36 +1,40 @@
 @import "Screen";
 
-
+@heartSize: 9px;
 
 .lifeBar {
 
-  .foreground {
-
+  .activeHeart {
+    .heart;
+    &:before, &:after {
+      background: @activeColor;
+    }
   }
-
-  .background {
-
-  }
-
-  @size: 8px;
 
   .heart {
-    background-color: @activeColor;
-    height: @size;
-    transform: rotate(-45deg);
-    width: @size;
-  }
-  .heart:before {
-    top: -@size/2;
-    left: 0;
-  }
-  .heart:after {
-    content: "";
-    background-color: @activeColor;
-    border-radius: 50%;
-    height: @size;
-    position: absolute;
-    width: @size;
+    margin: 2px;
+    position: relative;
+    width: @heartSize;
+    height: @heartSize;
+    float: right;
+
+    &:before, &:after {
+      position: absolute;
+      content: "";
+      left: @heartSize/2;
+      top: 0;
+      width: @heartSize/2;
+      height: @heartSize;
+      background: @deactiveColor;
+      border-radius: @heartSize/2 @heartSize/2 0 0;
+      transform: rotate(-45deg);
+      transform-origin: 0 100%;
+    }
+    &:after {
+      left: 0;
+      transform: rotate(45deg);
+      transform-origin: 100% 100%;
+    }
   }
 
 }

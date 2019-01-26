@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Screen.less';
 import Matrix from './Matrix';
 import Digit from './digits/Digit';
+import LifeBar from './LifeBar';
 
 const I = true;
 const O = false;
@@ -19,7 +20,8 @@ export default class Screen extends React.PureComponent<{}, {}> {
             <div className={styles.screen}>
                 <div className={styles.matrixArea}><Matrix actives={mockMarix}/></div>
                 <div className={styles.indicationArea}>
-                    <Digit width={8} value={1563}/>
+                    <Digit value={1563} width={8}/>
+                    <LifeBar hp={40} maxHp={200}/>
                 </div>
             </div>
         );
