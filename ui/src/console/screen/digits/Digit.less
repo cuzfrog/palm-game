@@ -1,7 +1,4 @@
-@font-face {
-  font-family: 'sa-digital-number';
-  src: url('./sa-digital-number.ttf');
-}
+@import "../Screen";
 
 @fontSize: 15px;
 
@@ -22,11 +19,17 @@
   }
 
   .foreground {
+    color: @activeColor;
     z-index: 2;
   }
 
   .background {
-    color: #879372; //todo: extract color together
+    color: @deactiveColor;
     z-index: 1;
   }
+}
+
+@font-face {
+  font-family: 'sa-digital-number';
+  src: url('./sa-digital-number.ttf');
 }

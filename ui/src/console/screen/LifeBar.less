@@ -1,0 +1,37 @@
+@import "Screen";
+
+
+
+.lifeBar {
+
+  .foreground {
+
+  }
+
+  .background {
+
+  }
+
+  @size: 8px;
+
+  .heart {
+    background-color: @activeColor;
+    height: @size;
+    transform: rotate(-45deg);
+    width: @size;
+  }
+  .heart:before {
+    top: -@size/2;
+    left: 0;
+  }
+  .heart:after {
+    content: "";
+    background-color: @activeColor;
+    border-radius: 50%;
+    height: @size;
+    position: absolute;
+    width: @size;
+  }
+
+}
+
