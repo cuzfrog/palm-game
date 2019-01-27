@@ -1,25 +1,26 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import styles from './Screen.less';
 import Matrix from './Matrix';
 import Digit, {FontSize} from './digits/Digit';
 import LifeBar from './LifeBar';
+import {GameType} from '../../store/types';
+import {AppState} from '../../store';
 
 const I = true;
 const O = false;
 
-export default class Screen extends React.PureComponent<{}, {}> {
-    public render() {
+interface Props {
+    readonly gameType: GameType;
+}
 
-        const mockMarix = [
-            [O, O, O, O, O, O, O, O, O, O],
-            [O, O, O, I, O, I, O, O, O, O],
-            [O, O, O, O, O, O, O, O, O, O],
-        ];
+class Screen extends React.PureComponent<Props, {}> {
+    public render() {
 
         return (
             <div className={styles.screen}>
                 <div className={styles.matrixArea}>
-                    <Matrix actives={mockMarix}/>
+                    <Matrix actives={mockMatrix}/>
                 </div>
                 <div className={styles.indicationArea}>
                     <div className={styles.scoreShow}>
@@ -46,3 +47,17 @@ export default class Screen extends React.PureComponent<{}, {}> {
         );
     }
 }
+
+function mapStateToProps(state: AppState): Props {
+    return {
+        gameType: state.system.gameType
+    };
+}
+
+export default connect(mapStateToProps)(Screen);
+
+const mockMatrix = [
+    [O, O, O, O, O, O, O, O, O, O],
+    [O, O, O, I, O, I, O, O, O, O],
+    [O, O, O, O, O, O, O, O, O, O],
+];

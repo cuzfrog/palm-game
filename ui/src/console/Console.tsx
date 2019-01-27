@@ -3,11 +3,10 @@ import React from 'react';
 
 import style from './Console.less';
 import Decorate from './Decorate';
-import Screen from './screen/Screen';
-import KeyBoard from './keyboard/KeyBoard';
+import Screen from './screen';
+import KeyBoard from './keyboard';
 
 export default class Console extends React.PureComponent<{}, {}> {
-
     public render() {
         return (
             <div className={style.console}>
