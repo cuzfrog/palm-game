@@ -1,9 +1,10 @@
 import React from 'react';
 import style from './Matrix.less';
 import Pixel from './Pixel';
+import {List} from 'immutable';
 
 interface MatrixProps {
-    readonly actives: boolean[][];
+    readonly actives: List<List<boolean>>;
 }
 
 export default class extends React.Component<MatrixProps, {}> {
@@ -19,7 +20,7 @@ export default class extends React.Component<MatrixProps, {}> {
         );
     }
 
-    private Row(actives: boolean[]) {
+    private Row(actives: List<boolean>) {
         return actives.map((a, ci) => (
             <Pixel isActive={a} key={ci}/>
         ));

@@ -1,21 +1,37 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import classnames from 'classnames';
 import styles from './Screen.less';
 import Matrix from './Matrix';
 import Digit, {FontSize} from './digits/Digit';
 import LifeBar from './LifeBar';
-import {GameType} from '../../store/types';
 import {AppState} from '../../store';
+import {List} from 'immutable';
 
 const I = true;
 const O = false;
+const SCORE_WIDTH = 8;
+const LEVEL_WIDTH = 2;
+const LIFE_HEART_COUNT = 10;
 
 interface Props {
-    readonly gameType: GameType;
+    readonly score: number;
+    readonly level: number;
+    readonly matrix: List<List<boolean>>;
+    readonly isMatrixUpdated: boolean;
+    readonly life?: Life;
+    readonly enemyLife?: Life;
+}
+
+interface Life {
+    readonly hp: number;
+    readonly maxHp: number;
 }
 
 class Screen extends React.PureComponent<Props, {}> {
     public render() {
+        const enemyLife = getLife(this.props.enemyLife);
+        const life = getLife(this.props.life);
 
         return (
             <div className={styles.screen}>
@@ -25,21 +41,21 @@ class Screen extends React.PureComponent<Props, {}> {
                 <div className={styles.indicationArea}>
                     <div className={styles.scoreShow}>
                         <p>Scores</p>
-                        <Digit value={1563} width={8} fontSize={FontSize.NORMAL}/>
+                        <Digit value={this.props.score} width={SCORE_WIDTH} fontSize={FontSize.NORMAL}/>
                     </div>
                     <div className={styles.levelShow}>
                         <p>Level</p>
-                        <Digit value={1} width={2} fontSize={FontSize.LARGE}/>
+                        <Digit value={this.props.level} width={LEVEL_WIDTH} fontSize={FontSize.LARGE}/>
                     </div>
 
-                    <div className={styles.lifeShow}>
+                    <div className={classnames(styles.lifeShow, {[styles.disabled]: this.props.enemyLife})}>
                         <p>Enemy</p>
-                        <LifeBar hp={40} maxHp={200} count={10}/>
+                        <LifeBar hp={enemyLife.hp} maxHp={enemyLife.maxHp} count={LIFE_HEART_COUNT}/>
                     </div>
 
-                    <div className={styles.lifeShow}>
+                    <div className={classnames(styles.lifeShow, {[styles.disabled]: this.props.life})}>
                         <p>Life</p>
-                        <LifeBar hp={60} maxHp={200} count={10}/>
+                        <LifeBar hp={life.hp} maxHp={life.maxHp} count={LIFE_HEART_COUNT}/>
                     </div>
 
                 </div>
@@ -48,16 +64,27 @@ class Screen extends React.PureComponent<Props, {}> {
     }
 }
 
+function getLife(life?: Life) {
+    if (life === undefined) {
+        return {hp: 0, maxHp: 1};
+    } else {
+        return life;
+    }
+}
+
 function mapStateToProps(state: AppState): Props {
     return {
-        gameType: state.system.gameType
+        score: state.system.score,
+        level: state.system.level,
+        matrix: mockMatrix,
+        isMatrixUpdated: false
     };
 }
 
 export default connect(mapStateToProps)(Screen);
 
-const mockMatrix = [
+const mockMatrix: List<List<boolean>> = List.of(...[
     [O, O, O, O, O, O, O, O, O, O],
     [O, O, O, I, O, I, O, O, O, O],
     [O, O, O, O, O, O, O, O, O, O],
-];
+].map((row: boolean[]) => List.of(...row)));
