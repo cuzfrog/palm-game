@@ -1,14 +1,22 @@
 @import "../Screen";
 
-@fontSize: 15px;
+@normalFontSize: 15px;
+.normalSizeFont {
+  font-size: @normalFontSize;
+  height: @normalFontSize+2px;
+}
+
+@largeFontSize: 22px;
+.largeSizeFont {
+  font-size: @largeFontSize;
+  height: @largeFontSize+2px;
+}
 
 .digit {
   font-family: 'sa-digital-number', serif;
-  font-size: @fontSize;
-
   position: relative;
   margin: 5px 0 5px;
-  height: @fontSize+2px;
+
 
   p {
     position: absolute;

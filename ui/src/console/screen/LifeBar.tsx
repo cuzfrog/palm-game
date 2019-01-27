@@ -1,11 +1,10 @@
 import React from 'react';
 import styles from './LifeBar.less';
 
-const WIDTH: number = 5;
-
 interface LifeBarProps {
     readonly hp: number;
     readonly maxHp: number;
+    readonly count: number;
 }
 
 export default class LifeBar extends React.PureComponent<LifeBarProps, {}> {
@@ -13,6 +12,9 @@ export default class LifeBar extends React.PureComponent<LifeBarProps, {}> {
         super(props);
         if (props.maxHp <= 0) {
             throw new RangeError(`Life bar maxHp must be >0. But it's set to ${props.maxHp}.`);
+        }
+        if (props.count <= 0) {
+            throw new RangeError(`Life bar width must be >0. But it's set to ${props.count}.`);
         }
     }
 
@@ -26,8 +28,8 @@ export default class LifeBar extends React.PureComponent<LifeBarProps, {}> {
 }
 
 function renderHearts(props: Readonly<LifeBarProps>) {
-    const activeCnt = (props.hp / props.maxHp) * WIDTH;
-    return [...Array(WIDTH).keys()].map((i) =>
-        (<div className={i <= activeCnt ? styles.activeHeart : styles.heart} key={i}/>)
+    const deActiveCnt = (1 - props.hp / props.maxHp) * props.count;
+    return [...Array(props.count).keys()].map((i) =>
+        (<div className={i <= deActiveCnt ? styles.heart : styles.activeHeart} key={i}/>)
     );
 }

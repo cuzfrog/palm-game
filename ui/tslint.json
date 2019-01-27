@@ -20,6 +20,7 @@
     "interface-name": [true, "never-prefix"],
     "no-trailing-whitespace": false,
     "semicolon": [true, "always", "ignore-bound-class-methods"],
-    "max-line-length": [true, 130]
+    "max-line-length": [true, 130],
+    "max-classes-per-file": [true, 3]
   }
 }

@@ -4,6 +4,12 @@ import styles from './Digit.less';
 interface DigitProps {
     readonly value: number;
     readonly width: number;
+    readonly fontSize: FontSize;
+}
+
+export enum FontSize {
+    NORMAL = styles.normalSizeFont,
+    LARGE = styles.largeSizeFont
 }
 
 const MAX_WIDTH = 8;
@@ -21,7 +27,7 @@ export default class Digit extends React.PureComponent<DigitProps, {}> {
 
     public render() {
         return (
-            <div className={styles.digit}>
+            <div className={`${styles.digit} ${this.props.fontSize}`}>
                 <p className={styles.foreground}>{Math.min(this.props.value, this.backgroundDigits)}</p>
                 <p className={styles.background}>{this.backgroundDigits}</p>
             </div>

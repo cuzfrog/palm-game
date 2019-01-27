@@ -1,8 +1,10 @@
 @import "Screen";
 
-@heartSize: 9px;
+@cntInRow: 5;
+@heartSize: 10px;
 
 .lifeBar {
+  overflow: auto;
 
   .activeHeart {
     .heart;
@@ -12,11 +14,12 @@
   }
 
   .heart {
+    display: inline-block;
     margin: 2px;
     position: relative;
     width: @heartSize;
     height: @heartSize;
-    float: right;
+    float: left;
 
     &:before, &:after {
       position: absolute;
