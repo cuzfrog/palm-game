@@ -4,9 +4,9 @@ import style from './Button.less';
 interface Props {
     readonly type: BtnType;
     readonly caption?: string;
-    readonly downHandler?: (event: React.MouseEvent<HTMLInputElement>) => void;
-    readonly upHandler?: (event: React.MouseEvent<HTMLInputElement>) => void;
-    readonly clickHandler?: (event: React.MouseEvent<HTMLInputElement>) => void;
+    readonly downHandler?: () => void;
+    readonly upHandler?: () => void;
+    readonly clickHandler?: () => void;
 }
 
 export enum BtnType {
@@ -37,3 +37,4 @@ export default class extends React.PureComponent<Props, {}> {
         );
     }
 }
+

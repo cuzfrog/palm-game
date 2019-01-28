@@ -5,6 +5,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "immutable": "^4.0.0-rc.12",
+    "lodash.throttle": "^4.1.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-redux": "^6.0.0",
@@ -16,6 +17,7 @@
   "devDependencies": {
     "@types/classnames": "^2.2.7",
     "@types/jest": "^23.3.11",
+    "@types/lodash.throttle": "^4.1.4",
     "@types/node": "^10.12.15",
     "@types/react": "^16.7.17",
     "@types/react-dom": "^16.0.11",
