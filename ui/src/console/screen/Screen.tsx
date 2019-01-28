@@ -10,6 +10,7 @@ import {List} from 'immutable';
 
 const I = true;
 const O = false;
+
 const SCORE_WIDTH = 8;
 const LEVEL_WIDTH = 2;
 const LIFE_HEART_COUNT = 10;
@@ -17,7 +18,7 @@ const LIFE_HEART_COUNT = 10;
 interface Props {
     readonly score: number;
     readonly level: number;
-    readonly matrix: List<List<boolean>>;
+    readonly matrix: List<boolean>;
     readonly isMatrixUpdated: boolean;
     readonly life?: Life;
     readonly enemyLife?: Life;
@@ -36,7 +37,7 @@ class Screen extends React.PureComponent<Props, {}> {
         return (
             <div className={styles.screen}>
                 <div className={styles.matrixArea}>
-                    <Matrix actives={mockMatrix}/>
+                    <Matrix  actives={this.props.matrix}/>
                 </div>
                 <div className={styles.indicationArea}>
                     <div className={styles.scoreShow}>
@@ -83,8 +84,8 @@ function mapStateToProps(state: AppState): Props {
 
 export default connect(mapStateToProps)(Screen);
 
-const mockMatrix: List<List<boolean>> = List.of(...[
-    [O, O, O, O, O, O, O, O, O, O],
-    [O, O, O, I, O, I, O, O, O, O],
-    [O, O, O, O, O, O, O, O, O, O],
-].map((row: boolean[]) => List.of(...row)));
+const mockMatrix: List<boolean> = List.of(
+    O, O, O, O, O, O, O, O, O, O,
+    O, O, O, I, O, I, O, O, O, O,
+    O, O, O, O, O, O, O, O, O, O,
+);

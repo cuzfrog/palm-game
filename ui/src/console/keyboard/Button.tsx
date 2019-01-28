@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './Button.less';
 
-export interface BtnProps {
+interface Props {
     readonly type: BtnType;
     readonly caption?: string;
     readonly downHandler?: (event: React.MouseEvent<HTMLInputElement>) => void;
@@ -18,8 +18,8 @@ export enum BtnType {
     DOWN = style.downButton
 }
 
-export default class extends React.PureComponent<BtnProps, {}> {
-    constructor(props: BtnProps) {
+export default class extends React.PureComponent<Props, {}> {
+    constructor(props: Props) {
         super(props);
     }
 
