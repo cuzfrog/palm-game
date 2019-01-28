@@ -21,20 +21,37 @@ export enum BtnType {
 export default class extends React.PureComponent<Props, {}> {
     constructor(props: Props) {
         super(props);
+        if (typeof props.downHandler !== typeof props.upHandler) {
+            throw ReferenceError('downHandler and upHandler must be both absent or both present.');
+        }
+        this.handleDown = this.handleDown.bind(this);
+        this.handleUp = this.handleUp.bind(this);
     }
 
     public render() {
         return (
             <div
                 className={this.props.type.toString()}
-                onMouseDown={this.props.downHandler}
-                onMouseUp={this.props.upHandler}
-                onMouseLeave={this.props.upHandler}
+                onMouseDown={this.handleDown}
+                onMouseUp={this.handleUp}
                 onClick={this.props.clickHandler}
             >
                 {this.props.caption}
             </div>
         );
     }
-}
 
+    private handleDown() {
+        if (this.props.downHandler !== undefined) {
+            this.props.downHandler();
+            document.addEventListener('mouseup', this.handleUp);
+        }
+    }
+
+    private handleUp() {
+        if (this.props.upHandler !== undefined) {
+            document.removeEventListener('mouseup', this.handleUp);
+            this.props.upHandler();
+        }
+    }
+}
