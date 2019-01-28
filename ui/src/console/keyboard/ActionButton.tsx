@@ -16,15 +16,24 @@ interface Props<T> extends ConnectedComponent<T> {
 }
 
 function ActionButton<T>(props: Props<T>) {
-    function handleClick() {
-        props.dispatch(props.action);
+    function fireOn() {
+        intervalHandle = window.setInterval(throttledDispatch, props.throttleIntervalMs);
     }
+
+    function fireOff() {
+        window.clearInterval(intervalHandle);
+    }
+
+    let intervalHandle: number = -1;
+    const throttledDispatch = throttle(() => props.dispatch(props.action), props.throttleIntervalMs, {trailing: false});
 
     return (
         <Button
             type={props.type}
             caption={props.caption}
-            clickHandler={throttle(handleClick, props.throttleIntervalMs)}
+            clickHandler={throttledDispatch}
+            downHandler={fireOn}
+            upHandler={fireOff}
         />
     );
 }
