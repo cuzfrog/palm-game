@@ -1,8 +1,8 @@
 import {combineReducers, createStore} from 'redux';
-import {systemReducer} from './system/reducers';
+import {systemReducer} from './system/reducer';
 
 const reducers = combineReducers({
-    system: systemReducer,
+    sys: systemReducer,
 });
 
 export const store = createStore(reducers);

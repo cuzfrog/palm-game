@@ -1,12 +1,21 @@
-import {Action} from 'redux';
+import {ActionUnion, createAction} from '../typeHelper';
+import {ActionTypes} from '../actions';
 
-interface AddScore extends Action<'SYSTEM_SET_SCORE'> {
-    readonly score: number;
-}
+const increaseLevel = createAction(ActionTypes.INCREASE_LEVEL);
+const decreaseLevel = createAction(ActionTypes.DECREASE_LEVEL);
+const enterGame = createAction(ActionTypes.ENTER_GAME);
+const exitGame = createAction(ActionTypes.EXIT_GAME);
+const togglePause = createAction(ActionTypes.TOGGLE_PAUSE);
+const toggleGame = createAction(ActionTypes.TOGGLE_GAME);
 
-export type SystemAction =
-    Action<'SYSTEM_TOGGLE_PAUSE'>
-    | Action<'SYSTEM_ENTER_GAME'> | Action<'SYSTEM_EXIT_GAME'>
-    | AddScore
-    | Action<'SYSTEM_INCREASE_LEVEL'> | Action<'SYSTEM_DECREASE_LEVEL'>
-    | Action<'SYSTEM_TOGGLE_GAME'>;
+export const SystemActions = {
+    setScore: (score: number) => createAction(ActionTypes.ADD_SCORE, score),
+    increaseLevel: () => increaseLevel,
+    decreaseLevel: () => decreaseLevel,
+    enterGame: () => enterGame,
+    exitGame: () => exitGame,
+    togglePause: () => togglePause,
+    toggleGame: () => toggleGame,
+};
+
+export type SystemAction = ActionUnion<typeof SystemActions>;

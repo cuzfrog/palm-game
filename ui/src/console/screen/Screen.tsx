@@ -75,8 +75,8 @@ function getLife(life?: Life) {
 
 function mapStateToProps(state: AppState): Props {
     return {
-        score: state.system.score,
-        level: state.system.level,
+        score: state.sys.scores.get(state.sys.gameType, 0),
+        level: state.sys.level,
         matrix: mockMatrix,
         isMatrixUpdated: false
     };
