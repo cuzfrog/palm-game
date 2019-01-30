@@ -1,5 +1,3 @@
-import {SystemActions} from './system/actions';
-
 export const enum ActionTypes {
     ADD_SCORE = '[system] add score',
     INCREASE_LEVEL = '[system] increase level',
@@ -9,7 +7,3 @@ export const enum ActionTypes {
     EXIT_GAME = '[system] exit game',
     TOGGLE_GAME = '[system toggle game]',
 }
-
-export const Actions = {
-    sys: SystemActions
-};
