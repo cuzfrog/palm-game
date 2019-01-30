@@ -12,12 +12,14 @@ interface Props<T> extends ConnectedComponent<T> {
     readonly type: BtnType;
     readonly caption?: string;
     readonly action: Action<T>;
-    readonly throttleIntervalMs: number;
+    readonly throttleIntervalMs?: number;
 }
 
 function ActionButton<T>(props: Props<T>) {
+    const throttleInterval = props.throttleIntervalMs ? props.throttleIntervalMs : 100;
+
     function fireOn() {
-        intervalHandle.push(window.setInterval(throttledDispatch, props.throttleIntervalMs));
+        intervalHandle.push(window.setInterval(throttledDispatch, throttleInterval));
     }
 
     function fireOff() {
@@ -25,7 +27,7 @@ function ActionButton<T>(props: Props<T>) {
     }
 
     const intervalHandle: number[] = [];
-    const throttledDispatch = throttle(() => props.dispatch(props.action), props.throttleIntervalMs, {trailing: false});
+    const throttledDispatch = throttle(() => props.dispatch(props.action), throttleInterval, {trailing: false});
 
     return (
         <Button
