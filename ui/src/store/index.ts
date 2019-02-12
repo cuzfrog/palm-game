@@ -1,10 +1,29 @@
-import {combineReducers, createStore} from 'redux';
+import {Action, createStore, Store} from 'redux';
 import {systemReducer} from './system/reducer';
+import {GameType, SystemState, SystemStatus} from './system/state';
+import {Map} from 'immutable';
+import {DefaultKeyboardLayout} from './keyboardDef';
 
-const reducers = combineReducers({
-    sys: systemReducer,
-});
+export interface AppState {
+    readonly sys: SystemState;
+}
 
-export const store = createStore(reducers);
+function combined(state: AppState, action: Action): AppState {
+    return {
+        sys: systemReducer(state.sys, action),
 
-export type AppState = ReturnType<typeof reducers>;
+    };
+}
+
+const initialState: AppState = {
+    sys: {
+        status: SystemStatus.MENU,
+        scores: Map(),
+        level: 1,
+        gameType: GameType.SNAKE,
+        inGamePaused: false,
+        keyboardLayout: DefaultKeyboardLayout,
+    },
+};
+
+export const store: Store<AppState> = createStore(combined, initialState, undefined);

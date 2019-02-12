@@ -1,22 +1,12 @@
-import {SystemState} from './state';
-import {GameType, SYSTEM_STATUS_VALUES, SystemStatus} from '../types';
+import {SystemState, SystemStatus} from './state';
 import {utils} from '../../utils';
-import {Map} from 'immutable';
-import {SystemAction, SystemKeyboard} from './actions';
+import {SystemAction} from './actions';
 import {ActionTypes} from '../actions';
 
 const MAX_LEVEL = 9;
+const SYSTEM_STATUS_VALUES: ReadonlyArray<number> = Object.keys(SystemStatus).map(key => SystemStatus[key]);
 
-const initialState: SystemState = {
-    status: SystemStatus.MENU,
-    scores: Map(),
-    level: 1,
-    gameType: GameType.SNAKE,
-    inGamePaused: false,
-    keyboardLayout: SystemKeyboard,
-};
-
-export function systemReducer(state: SystemState = initialState, action: SystemAction): SystemState {
+export function systemReducer(state: SystemState, action: SystemAction): SystemState {
     switch (action.type) {
         case ActionTypes.TOGGLE_PAUSE:
             return {
@@ -60,8 +50,6 @@ export function systemReducer(state: SystemState = initialState, action: SystemA
                 ...state,
                 gameType: utils.nextNumEnum(state.gameType, SYSTEM_STATUS_VALUES),
             };
-        case ActionTypes.DUMMY_ACTION:
-            return state;
         default:
             return state;
     }
