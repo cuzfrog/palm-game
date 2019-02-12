@@ -2,6 +2,7 @@ import {SystemState, SystemStatus} from './state';
 import {utils} from '../../utils';
 import {SystemAction} from './actions';
 import {ActionTypes} from '../actions';
+import {getGameKeyboard, MenuKeyboardLayout, PauseKeyboardLayout} from '../keyboardDef';
 
 const MAX_LEVEL = 9;
 const SYSTEM_STATUS_VALUES: ReadonlyArray<number> = Object.keys(SystemStatus).map(key => SystemStatus[key]);
@@ -9,14 +10,22 @@ const SYSTEM_STATUS_VALUES: ReadonlyArray<number> = Object.keys(SystemStatus).ma
 export function systemReducer(state: SystemState, action: SystemAction): SystemState {
     switch (action.type) {
         case ActionTypes.TOGGLE_PAUSE:
-            return {
-                ...state, inGamePaused: !state.inGamePaused,
-            };
+            if (state.status === SystemStatus.IN_GAME) {
+                const inGamePaused = !state.inGamePaused;
+                return {
+                    ...state,
+                    inGamePaused,
+                    keyboardLayout: inGamePaused ? PauseKeyboardLayout : getGameKeyboard(state.gameType)
+                };
+            } else {
+                return state;
+            }
         case ActionTypes.ENTER_GAME:
             if (state.status === SystemStatus.MENU) {
                 return {
                     ...state,
                     status: SystemStatus.IN_GAME,
+                    keyboardLayout: getGameKeyboard(state.gameType),
                 };
             } else {
                 return state;
@@ -26,6 +35,7 @@ export function systemReducer(state: SystemState, action: SystemAction): SystemS
                 return {
                     ...state,
                     status: SystemStatus.MENU,
+                    keyboardLayout: MenuKeyboardLayout,
                 };
             } else {
                 return state;
@@ -46,9 +56,11 @@ export function systemReducer(state: SystemState, action: SystemAction): SystemS
                 ...state, scores,
             };
         case ActionTypes.TOGGLE_GAME:
+            const gameType = utils.nextNumEnum(state.gameType, SYSTEM_STATUS_VALUES);
             return {
                 ...state,
-                gameType: utils.nextNumEnum(state.gameType, SYSTEM_STATUS_VALUES),
+                gameType,
+                keyboardLayout: getGameKeyboard(gameType)
             };
         default:
             return state;

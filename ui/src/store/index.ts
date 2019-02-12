@@ -1,8 +1,9 @@
-import {Action, createStore, Store} from 'redux';
+import {Action, applyMiddleware, createStore, Store} from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import {systemReducer} from './system/reducer';
 import {GameType, SystemState, SystemStatus} from './system/state';
 import {Map} from 'immutable';
-import {DefaultKeyboardLayout} from './keyboardDef';
+import {MenuKeyboardLayout} from './keyboardDef';
 
 export interface AppState {
     readonly sys: SystemState;
@@ -22,8 +23,12 @@ const initialState: AppState = {
         level: 1,
         gameType: GameType.SNAKE,
         inGamePaused: false,
-        keyboardLayout: DefaultKeyboardLayout,
+        keyboardLayout: MenuKeyboardLayout,
     },
 };
 
-export const store: Store<AppState> = createStore(combined, initialState, undefined);
+export const store: Store<AppState> = createStore(
+    combined,
+    initialState,
+    composeWithDevTools(applyMiddleware())
+);

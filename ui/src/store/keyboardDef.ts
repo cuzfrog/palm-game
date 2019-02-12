@@ -4,7 +4,7 @@ import {ActionTypes} from './actions';
 import {SystemActions} from './system/actions';
 import {createAction} from './typeHelper';
 import {SnakeActions} from './games/snake/actions';
-import {GameType, SystemStatus} from './system/state';
+import {GameType} from './system/state';
 
 const Actions = {
     sys: SystemActions,
@@ -12,7 +12,7 @@ const Actions = {
     dummy: createAction(ActionTypes.DUMMY_ACTION),
 };
 
-const SystemKeyboardLayout: Readonly<KeyboardProps> = {
+export const MenuKeyboardLayout: Readonly<KeyboardProps> = {
     funcProps: {
         selectAction: SystemActions.toggleGame(),
         startAction: SystemActions.enterGame(),
@@ -29,10 +29,27 @@ const SystemKeyboardLayout: Readonly<KeyboardProps> = {
     }
 };
 
+export const PauseKeyboardLayout: Readonly<KeyboardProps> = {
+    funcProps: {
+        selectAction: Actions.dummy,
+        startAction: SystemActions.togglePause(),
+    },
+    arrowProps: {
+        leftAction: Actions.dummy,
+        rightAction: Actions.dummy,
+        upAction: Actions.dummy,
+        downAction: Actions.dummy,
+    },
+    mainProps: {
+        actionA: Actions.dummy,
+        actionB: Actions.dummy,
+    }
+};
+
 const SnakeGameKeyboardLayout: Readonly<KeyboardProps> = {
     funcProps: {
         selectAction: Actions.dummy,
-        startAction: Actions.dummy,
+        startAction: SystemActions.togglePause(),
     },
     arrowProps: {
         upAction: Actions.snake.setDirection(Direction.NORTH),
@@ -46,20 +63,11 @@ const SnakeGameKeyboardLayout: Readonly<KeyboardProps> = {
     }
 };
 
-export function getKeyboard(systemStatus: SystemStatus, gameType: GameType): KeyboardProps {
-    switch (systemStatus) {
-        case SystemStatus.MENU:
-            return SystemKeyboardLayout;
-        case SystemStatus.IN_GAME:
-            switch (gameType) {
-                case GameType.SNAKE:
-                    return SnakeGameKeyboardLayout;
-                default:
-                    throw new TypeError('Unknown enum type:' + gameType);
-            }
+export function getGameKeyboard(gameType: GameType): KeyboardProps {
+    switch (gameType) {
+        case GameType.SNAKE:
+            return SnakeGameKeyboardLayout;
         default:
-            throw new TypeError('Unknown enum type:' + systemStatus);
+            throw new TypeError('Unknown enum type:' + gameType);
     }
 }
-
-export const DefaultKeyboardLayout = getKeyboard(SystemStatus.MENU, GameType.SNAKE);
