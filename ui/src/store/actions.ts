@@ -6,4 +6,5 @@ export const enum ActionTypes {
     ENTER_GAME = '[system] enter game',
     EXIT_GAME = '[system] exit game',
     TOGGLE_GAME = '[system toggle game]',
+    DUMMY_ACTION = '[system dummy action]',
 }

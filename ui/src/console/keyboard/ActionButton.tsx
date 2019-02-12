@@ -4,6 +4,8 @@ import Button, {BtnType} from './Button';
 import {connect} from 'react-redux';
 import throttle from 'lodash.throttle';
 
+const DEFAULT_THROTTLE_INTERVAL = 100; // ms
+
 interface ConnectedComponent<T> {
     dispatch: Dispatch<Action<T>>;
 }
@@ -16,7 +18,7 @@ interface Props<T> extends ConnectedComponent<T> {
 }
 
 function ActionButton<T>(props: Props<T>) {
-    const throttleInterval = props.throttleIntervalMs ? props.throttleIntervalMs : 100;
+    const throttleInterval = props.throttleIntervalMs ? props.throttleIntervalMs : DEFAULT_THROTTLE_INTERVAL;
 
     function fireOn() {
         intervalHandle.push(window.setInterval(throttledDispatch, throttleInterval));

@@ -1,25 +1,19 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import classnames from 'classnames';
 import styles from './Screen.less';
 import Matrix from './Matrix';
 import Digit, {FontSize} from './digits/Digit';
 import LifeBar from './LifeBar';
-import {AppState} from '../../store';
 import {List} from 'immutable';
-
-const I = true;
-const O = false;
 
 const SCORE_WIDTH = 8;
 const LEVEL_WIDTH = 2;
 const LIFE_HEART_COUNT = 10;
 
-interface Props {
+export interface ScreenProps {
     readonly score: number;
     readonly level: number;
     readonly matrix: List<boolean>;
-    readonly isMatrixUpdated: boolean;
     readonly life?: Life;
     readonly enemyLife?: Life;
 }
@@ -29,7 +23,7 @@ interface Life {
     readonly maxHp: number;
 }
 
-class Screen extends React.PureComponent<Props, {}> {
+export default class Screen extends React.PureComponent<ScreenProps, {}> {
     public render() {
         const enemyLife = getLife(this.props.enemyLife);
         const life = getLife(this.props.life);
@@ -72,20 +66,3 @@ function getLife(life?: Life) {
         return life;
     }
 }
-
-function mapStateToProps(state: AppState): Props {
-    return {
-        score: state.sys.scores.get(state.sys.gameType, 0),
-        level: state.sys.level,
-        matrix: mockMatrix,
-        isMatrixUpdated: false
-    };
-}
-
-export default connect(mapStateToProps)(Screen);
-
-const mockMatrix: List<boolean> = List.of(
-    O, O, O, O, O, O, O, O, O, O,
-    O, O, O, I, O, I, O, O, O, O,
-    O, O, O, O, O, O, O, O, O, O,
-);

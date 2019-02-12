@@ -4,22 +4,54 @@ import React from 'react';
 import style from './Console.less';
 import Decorate from './Decorate';
 import Screen from './screen';
-import KeyBoard from './keyboard';
+import Keyboard from './keyboard';
+import {AppState} from '../store';
+import {connect} from 'react-redux';
+import {List} from 'immutable';
+import {ScreenProps} from './screen/Screen';
+import {KeyboardProps} from './keyboard/Keyboard';
 
-export default class Console extends React.PureComponent<{}, {}> {
+const I = true;
+const O = false;
+
+interface Props {
+    screenProps: ScreenProps;
+    keyboardProps: KeyboardProps;
+}
+
+class Console extends React.PureComponent<Props, {}> {
     public render() {
         return (
             <div className={style.console}>
                 <div className={style.upperRect}>
                     <Decorate/>
                     <div className={style.screenRect}>
-                        <Screen/>
+                        <Screen {...this.props.screenProps}/>
                     </div>
                 </div>
                 <div className={style.lowerRect}>
-                    <KeyBoard/>
+                    <Keyboard {...this.props.keyboardProps}/>
                 </div>
             </div>
         );
     }
 }
+
+function mapStateToProps(state: AppState): Props {
+    return {
+        screenProps: {
+            score: state.sys.scores.get(state.sys.gameType, 0),
+            level: state.sys.level,
+            matrix: mockMatrix
+        },
+        keyboardProps: state.sys.keyboardLayout
+    };
+}
+
+export default connect(mapStateToProps)(Console);
+
+const mockMatrix: List<boolean> = List.of(
+    O, O, O, O, O, O, O, O, O, O,
+    O, O, O, I, O, I, O, O, O, O,
+    O, O, O, O, O, O, O, O, O, O,
+);
