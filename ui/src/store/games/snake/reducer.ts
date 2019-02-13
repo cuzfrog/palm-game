@@ -3,8 +3,8 @@ import {SnakeAction} from './actions';
 import {ActionTypes} from '../../actions';
 import {InitialState} from '../../index';
 import {Direction, Point} from '../../types';
-import {MATRIX_HEIGHT, MATRIX_WIDTH} from '../../../console';
 import {List} from 'immutable';
+import {MATRIX_HEIGHT, MATRIX_WIDTH} from '../../../console/screen/Matrix';
 
 export function snakeGameReducer(state: SnakeGameState, action: SnakeAction): SnakeGameState {
     switch (action.type) {

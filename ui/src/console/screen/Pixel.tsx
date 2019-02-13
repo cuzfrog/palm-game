@@ -17,13 +17,13 @@ export default class extends React.PureComponent<Props, {}> {
     }
 }
 
-function getPixelState(state: PixelState) {
+function getPixelState(state: PixelState): string {
     switch (state) {
         case PixelState.ON:
             return style.pixelActive;
         case PixelState.OFF:
             return style.pixel;
         case PixelState.TWINKLE:
-            throw new TypeError();
+            return style.pixelTwinkle;
     }
 }
