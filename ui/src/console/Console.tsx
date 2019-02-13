@@ -1,18 +1,18 @@
 import React from 'react';
-// import {connect} from 'react-redux';
-
+import {connect} from 'react-redux';
 import style from './Console.less';
 import Decorate from './Decorate';
 import Screen from './screen';
 import Keyboard from './keyboard';
 import {AppState} from '../store';
-import {connect} from 'react-redux';
 import {List} from 'immutable';
 import {ScreenProps} from './screen/Screen';
 import {KeyboardProps} from './keyboard/Keyboard';
+import {PixelState} from './screen/Pixel';
 
-const I = true;
-const O = false;
+const I = PixelState.ON;
+const O = PixelState.OFF;
+const S = PixelState.TWINKLE;
 
 interface Props {
     screenProps: ScreenProps;
@@ -50,8 +50,8 @@ function mapStateToProps(state: AppState): Props {
 
 export default connect(mapStateToProps)(Console);
 
-const mockMatrix: List<boolean> = List.of(
+const mockMatrix: List<PixelState> = List.of(
     O, O, O, O, O, O, O, O, O, O,
-    O, O, O, I, O, I, O, O, O, O,
+    O, O, O, I, O, I, O, S, O, O,
     O, O, O, O, O, O, O, O, O, O,
 );

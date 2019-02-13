@@ -5,6 +5,7 @@ import Matrix from './Matrix';
 import Digit, {FontSize} from './digits/Digit';
 import LifeBar from './LifeBar';
 import {List} from 'immutable';
+import {PixelState} from './Pixel';
 
 const SCORE_WIDTH = 8;
 const LEVEL_WIDTH = 1;
@@ -13,7 +14,7 @@ const LIFE_HEART_COUNT = 10;
 export interface ScreenProps {
     readonly score: number;
     readonly level: number;
-    readonly matrix: List<boolean>;
+    readonly matrix: List<PixelState>;
     readonly life?: Life;
     readonly enemyLife?: Life;
 }

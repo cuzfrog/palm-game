@@ -1,13 +1,13 @@
 import React from 'react';
 import style from './Matrix.less';
-import Pixel from './Pixel';
+import Pixel, {PixelState} from './Pixel';
 import {List} from 'immutable';
 import {MATRIX_HEIGHT, MATRIX_WIDTH} from '../index';
 
 const ROWS_START_ARRAY: ReadonlyArray<number> = [...Array(MATRIX_HEIGHT).keys()];
 
 export interface Props {
-    readonly actives: List<boolean>;
+    readonly actives: List<PixelState>;
 }
 
 export default class extends React.PureComponent<Props, {}> {
@@ -35,7 +35,7 @@ export default class extends React.PureComponent<Props, {}> {
         const colIdxBegin = rowIdx * MATRIX_WIDTH;
         const colIdxEndExclusive = colIdxBegin + MATRIX_WIDTH;
         return this.props.actives.toSeq().slice(colIdxBegin, colIdxEndExclusive).map((a, ci) => (
-            <Pixel isActive={a} key={ci}/>
+            <Pixel value={a} key={ci}/>
         ));
     }
 }
