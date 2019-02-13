@@ -2,9 +2,8 @@ import React from 'react';
 import style from './Matrix.less';
 import Pixel from './Pixel';
 import {List} from 'immutable';
+import {MATRIX_HEIGHT, MATRIX_WIDTH} from '../index';
 
-const MATRIX_WIDTH = 10;
-const MATRIX_HEIGHT = 3;
 const ROWS_START_ARRAY: ReadonlyArray<number> = [...Array(MATRIX_HEIGHT).keys()];
 
 export interface Props {

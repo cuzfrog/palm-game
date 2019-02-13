@@ -7,7 +7,7 @@ import LifeBar from './LifeBar';
 import {List} from 'immutable';
 
 const SCORE_WIDTH = 8;
-const LEVEL_WIDTH = 2;
+const LEVEL_WIDTH = 1;
 const LIFE_HEART_COUNT = 10;
 
 export interface ScreenProps {
