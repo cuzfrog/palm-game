@@ -4,7 +4,7 @@ import {ActionTypes} from '../../actions';
 import {InitialState} from '../../index';
 import {Direction, Point} from '../../types';
 import {List} from 'immutable';
-import {MATRIX_HEIGHT, MATRIX_WIDTH} from '../../../console/screen/Matrix';
+import {ConsoleSpecs} from '../../../console';
 
 export function snakeGameReducer(state: SnakeGameState, action: SnakeAction): SnakeGameState {
     switch (action.type) {
@@ -72,8 +72,8 @@ function newHeadPoint(direction: Direction, headPoint: Point): Point {
 function generateBean(body: List<Point>): Point | undefined {
     if (Math.random() > 0.5) {
         const bean = {
-            x: getRandomInt(MATRIX_WIDTH),
-            y: getRandomInt(MATRIX_HEIGHT),
+            x: getRandomInt(ConsoleSpecs.graphicWidth),
+            y: getRandomInt(ConsoleSpecs.graphicHeight),
         };
         if (!body.contains(bean)) {
             return bean;

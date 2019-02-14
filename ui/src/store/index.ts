@@ -1,12 +1,9 @@
 import {Action, applyMiddleware, createStore, Store} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 import {systemReducer} from './system/reducer';
-import {GameType, SystemState, SystemStatus} from './system/state';
-import {Map} from 'immutable';
-import {MenuKeyboardLayout} from './keyboardDef';
+import {DefaultSystemState, SystemState} from './system/state';
 import {snakeGameReducer} from './games/snake/reducer';
-import {SnakeGameState} from './games/snake/state';
-import {Direction} from './types';
+import {DefaultSnakeGameState, SnakeGameState} from './games/snake/state';
 
 export interface AppState {
     readonly sys: SystemState;
@@ -21,19 +18,8 @@ function combined(state: AppState, action: Action): AppState {
 }
 
 export const InitialState: AppState = {
-    sys: {
-        status: SystemStatus.MENU,
-        scores: Map(),
-        level: 1,
-        gameType: GameType.SNAKE,
-        inGamePaused: false,
-        keyboardLayout: MenuKeyboardLayout,
-    },
-    snake: {
-        life: 3,
-        length: 5,
-        direction: Direction.NORTH,
-    }
+    sys: DefaultSystemState,
+    snake: DefaultSnakeGameState,
 };
 
 export const store: Store<AppState> = createStore(

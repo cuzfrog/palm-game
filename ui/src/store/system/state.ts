@@ -1,5 +1,6 @@
 import {Map} from 'immutable';
 import {KeyboardProps} from '../../console/keyboard/Keyboard';
+import {MenuKeyboardLayout} from '../keyboardDef';
 
 export enum SystemStatus { // todo: try to make it const
     MENU, IN_GAME
@@ -17,3 +18,12 @@ export interface SystemState {
     readonly inGamePaused: boolean;
     readonly keyboardLayout: KeyboardProps;
 }
+
+export const DefaultSystemState: SystemState = {
+    status: SystemStatus.MENU,
+    scores: Map(),
+    level: 1,
+    gameType: GameType.SNAKE,
+    inGamePaused: false,
+    keyboardLayout: MenuKeyboardLayout,
+};
