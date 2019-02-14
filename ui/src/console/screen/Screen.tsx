@@ -14,7 +14,7 @@ const LIFE_HEART_COUNT = 10;
 export interface ScreenProps {
     readonly score: number;
     readonly level: number;
-    readonly matrix: List<PixelState>;
+    readonly frame: List<PixelState>;
     readonly life?: Life;
     readonly enemyLife?: Life;
 }
@@ -32,7 +32,7 @@ export default class Screen extends React.PureComponent<ScreenProps, {}> {
         return (
             <div className={styles.screen}>
                 <div className={styles.matrixArea}>
-                    <Matrix  actives={this.props.matrix}/>
+                    <Matrix actives={this.props.frame}/>
                 </div>
                 <div className={styles.indicationArea}>
                     <div className={styles.scoreShow}>

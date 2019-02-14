@@ -4,7 +4,7 @@ import Pixel, {PixelState} from './Pixel';
 import {List} from 'immutable';
 
 export const MATRIX_WIDTH = 10;
-export const MATRIX_HEIGHT = 3;
+export const MATRIX_HEIGHT = 16;
 const ROWS_START_ARRAY: ReadonlyArray<number> = [...Array(MATRIX_HEIGHT).keys()];
 
 export interface Props {

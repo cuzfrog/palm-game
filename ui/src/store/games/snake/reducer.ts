@@ -4,7 +4,7 @@ import {ActionTypes} from '../../actions';
 import {InitialState} from '../../index';
 import {Direction, Point} from '../../types';
 import {List} from 'immutable';
-import {ConsoleSpecs} from '../../../console';
+import {ConsoleSpecs} from '../../../console/Specs';
 
 export function snakeGameReducer(state: SnakeGameState, action: SnakeAction): SnakeGameState {
     switch (action.type) {

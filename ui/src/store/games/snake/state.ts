@@ -1,6 +1,8 @@
 import {Direction, Point} from '../../types';
-import {Range, List} from 'immutable';
-import {ConsoleSpecs} from '../../../console';
+import {List, Range} from 'immutable';
+import {ConsoleSpecs} from '../../../console/Specs';
+
+const INITIAL_LENGTH = 5;
 
 export interface SnakeGameState {
     readonly life: number;
@@ -16,8 +18,6 @@ export const DefaultSnakeGameState: SnakeGameState = {
     direction: Direction.NORTH,
     ingestedBean: false
 };
-
-const INITIAL_LENGTH = 5;
 
 function initialBody(): List<Point> {
     const tailY = ConsoleSpecs.graphicHeight - 2;

@@ -9,15 +9,15 @@ interface Props {
     value: PixelState;
 }
 
-export default class extends React.PureComponent<Props, {}> {
+export default class Pixel extends React.PureComponent<Props, {}> {
     public render() {
         return (
-            <td className={getPixelState(this.props.value)}/>
+            <td className={getPixelStyle(this.props.value)}/>
         );
     }
 }
 
-function getPixelState(state: PixelState): string {
+function getPixelStyle(state: PixelState): string {
     switch (state) {
         case PixelState.ON:
             return style.pixelActive;
