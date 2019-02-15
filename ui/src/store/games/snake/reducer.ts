@@ -20,25 +20,27 @@ export function snakeGameReducer(state: SnakeGameState, action: SnakeAction): Sn
                 ...state,
                 ingestedBean: true
             };
-        case ActionTypes.SNAKE_BITE_SELF || ActionTypes.SNAKE_HIT_WALL:
-            if (state.life > 1) {
-                return {
-                    ...InitialState.snake,
-                    life: state.life - 1,
-                };
-            } else {
-                return InitialState.snake;
-            }
         case ActionTypes.SNAKE_CREEP:
             const head = newHeadPoint(state.direction, state.body.last()); // last is head
-            const length = state.body.size;
-            const body = state.body.toSeq().concat(head).takeLast(state.ingestedBean ? length + 1 : length).toList();
-            return {
-                ...state,
-                body,
-                ingestedBean: state.bean ? state.bean === head : false,
-                bean: state.bean ? state.bean : generateBean(body),
-            };
+            if (isHittingWall(head) || state.body.contains(head)) {
+                if (state.life > 1) {
+                    return {
+                        ...InitialState.snake,
+                        life: state.life - 1,
+                    };
+                } else {
+                    return InitialState.snake;
+                }
+            } else {
+                const length = state.body.size;
+                const body = state.body.toSeq().concat(head).takeLast(state.ingestedBean ? length + 1 : length).toList();
+                return {
+                    ...state,
+                    body,
+                    ingestedBean: state.bean ? state.bean === head : false,
+                    bean: state.bean ? state.bean : generateBean(body),
+                };
+            }
         default:
             return state;
     }
@@ -67,6 +69,10 @@ function newHeadPoint(direction: Direction, headPoint: Point): Point {
                 y: headPoint.y,
             };
     }
+}
+
+function isHittingWall(head: Point): boolean {
+    return head.x < 0 || head.x >= ConsoleSpecs.graphicWidth || head.y < 0 || head.y >= ConsoleSpecs.graphicHeight;
 }
 
 function generateBean(body: List<Point>): Point | undefined {
