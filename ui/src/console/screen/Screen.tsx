@@ -7,7 +7,7 @@ import LifeBar from './LifeBar';
 import {List} from 'immutable';
 import {PixelState} from './Pixel';
 
-const SCORE_WIDTH = 8;
+const SCORE_WIDTH = 7;
 const LEVEL_WIDTH = 1;
 const LIFE_HEART_COUNT = 10;
 
