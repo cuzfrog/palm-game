@@ -31,7 +31,7 @@ export function snakeGameReducer(state: SnakeGameState, action: SnakeAction): Sn
                 } else {
                     return InitialState.snake;
                 }
-            } else {
+            } else { // creep
                 const length = state.body.size;
                 const body = state.body.toSeq().concat(head).takeLast(state.ingestedBean ? length + 1 : length).toList();
                 return {
