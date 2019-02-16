@@ -1,11 +1,11 @@
-import {DefaultSystemState, SystemState, SystemStatus} from './state';
+import {DefaultSystemState, GameType, SystemState, SystemStatus} from './systemState';
 import {utils} from '../../utils';
-import {SystemAction} from './actions';
+import {SystemAction} from './systemActions';
 import {ActionTypes} from '../actions';
 import {getGameKeyboard, MenuKeyboardLayout, PauseKeyboardLayout} from '../keyboardDef';
 
 const MAX_LEVEL = 9;
-const SYSTEM_STATUS_VALUES: ReadonlyArray<number> = Object.keys(SystemStatus).map(key => SystemStatus[key]);
+const GameTypeValues: ReadonlyArray<number> = Object.keys(GameType).map(key => GameType[key]);
 
 export function systemReducer(state: SystemState = DefaultSystemState, action: SystemAction): SystemState {
     switch (action.type) {
@@ -56,7 +56,7 @@ export function systemReducer(state: SystemState = DefaultSystemState, action: S
                 ...state, scores,
             };
         case ActionTypes.TOGGLE_GAME:
-            const gameType = utils.nextNumEnum(state.gameType, SYSTEM_STATUS_VALUES);
+            const gameType = utils.nextNumEnum(state.gameType, GameTypeValues);
             return {
                 ...state,
                 gameType,

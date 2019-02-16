@@ -2,11 +2,11 @@ import {Map} from 'immutable';
 import {KeyboardProps} from '../../console/keyboard/Keyboard';
 import {MenuKeyboardLayout} from '../keyboardDef';
 
-export enum SystemStatus { // todo: try to make it const
+export const enum SystemStatus {
     MENU, IN_GAME
 }
 
-export const enum GameType {
+export enum GameType {
     SNAKE,
 }
 

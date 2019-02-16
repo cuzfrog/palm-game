@@ -1,10 +1,10 @@
 import {KeyboardProps} from '../console/keyboard/Keyboard';
 import {Direction} from './types';
 import {ActionTypes} from './actions';
-import {SystemActions} from './system/actions';
+import {SystemActions} from './system/systemActions';
 import {createAction} from './typeHelper';
 import {SnakeActions} from './games/snake/snakeActions';
-import {GameType} from './system/state';
+import {GameType} from './system/systemState';
 
 const Actions = {
     sys: SystemActions,

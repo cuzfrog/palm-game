@@ -2,7 +2,7 @@ import {cancel, delay, fork, put, select, take} from 'redux-saga/effects';
 import {ActionTypes} from '../../actions';
 import {SnakeActions} from './snakeActions';
 import {AppState} from '../../index';
-import {GameType} from '../../system/state';
+import {GameType} from '../../system/systemState';
 import {Direction, Point} from '../../types';
 import {Specs} from '../../../Specs';
 import {SnakeGameState} from './snakeState';

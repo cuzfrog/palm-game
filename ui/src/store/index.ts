@@ -1,8 +1,8 @@
 import {Action, applyMiddleware, combineReducers, createStore, Reducer, Store} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
-import {systemReducer} from './system/reducer';
-import {SystemState} from './system/state';
+import {systemReducer} from './system/systemReducer';
+import {SystemState} from './system/systemState';
 import {snakeGameReducer} from './games/snake/snakeReducer';
 import {SnakeGameState} from './games/snake/snakeState';
 import {snakeSaga} from './games/snake/snakeSaga';
