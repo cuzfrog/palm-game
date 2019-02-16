@@ -1,20 +1,20 @@
-import {cancel, delay, fork, put, take} from 'redux-saga/effects';
-import {Store} from 'redux';
+import {cancel, fork, put, select, take} from 'redux-saga/effects';
+import _ from 'lodash';
 import {ActionTypes} from '../../actions';
 import {SnakeActions} from './snakeActions';
 import {AppState} from '../../index';
-import {GameType, SystemState} from '../../system/systemState';
+import {GameType} from '../../system/systemState';
 import {Direction, Point} from '../../types';
 import {Specs} from '../../../Specs';
-import _ from 'lodash';
 import {SnakeGameState} from './snakeState';
+import {utils} from '../../../utils';
 
 const BASIC_INTERVAL = 900; // ms
 
-function* creep(getState: () => AppState, creepInterval: number) {
+function* creep(creepInterval: number) {
     while (true) {
-        yield delay(creepInterval);
-        const appState = getState();
+        yield utils.delay(creepInterval);
+        const appState = yield select();
         if (!appState.sys.inGamePaused) {
             const state: SnakeGameState = appState.snake;
             const head = newHeadPoint(state.direction, state.body.last()); // last is head
@@ -62,13 +62,13 @@ function calculateInterval(level: number): number {
     return BASIC_INTERVAL - level * 100;
 }
 
-export function* snakeSaga(store: Store<AppState>) {
+export function* snakeSaga() {
     while (yield take(ActionTypes.ENTER_GAME)) {
-        const state: SystemState = store.getState().sys;
-        const interval = calculateInterval(state.level);
+        const state: AppState = yield select();
+        const interval = calculateInterval(state.sys.level);
         let creepTask;
-        if (state.gameType === GameType.SNAKE) {
-            creepTask = yield fork(creep, () => store.getState(), interval);
+        if (state.sys.gameType === GameType.SNAKE) {
+            creepTask = yield fork(creep, interval);
         }
         yield take(ActionTypes.EXIT_GAME);
         yield cancel(creepTask);
@@ -77,4 +77,5 @@ export function* snakeSaga(store: Store<AppState>) {
 
 export const snakeSagaTest = {
     _creep: creep,
+    _BASIC_INTERVAL: BASIC_INTERVAL
 };

@@ -25,4 +25,4 @@ export const store: Store<AppState> = createStore(
     composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
-sagaMiddleware.run(snakeSaga, store);
+sagaMiddleware.run(snakeSaga);
