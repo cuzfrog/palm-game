@@ -1,27 +1,30 @@
-import {cancel, delay, fork, put, select, take} from 'redux-saga/effects';
+import {cancel, delay, fork, put, take} from 'redux-saga/effects';
+import {Store} from 'redux';
 import {ActionTypes} from '../../actions';
 import {SnakeActions} from './snakeActions';
 import {AppState} from '../../index';
-import {GameType} from '../../system/systemState';
+import {GameType, SystemState} from '../../system/systemState';
 import {Direction, Point} from '../../types';
 import {Specs} from '../../../Specs';
-import {SnakeGameState} from './snakeState';
 import _ from 'lodash';
+import {SnakeGameState} from './snakeState';
 
 const BASIC_INTERVAL = 900; // ms
 
-const getState = (state: AppState) => state;
-
-function* creep(state: SnakeGameState, creepInterval: number) {
+function* creep(getState: () => AppState, creepInterval: number) {
     while (true) {
         yield delay(creepInterval);
-        const head = newHeadPoint(state.direction, state.body.last()); // last is head
-        if (isHittingWall(head)) {
-            yield put(SnakeActions.hitWall());
-        } else if (state.body.contains(head)) {
-            yield put(SnakeActions.biteSelf());
-        } else {
-            yield put(SnakeActions.creep(head, _.isEqual(head, state.bean)));
+        const appState = getState();
+        if (!appState.sys.inGamePaused) {
+            const state: SnakeGameState = appState.snake;
+            const head = newHeadPoint(state.direction, state.body.last()); // last is head
+            if (isHittingWall(head)) {
+                yield put(SnakeActions.hitWall());
+            } else if (state.body.contains(head)) {
+                yield put(SnakeActions.biteSelf());
+            } else {
+                yield put(SnakeActions.creep(head, _.isEqual(head, state.bean)));
+            }
         }
     }
 }
@@ -59,15 +62,19 @@ function calculateInterval(level: number): number {
     return BASIC_INTERVAL - level * 100;
 }
 
-export function* snakeSaga() {
+export function* snakeSaga(store: Store<AppState>) {
     while (yield take(ActionTypes.ENTER_GAME)) {
-        const state: AppState = yield select(getState);
-        const interval = calculateInterval(state.sys.level);
+        const state: SystemState = store.getState().sys;
+        const interval = calculateInterval(state.level);
         let creepTask;
-        if (state.sys.gameType === GameType.SNAKE && !state.sys.inGamePaused) {
-            creepTask = yield fork(creep, state.snake, interval);
+        if (state.gameType === GameType.SNAKE) {
+            creepTask = yield fork(creep, () => store.getState(), interval);
         }
         yield take(ActionTypes.EXIT_GAME);
         yield cancel(creepTask);
     }
 }
+
+export const snakeSagaTest = {
+    _creep: creep,
+};
