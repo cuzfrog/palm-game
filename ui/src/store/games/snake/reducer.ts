@@ -1,17 +1,21 @@
 import {DefaultSnakeGameState, SnakeGameState} from './state';
 import {SnakeAction} from './actions';
 import {ActionTypes} from '../../actions';
-import {Point} from '../../types';
+import {isOppositeDirection, Point} from '../../types';
 import {List} from 'immutable';
 import {Specs} from '../../../Specs';
 
 export function snakeGameReducer(state: SnakeGameState = DefaultSnakeGameState, action: SnakeAction): SnakeGameState {
     switch (action.type) {
         case ActionTypes.SET_DIRECTION:
-            return {
-                ...state,
-                direction: action.payload
-            };
+            if (isOppositeDirection(state.direction, action.payload) || state.direction === action.payload) {
+                return state;
+            } else {
+                return {
+                    ...state,
+                    direction: action.payload
+                };
+            }
         case ActionTypes.SNAKE_HIT_WALL || ActionTypes.SNAKE_BITE_SELF:
             if (state.life > 1) {
                 return {
