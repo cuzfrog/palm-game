@@ -1,5 +1,5 @@
-import {DefaultSnakeGameState, SnakeGameState} from './state';
-import {SnakeAction} from './actions';
+import {DefaultSnakeGameState, SnakeGameState} from './snakeState';
+import {SnakeAction} from './snakeActions';
 import {ActionTypes} from '../../actions';
 import {isOppositeDirection, Point} from '../../types';
 import {List} from 'immutable';

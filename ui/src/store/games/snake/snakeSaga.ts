@@ -1,11 +1,11 @@
 import {cancel, delay, fork, put, select, take} from 'redux-saga/effects';
 import {ActionTypes} from '../../actions';
-import {SnakeActions} from './actions';
+import {SnakeActions} from './snakeActions';
 import {AppState} from '../../index';
 import {GameType} from '../../system/state';
 import {Direction, Point} from '../../types';
 import {Specs} from '../../../Specs';
-import {SnakeGameState} from './state';
+import {SnakeGameState} from './snakeState';
 import _ from 'lodash';
 
 const BASIC_INTERVAL = 900; // ms

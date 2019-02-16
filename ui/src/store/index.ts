@@ -3,8 +3,8 @@ import createSagaMiddleware from 'redux-saga';
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 import {systemReducer} from './system/reducer';
 import {SystemState} from './system/state';
-import {snakeGameReducer} from './games/snake/reducer';
-import {SnakeGameState} from './games/snake/state';
+import {snakeGameReducer} from './games/snake/snakeReducer';
+import {SnakeGameState} from './games/snake/snakeState';
 import {snakeSaga} from './games/snake/snakeSaga';
 
 export interface AppState {

@@ -3,7 +3,7 @@ import {Direction} from './types';
 import {ActionTypes} from './actions';
 import {SystemActions} from './system/actions';
 import {createAction} from './typeHelper';
-import {SnakeActions} from './games/snake/actions';
+import {SnakeActions} from './games/snake/snakeActions';
 import {GameType} from './system/state';
 
 const Actions = {

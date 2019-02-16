@@ -1,8 +1,8 @@
 import {List} from 'immutable';
-import {snakeGameReducer} from '../../../../src/store/games/snake/reducer';
-import {SnakeActions} from '../../../../src/store/games/snake/actions';
+import {snakeGameReducer} from '../../../../src/store/games/snake/snakeReducer';
+import {SnakeActions} from '../../../../src/store/games/snake/snakeActions';
 import {Direction} from '../../../../src/store/types';
-import {SnakeGameState} from '../../../../src/store/games/snake/state';
+import {SnakeGameState} from '../../../../src/store/games/snake/snakeState';
 import {Specs} from '../../../../src/Specs';
 
 const prevState: SnakeGameState = {
@@ -10,6 +10,13 @@ const prevState: SnakeGameState = {
     body: List.of({x: 5, y: 5}, {x: 4, y: 5}),
     direction: Direction.NORTH,
 };
+
+it('change direction', () => {
+    const changeDirection = (di: Direction) => snakeGameReducer(prevState, SnakeActions.setDirection(di)).direction;
+    expect(changeDirection(Direction.WEST)).toEqual(Direction.WEST);
+    expect(changeDirection(Direction.SOUTH)).toEqual(prevState.direction);
+    expect(changeDirection(Direction.EAST)).toEqual(Direction.EAST);
+});
 
 const CHECK_TIMES = 1000;
 
