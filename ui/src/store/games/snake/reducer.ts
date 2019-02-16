@@ -1,12 +1,11 @@
-import {SnakeGameState} from './state';
+import {DefaultSnakeGameState, SnakeGameState} from './state';
 import {SnakeAction} from './actions';
 import {ActionTypes} from '../../actions';
-import {InitialState} from '../../index';
 import {Point} from '../../types';
 import {List} from 'immutable';
 import {ConsoleSpecs} from '../../../console/Specs';
 
-export function snakeGameReducer(state: SnakeGameState, action: SnakeAction): SnakeGameState {
+export function snakeGameReducer(state: SnakeGameState = DefaultSnakeGameState, action: SnakeAction): SnakeGameState {
     switch (action.type) {
         case ActionTypes.SET_DIRECTION:
             return {
@@ -16,11 +15,11 @@ export function snakeGameReducer(state: SnakeGameState, action: SnakeAction): Sn
         case ActionTypes.SNAKE_HIT_WALL || ActionTypes.SNAKE_BITE_SELF:
             if (state.life > 1) {
                 return {
-                    ...InitialState.snake,
+                    ...DefaultSnakeGameState,
                     life: state.life - 1,
                 };
             } else {
-                return InitialState.snake;
+                return DefaultSnakeGameState;
             }
         case ActionTypes.SNAKE_CREEP:
             const {head, grown} = action.payload;

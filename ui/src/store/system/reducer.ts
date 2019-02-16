@@ -1,4 +1,4 @@
-import {SystemState, SystemStatus} from './state';
+import {DefaultSystemState, SystemState, SystemStatus} from './state';
 import {utils} from '../../utils';
 import {SystemAction} from './actions';
 import {ActionTypes} from '../actions';
@@ -7,7 +7,7 @@ import {getGameKeyboard, MenuKeyboardLayout, PauseKeyboardLayout} from '../keybo
 const MAX_LEVEL = 9;
 const SYSTEM_STATUS_VALUES: ReadonlyArray<number> = Object.keys(SystemStatus).map(key => SystemStatus[key]);
 
-export function systemReducer(state: SystemState, action: SystemAction): SystemState {
+export function systemReducer(state: SystemState = DefaultSystemState, action: SystemAction): SystemState {
     switch (action.type) {
         case ActionTypes.TOGGLE_PAUSE:
             if (state.status === SystemStatus.IN_GAME) {
