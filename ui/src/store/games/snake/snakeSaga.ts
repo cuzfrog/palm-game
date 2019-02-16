@@ -4,7 +4,7 @@ import {SnakeActions} from './actions';
 import {AppState} from '../../index';
 import {GameType} from '../../system/state';
 import {Direction, Point} from '../../types';
-import {ConsoleSpecs} from '../../../console/Specs';
+import {Specs} from '../../../Specs';
 import {SnakeGameState} from './state';
 import _ from 'lodash';
 
@@ -52,7 +52,7 @@ function newHeadPoint(direction: Direction, headPoint: Point): Point {
 }
 
 function isHittingWall(head: Point): boolean {
-    return head.x < 0 || head.x >= ConsoleSpecs.graphicWidth || head.y < 0 || head.y >= ConsoleSpecs.graphicHeight;
+    return head.x < 0 || head.x >= Specs.graphicWidth || head.y < 0 || head.y >= Specs.graphicHeight;
 }
 
 function calculateInterval(level: number): number {

@@ -1,6 +1,6 @@
 import {Direction, Point} from '../../types';
 import {List, Range} from 'immutable';
-import {ConsoleSpecs} from '../../../console/Specs';
+import {Specs} from '../../../Specs';
 
 const INITIAL_LENGTH = 5;
 
@@ -18,7 +18,7 @@ export const DefaultSnakeGameState: SnakeGameState = {
 };
 
 function initialBody(): List<Point> {
-    const tailY = ConsoleSpecs.graphicHeight - 2;
+    const tailY = Specs.graphicHeight - 2;
     const tailX = tailY - INITIAL_LENGTH;
     return Range(tailX, tailY).reverse().map(y => {
         return {x: 3, y};

@@ -3,7 +3,7 @@ import {SnakeAction} from './actions';
 import {ActionTypes} from '../../actions';
 import {Point} from '../../types';
 import {List} from 'immutable';
-import {ConsoleSpecs} from '../../../console/Specs';
+import {Specs} from '../../../Specs';
 
 export function snakeGameReducer(state: SnakeGameState = DefaultSnakeGameState, action: SnakeAction): SnakeGameState {
     switch (action.type) {
@@ -38,8 +38,8 @@ export function snakeGameReducer(state: SnakeGameState = DefaultSnakeGameState, 
 function generateBean(body: List<Point>): Point | undefined {
     if (Math.random() > 0.5) {
         const bean = {
-            x: getRandomInt(ConsoleSpecs.graphicWidth),
-            y: getRandomInt(ConsoleSpecs.graphicHeight),
+            x: getRandomInt(Specs.graphicWidth),
+            y: getRandomInt(Specs.graphicHeight),
         };
         if (!body.contains(bean)) {
             return bean;

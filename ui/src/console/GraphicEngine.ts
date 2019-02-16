@@ -3,13 +3,13 @@ import {PixelState} from './screen/Pixel';
 import {AppState} from '../store';
 import {GameType, SystemStatus} from '../store/system/state';
 import {SnakeGameState} from '../store/games/snake/state';
-import {ConsoleSpecs} from './Specs';
+import {Specs} from '../Specs';
 
 const I = PixelState.ON;
 const O = PixelState.OFF;
 const S = PixelState.TWINKLE;
-const W = ConsoleSpecs.graphicWidth;
-const H = ConsoleSpecs.graphicHeight;
+const W = Specs.graphicWidth;
+const H = Specs.graphicHeight;
 type Frame = List<PixelState>;
 const requiredLength = W * H;
 const blankFrame = Range(0, requiredLength).map(() => O).toList();
