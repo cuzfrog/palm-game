@@ -8,7 +8,6 @@ export interface SnakeGameState {
     readonly life: number;
     readonly body: List<Point>;
     readonly direction: Direction;
-    readonly ingestedBean: boolean;
     readonly bean?: Point;
 }
 
@@ -16,7 +15,6 @@ export const DefaultSnakeGameState: SnakeGameState = {
     life: 3,
     body: initialBody(),
     direction: Direction.NORTH,
-    ingestedBean: false
 };
 
 function initialBody(): List<Point> {

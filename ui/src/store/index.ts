@@ -5,7 +5,7 @@ import {systemReducer} from './system/reducer';
 import {DefaultSystemState, SystemState} from './system/state';
 import {snakeGameReducer} from './games/snake/reducer';
 import {DefaultSnakeGameState, SnakeGameState} from './games/snake/state';
-import {creepSaga} from './games/snake/creepSaga';
+import {snakeSaga} from './games/snake/snakeSaga';
 
 export interface AppState {
     readonly sys: SystemState;
@@ -32,4 +32,4 @@ export const store: Store<AppState> = createStore(
     composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
-sagaMiddleware.run(creepSaga);
+sagaMiddleware.run(snakeSaga);

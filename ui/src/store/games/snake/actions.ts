@@ -1,16 +1,15 @@
 import {ActionUnion, createAction} from '../../typeHelper';
 import {ActionTypes} from '../../actions';
-import {Direction} from '../../types';
+import {Direction, Point} from '../../types';
 
-const eatBean = createAction(ActionTypes.SNAKE_EAT_BEAN);
-const enterHole = createAction(ActionTypes.SNAKE_ENTER_HOLE);
-const creep = createAction(ActionTypes.SNAKE_CREEP);
+const biteSelf = createAction(ActionTypes.SNAKE_BITE_SELF);
+const hitWall = createAction(ActionTypes.SNAKE_HIT_WALL);
 
 export const SnakeActions = {
     setDirection: (direction: Direction) => createAction(ActionTypes.SET_DIRECTION, direction),
-    eatBean: () => eatBean,
-    enterHole: () => enterHole,
-    creep: () => creep,
+    biteSelf: () => biteSelf,
+    hitWall: () => hitWall,
+    creep: (head: Point, grown: boolean) => createAction(ActionTypes.SNAKE_CREEP, {head, grown}),
 };
 
 export type SnakeAction = ActionUnion<typeof SnakeActions>;
