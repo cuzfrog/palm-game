@@ -1,7 +1,18 @@
 {
-  "name": "palm-gamer",
+  "name": "palm-games",
   "version": "0.1.0",
   "private": true,
+  "keywords": [
+    "redux",
+    "saga",
+    "redux-saga",
+    "react",
+    "typescript",
+    "snake",
+    "game"
+  ],
+  "author": "Cause Chung <cuzfrog@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.6",
     "immutable": "^4.0.0-rc.12",
@@ -10,12 +21,13 @@
     "react-dom": "^16.8.2",
     "react-redux": "^6.0.0",
     "redux": "^4.0.1",
-    "redux-saga": "^0.15.6"
+    "redux-saga": "^1.0.1"
   },
   "scripts": {
     "test": "jest --env=jsdom"
   },
   "devDependencies": {
+    "@redux-saga/testing-utils": "^1.0.1",
     "@types/classnames": "^2.2.7",
     "@types/jest": "^24.0.5",
     "@types/lodash.throttle": "^4.1.5",
@@ -34,9 +46,10 @@
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.5.0",
+    "monocle-ts": "^1.6.1",
     "postcss-loader": "^3.0.0",
     "redux-devtools-extension": "^2.13.8",
-    "redux-saga-test-plan": "^3.7.0",
+    "redux-saga-test-plan": "^4.0.0-beta.2",
     "style-loader": "^0.23.1",
     "ts-jest": "^23.10.5",
     "ts-loader": "^5.3.3",

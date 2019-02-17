@@ -1,4 +1,4 @@
-import {cancel, fork, put, select, take} from 'redux-saga/effects';
+import {cancel, delay, fork, put, select, take} from 'redux-saga/effects';
 import _ from 'lodash';
 import {ActionTypes} from '../../actions';
 import {SnakeActions} from './snakeActions';
@@ -7,13 +7,12 @@ import {GameType} from '../../system/systemState';
 import {Direction, Point} from '../../types';
 import {Specs} from '../../../Specs';
 import {SnakeGameState} from './snakeState';
-import {utils} from '../../../utils';
 
 const BASIC_INTERVAL = 900; // ms
 
 function* creep(creepInterval: number) {
     while (true) {
-        yield utils.delay(creepInterval);
+        yield delay(creepInterval);
         const appState = yield select();
         if (!appState.sys.inGamePaused) {
             const state: SnakeGameState = appState.snake;
