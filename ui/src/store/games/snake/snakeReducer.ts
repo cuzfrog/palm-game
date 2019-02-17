@@ -41,10 +41,7 @@ export function snakeGameReducer(state: SnakeGameState = DefaultSnakeGameState, 
 
 function generateBean(body: List<Point>): Point | undefined {
     if (Math.random() > 0.5) {
-        const bean = {
-            x: getRandomInt(Specs.graphicWidth),
-            y: getRandomInt(Specs.graphicHeight),
-        };
+        const bean = Point(getRandomInt(Specs.graphicWidth), getRandomInt(Specs.graphicHeight));
         if (!body.contains(bean)) {
             return bean;
         }

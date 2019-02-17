@@ -6,7 +6,7 @@ import {ActionTypes} from '../../../../src/store/actions';
 import {AppState} from '../../../../src/store';
 import {DefaultSystemState} from '../../../../src/store/system/systemState';
 import {DefaultSnakeGameState} from '../../../../src/store/games/snake/snakeState';
-import {Direction} from '../../../../src/store/types';
+import {Direction, Point} from '../../../../src/store/types';
 import {List} from 'immutable';
 import {SnakeActions} from '../../../../src/store/games/snake/snakeActions';
 
@@ -30,14 +30,11 @@ describe('snake saga', () => {
     });
 });
 
-const pauseGameLens = Lens.fromPath<AppState>()(['sys', 'inGamePaused']);
-const directionLens = Lens.fromPath<AppState>()(['snake', 'direction']);
-const bodyLens = Lens.fromPath<AppState>()(['snake', 'body']);
-
 describe('creep saga', () => {
+    const delayInterval = 3;
     it('no creep is game is paused', () => {
+        const pauseGameLens = Lens.fromPath<AppState>()(['sys', 'inGamePaused']);
         const state = pauseGameLens.set(true)(defaultState);
-        const delayInterval = 3;
         testSaga(snakeSagaTest._creep, delayInterval).next()
             .delay(delayInterval).next()
             .select().next(state)
@@ -47,27 +44,50 @@ describe('creep saga', () => {
             .isDone();
     });
 
-    it('creep forward', () => {
-        const state = bodyLens.set(List.of({x: 5, y: 5}))(directionLens.set(Direction.NORTH)(defaultState));
-        const delayInterval = 1;
-        testSaga(snakeSagaTest._creep, delayInterval).next()
-            .delay(delayInterval).next()
-            .select().next(state)
-            .put(SnakeActions.creep({x: 5, y: 4}, false)).next()
-            .delay(delayInterval)
-            .finish()
-            .isDone();
+    const bodyLens = Lens.fromPath<AppState>()(['snake', 'body']);
+    const directionLens = Lens.fromPath<AppState>()(['snake', 'direction']);
+
+    describe('creep forward', () => {
+        const stateSetDirection = directionLens.set(Direction.NORTH)(defaultState);
+        const stateSetBody = bodyLens.set(List.of(Point(5, 5)))(stateSetDirection);
+        it('move', () => {
+            testSaga(snakeSagaTest._creep, delayInterval).next()
+                .delay(delayInterval).next()
+                .select().next(stateSetBody)
+                .put(SnakeActions.creep(Point(5, 4), false)).next()
+                .delay(delayInterval)
+                .finish()
+                .isDone();
+        });
+
+        it('grow', () => {
+            const beanLens = Lens.fromPath<AppState>()(['snake', 'bean']);
+            const stateSetBean = beanLens.set(Point(5, 4))(stateSetBody);
+            testSaga(snakeSagaTest._creep, delayInterval).next()
+                .delay(delayInterval).next()
+                .select().next(stateSetBean)
+                .put(SnakeActions.creep(Point(5, 4), true));
+        });
     });
 
-    it('grow', () => {
+    describe('lose', () => {
+        it('hit northern wall', () => {
+            const stateSetDirection = directionLens.set(Direction.NORTH)(defaultState);
+            const stateSetBody = bodyLens.set(List.of(Point(5, 0)))(stateSetDirection);
+            testSaga(snakeSagaTest._creep, delayInterval).next()
+                .delay(delayInterval).next()
+                .select().next(stateSetBody)
+                .put(SnakeActions.hitWall());
+        });
+        // todo: more walls
 
-    });
-
-    it('hit wall', () => {
-
-    });
-
-    it('bite self', () => {
-
+        it('bite self', () => {
+            const stateSetDirection = directionLens.set(Direction.NORTH)(defaultState);
+            const stateSetBody = bodyLens.set(List.of(Point(5, 5), Point(5, 6)))(stateSetDirection);
+            testSaga(snakeSagaTest._creep, delayInterval).next()
+                .delay(delayInterval).next()
+                .select().next(stateSetBody)
+                .put(SnakeActions.biteSelf());
+        });
     });
 });

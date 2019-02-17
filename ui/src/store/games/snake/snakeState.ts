@@ -21,6 +21,6 @@ function initialBody(): List<Point> {
     const tailY = Specs.graphicHeight - 2;
     const tailX = tailY - INITIAL_LENGTH;
     return Range(tailX, tailY).reverse().map(y => {
-        return {x: 3, y};
+        return Point(3, y);
     }).toList();
 }

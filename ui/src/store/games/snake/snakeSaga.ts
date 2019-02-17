@@ -28,28 +28,16 @@ function* creep(creepInterval: number) {
     }
 }
 
-function newHeadPoint(direction: Direction, headPoint: Point): Point {
+function newHeadPoint(direction: Direction, head: Point): Point {
     switch (direction) {
         case Direction.NORTH:
-            return {
-                x: headPoint.x,
-                y: headPoint.y - 1,
-            };
+            return Point(head.x, head.y - 1);
         case Direction.EAST:
-            return {
-                x: headPoint.x + 1,
-                y: headPoint.y,
-            };
+            return Point(head.x + 1, head.y);
         case Direction.SOUTH:
-            return {
-                x: headPoint.x,
-                y: headPoint.y + 1,
-            };
+            return Point(head.x, head.y + 1);
         case Direction.WEST:
-            return {
-                x: headPoint.x - 1,
-                y: headPoint.y,
-            };
+            return Point(head.x - 1, head.y);
     }
 }
 
