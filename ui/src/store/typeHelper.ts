@@ -7,7 +7,7 @@ export interface ActionWithPayload<T extends string, P> extends Action<T> {
 export function createAction<T extends string, P>(type: T): Action<T>;
 export function createAction<T extends string, P>(type: T, payload: P): ActionWithPayload<T, P> ;
 export function createAction<T extends string, P>(type: T, payload?: P) {
-    return payload ? {type, payload} : {type};
+    return Object.seal(payload ? {type, payload} : {type});
 }
 
 type FunctionType = (...arg: any[]) => any;

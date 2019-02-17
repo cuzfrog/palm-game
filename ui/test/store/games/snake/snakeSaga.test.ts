@@ -1,7 +1,7 @@
 import {testSaga} from 'redux-saga-test-plan';
 import {createMockTask} from '@redux-saga/testing-utils';
 import {Lens} from 'monocle-ts';
-import {snakeSaga, snakeSagaTest} from '../../../../src/store/games/snake/snakeSaga';
+import {snakeEpic, snakeSagaTest} from '../../../../src/store/games/snake/snakeEpic';
 import {ActionTypes} from '../../../../src/store/actions';
 import {AppState} from '../../../../src/store';
 import {DefaultSystemState} from '../../../../src/store/system/systemState';
@@ -20,7 +20,7 @@ describe('snake saga', () => {
         const state = defaultState;
         const interval = snakeSagaTest._BASIC_INTERVAL - state.sys.level * 100;
         const mockTask = createMockTask();
-        testSaga(snakeSaga).next()
+        testSaga(snakeEpic).next()
             .take(ActionTypes.ENTER_GAME).next(true)
             .select().next(state)
             .fork(snakeSagaTest._creep, interval).next(mockTask)

@@ -1,11 +1,11 @@
 import {Action, applyMiddleware, combineReducers, createStore, Reducer, Store} from 'redux';
-import createSagaMiddleware from 'redux-saga';
+import {combineEpics, createEpicMiddleware} from 'redux-observable';
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 import {systemReducer} from './system/systemReducer';
 import {SystemState} from './system/systemState';
 import {snakeGameReducer} from './games/snake/snakeReducer';
 import {SnakeGameState} from './games/snake/snakeState';
-import {snakeSaga} from './games/snake/snakeSaga';
+import {snakeEpic} from './games/snake/snakeEpic';
 
 export interface AppState {
     readonly sys: SystemState;
@@ -17,12 +17,14 @@ const reducers: Reducer<AppState, Action> = combineReducers({
     snake: snakeGameReducer
 });
 
-const sagaMiddleware = createSagaMiddleware();
+const epics = combineEpics(snakeEpic);
+
+const epicMiddleware = createEpicMiddleware<Action, Action, AppState>();
 
 export const store: Store<AppState> = createStore(
     reducers,
     /* initialState */
-    composeWithDevTools(applyMiddleware(sagaMiddleware))
+    composeWithDevTools(applyMiddleware(epicMiddleware))
 );
 
-sagaMiddleware.run(snakeSaga);
+epicMiddleware.run(epics);

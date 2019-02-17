@@ -6,7 +6,7 @@ import {createAction} from './typeHelper';
 import {SnakeActions} from './games/snake/snakeActions';
 import {GameType} from './system/systemState';
 
-const Actions = {
+export const Actions = { // todo move to proper location
     sys: SystemActions,
     snake: SnakeActions,
     dummy: createAction(ActionTypes.DUMMY_ACTION),
