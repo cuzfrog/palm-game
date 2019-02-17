@@ -1,13 +1,13 @@
 import {List} from 'immutable';
 import {snakeGameReducer} from '../../../../src/store/games/snake/snakeReducer';
 import {SnakeActions} from '../../../../src/store/games/snake/snakeActions';
-import {Direction} from '../../../../src/store/types';
+import {Direction, Point} from '../../../../src/store/types';
 import {SnakeGameState} from '../../../../src/store/games/snake/snakeState';
 import {Specs} from '../../../../src/Specs';
 
 const prevState: SnakeGameState = {
     life: 3,
-    body: List.of({x: 5, y: 5}, {x: 4, y: 5}),
+    body: List.of(Point(5, 5), Point(4, 5)),
     direction: Direction.NORTH,
 };
 
@@ -24,7 +24,7 @@ describe('snake reducer', () => {
     it('creep forward', async () => {
         let beanCnt = 0;
         for (let i = 0; i < CHECK_TIMES; i++) {
-            const state = snakeGameReducer(prevState, SnakeActions.creep({x: 3, y: 5}, false));
+            const state = snakeGameReducer(prevState, SnakeActions.creep(Point(3, 5), false));
             expect(state.body).toEqual(List.of({x: 4, y: 5}, {x: 3, y: 5}));
             if (state.bean) {
                 beanCnt++;
@@ -41,8 +41,8 @@ describe('snake reducer', () => {
 
     it('grow forward', async () => {
         for (let i = 0; i < CHECK_TIMES; i++) {
-            const stateWithBean = {...prevState, bean: {x: 3, y: 5}};
-            const state = snakeGameReducer(stateWithBean, SnakeActions.creep({x: 3, y: 5}, true));
+            const stateWithBean = {...prevState, bean: Point(3, 5)};
+            const state = snakeGameReducer(stateWithBean, SnakeActions.creep(Point(3, 5), true));
             expect(state.body).toEqual(List.of({x: 5, y: 5}, {x: 4, y: 5}, {x: 3, y: 5}));
             expect(state.bean).toBeUndefined();
         }

@@ -17,7 +17,7 @@ const reducers: Reducer<AppState, Action> = combineReducers({
     snake: snakeGameReducer
 });
 
-const epics = combineEpics(snakeEpic);
+const epics = combineEpics(snakeEpic.epic);
 
 const epicMiddleware = createEpicMiddleware<Action, Action, AppState>();
 

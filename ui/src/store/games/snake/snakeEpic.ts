@@ -1,6 +1,7 @@
 import {filter, map, switchMap, takeUntil, withLatestFrom} from 'rxjs/operators';
-import {Epic, ofType} from 'redux-observable';
+import {ofType} from 'redux-observable';
 import {Action} from 'redux';
+import {Observable, timer} from 'rxjs';
 import _ from 'lodash';
 import {ActionTypes} from '../../actions';
 import {SnakeActions} from './snakeActions';
@@ -8,12 +9,11 @@ import {AppState} from '../../index';
 import {Direction, Point} from '../../types';
 import {Specs} from '../../../Specs';
 import {SnakeGameState} from './snakeState';
-import {timer} from 'rxjs';
+import {GameType} from '../../system/systemState';
 
 const BASIC_INTERVAL = 900; // ms
 
-function creep(getState: () => AppState) {
-    const appState = getState();
+function nextCreepAction(appState: AppState) {
     let action: Action;
     const state: SnakeGameState = appState.snake;
     const head = newHeadPoint(state.direction, state.body.last()); // last is head
@@ -50,22 +50,30 @@ function calculateInterval(level: number): number {
     return BASIC_INTERVAL - level * 100;
 }
 
-export const snakeEpic: Epic<Action, Action, AppState> = (action$, state$) => {
+const snakeEpicFunc = (action$: Observable<Action>,
+                       state$: Observable<AppState>,
+                       creepActionFunc: (state: AppState) => Action) => {
     return action$.pipe(
         ofType(ActionTypes.ENTER_GAME),
         withLatestFrom(state$),
-        switchMap(([, state]) => {
+        map(([, s]) => s),
+        filter(s => s.sys.gameType === GameType.SNAKE),
+        switchMap(state => {
             const interval = calculateInterval(state.sys.level);
             return timer(interval, interval).pipe(
                 takeUntil(action$.pipe(ofType(ActionTypes.EXIT_GAME))),
                 withLatestFrom(state$),
-                filter(([, s]) => !s.sys.inGamePaused),
-                map(() => creep(() => state$.value))
+                map(([, s]) => s),
+                filter(s => !s.sys.inGamePaused),
+                map(creepActionFunc)
             );
         }),
     );
 };
 
-export const snakeSagaTest = {
-    _BASIC_INTERVAL: BASIC_INTERVAL
+export const snakeEpic = {
+    epic: (a$: Observable<Action>, s$: Observable<AppState>) => snakeEpicFunc(a$, s$, nextCreepAction),
+    _snakeEpicFunc: snakeEpicFunc,
+    _nextCreepAction: nextCreepAction,
+    BASIC_INTERVAL,
 };

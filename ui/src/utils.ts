@@ -14,9 +14,15 @@ function logicNot(value: boolean): boolean {
     return !value;
 }
 
+function randomInt(max: number): number {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
 export const utils = {
     delay,
     nextNumEnum,
     identity,
-    logicNot
+    logicNot,
+    randomInt
 };
+
