@@ -6,13 +6,9 @@ import {createAction} from './typeHelper';
 import {SnakeActions} from './games/snake/snakeActions';
 import {GameType} from './system/systemState';
 
-export const Actions = { // todo move to proper location
-    sys: SystemActions,
-    snake: SnakeActions,
-    dummy: createAction(ActionTypes.DUMMY_ACTION),
-};
+const DummyAction = createAction(ActionTypes.DUMMY_ACTION);
 
-export const MenuKeyboardLayout: Readonly<KeyboardProps> = {
+const MenuKeyboardLayout: KeyboardProps = {
     funcProps: {
         selectAction: SystemActions.toggleGame(),
         startAction: SystemActions.enterGame(),
@@ -20,50 +16,50 @@ export const MenuKeyboardLayout: Readonly<KeyboardProps> = {
     arrowProps: {
         leftAction: SystemActions.decreaseLevel(),
         rightAction: SystemActions.increaseLevel(),
-        upAction: Actions.dummy,
-        downAction: Actions.dummy,
+        upAction: DummyAction,
+        downAction: DummyAction,
     },
     mainProps: {
-        actionA: Actions.dummy,
-        actionB: Actions.dummy,
+        actionA: DummyAction,
+        actionB: DummyAction,
     }
 };
 
-export const PauseKeyboardLayout: Readonly<KeyboardProps> = {
+const PauseKeyboardLayout: KeyboardProps = {
     funcProps: {
-        selectAction: Actions.dummy,
+        selectAction: DummyAction,
         startAction: SystemActions.togglePause(),
     },
     arrowProps: {
-        leftAction: Actions.dummy,
-        rightAction: Actions.dummy,
-        upAction: Actions.dummy,
-        downAction: Actions.dummy,
+        leftAction: DummyAction,
+        rightAction: DummyAction,
+        upAction: DummyAction,
+        downAction: DummyAction,
     },
     mainProps: {
-        actionA: Actions.dummy,
-        actionB: Actions.dummy,
+        actionA: DummyAction,
+        actionB: DummyAction,
     }
 };
 
-const SnakeGameKeyboardLayout: Readonly<KeyboardProps> = {
+const SnakeGameKeyboardLayout: KeyboardProps = {
     funcProps: {
-        selectAction: Actions.dummy,
+        selectAction: DummyAction,
         startAction: SystemActions.togglePause(),
     },
     arrowProps: {
-        upAction: Actions.snake.setDirection(Direction.NORTH),
-        rightAction: Actions.snake.setDirection(Direction.EAST),
-        downAction: Actions.snake.setDirection(Direction.SOUTH),
-        leftAction: Actions.snake.setDirection(Direction.WEST),
+        upAction: SnakeActions.setDirection(Direction.NORTH),
+        rightAction: SnakeActions.setDirection(Direction.EAST),
+        downAction: SnakeActions.setDirection(Direction.SOUTH),
+        leftAction: SnakeActions.setDirection(Direction.WEST),
     },
     mainProps: {
-        actionB: Actions.dummy,
-        actionA: Actions.dummy,
+        actionB: DummyAction,
+        actionA: DummyAction,
     }
 };
 
-export function getGameKeyboard(gameType: GameType): KeyboardProps {
+function getGameKeyboard(gameType: GameType): KeyboardProps {
     switch (gameType) {
         case GameType.SNAKE:
             return SnakeGameKeyboardLayout;
@@ -71,3 +67,9 @@ export function getGameKeyboard(gameType: GameType): KeyboardProps {
             throw new TypeError('Unknown enum type:' + gameType);
     }
 }
+
+export {
+    MenuKeyboardLayout,
+    PauseKeyboardLayout,
+    getGameKeyboard
+};
