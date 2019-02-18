@@ -1,4 +1,4 @@
-import {ActionUnion, createAction} from '../typeHelper';
+import {ActionUnion, createAction, createActionWithPayload} from '../typeHelper';
 import {ActionTypes} from '../actions';
 
 const increaseLevel = createAction(ActionTypes.INCREASE_LEVEL);
@@ -8,7 +8,7 @@ const togglePause = createAction(ActionTypes.TOGGLE_PAUSE);
 const toggleGame = createAction(ActionTypes.TOGGLE_GAME);
 
 export const SystemActions = {
-    addScore: (score: number) => createAction(ActionTypes.ADD_SCORE, score),
+    addScore: (score: number) => createActionWithPayload(ActionTypes.ADD_SCORE, score),
     increaseLevel: () => increaseLevel,
     decreaseLevel: () => decreaseLevel,
     enterGame: () => createAction(ActionTypes.ENTER_GAME),

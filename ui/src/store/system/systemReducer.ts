@@ -1,5 +1,5 @@
 import {DefaultSystemState, GameType, SystemState, SystemStatus} from './systemState';
-import {utils} from '../../utils';
+import {nextNumEnum} from '../../utils';
 import {SystemAction} from './systemActions';
 import {ActionTypes} from '../actions';
 import {getGameKeyboard, MenuKeyboardLayout, PauseKeyboardLayout} from '../keyboardDef';
@@ -56,7 +56,7 @@ export function systemReducer(state: SystemState = DefaultSystemState, action: S
                 ...state, scores,
             };
         case ActionTypes.TOGGLE_GAME:
-            const gameType = utils.nextNumEnum(state.gameType, GameTypeValues);
+            const gameType = nextNumEnum(state.gameType, GameTypeValues);
             return {
                 ...state,
                 gameType,

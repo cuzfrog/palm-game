@@ -18,11 +18,23 @@ function randomInt(max: number): number {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-export const utils = {
+/** Not undefined, not null, not empty string. */
+function requireNonEmpty<T>(v: T): T {
+    if (typeof v === 'string' && v.length === 0) {
+        throw new Error('Value is empty string.');
+    } else if (v === null) {
+        throw new TypeError('Value is null');
+    } else if (v === undefined) {
+        throw new TypeError('Value is undefined');
+    }
+    return v;
+}
+
+export {
     delay,
     nextNumEnum,
     identity,
     logicNot,
-    randomInt
+    randomInt,
+    requireNonEmpty
 };
-
