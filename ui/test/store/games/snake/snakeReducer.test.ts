@@ -6,6 +6,7 @@ import {SnakeGameState} from '../../../../src/store/games/snake/snakeState';
 import {Specs} from '../../../../src/Specs';
 
 const prevState: SnakeGameState = {
+    score: 500,
     life: 3,
     body: List.of(Point(5, 5), Point(4, 5)),
     direction: Direction.NORTH,

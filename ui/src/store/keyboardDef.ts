@@ -4,7 +4,7 @@ import {ActionTypes} from './actions';
 import {SystemActions} from './system/systemActions';
 import {createAction} from './typeHelper';
 import {SnakeActions} from './games/snake/snakeActions';
-import {GameType} from './system/systemState';
+import {GameType, SystemState, SystemStatus} from './system/systemState';
 
 const DummyAction = createAction(ActionTypes.DUMMY_ACTION);
 
@@ -68,8 +68,16 @@ function getGameKeyboard(gameType: GameType): KeyboardProps {
     }
 }
 
-export {
-    MenuKeyboardLayout,
-    PauseKeyboardLayout,
-    getGameKeyboard
-};
+export type KeyboardDef = KeyboardProps;
+
+export function getKeyboard(state?: SystemState): KeyboardDef {
+    let keyboard;
+    if (state === undefined || state.status === SystemStatus.MENU) {
+        keyboard = MenuKeyboardLayout;
+    } else if (state.status === SystemStatus.IN_GAME) {
+        keyboard = state.inGamePaused ? PauseKeyboardLayout : getGameKeyboard(state.gameType);
+    } else {
+        throw new TypeError('Unknown system status:' + state.status);
+    }
+    return keyboard;
+}

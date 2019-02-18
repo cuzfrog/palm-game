@@ -15,6 +15,13 @@ export function snakeGameReducer(state: SnakeGameState = DefaultSnakeGameState, 
                     draft.direction = action.payload;
                 }
                 return;
+            case ActionTypes.SNAKE_CREEP:
+                const {head, grown} = action.payload;
+                const length = state.body.size;
+                const body = state.body.toSeq().concat(head).takeLast(grown ? length + 1 : length).toList();
+                draft.body = body;
+                draft.bean = grown ? undefined : (state.bean ? state.bean : generateBean(body));
+                return;
             case ActionTypes.SNAKE_HIT_WALL:
             case ActionTypes.SNAKE_BITE_SELF:
                 if (state.life > 1) {
@@ -25,13 +32,6 @@ export function snakeGameReducer(state: SnakeGameState = DefaultSnakeGameState, 
                 } else {
                     return DefaultSnakeGameState;
                 }
-            case ActionTypes.SNAKE_CREEP:
-                const {head, grown} = action.payload;
-                const length = state.body.size;
-                const body = state.body.toSeq().concat(head).takeLast(grown ? length + 1 : length).toList();
-                draft.body = body;
-                draft.bean = grown ? undefined : (state.bean ? state.bean : generateBean(body));
-                return;
         }
     });
 }

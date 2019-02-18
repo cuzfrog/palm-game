@@ -1,13 +1,13 @@
 import {Map} from 'immutable';
 import {KeyboardProps} from '../../console/keyboard/Keyboard';
-import {MenuKeyboardLayout} from '../keyboardDef';
+import {getKeyboard} from '../keyboardDef';
 
 export const enum SystemStatus {
     MENU, IN_GAME
 }
 
 export enum GameType {
-    SNAKE,
+    SNAKE, BOXER
 }
 
 export interface SystemState {
@@ -22,8 +22,8 @@ export interface SystemState {
 export const DefaultSystemState: SystemState = {
     status: SystemStatus.MENU,
     scores: Map(),
-    level: 1,
+    level: 3,
     gameType: GameType.SNAKE,
     inGamePaused: false,
-    keyboardLayout: MenuKeyboardLayout,
+    keyboardLayout: getKeyboard(),
 };

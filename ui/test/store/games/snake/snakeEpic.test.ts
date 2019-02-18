@@ -14,6 +14,11 @@ const defaultState: AppState = {
     snake: DefaultSnakeGameState,
 };
 
+const pauseGameLens = Lens.fromPath<AppState>()(['sys', 'inGamePaused']);
+const bodyLens = Lens.fromPath<AppState>()(['snake', 'body']);
+const directionLens = Lens.fromPath<AppState>()(['snake', 'direction']);
+const beanLens = Lens.fromPath<AppState>()(['snake', 'bean']);
+
 const testScheduler = new TestScheduler((actual, expected) => {
     expect(actual).toEqual(expected);
 });
@@ -23,7 +28,7 @@ describe('snake epic', () => {
 
     it('start and stop', () => {
         const mockCallback = jest.fn(() => mockAction);
-        testScheduler.run(({hot, cold, expectObservable}) => {
+        testScheduler.run(({hot, cold}) => {
             const action$ = hot('a 2s b', {a: SystemActions.enterGame(), b: SystemActions.exitGame()});
             const state$ = cold('s', {s: defaultState});
             const epic = snakeEpic._snakeEpicFunc(action$, state$, mockCallback);
@@ -36,9 +41,8 @@ describe('snake epic', () => {
 
     it('no creep when game is paused', () => {
         const mockCallback = jest.fn(() => mockAction);
-        const pauseGameLens = Lens.fromPath<AppState>()(['sys', 'inGamePaused']);
         const state = pauseGameLens.set(true)(defaultState);
-        testScheduler.run(({hot, cold, expectObservable}) => {
+        testScheduler.run(({hot, cold}) => {
             const action$ = hot('a 5s b', {a: SystemActions.enterGame(), b: SystemActions.exitGame()});
             const state$ = cold('s', {s: state});
             const epic = snakeEpic._snakeEpicFunc(action$, state$, mockCallback);
@@ -50,9 +54,6 @@ describe('snake epic', () => {
 });
 
 describe('creep action', () => {
-    const bodyLens = Lens.fromPath<AppState>()(['snake', 'body']);
-    const directionLens = Lens.fromPath<AppState>()(['snake', 'direction']);
-
     describe('creep forward', () => {
         const stateSetDirection = directionLens.set(Direction.NORTH)(defaultState);
         const stateSetBody = bodyLens.set(List.of(Point(5, 5)))(stateSetDirection);
@@ -62,7 +63,6 @@ describe('creep action', () => {
         });
 
         it('grow', () => {
-            const beanLens = Lens.fromPath<AppState>()(['snake', 'bean']);
             const stateSetBean = beanLens.set(Point(5, 4))(stateSetBody);
             expect(snakeEpic._nextCreepAction(stateSetBean))
                 .toEqual(SnakeActions.creep(Point(5, 4), true));

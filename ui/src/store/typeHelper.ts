@@ -1,16 +1,16 @@
 import {Action} from 'redux';
-import {requireNonEmpty} from '../utils';
+import {checkNonEmpty} from '../utils';
 
 export interface ActionWithPayload<T extends string, P> extends Action<T> {
     readonly payload: P;
 }
 
 export function createAction<T extends string, P>(type: T): Action<T> {
-    return Object.seal({type: requireNonEmpty(type)});
+    return Object.seal({type: checkNonEmpty(type)});
 }
 
 export function createActionWithPayload<T extends string, P>(type: T, payload: P): ActionWithPayload<T, P> {
-    return Object.seal({type: requireNonEmpty(type), payload: requireNonEmpty(payload)});
+    return Object.seal({type: checkNonEmpty(type), payload: checkNonEmpty(payload)});
 }
 
 type FunctionType = (...arg: any[]) => any;

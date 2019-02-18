@@ -2,8 +2,10 @@ function delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function nextNumEnum<T extends number>(current: T, values: ReadonlyArray<T>): T {
-    return current >= values.length ? values[0] : current + 1 as T;
+/** complexity O(n) */
+function nextEnum<T>(current: T, values: ReadonlyArray<T>): T {
+    const currentIdx = values.indexOf(current);
+    return currentIdx >= values.length - 1 ? values[0] : values[currentIdx + 1];
 }
 
 function identity<T>(t: T): T {
@@ -19,7 +21,7 @@ function randomInt(max: number): number {
 }
 
 /** Not undefined, not null, not empty string. */
-function requireNonEmpty<T>(v: T): T {
+function checkNonEmpty<T>(v: T): T {
     if (typeof v === 'string' && v.length === 0) {
         throw new Error('Value is empty string.');
     } else if (v === null) {
@@ -30,11 +32,25 @@ function requireNonEmpty<T>(v: T): T {
     return v;
 }
 
+function checkStrictEqual(v: any, expected: any, msg: string = `'${v}' is not strictly equal to '${expected}'!`) {
+    if (!Object.is(v, expected)) {
+        throw Error(msg);
+    }
+}
+
+function checkStrictNonEqual(v: any, expected: any, msg: string = `'${v}' is strictly equal to '${expected}'!`) {
+    if (Object.is(v, expected)) {
+        throw Error(msg);
+    }
+}
+
 export {
     delay,
-    nextNumEnum,
+    nextEnum,
     identity,
     logicNot,
     randomInt,
-    requireNonEmpty
+    checkNonEmpty,
+    checkStrictEqual,
+    checkStrictNonEqual
 };
