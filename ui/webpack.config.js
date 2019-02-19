@@ -1,8 +1,8 @@
-const webpack = require('webpack');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const SRC_DIR = /src/;
 
@@ -75,7 +75,8 @@ const config = {
         new ForkTsCheckerWebpackPlugin({workers: 2}),
         new MiniCssExtractPlugin({
             filename: 'app.css',
-        })
+        }),
+        // new BundleAnalyzerPlugin(),
     ],
     optimization: {
         splitChunks: {

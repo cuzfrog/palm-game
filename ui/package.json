@@ -24,6 +24,7 @@
     "react-redux": "^6.0.0",
     "redux": "^4.0.1",
     "redux-observable": "^1.0.0",
+    "reselect": "^4.0.0",
     "rxjs": "^6.4.0"
   },
   "scripts": {
@@ -59,6 +60,7 @@
     "tslint-react": "^3.6.0",
     "typescript": "^3.3.3",
     "webpack": "^4.29.4",
+    "webpack-bundle-analyzer": "^3.0.4",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.1.14"
   },

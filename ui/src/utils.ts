@@ -44,6 +44,10 @@ function checkStrictNonEqual(v: any, expected: any, msg: string = `'${v}' is str
     }
 }
 
+function throwTypeError(v: any): void {
+    throw new TypeError('unknown type:' + v);
+}
+
 export {
     delay,
     nextEnum,
@@ -52,5 +56,6 @@ export {
     randomInt,
     checkNonEmpty,
     checkStrictEqual,
-    checkStrictNonEqual
+    checkStrictNonEqual,
+    throwTypeError
 };

@@ -7,7 +7,7 @@ export const MATRIX_WIDTH = 10;
 export const MATRIX_HEIGHT = 16;
 const ROWS_START_ARRAY: ReadonlyArray<number> = [...Array(MATRIX_HEIGHT).keys()];
 
-export interface Props {
+interface Props {
     readonly actives: List<PixelState>;
 }
 
