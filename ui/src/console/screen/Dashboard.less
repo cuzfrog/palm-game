@@ -1,0 +1,33 @@
+@indiWidth: 92px;
+
+.dashboard {
+  width: @indiWidth;
+  text-align: right;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 4px;
+
+  > div > p {
+    margin: 6px 2px 6px;
+  }
+
+  .scoreShow {
+    margin-top: 10px;
+  }
+
+  .levelShow {
+    margin-top: 40px;
+  }
+
+  @lifeWidth: (@heartSize + 4)*5;
+
+  .lifeShow {
+    width: @lifeWidth;
+    margin-top: 40px;
+    margin-left: @indiWidth - @lifeWidth;
+
+    > div {
+      right: 0;
+    }
+  }
+}

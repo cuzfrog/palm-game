@@ -1,9 +1,5 @@
 import React from 'react';
 import styles from './LifeBar.less';
-import {AppState} from '../../store';
-import {connect} from 'react-redux';
-
-const LIFE_HEART_COUNT = 10;
 
 interface Props {
     readonly hp: number;
@@ -11,7 +7,7 @@ interface Props {
     readonly count: number;
 }
 
-class LifeBar extends React.PureComponent<Props, {}> {
+export default class LifeBar extends React.PureComponent<Props, {}> {
     constructor(props: Readonly<Props>) {
         super(props);
         if (props.maxHp <= 0) {
@@ -38,16 +34,3 @@ function renderHearts(props: Readonly<Props>) {
         (<div className={i <= deActiveCnt ? styles.heart : styles.activeHeart} key={i}/>)
     );
 }
-
-function mapStateToProps(state: AppState): Props {
-    return {
-        hp: state.core.hp,
-        maxHp: state.core.maxHp,
-        count: LIFE_HEART_COUNT
-    };
-}
-
-const areStatesEqual = (prevState: AppState, state: AppState) =>
-    prevState.core.hp === state.core.hp && prevState.core.maxHp === state.core.maxHp;
-
-export default connect(mapStateToProps, undefined, undefined, {areStatesEqual})(LifeBar);
