@@ -1,13 +1,13 @@
 export const enum ActionTypes {
     DUMMY_ACTION = '[none] dummy action',
 
-    INCREASE_LEVEL = '[system] increase level',
-    DECREASE_LEVEL = '[system] decrease level',
     TOGGLE_PAUSE = '[system] toggle pause',
     ENTER_GAME = '[system] enter game',
     EXIT_GAME = '[system] exit game',
     TOGGLE_GAME = '[system] toggle game',
 
+    INCREASE_LEVEL = '[game] increase level',
+    DECREASE_LEVEL = '[game] decrease level',
     ADD_SCORE = '[game] add score',
     SET_DIRECTION = '[game] set direction',
 

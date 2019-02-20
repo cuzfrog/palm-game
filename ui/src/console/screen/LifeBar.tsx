@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './LifeBar.less';
 import {AppState} from '../../store';
-import {GameType} from '../../store/system/systemState';
 import {connect} from 'react-redux';
 
 const LIFE_HEART_COUNT = 10;
@@ -40,16 +39,15 @@ function renderHearts(props: Readonly<Props>) {
     );
 }
 
-// todo: move to core state
 function mapStateToProps(state: AppState): Props {
-    switch (state.sys.gameType) {
-        case GameType.SNAKE:
-            return {hp: state.snake.life, maxHp: LIFE_HEART_COUNT, count: LIFE_HEART_COUNT};
-        case GameType.BOXER:
-            throw new Error('Not implemented');
-        default:
-            throw new TypeError('unknown type:' + state.sys.gameType);
-    }
+    return {
+        hp: state.core.hp,
+        maxHp: state.core.maxHp,
+        count: LIFE_HEART_COUNT
+    };
 }
 
-export default connect(mapStateToProps)(LifeBar);
+const areStatesEqual = (prevState: AppState, state: AppState) =>
+    prevState.core.hp === state.core.hp && prevState.core.maxHp === state.core.maxHp;
+
+export default connect(mapStateToProps, undefined, undefined, {areStatesEqual})(LifeBar);

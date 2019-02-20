@@ -8,7 +8,7 @@ const exitGame = createAction(ActionTypes.EXIT_GAME);
 const togglePause = createAction(ActionTypes.TOGGLE_PAUSE);
 const toggleGame = createAction(ActionTypes.TOGGLE_GAME);
 
-export const SystemActions = {
+export const SystemActions = Object.seal({
     addScore: (score: number) => createActionWithPayload(ActionTypes.ADD_SCORE, score),
     increaseLevel: () => increaseLevel,
     decreaseLevel: () => decreaseLevel,
@@ -16,6 +16,6 @@ export const SystemActions = {
     exitGame: () => exitGame,
     togglePause: () => togglePause,
     toggleGame: () => toggleGame,
-};
+});
 
 export type SystemAction = ActionUnion<typeof SystemActions>;

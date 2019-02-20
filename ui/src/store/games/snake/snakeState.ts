@@ -5,16 +5,12 @@ import {Specs} from '../../../Specs';
 const INITIAL_LENGTH = 5;
 
 export interface SnakeGameState {
-    readonly score: number;
-    readonly life: number;
     readonly body: List<Point>;
     readonly direction: Direction;
     readonly bean?: Point;
 }
 
 export const DefaultSnakeGameState: SnakeGameState = {
-    score: 0,
-    life: 3,
     body: initialBody(),
     direction: Direction.NORTH,
 };
