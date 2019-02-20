@@ -1,5 +1,5 @@
 import {KeyboardProps} from '../console/keyboard/Keyboard';
-import {Direction} from './types';
+import {Direction} from '../domain';
 import {ActionTypes} from './actions';
 import {SystemActions} from './system/systemActions';
 import {createAction} from './typeHelper';

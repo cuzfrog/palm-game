@@ -3,7 +3,7 @@ import {List} from 'immutable';
 import {DefaultSnakeGameState, SnakeGameState} from './snakeState';
 import {SnakeAction} from './snakeActions';
 import {ActionTypes} from '../../actions';
-import {isOppositeDirection, Point} from '../../types';
+import {isOppositeDirection, Point} from '../../../domain';
 import {Specs} from '../../../Specs';
 import {randomInt} from '../../../utils';
 

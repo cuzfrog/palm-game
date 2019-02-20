@@ -6,7 +6,7 @@ import _ from 'lodash';
 import {ActionTypes} from '../../actions';
 import {SnakeActions} from './snakeActions';
 import {AppState} from '../../index';
-import {Direction, Point} from '../../types';
+import {Direction, Point} from '../../../domain';
 import {Specs} from '../../../Specs';
 import {SnakeGameState} from './snakeState';
 import {GameType} from '../../system/systemState';

@@ -3,6 +3,7 @@ import styles from './Dashboard.less';
 import Digit, {FontSize} from './digits/Digit';
 import classnames from 'classnames';
 import LifeBar from './LifeBar';
+import {Life} from '../../domain';
 
 const SCORE_WIDTH = 7;
 const LEVEL_WIDTH = 1;
@@ -13,11 +14,6 @@ interface Props {
     readonly level: number;
     readonly life?: Life;
     readonly enemyLife?: Life;
-}
-
-interface Life {
-    readonly hp: number;
-    readonly maxHp: number;
 }
 
 export default class Dashboard extends React.PureComponent<Props, {}> {

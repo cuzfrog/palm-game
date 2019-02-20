@@ -1,4 +1,4 @@
-import {Direction, Point} from '../../types';
+import {Direction, Point} from '../../../domain';
 import {List, Range} from 'immutable';
 import {Specs} from '../../../Specs';
 
