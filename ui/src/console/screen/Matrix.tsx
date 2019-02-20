@@ -2,20 +2,23 @@ import React from 'react';
 import style from './Matrix.less';
 import Pixel, {PixelState} from './Pixel';
 import {List} from 'immutable';
+import {AppState} from '../../store';
+import {Graphic} from '../GraphicEngine';
+import {connect} from 'react-redux';
 
 export const MATRIX_WIDTH = 10;
 export const MATRIX_HEIGHT = 16;
 const ROWS_START_ARRAY: ReadonlyArray<number> = [...Array(MATRIX_HEIGHT).keys()];
 
 interface Props {
-    readonly actives: List<PixelState>;
+    readonly frame: List<PixelState>;
 }
 
-export default class extends React.PureComponent<Props, {}> {
+class Matrix extends React.PureComponent<Props, {}> {
     constructor(props: Readonly<Props>) {
         super(props);
-        if (props.actives.size !== MATRIX_WIDTH * MATRIX_HEIGHT) {
-            throw RangeError(`Invalid size, width=${MATRIX_WIDTH}, height=${MATRIX_HEIGHT}, pixelCnt=${props.actives.size}`);
+        if (props.frame.size !== MATRIX_WIDTH * MATRIX_HEIGHT) {
+            throw RangeError(`Invalid size, width=${MATRIX_WIDTH}, height=${MATRIX_HEIGHT}, pixelCnt=${props.frame.size}`);
         }
         this.Row = this.Row.bind(this);
     }
@@ -35,8 +38,16 @@ export default class extends React.PureComponent<Props, {}> {
     private Row(rowIdx: number) {
         const colIdxBegin = rowIdx * MATRIX_WIDTH;
         const colIdxEndExclusive = colIdxBegin + MATRIX_WIDTH;
-        return this.props.actives.toSeq().slice(colIdxBegin, colIdxEndExclusive).map((a, ci) => (
+        return this.props.frame.toSeq().slice(colIdxBegin, colIdxEndExclusive).map((a, ci) => (
             <Pixel value={a} key={ci}/>
         ));
     }
 }
+
+function mapStateToProps(state: AppState): Props {
+    return {
+        frame: Graphic.show(state), // todo check: it relies on the Graphic to provide optimization.
+    };
+}
+
+export default connect(mapStateToProps)(Matrix);

@@ -32,7 +32,7 @@ export default class Screen extends React.PureComponent<ScreenProps, {}> {
         return (
             <div className={styles.screen}>
                 <div className={styles.matrixArea}>
-                    <Matrix actives={this.props.frame}/>
+                    <Matrix frame={this.props.frame}/>
                 </div>
                 <div className={styles.indicationArea}>
                     <div className={styles.scoreShow}>
