@@ -1,9 +1,17 @@
+import {Life} from '../../domain';
+
 export interface CoreGameState {
-    readonly hp: number;
-    readonly maxHp: number;
+    readonly life: Life;
+    readonly enemyLife: Life;
 }
 
 export const DefaultCoreGameState: CoreGameState = {
-    hp: 0,
-    maxHp: 1,
+    life: {
+        hp: 0,
+        maxHp: 1,
+    },
+    enemyLife: {
+        hp: 0,
+        maxHp: 1,
+    }
 };

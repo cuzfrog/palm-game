@@ -4,6 +4,8 @@ import Digit, {FontSize} from './digits/Digit';
 import classnames from 'classnames';
 import LifeBar from './LifeBar';
 import {Life} from '../../domain';
+import {AppState} from '../../store';
+import {connect} from 'react-redux';
 
 const SCORE_WIDTH = 7;
 const LEVEL_WIDTH = 1;
@@ -12,11 +14,11 @@ const LIFE_HEART_COUNT = 10;
 interface Props {
     readonly score: number;
     readonly level: number;
-    readonly life?: Life;
-    readonly enemyLife?: Life;
+    readonly life: Life;
+    readonly enemyLife: Life;
 }
 
-export default class Dashboard extends React.PureComponent<Props, {}> {
+class Dashboard extends React.PureComponent<Props, {}> {
     public render() {
         const enemyLife = getLife(this.props.enemyLife);
         const life = getLife(this.props.life);
@@ -54,3 +56,14 @@ function getLife(life?: Life) {
         return life;
     }
 }
+
+function mapStateToProps(state: AppState): Props {
+    return {
+        score: state.sys.scores.get(state.sys.gameType, 0),
+        level: state.sys.level,
+        life: state.core.life,
+        enemyLife: state.core.enemyLife,
+    };
+}
+
+export default connect(mapStateToProps)(Dashboard); // todo: connect to every indicator?

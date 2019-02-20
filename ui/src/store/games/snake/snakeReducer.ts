@@ -24,14 +24,7 @@ export function snakeGameReducer(state: SnakeGameState = DefaultSnakeGameState, 
                 return;
             case ActionTypes.SNAKE_HIT_WALL:
             case ActionTypes.SNAKE_BITE_SELF:
-                if (state.life > 1) {
-                    return {
-                        ...DefaultSnakeGameState,
-                        life: state.life - 1,
-                    };
-                } else {
-                    return DefaultSnakeGameState;
-                }
+                return DefaultSnakeGameState;
         }
     });
 }
