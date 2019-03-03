@@ -1,6 +1,6 @@
-import {Direction, Point} from '../../../domain';
+import {Direction, Point} from '../../domain';
 import {List, Range} from 'immutable';
-import {Specs} from '../../../Specs';
+import {Specs} from '../../Specs';
 
 const INITIAL_LENGTH = 5;
 

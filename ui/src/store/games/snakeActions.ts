@@ -1,6 +1,6 @@
-import {ActionUnion, createAction, createActionWithPayload} from '../../typeHelper';
-import {ActionTypes} from '../../actions';
-import {Direction, Point} from '../../../domain';
+import {ActionUnion, createAction, createActionWithPayload} from '../typeHelper';
+import {ActionTypes} from '../actions';
+import {Direction, Point} from '../../domain';
 
 const biteSelf = createAction(ActionTypes.SNAKE_BITE_SELF);
 const hitWall = createAction(ActionTypes.SNAKE_HIT_WALL);

@@ -1,21 +1,21 @@
 import {KeyboardProps} from '../console/keyboard/Keyboard';
 import {Direction} from '../domain';
 import {ActionTypes} from './actions';
-import {SystemActions} from './system/systemActions';
+import {CoreActions} from './core/coreActions';
 import {createAction} from './typeHelper';
-import {SnakeActions} from './games/snake/snakeActions';
-import {GameType, SystemState, SystemStatus} from './system/systemState';
+import {SnakeActions} from './games/snakeActions';
+import {GameType, CoreState, SystemStatus} from './core/coreState';
 
 const DummyAction = createAction(ActionTypes.DUMMY_ACTION);
 
 const MenuKeyboardLayout: KeyboardProps = {
     funcProps: {
-        selectAction: SystemActions.toggleGame(),
-        startAction: SystemActions.enterGame(),
+        selectAction: CoreActions.toggleGame(),
+        startAction: CoreActions.enterGame(),
     },
     arrowProps: {
-        leftAction: SystemActions.decreaseLevel(),
-        rightAction: SystemActions.increaseLevel(),
+        leftAction: CoreActions.decreaseLevel(),
+        rightAction: CoreActions.increaseLevel(),
         upAction: DummyAction,
         downAction: DummyAction,
     },
@@ -28,7 +28,7 @@ const MenuKeyboardLayout: KeyboardProps = {
 const PauseKeyboardLayout: KeyboardProps = {
     funcProps: {
         selectAction: DummyAction,
-        startAction: SystemActions.togglePause(),
+        startAction: CoreActions.togglePause(),
     },
     arrowProps: {
         leftAction: DummyAction,
@@ -45,7 +45,7 @@ const PauseKeyboardLayout: KeyboardProps = {
 const SnakeGameKeyboardLayout: KeyboardProps = {
     funcProps: {
         selectAction: DummyAction,
-        startAction: SystemActions.togglePause(),
+        startAction: CoreActions.togglePause(),
     },
     arrowProps: {
         upAction: SnakeActions.setDirection(Direction.NORTH),
@@ -70,7 +70,7 @@ function getGameKeyboard(gameType: GameType): KeyboardProps {
 
 export type KeyboardDef = KeyboardProps;
 
-export function getKeyboard(state?: SystemState): KeyboardDef {
+export function getKeyboard(state?: CoreState): KeyboardDef {
     let keyboard;
     if (state === undefined || state.status === SystemStatus.MENU) {
         keyboard = MenuKeyboardLayout;

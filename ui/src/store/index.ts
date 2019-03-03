@@ -1,23 +1,19 @@
 import {Action, applyMiddleware, combineReducers, createStore, Reducer, Store} from 'redux';
 import {combineEpics, createEpicMiddleware} from 'redux-observable';
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
-import {systemReducer} from './system/systemReducer';
-import {SystemState} from './system/systemState';
-import {snakeGameReducer} from './games/snake/snakeReducer';
-import {SnakeGameState} from './games/snake/snakeState';
-import {snakeEpic} from './games/snake/snakeEpic';
-import {CoreGameState} from './games/coreState';
-import {coreGameReducer} from './games/coreReducer';
+import {coreReducer} from './core/coreReducer';
+import {CoreState} from './core/coreState';
+import {snakeGameReducer} from './games/snakeReducer';
+import {SnakeGameState} from './games/snakeState';
+import {snakeEpic} from './games/snakeEpic';
 
 export interface AppState {
-    readonly sys: SystemState;
-    readonly core: CoreGameState;
+    readonly core: CoreState;
     readonly snake: SnakeGameState;
 }
 
 const reducers: Reducer<AppState, Action> = combineReducers({
-    sys: systemReducer,
-    core: coreGameReducer,
+    core: coreReducer,
     snake: snakeGameReducer
 });
 

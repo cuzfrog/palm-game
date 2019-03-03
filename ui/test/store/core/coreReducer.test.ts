@@ -1,6 +1,6 @@
-import {DefaultSystemState, GameType, SystemStatus} from '../../../src/store/system/systemState';
-import {systemReducer} from '../../../src/store/system/systemReducer';
-import {SystemActions} from '../../../src/store/system/systemActions';
+import {DefaultSystemState, GameType, SystemStatus} from '../../../src/store/core/coreState';
+import {coreReducer} from '../../../src/store/core/coreReducer';
+import {CoreActions} from '../../../src/store/core/coreActions';
 import {Specs} from '../../../src/Specs';
 import {getKeyboard} from '../../../src/store/keyboardDef';
 
@@ -13,56 +13,56 @@ beforeEach(() => {
 
 describe('system reducer', () => {
     it('add score to current game', () => {
-        const state = systemReducer(prevState, SystemActions.addScore(500));
+        const state = coreReducer(prevState, CoreActions.addScore(500));
         expect(state.scores.get(state.gameType)).toEqual(prevState.scores.get(state.gameType) as number + 500);
     });
 
     it('increase level', () => {
         const stateLevel1 = {...prevState, level: 1};
-        expect(systemReducer(stateLevel1, SystemActions.increaseLevel()).level).toBe(2);
+        expect(coreReducer(stateLevel1, CoreActions.increaseLevel()).level).toBe(2);
 
         const stateLevelMax = {...prevState, level: Specs.maxLevel};
-        expect(systemReducer(stateLevelMax, SystemActions.increaseLevel()).level).toBe(1);
+        expect(coreReducer(stateLevelMax, CoreActions.increaseLevel()).level).toBe(1);
     });
 
     it('decrease level', () => {
         const stateLevel1 = {...prevState, level: 1};
-        expect(systemReducer(stateLevel1, SystemActions.decreaseLevel()).level).toBe(Specs.maxLevel);
+        expect(coreReducer(stateLevel1, CoreActions.decreaseLevel()).level).toBe(Specs.maxLevel);
 
         const stateLevel3 = {...prevState, level: 3};
-        expect(systemReducer(stateLevel3, SystemActions.decreaseLevel()).level).toBe(2);
+        expect(coreReducer(stateLevel3, CoreActions.decreaseLevel()).level).toBe(2);
     });
 
     const stateNotInGame = {...prevState, status: SystemStatus.MENU};
     const stateInGame = {...prevState, status: SystemStatus.IN_GAME};
 
     it('no pausing game if not in game', () => {
-        expect(() => systemReducer(stateNotInGame, SystemActions.togglePause(), getKeyboardFunc)).toThrow();
+        expect(() => coreReducer(stateNotInGame, CoreActions.togglePause(), getKeyboardFunc)).toThrow();
         expect(getKeyboardFunc.mock.calls.length).toBe(0);
     });
 
     it('pause game if in game', () => {
-        expect(systemReducer(stateInGame, SystemActions.togglePause(), getKeyboardFunc).inGamePaused).toBeTruthy();
+        expect(coreReducer(stateInGame, CoreActions.togglePause(), getKeyboardFunc).inGamePaused).toBeTruthy();
         expect(getKeyboardFunc.mock.calls.length).toBe(1);
     });
 
     it('enter game if not in game', () => {
-        expect(systemReducer(stateNotInGame, SystemActions.enterGame(), getKeyboardFunc).status).toEqual(SystemStatus.IN_GAME);
+        expect(coreReducer(stateNotInGame, CoreActions.enterGame(), getKeyboardFunc).status).toEqual(SystemStatus.IN_GAME);
         expect(getKeyboardFunc.mock.calls.length).toBe(1);
     });
 
     it('no entering game if already in game', () => {
-        expect(() => systemReducer(stateInGame, SystemActions.enterGame(), getKeyboardFunc)).toThrow();
+        expect(() => coreReducer(stateInGame, CoreActions.enterGame(), getKeyboardFunc)).toThrow();
         expect(getKeyboardFunc.mock.calls.length).toBe(0);
     });
 
     it('exit game if in game', () => {
-        expect(systemReducer(stateInGame, SystemActions.exitGame(), getKeyboardFunc).status).not.toBe(SystemStatus.IN_GAME);
+        expect(coreReducer(stateInGame, CoreActions.exitGame(), getKeyboardFunc).status).not.toBe(SystemStatus.IN_GAME);
         expect(getKeyboardFunc.mock.calls.length).toBe(1);
     });
 
     it('no exiting game if not in game', () => {
-        expect(() => systemReducer(stateNotInGame, SystemActions.exitGame())).toThrow();
+        expect(() => coreReducer(stateNotInGame, CoreActions.exitGame())).toThrow();
     });
 
     it('toggle to next game', () => {
@@ -70,11 +70,11 @@ describe('system reducer', () => {
         for (let i = 0; i < keys.length; i++) {
             const stateGameTypeN = {...prevState, status: SystemStatus.MENU, gameType: GameType[keys[i]]};
             const nextGame = GameType[keys[i >= keys.length - 1 ? 0 : i + 1]];
-            expect(systemReducer(stateGameTypeN, SystemActions.toggleGame()).gameType).toEqual(nextGame);
+            expect(coreReducer(stateGameTypeN, CoreActions.toggleGame()).gameType).toEqual(nextGame);
         }
     });
 
     it('cannot toggle game if not in game', () => {
-        expect(() => systemReducer(stateInGame, SystemActions.toggleGame())).toThrow();
+        expect(() => coreReducer(stateInGame, CoreActions.toggleGame())).toThrow();
     });
 });

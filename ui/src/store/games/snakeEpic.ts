@@ -3,13 +3,13 @@ import {ofType} from 'redux-observable';
 import {Action} from 'redux';
 import {Observable, timer} from 'rxjs';
 import _ from 'lodash';
-import {ActionTypes} from '../../actions';
+import {ActionTypes} from '../actions';
 import {SnakeActions} from './snakeActions';
-import {AppState} from '../../index';
-import {Direction, Point} from '../../../domain';
-import {Specs} from '../../../Specs';
+import {AppState} from '..';
+import {Direction, Point} from '../../domain';
+import {Specs} from '../../Specs';
 import {SnakeGameState} from './snakeState';
-import {GameType} from '../../system/systemState';
+import {GameType} from '../core/coreState';
 
 const BASIC_INTERVAL = 900; // ms
 
@@ -57,14 +57,14 @@ const snakeEpicFunc = (action$: Observable<Action>,
         ofType(ActionTypes.ENTER_GAME),
         withLatestFrom(state$),
         map(([, s]) => s),
-        filter(s => s.sys.gameType === GameType.SNAKE),
+        filter(s => s.core.gameType === GameType.SNAKE),
         switchMap(state => {
-            const interval = calculateInterval(state.sys.level);
+            const interval = calculateInterval(state.core.level);
             return timer(interval, interval).pipe(
                 takeUntil(action$.pipe(ofType(ActionTypes.EXIT_GAME))),
                 withLatestFrom(state$),
                 map(([, s]) => s),
-                filter(s => !s.sys.inGamePaused),
+                filter(s => !s.core.inGamePaused),
                 map(creepActionFunc)
             );
         }),

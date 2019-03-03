@@ -1,13 +1,11 @@
 import {List} from 'immutable';
-import {snakeGameReducer} from '../../../../src/store/games/snake/snakeReducer';
-import {SnakeActions} from '../../../../src/store/games/snake/snakeActions';
-import {Direction, Point} from '../../../../src/store/types';
-import {SnakeGameState} from '../../../../src/store/games/snake/snakeState';
-import {Specs} from '../../../../src/Specs';
+import {snakeGameReducer} from '../../../src/store/games/snakeReducer';
+import {SnakeActions} from '../../../src/store/games/snakeActions';
+import {Direction, Point} from '../../../src/domain';
+import {SnakeGameState} from '../../../src/store/games/snakeState';
+import {Specs} from '../../../src/Specs';
 
 const prevState: SnakeGameState = {
-    score: 500,
-    life: 3,
     body: List.of(Point(5, 5), Point(4, 5)),
     direction: Direction.NORTH,
 };

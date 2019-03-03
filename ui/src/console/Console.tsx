@@ -31,7 +31,7 @@ class Console extends React.PureComponent<Props, {}> {
 
 function mapStateToProps(state: AppState): Props {
     return {
-        keyboardProps: state.sys.keyboardLayout
+        keyboardProps: state.core.keyboardLayout
     };
 }
 

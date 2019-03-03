@@ -1,16 +1,16 @@
 import produce from 'immer';
-import {DefaultSystemState, GameType, SystemState, SystemStatus} from './systemState';
+import {DefaultSystemState, GameType, CoreState, SystemStatus} from './coreState';
 import {checkStrictEqual, checkStrictNonEqual, nextEnum} from '../../utils';
-import {SystemAction} from './systemActions';
+import {SystemAction} from './coreActions';
 import {ActionTypes} from '../actions';
 import {getKeyboard, KeyboardDef} from '../keyboardDef';
 import {Specs} from '../../Specs';
 
 const GameTypeValues: ReadonlyArray<number> = Object.keys(GameType).map(key => GameType[key]);
 
-export function systemReducer(state: SystemState = DefaultSystemState,
-                              action: SystemAction,
-                              getKeyboardFunc: (state: SystemState) => KeyboardDef = getKeyboard): SystemState {
+export function coreReducer(state: CoreState = DefaultSystemState,
+                            action: SystemAction,
+                            getKeyboardFunc: (state: CoreState) => KeyboardDef = getKeyboard): CoreState {
     return produce(state, draft => {
             switch (action.type) {
                 case ActionTypes.ADD_SCORE:
@@ -25,17 +25,17 @@ export function systemReducer(state: SystemState = DefaultSystemState,
                 case ActionTypes.TOGGLE_PAUSE:
                     checkStrictEqual(state.status, SystemStatus.IN_GAME, 'cannot pause game if not in game.');
                     draft.inGamePaused = !state.inGamePaused;
-                    draft.keyboardLayout = getKeyboardFunc(draft as SystemState);
+                    draft.keyboardLayout = getKeyboardFunc(draft as CoreState);
                     break;
                 case ActionTypes.ENTER_GAME:
                     checkStrictEqual(state.status, SystemStatus.MENU, 'can only enter game from menu.');
                     draft.status = SystemStatus.IN_GAME;
-                    draft.keyboardLayout = getKeyboardFunc(draft as SystemState);
+                    draft.keyboardLayout = getKeyboardFunc(draft as CoreState);
                     break;
                 case ActionTypes.EXIT_GAME:
                     checkStrictEqual(state.status, SystemStatus.IN_GAME, 'cannot exit game if not in game.');
                     draft.status = SystemStatus.MENU;
-                    draft.keyboardLayout = getKeyboardFunc(draft as SystemState);
+                    draft.keyboardLayout = getKeyboardFunc(draft as CoreState);
                     break;
                 case ActionTypes.TOGGLE_GAME:
                     checkStrictNonEqual(state.status, SystemStatus.IN_GAME, 'cannot toggle game when in game.');

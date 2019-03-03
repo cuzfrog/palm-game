@@ -1,8 +1,8 @@
 import {List, Range} from 'immutable';
 import {PixelState} from './screen/Pixel';
 import {AppState} from '../store';
-import {GameType, SystemStatus} from '../store/system/systemState';
-import {SnakeGameState} from '../store/games/snake/snakeState';
+import {GameType, SystemStatus} from '../store/core/coreState';
+import {SnakeGameState} from '../store/games/snakeState';
 import {Specs} from '../Specs';
 
 const I = PixelState.ON;
@@ -18,19 +18,19 @@ const frameBuffer: PixelState[] = Array(requiredLength);
 
 function show(state: AppState): Frame {
     let frame: Frame = blankFrame;
-    switch (state.sys.status) {
+    switch (state.core.status) {
         case SystemStatus.MENU:
             frame = blankFrame;
             break;
         case SystemStatus.IN_GAME:
-            switch (state.sys.gameType) {
+            switch (state.core.gameType) {
                 case GameType.SNAKE:
                     frame = snakeGameFrame(state.snake);
                     break;
                 default:
-                    throw new TypeError('Unknow gameType:' + state.sys.gameType);
+                    throw new TypeError('Unknow gameType:' + state.core.gameType);
             }
-            if (state.sys.inGamePaused) {
+            if (state.core.inGamePaused) {
                 frame = pauseIndication(frame);
             }
     }

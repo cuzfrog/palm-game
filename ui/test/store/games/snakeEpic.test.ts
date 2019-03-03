@@ -1,20 +1,20 @@
 import {Lens} from 'monocle-ts';
 import {List} from 'immutable';
 import {TestScheduler} from 'rxjs/testing';
-import {snakeEpic} from '../../../../src/store/games/snake/snakeEpic';
-import {AppState} from '../../../../src/store';
-import {DefaultSystemState} from '../../../../src/store/system/systemState';
-import {DefaultSnakeGameState} from '../../../../src/store/games/snake/snakeState';
-import {Direction, Point} from '../../../../src/domain';
-import {SnakeActions} from '../../../../src/store/games/snake/snakeActions';
-import {SystemActions} from '../../../../src/store/system/systemActions';
+import {snakeEpic} from '../../../src/store/games/snakeEpic';
+import {AppState} from '../../../src/store';
+import {DefaultSystemState} from '../../../src/store/core/coreState';
+import {DefaultSnakeGameState} from '../../../src/store/games/snakeState';
+import {Direction, Point} from '../../../src/domain';
+import {SnakeActions} from '../../../src/store/games/snakeActions';
+import {CoreActions} from '../../../src/store/core/coreActions';
 
 const defaultState: AppState = {
-    sys: DefaultSystemState,
+    core: DefaultSystemState,
     snake: DefaultSnakeGameState,
 };
 
-const pauseGameLens = Lens.fromPath<AppState>()(['sys', 'inGamePaused']);
+const pauseGameLens = Lens.fromPath<AppState>()(['core', 'inGamePaused']);
 const bodyLens = Lens.fromPath<AppState>()(['snake', 'body']);
 const directionLens = Lens.fromPath<AppState>()(['snake', 'direction']);
 const beanLens = Lens.fromPath<AppState>()(['snake', 'bean']);
@@ -29,7 +29,7 @@ describe('snake epic', () => {
     it('start and stop', () => {
         const mockCallback = jest.fn(() => mockAction);
         testScheduler.run(({hot, cold}) => {
-            const action$ = hot('a 2s b', {a: SystemActions.enterGame(), b: SystemActions.exitGame()});
+            const action$ = hot('a 2s b', {a: CoreActions.enterGame(), b: CoreActions.exitGame()});
             const state$ = cold('s', {s: defaultState});
             const epic = snakeEpic._snakeEpicFunc(action$, state$, mockCallback);
             epic.subscribe();
@@ -43,7 +43,7 @@ describe('snake epic', () => {
         const mockCallback = jest.fn(() => mockAction);
         const state = pauseGameLens.set(true)(defaultState);
         testScheduler.run(({hot, cold}) => {
-            const action$ = hot('a 5s b', {a: SystemActions.enterGame(), b: SystemActions.exitGame()});
+            const action$ = hot('a 5s b', {a: CoreActions.enterGame(), b: CoreActions.exitGame()});
             const state$ = cold('s', {s: state});
             const epic = snakeEpic._snakeEpicFunc(action$, state$, mockCallback);
             epic.subscribe();

@@ -59,8 +59,8 @@ function getLife(life?: Life) {
 
 function mapStateToProps(state: AppState): Props {
     return {
-        score: state.sys.scores.get(state.sys.gameType, 0),
-        level: state.sys.level,
+        score: state.core.scores.get(state.core.gameType, 0),
+        level: state.core.level,
         life: state.core.life,
         enemyLife: state.core.enemyLife,
     };

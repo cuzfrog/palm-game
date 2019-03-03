@@ -2,10 +2,10 @@ import produce from 'immer';
 import {List} from 'immutable';
 import {DefaultSnakeGameState, SnakeGameState} from './snakeState';
 import {SnakeAction} from './snakeActions';
-import {ActionTypes} from '../../actions';
-import {isOppositeDirection, Point} from '../../../domain';
-import {Specs} from '../../../Specs';
-import {randomInt} from '../../../utils';
+import {ActionTypes} from '../actions';
+import {isOppositeDirection, Point} from '../../domain';
+import {Specs} from '../../Specs';
+import {randomInt} from '../../utils';
 
 export function snakeGameReducer(state: SnakeGameState = DefaultSnakeGameState, action: SnakeAction): SnakeGameState {
     return produce(state, draft => {
