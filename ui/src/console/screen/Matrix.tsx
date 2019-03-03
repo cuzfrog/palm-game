@@ -5,9 +5,10 @@ import {List} from 'immutable';
 import {AppState} from '../../store';
 import {Graphic} from '../GraphicEngine';
 import {connect} from 'react-redux';
+import {Specs} from '../../Specs';
 
-export const MATRIX_WIDTH = 10;
-export const MATRIX_HEIGHT = 16;
+const MATRIX_WIDTH = Specs.graphicWidth;
+const MATRIX_HEIGHT = Specs.graphicHeight;
 const ROWS_START_ARRAY: ReadonlyArray<number> = [...Array(MATRIX_HEIGHT).keys()];
 
 interface Props {

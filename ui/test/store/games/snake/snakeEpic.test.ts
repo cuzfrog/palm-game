@@ -5,7 +5,7 @@ import {snakeEpic} from '../../../../src/store/games/snake/snakeEpic';
 import {AppState} from '../../../../src/store';
 import {DefaultSystemState} from '../../../../src/store/system/systemState';
 import {DefaultSnakeGameState} from '../../../../src/store/games/snake/snakeState';
-import {Direction, Point} from '../../../../src/store/types';
+import {Direction, Point} from '../../../../src/domain';
 import {SnakeActions} from '../../../../src/store/games/snake/snakeActions';
 import {SystemActions} from '../../../../src/store/system/systemActions';
 

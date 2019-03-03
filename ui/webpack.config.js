@@ -8,7 +8,7 @@ const SRC_DIR = /src/;
 
 const config = {
     entry: {
-        app: "./src/index.tsx"
+        app: "./src/app/index.tsx"
     },
     mode: "development",
     devtool: 'cheap-source-map',
