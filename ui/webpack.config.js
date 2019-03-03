@@ -2,6 +2,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const IgnoreNotFoundExportPlugin = require('./IgnoreNotFoundExportPlugin.js');
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const SRC_DIR = /src/;
@@ -77,6 +78,7 @@ const config = {
             filename: 'app.css',
         }),
         // new BundleAnalyzerPlugin(),
+        new IgnoreNotFoundExportPlugin(),
     ],
     optimization: {
         splitChunks: {

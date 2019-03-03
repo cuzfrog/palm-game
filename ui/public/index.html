@@ -13,9 +13,9 @@
             if (/android (\d+\.\d+)/.test(u)) {
                 if (parseFloat(RegExp.$1) > 2.3) m += 'minimum-scale=' + s + ',maximum-scale=' + s + ',';
             } else {
-                m += 'user-scalable=no,';
+                m += 'user-scalable=no';
             }
-            m += 'target-densitydpi=device-dpi">';
+            m += '">';
             document.write(m);
         }());
     </script>
