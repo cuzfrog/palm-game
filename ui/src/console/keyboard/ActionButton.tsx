@@ -1,8 +1,10 @@
 import React from 'react';
 import {Action, Dispatch} from 'redux';
-import Button, {BtnType} from './Button';
 import {connect} from 'react-redux';
 import throttle from 'lodash.throttle';
+import {List} from 'immutable';
+import Button, {BtnType} from './Button';
+import autoBind from 'auto-bind';
 
 const DEFAULT_THROTTLE_INTERVAL = 100; // ms
 
@@ -17,29 +19,43 @@ interface Props<T> extends ConnectedComponent<T> {
     readonly throttleIntervalMs?: number;
 }
 
-function ActionButton<T>(props: Props<T>) {
-    const throttleInterval = props.throttleIntervalMs ? props.throttleIntervalMs : DEFAULT_THROTTLE_INTERVAL;
+interface State {
+    readonly handles: List<number>;
+}
 
-    function fireOn() {
-        intervalHandle.push(window.setInterval(throttledDispatch, throttleInterval));
+class ActionButton<T> extends React.PureComponent<Props<T>, State> {
+
+    private readonly throttleInterval: number;
+    private readonly throttledDispatch: () => void;
+
+    constructor(props: Props<T>) {
+        super(props);
+        this.throttleInterval = props.throttleIntervalMs ? props.throttleIntervalMs : DEFAULT_THROTTLE_INTERVAL;
+        this.state = {handles: List()};
+        this.throttledDispatch = throttle(() => this.props.dispatch(this.props.action), this.throttleInterval, {trailing: false});
+        autoBind.react(this);
     }
 
-    function fireOff() {
-        intervalHandle.forEach(window.clearInterval);
+    public render(): React.ReactNode {
+        return (
+            <Button
+                type={this.props.type}
+                caption={this.props.caption}
+                clickHandler={this.throttledDispatch} // todo remove
+                downHandler={this.fireOn}
+                upHandler={this.fireOff}
+            />
+        );
     }
 
-    const intervalHandle: number[] = [];
-    const throttledDispatch = throttle(() => props.dispatch(props.action), throttleInterval, {trailing: false});
+    private fireOn() {
+        const handle = window.setInterval(this.throttledDispatch, this.throttleInterval);
+        this.setState(prevState => ({handles: prevState.handles.push(handle)}));
+    }
 
-    return (
-        <Button
-            type={props.type}
-            caption={props.caption}
-            clickHandler={throttledDispatch}
-            downHandler={fireOn}
-            upHandler={fireOff}
-        />
-    );
+    private fireOff() {
+        this.state.handles.forEach(window.clearInterval);
+    }
 }
 
 export default connect()(ActionButton);
