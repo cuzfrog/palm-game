@@ -10,7 +10,7 @@ const MATRIX_WIDTH = Specs.graphicWidth;
 const MATRIX_HEIGHT = Specs.graphicHeight;
 const ROWS_START_ARRAY: ReadonlyArray<number> = [...Array(MATRIX_HEIGHT).keys()];
 
-interface MatrixProps {
+export interface MatrixProps {
     readonly frame: List<PixelState>;
 }
 

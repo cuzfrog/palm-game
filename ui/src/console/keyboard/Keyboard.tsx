@@ -4,6 +4,7 @@ import ArrowKeys from './ArrowKeys';
 import FunctionKeys from './FunctionKeys';
 import MainKeys from './MainKeys';
 import {Action} from 'redux';
+import {Connects} from '../../store/connects';
 
 export interface KeyboardProps {
     readonly upAction: Action;
@@ -18,7 +19,7 @@ export interface KeyboardProps {
     readonly actionB: Action;
 }
 
-export default class Keyboard extends React.PureComponent<KeyboardProps, {}> {
+class Keyboard extends React.PureComponent<KeyboardProps, {}> {
     public render() {
         return (
             <div className={styles.keyBoard}>
@@ -29,3 +30,5 @@ export default class Keyboard extends React.PureComponent<KeyboardProps, {}> {
         );
     }
 }
+
+export default Connects.connectToKeyboard(Keyboard);

@@ -10,14 +10,14 @@ const SCORE_WIDTH = 7;
 const LEVEL_WIDTH = 1;
 const LIFE_HEART_COUNT = 10;
 
-interface Props {
+export interface DashboardProps {
     readonly score: number;
     readonly level: number;
     readonly life: Life;
     readonly enemyLife: Life;
 }
 
-class Dashboard extends React.PureComponent<Props, {}> {
+class Dashboard extends React.PureComponent<DashboardProps, {}> {
     public render() {
         const enemyLife = getLife(this.props.enemyLife);
         const life = getLife(this.props.life);

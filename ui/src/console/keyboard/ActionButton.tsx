@@ -3,10 +3,10 @@ import {Action, Dispatch} from 'redux';
 import {connect} from 'react-redux';
 import throttle from 'lodash.throttle';
 import {List} from 'immutable';
-import Button, {BtnType} from './Button';
 import autoBind from 'auto-bind';
+import Button, {BtnType} from './Button';
 
-const DEFAULT_THROTTLE_INTERVAL = 100; // ms
+const DEFAULT_THROTTLE_INTERVAL = 150; // ms
 
 interface ConnectedComponent<T> {
     dispatch: Dispatch<Action<T>>;
@@ -41,7 +41,7 @@ class ActionButton<T> extends React.PureComponent<Props<T>, State> {
             <Button
                 type={this.props.type}
                 caption={this.props.caption}
-                clickHandler={this.throttledDispatch} // todo remove
+                clickHandler={this.throttledDispatch}
                 downHandler={this.fireOn}
                 upHandler={this.fireOff}
             />

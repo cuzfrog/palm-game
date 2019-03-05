@@ -1,8 +1,9 @@
 import {connect} from 'react-redux';
 import {AppState} from '../appState';
 import {GameType, Life, MINIMAL_LIFE} from '../../domain';
+import {DashboardProps} from '../../console';
 
-function mapStateToProps(state: AppState) {
+function mapStateToProps(state: AppState): DashboardProps {
     let life: Life;
     let enemyLife: Life;
     switch (state.core.gameType) {
