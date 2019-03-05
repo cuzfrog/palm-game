@@ -55,6 +55,7 @@ class ActionButton<T> extends React.PureComponent<Props<T>, State> {
 
     private fireOff() {
         this.state.handles.forEach(window.clearInterval);
+        this.setState({handles: List()});
     }
 }
 
