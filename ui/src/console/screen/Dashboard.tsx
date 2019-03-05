@@ -1,11 +1,10 @@
 import React from 'react';
+import classnames from 'classnames';
 import styles from './Dashboard.less';
 import Digit, {FontSize} from './digits/Digit';
-import classnames from 'classnames';
 import LifeBar from './LifeBar';
 import {Life} from '../../domain';
-import {AppState} from '../../store/appState';
-import {connect} from 'react-redux';
+import {Connects} from '../../store';
 
 const SCORE_WIDTH = 7;
 const LEVEL_WIDTH = 1;
@@ -57,13 +56,4 @@ function getLife(life?: Life) {
     }
 }
 
-function mapStateToProps(state: AppState): Props {
-    return {
-        score: state.core.scores.get(state.core.gameType, 0),
-        level: state.core.level,
-        life: state.core.life,
-        enemyLife: state.core.enemyLife,
-    };
-}
-
-export default connect(mapStateToProps)(Dashboard); // todo: connect to every indicator?
+export default Connects.connectToDashboard(Dashboard); // todo: connect to every indicator?

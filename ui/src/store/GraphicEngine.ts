@@ -1,10 +1,7 @@
 import {List, Range} from 'immutable';
-import {PixelState} from './screen';
-import {AppState} from '../store/appState';
-import {SystemStatus} from '../domain';
-import {SnakeGameState} from '../store/games';
+import {AppState, SnakeGameState} from '.';
+import {GameType, PixelState, SystemStatus} from '../domain';
 import {Specs} from '../Specs';
-import {GameType} from '../domain';
 
 const I = PixelState.ON;
 const O = PixelState.OFF;

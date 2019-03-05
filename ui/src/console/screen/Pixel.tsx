@@ -1,9 +1,6 @@
 import React from 'react';
 import style from './Pixel.less';
-
-export const enum PixelState {
-    ON, OFF, TWINKLE
-}
+import {PixelState} from '../../domain';
 
 interface Props {
     value: PixelState;

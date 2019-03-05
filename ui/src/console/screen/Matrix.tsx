@@ -1,22 +1,21 @@
 import React from 'react';
-import style from './Matrix.less';
-import Pixel, {PixelState} from './Pixel';
 import {List} from 'immutable';
-import {AppState} from '../../store/appState';
-import {Graphic} from '../GraphicEngine';
-import {connect} from 'react-redux';
+import style from './Matrix.less';
+import Pixel from './Pixel';
 import {Specs} from '../../Specs';
+import {Connects} from '../../store';
+import {PixelState} from '../../domain';
 
 const MATRIX_WIDTH = Specs.graphicWidth;
 const MATRIX_HEIGHT = Specs.graphicHeight;
 const ROWS_START_ARRAY: ReadonlyArray<number> = [...Array(MATRIX_HEIGHT).keys()];
 
-interface Props {
+interface MatrixProps {
     readonly frame: List<PixelState>;
 }
 
-class Matrix extends React.PureComponent<Props, {}> {
-    constructor(props: Readonly<Props>) {
+class Matrix extends React.PureComponent<MatrixProps, {}> {
+    constructor(props: Readonly<MatrixProps>) {
         super(props);
         if (props.frame.size !== MATRIX_WIDTH * MATRIX_HEIGHT) {
             throw RangeError(`Invalid size, width=${MATRIX_WIDTH}, height=${MATRIX_HEIGHT}, pixelCnt=${props.frame.size}`);
@@ -45,10 +44,4 @@ class Matrix extends React.PureComponent<Props, {}> {
     }
 }
 
-function mapStateToProps(state: AppState): Props {
-    return {
-        frame: Graphic.show(state), // todo check: it relies on the Graphic to provide optimization.
-    };
-}
-
-export default connect(mapStateToProps)(Matrix);
+export default Connects.connectToMatrix(Matrix);

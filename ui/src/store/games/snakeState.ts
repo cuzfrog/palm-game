@@ -1,4 +1,4 @@
-import {Direction, Point} from '../../domain';
+import {Direction, Life, Point} from '../../domain';
 import {List, Range} from 'immutable';
 import {Specs} from '../../Specs';
 
@@ -7,12 +7,17 @@ const INITIAL_LENGTH = 5;
 export interface SnakeGameState {
     readonly body: List<Point>;
     readonly direction: Direction;
+    readonly life: Life;
     readonly bean?: Point;
 }
 
 export const DefaultSnakeGameState: SnakeGameState = {
     body: initialBody(),
     direction: Direction.NORTH,
+    life: {
+        hp: 5,
+        maxHp: 5
+    }
 };
 
 function initialBody(): List<Point> {

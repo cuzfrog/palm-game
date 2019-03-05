@@ -1,6 +1,6 @@
-export {Direction, isOppositeDirection} from './Direction';
-export {Life} from './Life';
-export {Point} from './Point';
+export * from './Direction';
+export * from './Life';
+export * from './Point';
 
 export const enum SystemStatus {
     MENU, IN_GAME
@@ -10,4 +10,6 @@ export enum GameType {
     SNAKE, BOXER
 }
 
-
+export const enum PixelState {
+    ON, OFF, TWINKLE
+}
