@@ -8,7 +8,10 @@ function mapStateToProps(state: AppState): DashboardProps {
     let enemyLife: Life;
     switch (state.core.gameType) {
         case GameType.SNAKE:
-            life = state.snake.life;
+            life = {
+                hp: state.snake.life,
+                maxHp: 10,
+            };
             enemyLife = MINIMAL_LIFE;
             break;
         case GameType.BOXER:

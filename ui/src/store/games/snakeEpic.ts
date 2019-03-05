@@ -9,19 +9,20 @@ import {AppState} from '../appState';
 import {Direction, GameType, Point} from '../../domain';
 import {Specs} from '../../Specs';
 import {SnakeGameState} from './snakeState';
+import {CoreActions} from '../core/';
 
 const BASIC_INTERVAL = 900; // ms
 
 function nextCreepAction(appState: AppState) {
     let action: Action;
-    const state: SnakeGameState = appState.snake;
-    const head = newHeadPoint(state.direction, state.body.last()); // last is head
+    const s: SnakeGameState = appState.snake;
+    const head = newHeadPoint(s.direction, s.body.last()); // last is head
     if (isHittingWall(head)) {
-        action = SnakeActions.hitWall();
-    } else if (state.body.contains(head)) {
-        action = SnakeActions.biteSelf();
+        action = s.life <= 1 ? CoreActions.exitGame() : SnakeActions.hitWall();
+    } else if (s.body.contains(head)) {
+        action = s.life <= 1 ? CoreActions.exitGame() : SnakeActions.biteSelf();
     } else {
-        action = SnakeActions.creep(head, _.isEqual(head, state.bean));
+        action = SnakeActions.creep(head, _.isEqual(head, s.bean));
     }
     return action;
 }

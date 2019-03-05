@@ -31,6 +31,6 @@ export default class LifeBar extends React.PureComponent<Props, {}> {
 function renderHearts(props: Readonly<Props>) {
     const deActiveCnt = (1 - props.hp / props.maxHp) * props.count;
     return [...Array(props.count).keys()].map((i) =>
-        (<div className={i <= deActiveCnt ? styles.heart : styles.activeHeart} key={i}/>)
+        (<div className={i < deActiveCnt ? styles.heart : styles.activeHeart} key={i}/>)
     );
 }

@@ -18,4 +18,4 @@ export const CoreActions = Object.seal({
     toggleGame: () => toggleGame,
 });
 
-export type SystemAction = ActionUnion<typeof CoreActions>;
+export type CoreAction = ActionUnion<typeof CoreActions>;

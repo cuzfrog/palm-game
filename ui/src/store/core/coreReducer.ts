@@ -1,7 +1,7 @@
 import produce from 'immer';
 import {DefaultSystemState, CoreState} from './coreState';
 import {checkStrictEqual, checkStrictNonEqual, nextEnum} from '../../utils';
-import {SystemAction} from './coreActions';
+import {CoreAction} from './coreActions';
 import {ActionTypes} from '../actions';
 import {getKeyboard, KeyboardDef} from '../keyboardDef';
 import {Specs} from '../../Specs';
@@ -10,7 +10,7 @@ import {GameType, SystemStatus} from '../../domain';
 const GameTypeValues: ReadonlyArray<number> = Object.keys(GameType).map(key => GameType[key]);
 
 export function coreReducer(state: CoreState = DefaultSystemState,
-                            action: SystemAction,
+                            action: CoreAction,
                             getKeyboardFunc: (state: CoreState) => KeyboardDef = getKeyboard): CoreState {
     return produce(state, draft => {
             switch (action.type) {
