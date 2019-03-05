@@ -1,13 +1,8 @@
 import {Lens} from 'monocle-ts';
 import {List} from 'immutable';
 import {TestScheduler} from 'rxjs/testing';
-import {snakeEpic} from '../../../src/store/games/snakeEpic';
-import {AppState} from '../../../src/store';
-import {DefaultSystemState} from '../../../src/store/core/coreState';
-import {DefaultSnakeGameState} from '../../../src/store/games/snakeState';
+import {AppState, CoreActions, DefaultSnakeGameState, DefaultSystemState, SnakeActions, snakeEpic} from '../../../src/store';
 import {Direction, Point} from '../../../src/domain';
-import {SnakeActions} from '../../../src/store/games/snakeActions';
-import {CoreActions} from '../../../src/store/core/coreActions';
 
 const defaultState: AppState = {
     core: DefaultSystemState,

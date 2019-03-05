@@ -1,8 +1,5 @@
-import {DefaultSystemState} from '../../../src/store/core/coreState';
-import {coreReducer} from '../../../src/store/core/coreReducer';
-import {CoreActions} from '../../../src/store/core/coreActions';
+import {CoreActions, coreReducer, DefaultSystemState, getKeyboard} from '../../../src/store';
 import {Specs} from '../../../src/Specs';
-import {getKeyboard} from '../../../src/store/keyboardDef';
 import {GameType, SystemStatus} from '../../../src/domain';
 
 const prevState = DefaultSystemState;

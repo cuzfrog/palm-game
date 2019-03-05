@@ -4,7 +4,7 @@ import style from './Console.less';
 import Decorate from './Decorate';
 import Screen from './screen';
 import Keyboard from './keyboard';
-import {AppState} from '../store';
+import {AppState} from '../store/appState';
 import {KeyboardProps} from './keyboard/Keyboard';
 
 interface Props {

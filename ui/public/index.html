@@ -16,7 +16,7 @@
                 m += 'user-scalable=no';
             }
             m += '">';
-            document.write(m);
+            document.getElementsByTagName("meta")[0].insertAdjacentHTML("afterend", m);
         }());
     </script>
 

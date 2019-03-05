@@ -1,8 +1,8 @@
 import {List, Range} from 'immutable';
-import {PixelState} from './screen/Pixel';
-import {AppState} from '../store';
+import {PixelState} from './screen';
+import {AppState} from '../store/appState';
 import {SystemStatus} from '../domain';
-import {SnakeGameState} from '../store/games/snakeState';
+import {SnakeGameState} from '../store/games';
 import {Specs} from '../Specs';
 import {GameType} from '../domain';
 

@@ -4,7 +4,7 @@ import Digit, {FontSize} from './digits/Digit';
 import classnames from 'classnames';
 import LifeBar from './LifeBar';
 import {Life} from '../../domain';
-import {AppState} from '../../store';
+import {AppState} from '../../store/appState';
 import {connect} from 'react-redux';
 
 const SCORE_WIDTH = 7;

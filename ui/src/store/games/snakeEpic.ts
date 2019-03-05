@@ -5,7 +5,7 @@ import {Observable, timer} from 'rxjs';
 import _ from 'lodash';
 import {ActionTypes} from '../actions';
 import {SnakeActions} from './snakeActions';
-import {AppState} from '..';
+import {AppState} from '../appState';
 import {Direction, GameType, Point} from '../../domain';
 import {Specs} from '../../Specs';
 import {SnakeGameState} from './snakeState';

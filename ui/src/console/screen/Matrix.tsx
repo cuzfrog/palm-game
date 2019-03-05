@@ -2,7 +2,7 @@ import React from 'react';
 import style from './Matrix.less';
 import Pixel, {PixelState} from './Pixel';
 import {List} from 'immutable';
-import {AppState} from '../../store';
+import {AppState} from '../../store/appState';
 import {Graphic} from '../GraphicEngine';
 import {connect} from 'react-redux';
 import {Specs} from '../../Specs';
