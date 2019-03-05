@@ -4,7 +4,7 @@ import {BtnType} from './Button';
 import Button from './ActionButton';
 import {Action} from 'redux';
 
-export interface ArrowKeysProps {
+interface ArrowKeysProps {
     readonly upAction: Action;
     readonly rightAction: Action;
     readonly downAction: Action;

@@ -6,10 +6,9 @@ import _ from 'lodash';
 import {ActionTypes} from '../actions';
 import {SnakeActions} from './snakeActions';
 import {AppState} from '..';
-import {Direction, Point} from '../../domain';
+import {Direction, GameType, Point} from '../../domain';
 import {Specs} from '../../Specs';
 import {SnakeGameState} from './snakeState';
-import {GameType} from '../core/coreState';
 
 const BASIC_INTERVAL = 900; // ms
 

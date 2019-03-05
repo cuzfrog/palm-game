@@ -1,22 +1,30 @@
 import React from 'react';
 import styles from './Keyboard.less';
-import ArrowKeys, {ArrowKeysProps} from './ArrowKeys';
-import FunctionKeys, {FuncKeysProps} from './FunctionKeys';
-import MainKeys, {MainKeysProps} from './MainKeys';
+import ArrowKeys from './ArrowKeys';
+import FunctionKeys from './FunctionKeys';
+import MainKeys from './MainKeys';
+import {Action} from 'redux';
 
 export interface KeyboardProps {
-    readonly arrowProps: ArrowKeysProps;
-    readonly funcProps: FuncKeysProps;
-    readonly mainProps: MainKeysProps;
+    readonly upAction: Action;
+    readonly rightAction: Action;
+    readonly downAction: Action;
+    readonly leftAction: Action;
+
+    readonly selectAction: Action;
+    readonly startAction: Action;
+
+    readonly actionA: Action;
+    readonly actionB: Action;
 }
 
 export default class Keyboard extends React.PureComponent<KeyboardProps, {}> {
     public render() {
         return (
             <div className={styles.keyBoard}>
-                <div className={styles.arrowKeysContainer}><ArrowKeys {...this.props.arrowProps}/></div>
-                <div className={styles.funcKeysContainer}><FunctionKeys {...this.props.funcProps}/></div>
-                <div className={styles.mainKeysContainer}><MainKeys {...this.props.mainProps}/></div>
+                <div className={styles.arrowKeysContainer}><ArrowKeys {...this.props}/></div>
+                <div className={styles.funcKeysContainer}><FunctionKeys {...this.props}/></div>
+                <div className={styles.mainKeysContainer}><MainKeys {...this.props}/></div>
             </div>
         );
     }

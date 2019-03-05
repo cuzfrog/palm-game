@@ -1,8 +1,9 @@
-import {DefaultSystemState, GameType, SystemStatus} from '../../../src/store/core/coreState';
+import {DefaultSystemState} from '../../../src/store/core/coreState';
 import {coreReducer} from '../../../src/store/core/coreReducer';
 import {CoreActions} from '../../../src/store/core/coreActions';
 import {Specs} from '../../../src/Specs';
 import {getKeyboard} from '../../../src/store/keyboardDef';
+import {GameType, SystemStatus} from '../../../src/domain';
 
 const prevState = DefaultSystemState;
 const getKeyboardFunc = jest.fn(getKeyboard);

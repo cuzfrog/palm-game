@@ -1,62 +1,47 @@
-import {KeyboardProps} from '../console/keyboard/Keyboard';
-import {Direction} from '../domain';
+import {KeyboardProps} from '../console';
+import {Direction, GameType, SystemStatus} from '../domain';
 import {ActionTypes} from './actions';
-import {CoreActions} from './core/coreActions';
+import {CoreActions, CoreState} from './core';
 import {createAction} from './typeHelper';
 import {SnakeActions} from './games/snakeActions';
-import {GameType, CoreState, SystemStatus} from './core/coreState';
 
 const DummyAction = createAction(ActionTypes.DUMMY_ACTION);
 
+const DummyKeyboardLayout: KeyboardProps = {
+    selectAction: DummyAction,
+    startAction: DummyAction,
+
+    leftAction: DummyAction,
+    rightAction: DummyAction,
+    upAction: DummyAction,
+    downAction: DummyAction,
+
+    actionA: DummyAction,
+    actionB: DummyAction,
+};
+
 const MenuKeyboardLayout: KeyboardProps = {
-    funcProps: {
-        selectAction: CoreActions.toggleGame(),
-        startAction: CoreActions.enterGame(),
-    },
-    arrowProps: {
-        leftAction: CoreActions.decreaseLevel(),
-        rightAction: CoreActions.increaseLevel(),
-        upAction: DummyAction,
-        downAction: DummyAction,
-    },
-    mainProps: {
-        actionA: DummyAction,
-        actionB: DummyAction,
-    }
+    ...DummyKeyboardLayout,
+    selectAction: CoreActions.toggleGame(),
+    startAction: CoreActions.enterGame(),
+
+    leftAction: CoreActions.decreaseLevel(),
+    rightAction: CoreActions.increaseLevel(),
 };
 
 const PauseKeyboardLayout: KeyboardProps = {
-    funcProps: {
-        selectAction: DummyAction,
-        startAction: CoreActions.togglePause(),
-    },
-    arrowProps: {
-        leftAction: DummyAction,
-        rightAction: DummyAction,
-        upAction: DummyAction,
-        downAction: DummyAction,
-    },
-    mainProps: {
-        actionA: DummyAction,
-        actionB: DummyAction,
-    }
+    ...DummyKeyboardLayout,
+    startAction: CoreActions.togglePause(),
 };
 
 const SnakeGameKeyboardLayout: KeyboardProps = {
-    funcProps: {
-        selectAction: DummyAction,
-        startAction: CoreActions.togglePause(),
-    },
-    arrowProps: {
-        upAction: SnakeActions.setDirection(Direction.NORTH),
-        rightAction: SnakeActions.setDirection(Direction.EAST),
-        downAction: SnakeActions.setDirection(Direction.SOUTH),
-        leftAction: SnakeActions.setDirection(Direction.WEST),
-    },
-    mainProps: {
-        actionB: DummyAction,
-        actionA: DummyAction,
-    }
+    ...DummyKeyboardLayout,
+    startAction: CoreActions.togglePause(),
+
+    upAction: SnakeActions.setDirection(Direction.NORTH),
+    rightAction: SnakeActions.setDirection(Direction.EAST),
+    downAction: SnakeActions.setDirection(Direction.SOUTH),
+    leftAction: SnakeActions.setDirection(Direction.WEST),
 };
 
 function getGameKeyboard(gameType: GameType): KeyboardProps {

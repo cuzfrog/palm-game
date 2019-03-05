@@ -1,10 +1,11 @@
 import produce from 'immer';
-import {DefaultSystemState, GameType, CoreState, SystemStatus} from './coreState';
+import {DefaultSystemState, CoreState} from './coreState';
 import {checkStrictEqual, checkStrictNonEqual, nextEnum} from '../../utils';
 import {SystemAction} from './coreActions';
 import {ActionTypes} from '../actions';
 import {getKeyboard, KeyboardDef} from '../keyboardDef';
 import {Specs} from '../../Specs';
+import {GameType, SystemStatus} from '../../domain';
 
 const GameTypeValues: ReadonlyArray<number> = Object.keys(GameType).map(key => GameType[key]);
 

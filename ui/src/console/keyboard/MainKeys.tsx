@@ -4,9 +4,9 @@ import Button from './ActionButton';
 import {BtnType} from './Button';
 import {Action} from 'redux';
 
-export interface MainKeysProps {
-    actionA: Action;
-    actionB: Action;
+interface MainKeysProps {
+    readonly actionA: Action;
+    readonly actionB: Action;
 }
 
 export default class extends React.PureComponent<MainKeysProps, {}> {

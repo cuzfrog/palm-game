@@ -1,12 +1,12 @@
 import React from 'react';
+import {Action} from 'redux';
 import styles from './KeysLayout.less';
 import {BtnType} from './Button';
-import {Action} from 'redux';
 import Button from './ActionButton';
 
 const FUNC_KEY_THROTTLE_INTERVAL = 300;
 
-export interface FuncKeysProps {
+interface FuncKeysProps {
     readonly selectAction: Action;
     readonly startAction: Action;
 }

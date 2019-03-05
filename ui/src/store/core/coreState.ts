@@ -1,15 +1,6 @@
 import {Map} from 'immutable';
-import {KeyboardProps} from '../../console/keyboard/Keyboard';
-import {getKeyboard} from '../keyboardDef';
-import {Life} from '../../domain';
-
-export const enum SystemStatus {
-    MENU, IN_GAME
-}
-
-export enum GameType {
-    SNAKE, BOXER
-}
+import {getKeyboard, KeyboardDef} from '../keyboardDef';
+import {GameType, Life, SystemStatus} from '../../domain';
 
 export interface CoreState {
     readonly status: SystemStatus;
@@ -19,7 +10,7 @@ export interface CoreState {
     readonly enemyLife: Life;
     readonly gameType: GameType;
     readonly inGamePaused: boolean;
-    readonly keyboardLayout: KeyboardProps;
+    readonly keyboardLayout: KeyboardDef;
 }
 
 const MINIMAL_LIFE = {
