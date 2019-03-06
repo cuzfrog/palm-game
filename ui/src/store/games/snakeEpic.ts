@@ -89,6 +89,8 @@ const scoreEpic = (action$: Observable<Action>,
 export const snakeEpic = {
     epic: combineEpics(creepEpic, scoreEpic),
     _creepFunc: creepFunc,
+    _scoreEpic: scoreEpic,
     _nextCreepAction: nextCreepAction,
     BASIC_INTERVAL,
+    SCORE_BASE,
 };
