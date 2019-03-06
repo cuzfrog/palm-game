@@ -1,7 +1,14 @@
 import {Lens} from 'monocle-ts';
 import {List} from 'immutable';
 import {TestScheduler} from 'rxjs/testing';
-import {AppState, CoreActions, DefaultSnakeGameState, DefaultSystemState, SnakeActions, snakeEpic} from '../../../src/store';
+import {
+    AppState,
+    CoreActions,
+    DefaultSnakeGameState,
+    DefaultSystemState,
+    SnakeActions,
+    snakeEpic
+} from '../../../src/store';
 import {Direction, Point} from '../../../src/domain';
 
 const defaultState: AppState = {
@@ -19,14 +26,14 @@ const testScheduler = new TestScheduler((actual, expected) => {
 });
 
 describe('snake epic', () => {
-    const mockAction = {type: 'mock action'};
+    const mockCallback = jest.fn();
 
     it('start and stop', () => {
-        const mockCallback = jest.fn(() => mockAction);
+
         testScheduler.run(({hot, cold}) => {
             const action$ = hot('a 2s b', {a: CoreActions.enterGame(), b: CoreActions.exitGame()});
             const state$ = cold('s', {s: defaultState});
-            const epic = snakeEpic._snakeEpicFunc(action$, state$, mockCallback);
+            const epic = snakeEpic._creepFunc(mockCallback)(action$, state$);
             epic.subscribe();
             // expectObservable(epic)
             //     .toBe('a 899ms a', {a: mockAction});
@@ -34,13 +41,15 @@ describe('snake epic', () => {
         expect(mockCallback.mock.calls.length).toBe(2);
     });
 
+    mockCallback.mockClear();
+
     it('no creep when game is paused', () => {
-        const mockCallback = jest.fn(() => mockAction);
+
         const state = pauseGameLens.set(true)(defaultState);
         testScheduler.run(({hot, cold}) => {
             const action$ = hot('a 5s b', {a: CoreActions.enterGame(), b: CoreActions.exitGame()});
             const state$ = cold('s', {s: state});
-            const epic = snakeEpic._snakeEpicFunc(action$, state$, mockCallback);
+            const epic = snakeEpic._creepFunc(mockCallback)(action$, state$);
             epic.subscribe();
         });
         expect(mockCallback.mock.calls.length).toBe(0);

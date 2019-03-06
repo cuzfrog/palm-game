@@ -1,6 +1,5 @@
 import {filter, map, switchMap, takeUntil, withLatestFrom} from 'rxjs/operators';
-import {ofType} from 'redux-observable';
-import {Action} from 'redux';
+import {combineEpics, ofType} from 'redux-observable';
 import {Observable, timer} from 'rxjs';
 import _ from 'lodash';
 import {ActionTypes} from '../actions';
@@ -10,6 +9,7 @@ import {Direction, GameType, Point} from '../../domain';
 import {Specs} from '../../Specs';
 import {SnakeGameState} from './snakeState';
 import {CoreActions} from '../core/';
+import {Action} from '../index';
 
 const BASIC_INTERVAL = 900; // ms
 
@@ -50,30 +50,45 @@ function calculateInterval(level: number): number {
     return BASIC_INTERVAL - level * 100;
 }
 
-const snakeEpicFunc = (action$: Observable<Action>,
-                       state$: Observable<AppState>,
-                       creepActionFunc: (state: AppState) => Action) => {
+const creepFunc = (creepActionFunc: (state: AppState) => Action) =>
+    (action$: Observable<Action>, state$: Observable<AppState>) => {
+        return action$.pipe(
+            ofType(ActionTypes.ENTER_GAME),
+            withLatestFrom(state$),
+            map(([, s]) => s),
+            filter(s => s.core.gameType === GameType.SNAKE),
+            switchMap(state => {
+                const interval = calculateInterval(state.core.level);
+                return timer(interval, interval).pipe(
+                    takeUntil(action$.pipe(ofType(ActionTypes.EXIT_GAME))),
+                    withLatestFrom(state$),
+                    map(([, s]) => s),
+                    filter(s => !s.core.inGamePaused),
+                    map(creepActionFunc)
+                );
+            }),
+        );
+    };
+const creepEpic = creepFunc(nextCreepAction);
+
+const SCORE_BASE = 5;
+const scoreEpic = (action$: Observable<Action>,
+                   state$: Observable<AppState>) => {
     return action$.pipe(
-        ofType(ActionTypes.ENTER_GAME),
+        filter(a => a.type === ActionTypes.SNAKE_CREEP && a.payload.grown),
         withLatestFrom(state$),
-        map(([, s]) => s),
-        filter(s => s.core.gameType === GameType.SNAKE),
-        switchMap(state => {
-            const interval = calculateInterval(state.core.level);
-            return timer(interval, interval).pipe(
-                takeUntil(action$.pipe(ofType(ActionTypes.EXIT_GAME))),
-                withLatestFrom(state$),
-                map(([, s]) => s),
-                filter(s => !s.core.inGamePaused),
-                map(creepActionFunc)
-            );
+        map(([, s]) => {
+            const level = s.core.level;
+            const bodyLength = s.snake.body.size;
+            const score = SCORE_BASE * bodyLength + SCORE_BASE * level;
+            return CoreActions.addScore(score);
         }),
     );
 };
 
 export const snakeEpic = {
-    epic: (a$: Observable<Action>, s$: Observable<AppState>) => snakeEpicFunc(a$, s$, nextCreepAction),
-    _snakeEpicFunc: snakeEpicFunc,
+    epic: combineEpics(creepEpic, scoreEpic),
+    _creepFunc: creepFunc,
     _nextCreepAction: nextCreepAction,
     BASIC_INTERVAL,
 };

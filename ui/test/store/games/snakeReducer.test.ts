@@ -5,6 +5,7 @@ import {Specs} from '../../../src/Specs';
 
 const prevState: SnakeGameState = {
     body: List.of(Point(5, 5), Point(4, 5)),
+    life : 3,
     direction: Direction.NORTH,
 };
 
