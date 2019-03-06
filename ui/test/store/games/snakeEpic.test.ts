@@ -27,13 +27,19 @@ const testScheduler = new TestScheduler((actual, expected) => {
 
 describe('snake epic', () => {
     const mockCallback = jest.fn();
+    const epicFunc = snakeEpic._creepFunc(mockCallback);
+
+    beforeEach(() => {
+        mockCallback.mockClear();
+    });
 
     it('start and stop', () => {
 
         testScheduler.run(({hot, cold}) => {
-            const action$ = hot('a 2s b', {a: CoreActions.enterGame(), b: CoreActions.exitGame()});
+            const intervalMs = snakeEpic.BASIC_INTERVAL - defaultState.core.level * 100;
+            const action$ = hot(`a ${intervalMs * 2}ms b`, {a: CoreActions.enterGame(), b: CoreActions.exitGame()});
             const state$ = cold('s', {s: defaultState});
-            const epic = snakeEpic._creepFunc(mockCallback)(action$, state$);
+            const epic = epicFunc(action$, state$);
             epic.subscribe();
             // expectObservable(epic)
             //     .toBe('a 899ms a', {a: mockAction});
@@ -41,15 +47,13 @@ describe('snake epic', () => {
         expect(mockCallback.mock.calls.length).toBe(2);
     });
 
-    mockCallback.mockClear();
-
     it('no creep when game is paused', () => {
 
         const state = pauseGameLens.set(true)(defaultState);
         testScheduler.run(({hot, cold}) => {
             const action$ = hot('a 5s b', {a: CoreActions.enterGame(), b: CoreActions.exitGame()});
             const state$ = cold('s', {s: state});
-            const epic = snakeEpic._creepFunc(mockCallback)(action$, state$);
+            const epic = epicFunc(action$, state$);
             epic.subscribe();
         });
         expect(mockCallback.mock.calls.length).toBe(0);
