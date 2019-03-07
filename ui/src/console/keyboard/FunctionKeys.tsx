@@ -1,5 +1,4 @@
 import React from 'react';
-import {Action} from 'redux';
 import styles from './KeysLayout.less';
 import {BtnType} from './Button';
 import Button from './ActionButton';
@@ -7,8 +6,8 @@ import Button from './ActionButton';
 const FUNC_KEY_THROTTLE_INTERVAL = 300;
 
 interface FuncKeysProps {
-    readonly selectAction: Action;
-    readonly startAction: Action;
+    readonly selectAction: () => void;
+    readonly startAction: () => void;
 }
 
 export default class extends React.PureComponent<FuncKeysProps, {}> {

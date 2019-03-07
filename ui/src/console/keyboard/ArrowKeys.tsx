@@ -2,13 +2,12 @@ import React from 'react';
 import styles from './KeysLayout.less';
 import {BtnType} from './Button';
 import Button from './ActionButton';
-import {Action} from 'redux';
 
 interface ArrowKeysProps {
-    readonly upAction: Action;
-    readonly rightAction: Action;
-    readonly downAction: Action;
-    readonly leftAction: Action;
+    readonly upAction: () => void;
+    readonly rightAction: () => void;
+    readonly downAction: () => void;
+    readonly leftAction: () => void;
 }
 
 export default class extends React.PureComponent<Readonly<ArrowKeysProps>, {}> {

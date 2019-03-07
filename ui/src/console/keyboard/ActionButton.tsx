@@ -1,6 +1,4 @@
 import React from 'react';
-import {Action, Dispatch} from 'redux';
-import {connect} from 'react-redux';
 import throttle from 'lodash.throttle';
 import {List} from 'immutable';
 import autoBind from 'auto-bind';
@@ -8,14 +6,10 @@ import Button, {BtnType} from './Button';
 
 const DEFAULT_THROTTLE_INTERVAL = 150; // ms
 
-interface ConnectedComponent<T> {
-    dispatch: Dispatch<Action<T>>;
-}
-
-interface Props<T> extends ConnectedComponent<T> {
+interface Props {
     readonly type: BtnType;
     readonly caption?: string;
-    readonly action: Action<T>;
+    readonly action: () => void;
     readonly throttleIntervalMs?: number;
 }
 
@@ -23,16 +17,16 @@ interface State {
     readonly handles: List<number>;
 }
 
-class ActionButton<T> extends React.PureComponent<Props<T>, State> {
+export default class ActionButton extends React.PureComponent<Props, State> {
 
     private readonly throttleInterval: number;
     private readonly throttledDispatch: () => void;
 
-    constructor(props: Props<T>) {
+    constructor(props: Props) {
         super(props);
         this.throttleInterval = props.throttleIntervalMs ? props.throttleIntervalMs : DEFAULT_THROTTLE_INTERVAL;
         this.state = {handles: List()};
-        this.throttledDispatch = throttle(() => this.props.dispatch(this.props.action), this.throttleInterval, {trailing: false});
+        this.throttledDispatch = throttle(this.props.action, this.throttleInterval, {trailing: false});
         autoBind.react(this);
     }
 
@@ -58,5 +52,3 @@ class ActionButton<T> extends React.PureComponent<Props<T>, State> {
         this.setState({handles: List()});
     }
 }
-
-export default connect()(ActionButton);

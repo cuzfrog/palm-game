@@ -2,11 +2,10 @@ import React from 'react';
 import styles from './KeysLayout.less';
 import Button from './ActionButton';
 import {BtnType} from './Button';
-import {Action} from 'redux';
 
 interface MainKeysProps {
-    readonly actionA: Action;
-    readonly actionB: Action;
+    readonly actionA: () => void;
+    readonly actionB: () => void;
 }
 
 export default class extends React.PureComponent<MainKeysProps, {}> {
