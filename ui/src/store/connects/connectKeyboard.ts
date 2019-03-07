@@ -1,13 +1,13 @@
 import {connect} from 'react-redux';
 import {AppState} from '../appState';
-import {KeyboardDef} from '../keyboardDef';
-import {Dispatch} from 'redux';
+import {KeyboardProps} from '../../console/keyboard';
 
-function mapStateToProps(state: AppState): KeyboardDef {
+
+function mapStateToProps(state: AppState): KeyboardProps {
     return state.core.keyboardLayout;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch): KeyboardProps => {
     return {
         dispatch
     };

@@ -9,4 +9,4 @@ export * from './core';
 export * from './games';
 export * from './connects';
 
-export type Action = CoreAction | SnakeAction;
+export type AppAction = CoreAction | SnakeAction;

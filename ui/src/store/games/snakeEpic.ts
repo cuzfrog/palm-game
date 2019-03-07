@@ -9,12 +9,12 @@ import {Direction, GameType, Point} from '../../domain';
 import {Specs} from '../../Specs';
 import {SnakeGameState} from './snakeState';
 import {CoreActions} from '../core/';
-import {Action} from '../index';
+import {AppAction} from '../index';
 
 const BASIC_INTERVAL = 900; // ms
 
 function nextCreepAction(appState: AppState) {
-    let action: Action;
+    let action: AppAction;
     const s: SnakeGameState = appState.snake;
     const head = newHeadPoint(s.direction, s.body.last()); // last is head
     if (isHittingWall(head)) {
@@ -50,8 +50,8 @@ function calculateInterval(level: number): number {
     return BASIC_INTERVAL - level * 100;
 }
 
-const creepFunc = (creepActionFunc: (state: AppState) => Action) =>
-    (action$: Observable<Action>, state$: Observable<AppState>) => {
+const creepFunc = (creepActionFunc: (state: AppState) => AppAction) =>
+    (action$: Observable<AppAction>, state$: Observable<AppState>) => {
         return action$.pipe(
             ofType(ActionTypes.ENTER_GAME),
             withLatestFrom(state$),
@@ -72,7 +72,7 @@ const creepFunc = (creepActionFunc: (state: AppState) => Action) =>
 const creepEpic = creepFunc(nextCreepAction);
 
 const SCORE_BASE = 5;
-const scoreEpic = (action$: Observable<Action>,
+const scoreEpic = (action$: Observable<AppAction>,
                    state$: Observable<AppState>) => {
     return action$.pipe(
         filter(a => a.type === ActionTypes.SNAKE_CREEP && a.payload.grown),

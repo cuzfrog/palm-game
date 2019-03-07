@@ -1,13 +1,26 @@
-import {KeyboardProps} from '../console';
 import {Direction, GameType, SystemStatus} from '../domain';
 import {ActionTypes} from './actions';
 import {CoreActions, CoreState} from './core';
 import {createAction} from './typeHelper';
 import {SnakeActions} from './games';
+import {Action} from 'redux';
+
+export interface KeyboardDef {
+    selectAction: Action;
+    startAction: Action;
+
+    leftAction: Action;
+    rightAction: Action;
+    upAction: Action;
+    downAction: Action;
+
+    actionA: Action;
+    actionB: Action;
+}
 
 const DummyAction = createAction(ActionTypes.DUMMY_ACTION);
 
-const DummyKeyboardLayout: KeyboardProps = {
+const DummyKeyboardLayout: KeyboardDef = {
     selectAction: DummyAction,
     startAction: DummyAction,
 
@@ -20,7 +33,7 @@ const DummyKeyboardLayout: KeyboardProps = {
     actionB: DummyAction,
 };
 
-const MenuKeyboardLayout: KeyboardProps = {
+const MenuKeyboardLayout: KeyboardDef = {
     ...DummyKeyboardLayout,
     selectAction: CoreActions.toggleGame(),
     startAction: CoreActions.enterGame(),
@@ -29,12 +42,12 @@ const MenuKeyboardLayout: KeyboardProps = {
     rightAction: CoreActions.increaseLevel(),
 };
 
-const PauseKeyboardLayout: KeyboardProps = {
+const PauseKeyboardLayout: KeyboardDef = {
     ...DummyKeyboardLayout,
     startAction: CoreActions.togglePause(),
 };
 
-const SnakeGameKeyboardLayout: KeyboardProps = {
+const SnakeGameKeyboardLayout: KeyboardDef = {
     ...DummyKeyboardLayout,
     startAction: CoreActions.togglePause(),
 
@@ -44,7 +57,7 @@ const SnakeGameKeyboardLayout: KeyboardProps = {
     leftAction: SnakeActions.setDirection(Direction.WEST),
 };
 
-function getGameKeyboard(gameType: GameType): KeyboardProps {
+function getGameKeyboard(gameType: GameType): KeyboardDef {
     switch (gameType) {
         case GameType.SNAKE:
             return SnakeGameKeyboardLayout;
@@ -52,8 +65,6 @@ function getGameKeyboard(gameType: GameType): KeyboardProps {
             throw new TypeError('Unknown enum type:' + gameType);
     }
 }
-
-export type KeyboardDef = KeyboardProps;
 
 export function getKeyboard(state?: CoreState): KeyboardDef {
     let keyboard;
