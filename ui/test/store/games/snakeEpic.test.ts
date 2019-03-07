@@ -21,7 +21,7 @@ const bodyLens = Lens.fromPath<AppState>()(['snake', 'body']);
 const directionLens = Lens.fromPath<AppState>()(['snake', 'direction']);
 const beanLens = Lens.fromPath<AppState>()(['snake', 'bean']);
 
-const testScheduler = new TestScheduler((actual, expected) => {
+const newTestScheduler = () => new TestScheduler((actual, expected) => {
     expect(actual).toEqual(expected);
 });
 
@@ -68,7 +68,7 @@ describe('creep epic', () => {
     });
 
     it('start and stop', () => {
-        testScheduler.run(({hot, cold}) => {
+        newTestScheduler().run(({hot, cold}) => {
             const intervalMs = snakeEpic.BASIC_INTERVAL - defaultState.core.level * 100;
             const action$ = hot(`a ${intervalMs * 2}ms b`, {a: CoreActions.enterGame(), b: CoreActions.exitGame()});
             const state$ = cold('s', {s: defaultState});
@@ -82,7 +82,7 @@ describe('creep epic', () => {
 
     it('no creep when game is paused', () => {
         const state = pauseGameLens.set(true)(defaultState);
-        testScheduler.run(({hot, cold}) => {
+        newTestScheduler().run(({hot, cold}) => {
             const action$ = hot('a 5s b', {a: CoreActions.enterGame(), b: CoreActions.exitGame()});
             const state$ = cold('s', {s: state});
             const epic = epicFunc(action$, state$);
@@ -101,12 +101,11 @@ describe('score epic', () => {
     const SCORE = CoreActions.addScore(score);
 
     it('grown creep will add score', () => {
-        testScheduler.run(({hot, cold, expectObservable}) => {
-            const action$ = hot('cggcg', {g: GROWN, c: CREEP});
+        newTestScheduler().run(({hot, cold, expectObservable}) => {
+            const action$ = cold('cggcg|', {g: GROWN, c: CREEP});
             const state$ = cold('s', {s: defaultState});
             const epic = snakeEpic._scoreEpic(action$, state$);
-            epic.subscribe();
-            expectObservable(epic).toBe('-aa-a', {a: SCORE});
+            expectObservable(epic).toBe('-aa-a|', {a: SCORE});
         });
     });
 });
