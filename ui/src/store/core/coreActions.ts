@@ -7,6 +7,7 @@ const enterGame = createAction(ActionTypes.ENTER_GAME);
 const exitGame = createAction(ActionTypes.EXIT_GAME);
 const togglePause = createAction(ActionTypes.TOGGLE_PAUSE);
 const toggleGame = createAction(ActionTypes.TOGGLE_GAME);
+const dummyAction = createAction(ActionTypes.DUMMY_ACTION);
 
 export const CoreActions = Object.seal({
     addScore: (score: number) => createActionWithPayload(ActionTypes.ADD_SCORE, score),
@@ -16,6 +17,7 @@ export const CoreActions = Object.seal({
     exitGame: () => exitGame,
     togglePause: () => togglePause,
     toggleGame: () => toggleGame,
+    dummy: () => dummyAction,
 });
 
 export type CoreAction = ActionUnion<typeof CoreActions>;

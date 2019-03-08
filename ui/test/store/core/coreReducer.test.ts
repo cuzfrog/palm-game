@@ -1,13 +1,8 @@
-import {CoreActions, coreReducer, DefaultSystemState, getKeyboard} from '../../../src/store';
+import {CoreActions, coreReducer, DefaultSystemState} from '../../../src/store';
 import {Specs} from '../../../src/Specs';
 import {GameType, SystemStatus} from '../../../src/domain';
 
 const prevState = DefaultSystemState;
-const getKeyboardFunc = jest.fn(getKeyboard);
-
-beforeEach(() => {
-    getKeyboardFunc.mockClear();
-});
 
 describe('system reducer', () => {
     it('add score to current game', () => {
@@ -35,28 +30,23 @@ describe('system reducer', () => {
     const stateInGame = {...prevState, status: SystemStatus.IN_GAME};
 
     it('no pausing game if not in game', () => {
-        expect(() => coreReducer(stateNotInGame, CoreActions.togglePause(), getKeyboardFunc)).toThrow();
-        expect(getKeyboardFunc.mock.calls.length).toBe(0);
+        expect(() => coreReducer(stateNotInGame, CoreActions.togglePause())).toThrow();
     });
 
     it('pause game if in game', () => {
-        expect(coreReducer(stateInGame, CoreActions.togglePause(), getKeyboardFunc).inGamePaused).toBeTruthy();
-        expect(getKeyboardFunc.mock.calls.length).toBe(1);
+        expect(coreReducer(stateInGame, CoreActions.togglePause()).inGamePaused).toBeTruthy();
     });
 
     it('enter game if not in game', () => {
-        expect(coreReducer(stateNotInGame, CoreActions.enterGame(), getKeyboardFunc).status).toEqual(SystemStatus.IN_GAME);
-        expect(getKeyboardFunc.mock.calls.length).toBe(1);
+        expect(coreReducer(stateNotInGame, CoreActions.enterGame()).status).toEqual(SystemStatus.IN_GAME);
     });
 
     it('no entering game if already in game', () => {
-        expect(() => coreReducer(stateInGame, CoreActions.enterGame(), getKeyboardFunc)).toThrow();
-        expect(getKeyboardFunc.mock.calls.length).toBe(0);
+        expect(() => coreReducer(stateInGame, CoreActions.enterGame())).toThrow();
     });
 
     it('exit game if in game', () => {
-        expect(coreReducer(stateInGame, CoreActions.exitGame(), getKeyboardFunc).status).not.toBe(SystemStatus.IN_GAME);
-        expect(getKeyboardFunc.mock.calls.length).toBe(1);
+        expect(coreReducer(stateInGame, CoreActions.exitGame()).status).not.toBe(SystemStatus.IN_GAME);
     });
 
     it('no exiting game if not in game', () => {
