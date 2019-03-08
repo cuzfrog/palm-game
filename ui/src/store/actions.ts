@@ -6,6 +6,15 @@ export const enum ActionTypes {
     EXIT_GAME = '[sys] exit game',
     TOGGLE_GAME = '[sys] toggle game',
 
+    UP = '[key] trigger up',
+    RIGHT = '[key] trigger right',
+    DOWN = '[key] trigger down',
+    LEFT = '[key] trigger left',
+    SELECT = '[key] trigger select',
+    START = '[key] trigger START',
+    A = '[key] trigger A',
+    B = '[key] trigger B',
+
     INCREASE_LEVEL = '[game] increase level',
     DECREASE_LEVEL = '[game] decrease level',
     ADD_SCORE = '[game] add score',

@@ -1,16 +1,19 @@
 import {connect} from 'react-redux';
-import {AppState} from '../appState';
+import {Dispatch} from 'redux';
 import {KeyboardProps} from '../../console/keyboard';
+import {KeyboardActions} from '../core';
 
-
-function mapStateToProps(state: AppState): KeyboardProps {
-    return state.core.keyboardLayout;
-}
-
-const mapDispatchToProps = (dispatch): KeyboardProps => {
+const mapDispatchToProps = (dispatch: Dispatch): KeyboardProps => {
     return {
-        dispatch
+        upAction: () => dispatch(KeyboardActions.up),
+        rightAction: () => dispatch(KeyboardActions.right),
+        downAction: () => dispatch(KeyboardActions.down),
+        leftAction: () => dispatch(KeyboardActions.left),
+        selectAction: () => dispatch(KeyboardActions.select),
+        startAction: () => dispatch(KeyboardActions.start),
+        actionA: () => dispatch(KeyboardActions.a),
+        actionB: () => dispatch(KeyboardActions.b),
     };
 };
 
-export const connectToKeyboard = connect(mapStateToProps, mapDispatchToProps);
+export const connectToKeyboard = connect(null, mapDispatchToProps);

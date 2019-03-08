@@ -1,5 +1,4 @@
 import {Map} from 'immutable';
-import {getKeyboard, KeyboardDef} from '../keyboardDef';
 import {GameType, SystemStatus} from '../../domain';
 
 export interface CoreState {
@@ -8,7 +7,6 @@ export interface CoreState {
     readonly level: number;
     readonly gameType: GameType;
     readonly inGamePaused: boolean;
-    readonly keyboardLayout: KeyboardDef;
 }
 
 export const DefaultSystemState: CoreState = {
@@ -17,5 +15,4 @@ export const DefaultSystemState: CoreState = {
     level: 3,
     gameType: GameType.SNAKE,
     inGamePaused: false,
-    keyboardLayout: getKeyboard(),
 };
