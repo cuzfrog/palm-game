@@ -18,7 +18,7 @@ export enum BtnType {
     DOWN = style.downButton
 }
 
-export default class extends React.PureComponent<Props, {}> {
+export default class Button extends React.PureComponent<Props, {}> {
     constructor(props: Props) {
         super(props);
         if (typeof props.downHandler !== typeof props.upHandler) {
