@@ -16,7 +16,9 @@ describe('ActionButton works', () => {
     const button = mount(<ActionButton type={BtnType.DOWN} action={action} throttleIntervalMs={actionThrottleInterval}/>);
 
     it('click triggers an action', () => {
-        button.simulate('click');
+        for (let i = 0; i < 5; i++) {
+            button.simulate('click');
+        }
         expect(action).toBeCalledTimes(1);
     });
 
