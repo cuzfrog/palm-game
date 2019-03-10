@@ -4,6 +4,7 @@ import {GameType, SystemStatus} from '../../domain';
 export interface CoreState {
     readonly status: SystemStatus;
     readonly scores: Map<GameType, number>;
+    readonly maxScores: Map<GameType, number>;
     readonly level: number;
     readonly gameType: GameType;
     readonly inGamePaused: boolean;
@@ -12,6 +13,7 @@ export interface CoreState {
 export const DefaultCoreState: CoreState = {
     status: SystemStatus.MENU,
     scores: Map(),
+    maxScores: Map(),
     level: 3,
     gameType: GameType.SNAKE,
     inGamePaused: false,
