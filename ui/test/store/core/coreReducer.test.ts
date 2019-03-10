@@ -1,13 +1,20 @@
-import {CoreActions, coreReducer, DefaultSystemState} from '../../../src/store';
-import {Specs} from '../../../src/Specs';
+import {Lens} from 'monocle-ts';
+import {Map} from 'immutable';
 import {GameType, SystemStatus} from '../../../src/domain';
 
-const prevState = DefaultSystemState;
+import {CoreActions, coreReducer, CoreState, DefaultCoreState} from '../../../src/store';
+import {Specs} from '../../../src/Specs';
+
+
+const prevState = DefaultCoreState;
+
+const scoreLens = Lens.fromPath<CoreState>()(['scores']);
 
 describe('system reducer', () => {
     it('add score to current game', () => {
-        const state = coreReducer(prevState, CoreActions.addScore(500));
-        expect(state.scores.get(state.gameType)).toEqual(prevState.scores.get(state.gameType) as number + 500);
+        const stateWithScore = scoreLens.set(Map())(prevState);
+        const state = coreReducer(stateWithScore, CoreActions.addScore(500));
+        expect(state.scores.get(state.gameType)).toEqual(500);
     });
 
     it('increase level', () => {

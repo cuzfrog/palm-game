@@ -5,14 +5,14 @@ import {
     AppState,
     CoreActions,
     DefaultSnakeGameState,
-    DefaultSystemState,
+    DefaultCoreState,
     SnakeActions,
     snakeEpic
 } from '../../../src/store';
 import {Direction, Point} from '../../../src/domain';
 
 const defaultState: AppState = {
-    core: DefaultSystemState,
+    core: DefaultCoreState,
     snake: DefaultSnakeGameState,
 };
 

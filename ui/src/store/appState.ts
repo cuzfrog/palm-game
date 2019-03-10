@@ -1,5 +1,6 @@
 import {Action, applyMiddleware, combineReducers, createStore, Reducer, Store} from 'redux';
-import {composeWithDevTools} from 'redux-devtools-extension';
+import logger from 'redux-logger';
+import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 import {combineEpics, createEpicMiddleware} from 'redux-observable';
 import {snakeEpic, snakeGameReducer, SnakeGameState} from './games';
 import {coreReducer, CoreState, keyboardEpic} from './core';
@@ -21,10 +22,14 @@ const reducers: Reducer<AppState, Action> = (state, action) => {
 const epics = combineEpics(snakeEpic.epic, keyboardEpic.epic);
 const epicMiddleware = createEpicMiddleware<Action, Action, AppState>();
 
+const composeEnhancers = composeWithDevTools({
+    // Specify name here, actionsBlacklist, actionsCreators and other options if needed
+});
+
 export const store: Store<AppState> = createStore(
     reducers,
-    /* initialState */
-    composeWithDevTools(applyMiddleware(epicMiddleware))
+    undefined,
+    composeEnhancers(applyMiddleware(epicMiddleware, logger))
 );
 
 epicMiddleware.run(epics);

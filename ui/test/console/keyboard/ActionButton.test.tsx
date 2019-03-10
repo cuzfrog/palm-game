@@ -4,7 +4,7 @@ import {BtnType} from '../../../src/console/keyboard/Button';
 import React from 'react';
 
 describe('ActionButton works', () => {
-    const action = {type: 'mock-action', payload: 123};
+    const action = jest.fn();
     const component = create(<ActionButton type={BtnType.DOWN} action={action}/>);
 
     it('spec name', () => {

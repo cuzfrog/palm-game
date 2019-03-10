@@ -1,5 +1,5 @@
 import produce from 'immer';
-import {CoreState, DefaultSystemState} from './coreState';
+import {CoreState, DefaultCoreState} from './coreState';
 import {checkStrictEqual, checkStrictNonEqual, nextEnum} from '../../utils';
 import {CoreAction} from './coreActions';
 import {ActionTypes} from '../actions';
@@ -8,11 +8,11 @@ import {GameType, SystemStatus} from '../../domain';
 
 const GameTypeValues: ReadonlyArray<number> = Object.keys(GameType).map(key => GameType[key]);
 
-export function coreReducer(state: CoreState = DefaultSystemState, action: CoreAction): CoreState {
+export function coreReducer(state: CoreState = DefaultCoreState, action: CoreAction): CoreState {
     return produce(state, draft => {
             switch (action.type) {
                 case ActionTypes.ADD_SCORE:
-                    draft.scores = state.scores.update(state.gameType, prevScore => prevScore + action.payload);
+                    draft.scores = state.scores.update(state.gameType, prevScore => scoreUpdater(prevScore , action.payload));
                     break;
                 case ActionTypes.INCREASE_LEVEL:
                     draft.level = state.level >= Specs.maxLevel ? 1 : state.level + 1;
@@ -38,4 +38,9 @@ export function coreReducer(state: CoreState = DefaultSystemState, action: CoreA
             }
         }
     );
+}
+
+function scoreUpdater(prevScore: number | undefined, payload: number): number {
+    const base = prevScore ? prevScore : 0;
+    return base + payload;
 }

@@ -9,7 +9,7 @@ export interface CoreState {
     readonly inGamePaused: boolean;
 }
 
-export const DefaultSystemState: CoreState = {
+export const DefaultCoreState: CoreState = {
     status: SystemStatus.MENU,
     scores: Map(),
     level: 3,
