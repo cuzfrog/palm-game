@@ -1,5 +1,4 @@
 import produce from 'immer';
-import {Map} from 'immutable';
 import {CoreState, DefaultCoreState} from './coreState';
 import {checkStrictEqual, checkStrictNonEqual, nextEnum} from '../../utils';
 import {CoreAction} from './coreActions';
@@ -32,7 +31,7 @@ export function coreReducer(state: CoreState = DefaultCoreState, action: CoreAct
                 case ActionTypes.EXIT_GAME:
                     checkStrictEqual(state.status, SystemStatus.IN_GAME, 'cannot exit game if not in game.');
                     draft.status = SystemStatus.MENU;
-                    draft.maxScores = updateMaxScores(draft.scores, draft.maxScores);
+                    draft.maxScores = state.scores.mergeWith(maxFunc, state.maxScores);
                     break;
                 case ActionTypes.TOGGLE_GAME:
                     checkStrictNonEqual(state.status, SystemStatus.IN_GAME, 'cannot toggle game when in game.');
@@ -47,6 +46,8 @@ function scoreUpdater(prevScore: number | undefined, payload: number): number {
     return base + payload;
 }
 
-function updateMaxScores(scores: Map<GameType, number>, maxScores: Map<GameType, number>): Map<GameType, number> {
-    
+function maxFunc(s1: number | undefined, s2: number | undefined) {
+    const v1 = s1 ? s1 : 0;
+    const v2 = s2 ? s2 : 0;
+    return Math.max(v1, v2);
 }

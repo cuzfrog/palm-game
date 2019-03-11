@@ -5,7 +5,6 @@ import {GameType, SystemStatus} from '../../../src/domain';
 import {CoreActions, coreReducer, CoreState, DefaultCoreState} from '../../../src/store';
 import {Specs} from '../../../src/Specs';
 
-
 const prevState = DefaultCoreState;
 
 const scoreLens = Lens.fromPath<CoreState>()(['scores']);
@@ -52,8 +51,10 @@ describe('system reducer', () => {
         expect(() => coreReducer(stateInGame, CoreActions.enterGame())).toThrow();
     });
 
-    it('exit game if in game', () => {
+    it('exit game and save scores to maxScores', () => {
+
         expect(coreReducer(stateInGame, CoreActions.exitGame()).status).not.toBe(SystemStatus.IN_GAME);
+        // todo: add scores test
     });
 
     it('no exiting game if not in game', () => {
