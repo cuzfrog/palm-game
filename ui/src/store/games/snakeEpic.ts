@@ -1,5 +1,5 @@
-import {filter, map, switchMap, takeUntil, withLatestFrom} from 'rxjs/operators';
-import {combineEpics, ofType} from 'redux-observable';
+import {delay, filter, map, switchMap, takeUntil, withLatestFrom} from 'rxjs/operators';
+import {combineEpics, ofType, StateObservable} from 'redux-observable';
 import {Observable, timer} from 'rxjs';
 import {ActionTypes} from '../actions';
 import {SnakeActions} from './snakeActions';
@@ -17,7 +17,7 @@ function nextCreepAction(appState: AppState) {
     const s: SnakeGameState = appState.snake;
     const head = newHeadPoint(s.direction, s.body.last()); // last is head
     if (head.equals(s.hole)) {
-        action = SnakeActions.win();
+        action = SnakeActions.escape();
     } else if (isHittingWall(head)) {
         action = s.life <= 1 ? CoreActions.exitGame() : SnakeActions.hitWall();
     } else if (s.body.contains(head)) {
@@ -88,18 +88,21 @@ const scoreEpic = (action$: Observable<AppAction>,
     );
 };
 
-const winEpic = (action$: Observable<AppAction>,
-                 state$: Observable<AppState>) => {
+const ESCAPE_INTERVAL = Specs.snakeGame.escapeAnimationIntervalMs;
+const escapeEpic = (action$: Observable<AppAction>,
+                    state$: StateObservable<AppState>) => {
     return action$.pipe(
-        ofType(ActionTypes.SNAKE_WIN),
+        ofType(ActionTypes.SNAKE_ESCAPE),
+        delay(ESCAPE_INTERVAL),
+        map(() => state$.value.snake.body.size <= 0 ? SnakeActions.win() : SnakeActions.escape()),
     );
 };
 
 export const snakeEpic = {
-    epic: combineEpics(creepEpic, scoreEpic, winEpic),
+    epic: combineEpics(creepEpic, scoreEpic, escapeEpic),
     _creepFunc: creepFunc,
     _scoreEpic: scoreEpic,
-    _winEpic: winEpic,
+    _escapeEpic: escapeEpic,
     _nextCreepAction: nextCreepAction,
     BASIC_INTERVAL,
     SCORE_BASE,

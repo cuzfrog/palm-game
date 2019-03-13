@@ -7,6 +7,7 @@ const constants = Object.seal({
         baseCreepIntervalMs: 900,
         winBodyLength: 7,
         baseScore: 5,
+        escapeAnimationIntervalMs: 100,
     },
 });
 

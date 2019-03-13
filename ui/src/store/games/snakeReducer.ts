@@ -35,6 +35,9 @@ export function snakeGameReducer(state: SnakeGameState = DefaultSnakeGameState, 
                     ...DefaultSnakeGameState,
                     life: state.life - 1,
                 };
+            case ActionTypes.SNAKE_ESCAPE:
+                draft.body = state.body.takeLast(state.body.size - 1);
+                return;
             default:
                 return;
         }

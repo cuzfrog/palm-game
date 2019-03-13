@@ -5,6 +5,7 @@ import {Direction, Point} from '../../domain';
 const biteSelf = createAction(ActionTypes.SNAKE_BITE_SELF);
 const hitWall = createAction(ActionTypes.SNAKE_HIT_WALL);
 const win = createAction(ActionTypes.SNAKE_WIN);
+const escape = createAction(ActionTypes.SNAKE_ESCAPE);
 
 export const SnakeActions = {
     setDirection: (direction: Direction) => createActionWithPayload(ActionTypes.SET_DIRECTION, direction),
@@ -12,6 +13,7 @@ export const SnakeActions = {
     hitWall: () => hitWall,
     creep: (head: Point, grown: boolean) => createActionWithPayload(ActionTypes.SNAKE_CREEP, {head, grown}),
     win: () => win,
+    escape: () => escape,
 };
 
 export type SnakeAction = ActionUnion<typeof SnakeActions>;
