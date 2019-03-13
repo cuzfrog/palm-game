@@ -52,9 +52,13 @@ describe('system reducer', () => {
     });
 
     it('exit game and save scores to maxScores', () => {
-
-        expect(coreReducer(stateInGame, CoreActions.exitGame()).status).not.toBe(SystemStatus.IN_GAME);
-        // todo: add scores test
+        const scores = Map([[GameType.BOXER, 5000], [GameType.SNAKE, 300]]);
+        const maxScores = Map([[GameType.BOXER, 3000], [GameType.SNAKE, 1000]]);
+        const s1 = {...stateInGame, scores, maxScores};
+        const s2 = coreReducer(s1, CoreActions.exitGame());
+        expect(s2.status).not.toBe(SystemStatus.IN_GAME);
+        expect(s2.maxScores.get(GameType.SNAKE)).toBe(1000);
+        expect(s2.maxScores.get(GameType.BOXER)).toBe(5000);
     });
 
     it('no exiting game if not in game', () => {
