@@ -16,18 +16,22 @@ function logicNot(value: boolean): boolean {
     return !value;
 }
 
-function randomInt(max: number): number {
-    return Math.floor(Math.random() * Math.floor(max));
+/** both params are inclusive */
+function randomInt(max: number, min?: number): number {
+    const base = min ? min : 0;
+    requireTrue(max > base, 'max must > min');
+    const ceiling = max - base;
+    return Math.floor(Math.random() * Math.floor(ceiling)) + base;
 }
 
 /** Not undefined, not null, not empty string. */
-function checkNonEmpty<T>(v: T): T {
-    if (typeof v === 'string' && v.length === 0) {
-        throw new Error('Value is empty string.');
-    } else if (v === null) {
+function checkNonEmpty<T>(v: T | undefined): T {
+    if (v === null) {
         throw new TypeError('Value is null');
     } else if (v === undefined) {
         throw new TypeError('Value is undefined');
+    } else if (typeof v === 'string' && v.length === 0) {
+        throw new Error('Value is empty string.');
     }
     return v;
 }
@@ -46,6 +50,12 @@ function checkStrictNonEqual(v: any, expected: any, msg: string = `'${v}' is str
 
 function throwTypeError(v: any): void {
     throw new TypeError('unknown type:' + v);
+}
+
+function requireTrue(condition: boolean, msg?: string) {
+    if (!condition) {
+        throw new Error(msg);
+    }
 }
 
 export {

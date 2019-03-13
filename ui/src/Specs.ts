@@ -4,6 +4,9 @@ const constants = Object.seal({
     maxLevel: 8,
     snakeGame: {
         beanProduceChance: 0.5,
+        baseCreepIntervalMs: 900,
+        winBodyLength: 7,
+        baseScore: 5,
     },
 });
 

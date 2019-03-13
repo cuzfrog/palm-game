@@ -18,6 +18,7 @@ class _Point implements ValueObject {
     }
 }
 
+/** No binding for performance's sake */
 export type Point = _Point;
 
 export function Point(x: number, y: number): Point {

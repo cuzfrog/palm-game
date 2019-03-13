@@ -1,7 +1,6 @@
 import {filter, map, switchMap, takeUntil, withLatestFrom} from 'rxjs/operators';
 import {combineEpics, ofType} from 'redux-observable';
 import {Observable, timer} from 'rxjs';
-import _ from 'lodash';
 import {ActionTypes} from '../actions';
 import {SnakeActions} from './snakeActions';
 import {AppState} from '../appState';
@@ -11,18 +10,21 @@ import {SnakeGameState} from './snakeState';
 import {CoreActions} from '../core/';
 import {AppAction} from '../index';
 
-const BASIC_INTERVAL = 900; // ms
+const BASIC_INTERVAL = Specs.snakeGame.baseCreepIntervalMs;
 
 function nextCreepAction(appState: AppState) {
     let action: AppAction;
     const s: SnakeGameState = appState.snake;
     const head = newHeadPoint(s.direction, s.body.last()); // last is head
-    if (isHittingWall(head)) {
+    if (head.equals(s.hole)) {
+        action = SnakeActions.win();
+    } else if (isHittingWall(head)) {
         action = s.life <= 1 ? CoreActions.exitGame() : SnakeActions.hitWall();
     } else if (s.body.contains(head)) {
         action = s.life <= 1 ? CoreActions.exitGame() : SnakeActions.biteSelf();
     } else {
-        action = SnakeActions.creep(head, _.isEqual(head, s.bean));
+        const grown = head.equals(s.bean);
+        action = SnakeActions.creep(head, grown);
     }
     return action;
 }
@@ -43,7 +45,7 @@ function newHeadPoint(direction: Direction, head: Point): Point {
 }
 
 function isHittingWall(head: Point): boolean {
-    return head.x < 0 || head.x >= Specs.graphicWidth || head.y < 0 || head.y >= Specs.graphicHeight;
+    return head.x < 1 || head.x >= Specs.graphicWidth - 1 || head.y < 1 || head.y >= Specs.graphicHeight - 1;
 }
 
 function calculateInterval(level: number): number {
@@ -51,7 +53,7 @@ function calculateInterval(level: number): number {
 }
 
 const creepFunc = (creepActionFunc: (state: AppState) => AppAction) =>
-    (action$: Observable<AppAction>, state$: Observable<AppState>) => {
+    (action$: Observable<AppAction>, state$: Observable<AppState>) => { // todo: use WIN / FAIL to control
         return action$.pipe(
             ofType(ActionTypes.ENTER_GAME),
             withLatestFrom(state$),
@@ -60,7 +62,7 @@ const creepFunc = (creepActionFunc: (state: AppState) => AppAction) =>
             switchMap(state => {
                 const interval = calculateInterval(state.core.level);
                 return timer(interval, interval).pipe(
-                    takeUntil(action$.pipe(ofType(ActionTypes.EXIT_GAME))),
+                    takeUntil(action$.pipe(ofType(ActionTypes.EXIT_GAME, ActionTypes.SNAKE_WIN))),
                     withLatestFrom(state$),
                     map(([, s]) => s),
                     filter(s => !s.core.inGamePaused),
@@ -71,7 +73,7 @@ const creepFunc = (creepActionFunc: (state: AppState) => AppAction) =>
     };
 const creepEpic = creepFunc(nextCreepAction);
 
-const SCORE_BASE = 5;
+const SCORE_BASE = Specs.snakeGame.baseScore;
 const scoreEpic = (action$: Observable<AppAction>,
                    state$: Observable<AppState>) => {
     return action$.pipe(
@@ -86,10 +88,18 @@ const scoreEpic = (action$: Observable<AppAction>,
     );
 };
 
+const winEpic = (action$: Observable<AppAction>,
+                 state$: Observable<AppState>) => {
+    return action$.pipe(
+        ofType(ActionTypes.SNAKE_WIN),
+    );
+};
+
 export const snakeEpic = {
-    epic: combineEpics(creepEpic, scoreEpic),
+    epic: combineEpics(creepEpic, scoreEpic, winEpic),
     _creepFunc: creepFunc,
     _scoreEpic: scoreEpic,
+    _winEpic: winEpic,
     _nextCreepAction: nextCreepAction,
     BASIC_INTERVAL,
     SCORE_BASE,

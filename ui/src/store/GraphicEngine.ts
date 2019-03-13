@@ -1,6 +1,6 @@
 import {List, Range} from 'immutable';
 import {AppState, SnakeGameState} from '.';
-import {GameType, PixelState, SystemStatus} from '../domain';
+import {GameType, PixelState, Point, SystemStatus} from '../domain';
 import {Specs} from '../Specs';
 
 const I = PixelState.ON;
@@ -35,23 +35,38 @@ function show(state: AppState): Frame {
     return frame;
 }
 
-function validateFrame(frame: Frame): Frame {
-    if (requiredLength !== frame.size) {
-        throw Error('Bad frame!');
+function validateFrame(frame: Frame): boolean {
+    return requiredLength !== frame.size;
+}
+
+const borderFrame = Range(0, requiredLength).map(i => {
+    if (i <= W || i % W === 0 || (i + 1) % W === 0 || i > requiredLength - W) {
+        return I;
+    } else {
+        return O;
+    }
+}).toList();
+
+function snakeGameFrame(state: SnakeGameState): Frame {
+    borderFrame.forEach((v, i) => frameBuffer[i] = v);
+    state.body.forEach(p => {
+        frameBuffer[toIndex(p)] = I;
+    });
+    if (state.bean) {
+        frameBuffer[toIndex(state.bean)] = S;
+    }
+    if (state.hole) {
+        frameBuffer[toIndex(state.hole)] = O;
+    }
+    const frame = List(frameBuffer);
+    if (validateFrame(frame)) {
+        throw Error(`Bad frame, current state: ${state}`);
     }
     return frame;
 }
 
-function snakeGameFrame(state: SnakeGameState): Frame {
-    frameBuffer.fill(O);
-    state.body.forEach(p => {
-        frameBuffer[p.y * W + p.x] = I;
-    });
-    if (state.bean) {
-        const b = state.bean;
-        frameBuffer[b.y * W + b.x] = S;
-    }
-    return List(frameBuffer);
+function toIndex(p: Point): number {
+    return p.y * W + p.x;
 }
 
 function pauseIndication(frame: Frame): Frame {
@@ -59,5 +74,5 @@ function pauseIndication(frame: Frame): Frame {
 }
 
 export const Graphic = {
-    show: (state: AppState) => validateFrame(show(state))
+    show: (state: AppState) => show(state)
 };

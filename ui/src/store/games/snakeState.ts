@@ -9,6 +9,7 @@ export interface SnakeGameState {
     readonly direction: Direction;
     readonly life: number;
     readonly bean?: Point;
+    readonly hole?: Point;
 }
 
 export const DefaultSnakeGameState: SnakeGameState = {
