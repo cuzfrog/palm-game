@@ -4,30 +4,28 @@ import React from 'react';
 import {mount} from 'enzyme';
 
 // jest.useFakeTimers(); not working
-const action = jest.fn();
-const actionThrottleInterval = 5;
+let counter = 0;
+const action = () => counter++;
+const actionThrottleInterval = 10;
 
-beforeEach(() => {
-    action.mockClear();
-});
+beforeEach(() => counter = 0);
 
 describe('ActionButton works', () => {
-
     const button = mount(<ActionButton type={BtnType.DOWN} action={action} throttleIntervalMs={actionThrottleInterval}/>);
 
     it('click triggers an action', () => {
         for (let i = 0; i < 5; i++) {
             button.simulate('click');
         }
-        expect(action).toBeCalledTimes(1);
+        expect(counter).toBe(1);
     });
 
-    it('mouse down and up trigger consecutive actions', done => {
+    it('mouse down and up trigger consecutive actions', async done => {
         button.simulate('mousedown');
-        expect(action).not.toBeCalled();
+        expect(counter).toBe(0);
         setTimeout(() => {
             button.simulate('mouseup');
-            expect(action).toBeCalledTimes(3);
+            expect(counter).toBeCloseTo(3, 0);
             done();
         }, actionThrottleInterval * 3.5);
     });
