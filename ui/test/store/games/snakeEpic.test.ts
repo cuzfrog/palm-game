@@ -101,11 +101,31 @@ describe('score epic', () => {
     const SCORE = CoreActions.addScore(score);
 
     it('grown creep will add score', () => {
-        newTestScheduler().run(({hot, cold, expectObservable}) => {
+        newTestScheduler().run(({cold, expectObservable}) => {
             const action$ = cold('cggcg|', {g: GROWN, c: CREEP});
             const state$ = cold('s', {s: defaultState});
             const epic = snakeEpic._scoreEpic(action$, state$);
             expectObservable(epic).toBe('-aa-a|', {a: SCORE});
+        });
+    });
+});
+
+describe('escape epic', () => {
+    it('escape triggers an other escape if the body still exists', () => {
+        newTestScheduler().run(({cold, expectObservable}) => {
+            const action$ = cold('e|', {e: SnakeActions.escape()});
+            const state$ = cold('s', {s: defaultState});
+            const epic = snakeEpic._escapeEpic(action$, state$);
+            expectObservable(epic).toBe(`${snakeEpic.ESCAPE_INTERVAL}ms e|`, {e: SnakeActions.escape()});
+        });
+    });
+    it('escape triggers a win if all body has escaped', () => {
+        const stateSetBody = bodyLens.set(List.of())(defaultState);
+        newTestScheduler().run(({cold, expectObservable}) => {
+            const action$ = cold('e|', {e: SnakeActions.escape()});
+            const state$ = cold('s', {s: stateSetBody});
+            const epic = snakeEpic._escapeEpic(action$, state$);
+            expectObservable(epic).toBe(`${snakeEpic.ESCAPE_INTERVAL}ms e|`, {e: SnakeActions.win()});
         });
     });
 });

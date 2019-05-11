@@ -1,5 +1,5 @@
 import {delay, filter, map, switchMap, takeUntil, withLatestFrom} from 'rxjs/operators';
-import {combineEpics, ofType, StateObservable} from 'redux-observable';
+import {combineEpics, ofType} from 'redux-observable';
 import {Observable, timer} from 'rxjs';
 import {ActionTypes} from '../actions';
 import {SnakeActions} from './snakeActions';
@@ -90,11 +90,12 @@ const scoreEpic = (action$: Observable<AppAction>,
 
 const ESCAPE_INTERVAL = Specs.snakeGame.escapeAnimationIntervalMs;
 const escapeEpic = (action$: Observable<AppAction>,
-                    state$: StateObservable<AppState>) => {
+                    state$: Observable<AppState>) => {
     return action$.pipe(
         ofType(ActionTypes.SNAKE_ESCAPE),
         delay(ESCAPE_INTERVAL),
-        map(() => state$.value.snake.body.size <= 0 ? SnakeActions.win() : SnakeActions.escape()),
+        withLatestFrom(state$),
+        map(([, s]) => s.snake.body.size <= 0 ? SnakeActions.win() : SnakeActions.escape()),
     );
 };
 
@@ -106,4 +107,5 @@ export const snakeEpic = {
     _nextCreepAction: nextCreepAction,
     BASIC_INTERVAL,
     SCORE_BASE,
+    ESCAPE_INTERVAL
 };
