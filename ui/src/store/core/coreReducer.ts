@@ -20,6 +20,8 @@ export function coreReducer(state: CoreState = DefaultCoreState, action: CoreAct
                 case ActionTypes.DECREASE_LEVEL:
                     draft.level = state.level <= 1 ? Specs.core.maxLevel : state.level - 1;
                     break;
+                case ActionTypes.CONSOLE_REFRESH_SCREEN:
+                    break;
                 case ActionTypes.TOGGLE_PAUSE:
                     checkStrictEqual(state.status, SystemStatus.IN_GAME, 'cannot pause game if not in game.');
                     draft.inGamePaused = !state.inGamePaused;

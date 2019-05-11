@@ -1,3 +1,5 @@
+import {List} from 'immutable';
+
 export * from './Direction';
 export * from './Life';
 export * from './Point';
@@ -13,3 +15,5 @@ export enum GameType {
 export const enum PixelState {
     ON, OFF, TWINKLE
 }
+
+export type Frame = List<PixelState>;

@@ -1,14 +1,13 @@
 import {List, Range} from 'immutable';
-import {AppState, SnakeGameState} from '.';
-import {GameType, PixelState, Point, SystemStatus} from '../domain';
-import {Specs} from '../Specs';
+import {AppState, SnakeGameState} from '..';
+import {Frame, GameType, PixelState, Point, SystemStatus} from '../../domain';
+import {Specs} from '../../Specs';
 
 const I = PixelState.ON;
 const O = PixelState.OFF;
 const S = PixelState.TWINKLE;
 const W = Specs.screen.graphicWidth;
 const H = Specs.screen.graphicHeight;
-type Frame = List<PixelState>;
 const requiredLength = W * H;
 const blankFrame = Range(0, requiredLength).map(() => O).toList();
 

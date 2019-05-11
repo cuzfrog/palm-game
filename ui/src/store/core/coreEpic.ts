@@ -10,6 +10,7 @@ const refreshScreenEpic = (action$: Observable<AppAction>, state$: Observable<Ap
     return action$.pipe(
         ofType(ActionTypes.CONSOLE_REFRESH_SCREEN),
         delay(SCREEN_ROW_FRAME_DELAY),
+
     );
 };
 

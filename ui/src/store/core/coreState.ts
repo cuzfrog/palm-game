@@ -1,5 +1,6 @@
 import {Map} from 'immutable';
 import {GameType, SystemStatus} from '../../domain';
+import {emptyShow, Show} from '../graphic';
 
 export interface CoreState {
     readonly status: SystemStatus;
@@ -8,6 +9,7 @@ export interface CoreState {
     readonly level: number;
     readonly gameType: GameType;
     readonly inGamePaused: boolean;
+    readonly screenShow: Show;
 }
 
 export const DefaultCoreState: CoreState = {
@@ -17,4 +19,5 @@ export const DefaultCoreState: CoreState = {
     level: 3,
     gameType: GameType.SNAKE,
     inGamePaused: false,
+    screenShow: emptyShow,
 };

@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import {AppState} from '../appState';
-import {Graphic} from '../GraphicEngine';
+import {Graphic} from '../graphic';
 import {MatrixProps} from '../../console';
 
 function mapStateToProps(state: AppState): MatrixProps {
