@@ -97,15 +97,15 @@ describe('score epic', () => {
     const mockPoint = Point(1, 2);
     const GROWN = SnakeActions.creep(mockPoint, true);
     const CREEP = SnakeActions.creep(mockPoint, false);
+    const WIN = SnakeActions.win();
     const score = (defaultState.core.level + defaultState.snake.body.size) * snakeEpic.SCORE_BASE;
-    const SCORE = CoreActions.addScore(score);
 
     it('grown creep will add score', () => {
         newTestScheduler().run(({cold, expectObservable}) => {
-            const action$ = cold('cggcg|', {g: GROWN, c: CREEP});
+            const action$ = cold('cggcgw|', {g: GROWN, c: CREEP, w: WIN});
             const state$ = cold('s', {s: defaultState});
             const epic = snakeEpic._scoreEpic(action$, state$);
-            expectObservable(epic).toBe('-aa-a|', {a: SCORE});
+            expectObservable(epic).toBe('-aa-at|', {a: CoreActions.addScore(score), t: CoreActions.addScore(score * 3)});
         });
     });
 });

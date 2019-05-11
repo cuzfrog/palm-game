@@ -77,13 +77,14 @@ const SCORE_BASE = Specs.snakeGame.baseScore;
 const scoreEpic = (action$: Observable<AppAction>,
                    state$: Observable<AppState>) => {
     return action$.pipe(
-        filter(a => a.type === ActionTypes.SNAKE_CREEP && a.payload.grown),
+        filter(a => (a.type === ActionTypes.SNAKE_CREEP && a.payload.grown) || a.type === ActionTypes.SNAKE_WIN),
         withLatestFrom(state$),
-        map(([, s]) => {
+        map(([a, s]) => {
             const level = s.core.level;
             const bodyLength = s.snake.body.size;
+            const winBonus = a.type === ActionTypes.SNAKE_WIN ? 3 : 1;
             const score = SCORE_BASE * bodyLength + SCORE_BASE * level;
-            return CoreActions.addScore(score);
+            return CoreActions.addScore(score * winBonus);
         }),
     );
 };
