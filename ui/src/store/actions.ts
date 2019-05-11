@@ -1,6 +1,8 @@
 export const enum ActionTypes {
     DUMMY_ACTION = '[none] dummy action',
 
+    CONSOLE_START = '[sys] console start',
+    CONSOLE_REFRESH_SCREEN = '[sys] console refresh screen',
     TOGGLE_PAUSE = '[sys] toggle pause',
     ENTER_GAME = '[sys] enter game',
     EXIT_GAME = '[sys] exit game',

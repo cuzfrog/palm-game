@@ -46,8 +46,8 @@ export function snakeGameReducer(state: SnakeGameState = DefaultSnakeGameState, 
 
 const beginX = 1;
 const beginY = 1;
-const endX = Specs.graphicWidth - 1;
-const endY = Specs.graphicHeight - 1;
+const endX = Specs.screen.graphicWidth - 1;
+const endY = Specs.screen.graphicHeight - 1;
 
 function generateBean(body: List<Point>): Point | undefined {
     if (Math.random() > Specs.snakeGame.beanProduceChance) {
@@ -61,8 +61,8 @@ function generateBean(body: List<Point>): Point | undefined {
 
 const border = (() => {
     const top = Range(beginX, endX).map(x => Point(x, 0));
-    const bottom = Range(beginX, endX).map(x => Point(x, Specs.graphicHeight - 1));
+    const bottom = Range(beginX, endX).map(x => Point(x, endY));
     const left = Range(beginY, endY).map(y => Point(0, y));
-    const right = Range(beginY, endY).map(y => Point(Specs.graphicWidth - 1, y));
+    const right = Range(beginY, endY).map(y => Point(endX, y));
     return top.concat(bottom, left, right).toList();
 })();

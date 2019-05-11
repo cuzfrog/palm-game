@@ -3,7 +3,7 @@ import logger from 'redux-logger';
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 import {combineEpics, createEpicMiddleware} from 'redux-observable';
 import {snakeEpic, snakeGameReducer, SnakeGameState} from './games';
-import {coreReducer, CoreState, keyboardEpic} from './core';
+import {coreReducer, CoreState, coreEpic, keyboardEpic} from './core';
 import {appReducer} from './appReducer';
 
 export interface AppState {
@@ -19,7 +19,7 @@ const reducers: Reducer<AppState, Action> = (state, action) => {
     return appReducer(combined(state, action), action);
 };
 
-const epics = combineEpics(snakeEpic.epic, keyboardEpic.epic);
+const epics = combineEpics(coreEpic.epic, snakeEpic.epic, keyboardEpic.epic);
 const epicMiddleware = createEpicMiddleware<Action, Action, AppState>();
 
 const composeEnhancers = composeWithDevTools({

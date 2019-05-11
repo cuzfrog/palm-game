@@ -6,8 +6,8 @@ import {Specs} from '../../Specs';
 import {Connects} from '../../store';
 import {PixelState} from '../../domain';
 
-const MATRIX_WIDTH = Specs.graphicWidth;
-const MATRIX_HEIGHT = Specs.graphicHeight;
+const MATRIX_WIDTH = Specs.screen.graphicWidth;
+const MATRIX_HEIGHT = Specs.screen.graphicHeight;
 const ROWS_START_ARRAY: ReadonlyArray<number> = [...Array(MATRIX_HEIGHT).keys()];
 
 export interface MatrixProps {

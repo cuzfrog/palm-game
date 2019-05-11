@@ -20,13 +20,13 @@ describe('system reducer', () => {
         const stateLevel1 = {...prevState, level: 1};
         expect(coreReducer(stateLevel1, CoreActions.increaseLevel()).level).toBe(2);
 
-        const stateLevelMax = {...prevState, level: Specs.maxLevel};
+        const stateLevelMax = {...prevState, level: Specs.core.maxLevel};
         expect(coreReducer(stateLevelMax, CoreActions.increaseLevel()).level).toBe(1);
     });
 
     it('decrease level', () => {
         const stateLevel1 = {...prevState, level: 1};
-        expect(coreReducer(stateLevel1, CoreActions.decreaseLevel()).level).toBe(Specs.maxLevel);
+        expect(coreReducer(stateLevel1, CoreActions.decreaseLevel()).level).toBe(Specs.core.maxLevel);
 
         const stateLevel3 = {...prevState, level: 3};
         expect(coreReducer(stateLevel3, CoreActions.decreaseLevel()).level).toBe(2);

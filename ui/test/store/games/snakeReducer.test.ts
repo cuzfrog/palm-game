@@ -29,9 +29,9 @@ describe('snake reducer', () => {
                 const b = state.bean;
                 expect(state.body).not.toContain(b);
                 expect(b.x).toBeGreaterThanOrEqual(0);
-                expect(b.x).toBeLessThan(Specs.graphicWidth);
+                expect(b.x).toBeLessThan(Specs.screen.graphicWidth);
                 expect(b.y).toBeGreaterThanOrEqual(0);
-                expect(b.y).toBeLessThan(Specs.graphicHeight);
+                expect(b.y).toBeLessThan(Specs.screen.graphicHeight);
             }
         }
         expect(beanCnt / CHECK_TIMES).toBeCloseTo(Specs.snakeGame.beanProduceChance, 1);

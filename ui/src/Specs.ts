@@ -1,7 +1,12 @@
 const constants = Object.seal({
-    graphicWidth: 10,
-    graphicHeight: 16,
-    maxLevel: 8,
+    screen: {
+        graphicWidth: 10,
+        graphicHeight: 16,
+        refreshFrameDelay: 20,
+    },
+    core: {
+        maxLevel: 8,
+    },
     snakeGame: {
         beanProduceChance: 0.5,
         baseCreepIntervalMs: 900,

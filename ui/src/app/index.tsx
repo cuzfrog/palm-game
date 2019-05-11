@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import App from './App';
 import './index.less';
 import {Provider} from 'react-redux';
-import {store} from '../store/appState';
+import {store, initiateConsole} from '../store';
 
 ReactDOM.render(
     <Provider store={store}><App/></Provider>,
@@ -11,3 +11,4 @@ ReactDOM.render(
 );
 
 console.info('App loaded.');
+initiateConsole();

@@ -45,7 +45,7 @@ function newHeadPoint(direction: Direction, head: Point): Point {
 }
 
 function isHittingWall(head: Point): boolean {
-    return head.x < 1 || head.x >= Specs.graphicWidth - 1 || head.y < 1 || head.y >= Specs.graphicHeight - 1;
+    return head.x < 1 || head.x >= Specs.screen.graphicWidth - 1 || head.y < 1 || head.y >= Specs.screen.graphicHeight - 1;
 }
 
 function calculateInterval(level: number): number {

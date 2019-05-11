@@ -1,8 +1,9 @@
 import {Observable} from 'rxjs';
-import {ActionTypes, AppAction, AppState, CoreActions, CoreState, SnakeActions} from '../index';
+import {AppAction, AppState, CoreActions, CoreState, SnakeActions} from '../index';
 import {filter, map} from 'rxjs/operators';
 import {Direction, GameType, SystemStatus} from '../../domain';
 import {StateObservable} from 'redux-observable';
+import {ActionTypes} from '../actions';
 
 function mapToMenuLayout(action: AppAction): AppAction {
     switch (action.type) {

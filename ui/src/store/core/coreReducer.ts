@@ -15,10 +15,10 @@ export function coreReducer(state: CoreState = DefaultCoreState, action: CoreAct
                     draft.scores = state.scores.update(state.gameType, prevScore => scoreUpdater(prevScore, action.payload));
                     break;
                 case ActionTypes.INCREASE_LEVEL:
-                    draft.level = state.level >= Specs.maxLevel ? 1 : state.level + 1;
+                    draft.level = state.level >= Specs.core.maxLevel ? 1 : state.level + 1;
                     break;
                 case ActionTypes.DECREASE_LEVEL:
-                    draft.level = state.level <= 1 ? Specs.maxLevel : state.level - 1;
+                    draft.level = state.level <= 1 ? Specs.core.maxLevel : state.level - 1;
                     break;
                 case ActionTypes.TOGGLE_PAUSE:
                     checkStrictEqual(state.status, SystemStatus.IN_GAME, 'cannot pause game if not in game.');
