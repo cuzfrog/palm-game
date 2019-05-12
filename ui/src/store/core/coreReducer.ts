@@ -5,6 +5,7 @@ import {CoreAction} from './coreActions';
 import {ActionTypes} from '../actions';
 import {Specs} from '../../Specs';
 import {GameType, SystemStatus} from '../../domain';
+import {Anim, Animations} from '../graphic';
 
 const GameTypeValues: ReadonlyArray<number> = Object.keys(GameType).map(key => GameType[key]);
 
@@ -20,7 +21,14 @@ export function coreReducer(state: CoreState = DefaultCoreState, action: CoreAct
                 case ActionTypes.DECREASE_LEVEL:
                     draft.level = state.level <= 1 ? Specs.core.maxLevel : state.level - 1;
                     break;
-                case ActionTypes.CONSOLE_REFRESH_SCREEN:
+                case ActionTypes.CONSOLE_START:
+                    draft.anim = Animations.consoleStartIntial;
+                    break;
+                case ActionTypes.CONSOLE_ANIMATE:
+                    draft.anim.step++;
+                    if (draft.anim.step > state.anim.completeStep) {
+                        draft.anim = currentAnimation(state);
+                    }
                     break;
                 case ActionTypes.TOGGLE_PAUSE:
                     checkStrictEqual(state.status, SystemStatus.IN_GAME, 'cannot pause game if not in game.');
@@ -28,6 +36,7 @@ export function coreReducer(state: CoreState = DefaultCoreState, action: CoreAct
                     break;
                 case ActionTypes.ENTER_GAME:
                     checkStrictEqual(state.status, SystemStatus.MENU, 'can only enter game from menu.');
+                    draft.anim = Animations.emptyAnim;
                     draft.status = SystemStatus.IN_GAME;
                     break;
                 case ActionTypes.EXIT_GAME:
@@ -37,6 +46,7 @@ export function coreReducer(state: CoreState = DefaultCoreState, action: CoreAct
                     break;
                 case ActionTypes.TOGGLE_GAME:
                     checkStrictNonEqual(state.status, SystemStatus.IN_GAME, 'cannot toggle game when in game.');
+                    draft.anim = currentAnimation(state);
                     draft.gameType = nextEnum(state.gameType, GameTypeValues);
             }
         }
@@ -52,4 +62,21 @@ function maxFunc(s1: number | undefined, s2: number | undefined) {
     const v1 = s1 ? s1 : 0;
     const v2 = s2 ? s2 : 0;
     return Math.max(v1, v2);
+}
+
+function currentAnimation(state: CoreState): Anim {
+    let nextAnim: Anim;
+    if (state.status === SystemStatus.MENU) {
+        switch (state.gameType) {
+            case GameType.SNAKE:
+                nextAnim = Animations.snakeInitial;
+                break;
+            default:
+                nextAnim = Animations.boxerInitial;
+                break;
+        }
+    } else {
+        nextAnim = Animations.emptyAnim;
+    }
+    return nextAnim;
 }

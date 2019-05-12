@@ -2,22 +2,31 @@ import {List, Range} from 'immutable';
 import {AppState, SnakeGameState} from '..';
 import {Frame, GameType, PixelState, Point, SystemStatus} from '../../domain';
 import {Specs} from '../../Specs';
+import {AnimType} from './animations';
 
 const I = PixelState.ON;
 const O = PixelState.OFF;
 const S = PixelState.TWINKLE;
 const W = Specs.screen.graphicWidth;
 const H = Specs.screen.graphicHeight;
-const requiredLength = W * H;
-const blankFrame = Range(0, requiredLength).map(() => O).toList();
+const L = W * H;
+const BLANK_FRAME = Range(0, L).map(() => O).toList();
 
-const frameBuffer: PixelState[] = Array(requiredLength);
+const frameBuffer: PixelState[] = Array(L);
 
 function show(state: AppState): Frame {
-    let frame: Frame = blankFrame;
+    let frame: Frame = BLANK_FRAME;
     switch (state.core.status) {
         case SystemStatus.MENU:
-            frame = blankFrame;
+            const anim = state.core.anim;
+            switch (anim.type) {
+                case AnimType.CONSOLE_START:
+                    frame = consoleStartAnimFrame(anim.step);
+                    break;
+                case AnimType.GAME_SNAKE:
+                    frame = snakeGameAnimFrame(anim.step);
+                    break;
+            }
             break;
         case SystemStatus.IN_GAME:
             switch (state.core.gameType) {
@@ -35,11 +44,11 @@ function show(state: AppState): Frame {
 }
 
 function validateFrame(frame: Frame): boolean {
-    return requiredLength !== frame.size;
+    return L !== frame.size;
 }
 
-const borderFrame = Range(0, requiredLength).map(i => {
-    if (i <= W || i % W === 0 || (i + 1) % W === 0 || i > requiredLength - W) {
+const borderFrame = Range(0, L).map(i => {
+    if (i <= W || i % W === 0 || (i + 1) % W === 0 || i > L - W) {
         return I;
     } else {
         return O;
@@ -62,6 +71,21 @@ function snakeGameFrame(state: SnakeGameState): Frame {
         throw Error(`Bad frame, current state: ${state}`);
     }
     return frame;
+}
+
+function consoleStartAnimFrame(step: number): Frame {
+    for (let i = L - 1, j = W * step; i >= 0; i--, j--) {
+        frameBuffer[i] = j > 0 ? I : O;
+    }
+    const frame = List(frameBuffer);
+    if (validateFrame(frame)) {
+        throw Error(`Bad frame from console start anim, current step: ${step}`);
+    }
+    return frame;
+}
+
+function snakeGameAnimFrame(step: number): Frame {
+    return BLANK_FRAME; // todo: impl
 }
 
 function toIndex(p: Point): number {

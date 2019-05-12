@@ -1,16 +1,17 @@
-import {Observable} from 'rxjs';
-import {AppAction, AppState} from '../index';
+import {Observable, of} from 'rxjs';
+import {AppAction, AppState, CoreActions} from '../index';
 import {combineEpics, ofType, StateObservable} from 'redux-observable';
-import {Specs} from '../../Specs';
-import {delay} from 'rxjs/operators';
+import {concatMap, delay, filter, map, withLatestFrom} from 'rxjs/operators';
 import {ActionTypes} from '../actions';
+import {AnimType} from '../graphic';
 
-const SCREEN_ROW_FRAME_DELAY = Specs.screen.refreshFrameDelay;
-const refreshScreenEpic = (action$: Observable<AppAction>, state$: Observable<AppState>) => {
+const animationEpic = (action$: Observable<AppAction>, state$: Observable<AppState>) => {
     return action$.pipe(
-        ofType(ActionTypes.CONSOLE_REFRESH_SCREEN),
-        delay(SCREEN_ROW_FRAME_DELAY),
-
+        ofType(ActionTypes.CONSOLE_ANIMATE, ActionTypes.CONSOLE_START),
+        withLatestFrom(state$),
+        map(([, s]) => s.core.anim),
+        filter(a => a.type !== AnimType.DUMMY),
+        concatMap(a => of(CoreActions.consoleAnimate()).pipe(delay(a.frameInterval))),
     );
 };
 
@@ -21,7 +22,7 @@ const exitGameEpic = (action$: Observable<AppAction>, state$: StateObservable<Ap
 };
 
 export const coreEpic = {
-    epic: combineEpics(refreshScreenEpic, exitGameEpic),
+    epic: combineEpics(animationEpic, exitGameEpic),
     _exitGameEpic: exitGameEpic,
-    _refreshScreenEpic: refreshScreenEpic,
+    _animationEpic: animationEpic,
 };

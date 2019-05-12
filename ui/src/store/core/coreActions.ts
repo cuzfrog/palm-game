@@ -2,7 +2,7 @@ import {ActionUnion, createAction, createActionWithPayload} from '../typeHelper'
 import {ActionTypes} from '../actions';
 
 const consoleStart = createAction(ActionTypes.CONSOLE_START);
-const consoleRefreshScreen = createAction(ActionTypes.CONSOLE_REFRESH_SCREEN);
+const consoleAnimate = createAction(ActionTypes.CONSOLE_ANIMATE);
 const increaseLevel = createAction(ActionTypes.INCREASE_LEVEL);
 const decreaseLevel = createAction(ActionTypes.DECREASE_LEVEL);
 const enterGame = createAction(ActionTypes.ENTER_GAME);
@@ -13,7 +13,7 @@ const dummyAction = createAction(ActionTypes.DUMMY_ACTION);
 
 export const CoreActions = Object.seal({
     consoleStart: () => consoleStart,
-    consoleRefreshScreen: () => consoleRefreshScreen, // todo: different styles
+    consoleAnimate: () => consoleAnimate,
     addScore: (score: number) => createActionWithPayload(ActionTypes.ADD_SCORE, score),
     increaseLevel: () => increaseLevel,
     decreaseLevel: () => decreaseLevel,

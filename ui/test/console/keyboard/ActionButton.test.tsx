@@ -6,7 +6,7 @@ import {mount} from 'enzyme';
 // jest.useFakeTimers(); not working
 let counter = 0;
 const action = () => counter++;
-const actionThrottleInterval = 10;
+const actionThrottleInterval = 100;
 
 beforeEach(() => counter = 0);
 

@@ -2,7 +2,6 @@ const constants = Object.seal({
     screen: {
         graphicWidth: 10,
         graphicHeight: 16,
-        refreshFrameDelay: 20,
     },
     core: {
         maxLevel: 8,
