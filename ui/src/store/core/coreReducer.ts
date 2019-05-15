@@ -22,12 +22,13 @@ export function coreReducer(state: CoreState = DefaultCoreState, action: CoreAct
                     draft.level = state.level <= 1 ? Specs.core.maxLevel : state.level - 1;
                     break;
                 case ActionTypes.CONSOLE_START:
-                    draft.anim = Animations.consoleStartIntial;
+                    draft.anim = Animations.consoleStartInitial;
                     break;
                 case ActionTypes.CONSOLE_ANIMATE:
-                    draft.anim.step++;
-                    if (draft.anim.step > state.anim.completeStep) {
+                    if (draft.anim.isCompleted()) {
                         draft.anim = currentAnimation(state);
+                    } else {
+                        draft.anim = draft.anim.advance();
                     }
                     break;
                 case ActionTypes.TOGGLE_PAUSE:

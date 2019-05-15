@@ -24,6 +24,7 @@
     "max-classes-per-file": [true, 3],
     "no-namespace": false,
     "arrow-parens": false,
-    "class-name": false
+    "class-name": false,
+    "variable-name": false
   }
 }
