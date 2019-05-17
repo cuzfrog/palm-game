@@ -1,9 +1,28 @@
-import {Anim, AnimType, H, I, O, W} from './graphicTypes';
+import {Anim, AnimType, H, I, O, S, W} from './graphicTypes';
 import {List, Range} from 'immutable';
 import {Direction, Frame, PixelState, Point} from '../../domain';
 import {toIndex, validateFrame} from './graphicUtils';
 
 const FRAME_INTERVAL_MS = 200;
+
+const BACKGROUND = `
+OOOOOOOOOO
+OSSSOOOOOO
+OSOSOOOOOO
+OSSSOOOOOO
+OSOOOOOOOO
+OSOOOOOOOO
+OOOOOOOOOO
+OOOOOOOOOO
+OOOOOOOOOO
+OOOOOOOOOO
+OOOOOOOOOO
+OOOOOOOOOO
+OOOOOOOOOO
+OOOOOOOOOO
+OOOOOOOOOO
+OOOOOOOOOO
+`.trim().replace(/[\r\n]/g, '');
 
 export class SnakeAnim implements Anim {
     private static readonly INITIAL_BODY = Range(2, 8).map(x => Point(x, H - 2)).toList();
@@ -58,7 +77,16 @@ export class SnakeAnim implements Anim {
 
     public currentFrame(frameBuffer: PixelState[]): Frame {
         for (let i = 0; i < frameBuffer.length; i++) {
-            frameBuffer[i] = O;
+            const p = BACKGROUND.charAt(i);
+            if (p === 'O') {
+                frameBuffer[i] = O;
+            } else if (p === 'I') {
+                frameBuffer[i] = I;
+            } else if (p === 'S') {
+                frameBuffer[i] = S;
+            } else {
+                throw new Error('Bad character:' + p);
+            }
         }
         this.body.forEach(p => {
             frameBuffer[toIndex(p)] = I;
