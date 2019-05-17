@@ -13,7 +13,7 @@ export interface CoreState {
 }
 
 export const DefaultCoreState: CoreState = {
-    status: SystemStatus.MENU,
+    status: SystemStatus.STARTING,
     scores: Map(),
     maxScores: Map(),
     level: 3,

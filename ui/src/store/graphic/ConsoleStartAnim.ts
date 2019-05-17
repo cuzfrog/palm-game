@@ -41,7 +41,7 @@ export class ConsoleStartAnim implements Anim {
     get frameInterval(): number {
         switch (this.step) {
             case 1:
-                return 500;
+                return 200;
             case 2:
                 return 1000;
             case 3:

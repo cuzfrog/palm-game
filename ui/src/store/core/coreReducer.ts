@@ -26,6 +26,9 @@ export function coreReducer(state: CoreState = DefaultCoreState, action: CoreAct
                     break;
                 case ActionTypes.CONSOLE_ANIMATE:
                     if (draft.anim.isCompleted()) {
+                        if (state.status === SystemStatus.STARTING) {
+                            draft.status = SystemStatus.MENU;
+                        }
                         draft.anim = currentAnimation(state);
                     } else {
                         draft.anim = draft.anim.advance();
@@ -67,17 +70,20 @@ function maxFunc(s1: number | undefined, s2: number | undefined) {
 
 function currentAnimation(state: CoreState): Anim {
     let nextAnim: Anim;
-    if (state.status === SystemStatus.MENU) {
-        switch (state.gameType) {
-            case GameType.SNAKE:
-                nextAnim = Animations.snakeInitial;
-                break;
-            default:
-                nextAnim = Animations.boxerInitial;
-                break;
-        }
-    } else {
-        nextAnim = Animations.emptyAnim;
+    switch (state.status) {
+        case SystemStatus.STARTING:
+        case SystemStatus.MENU:
+            switch (state.gameType) {
+                case GameType.SNAKE:
+                    nextAnim = Animations.snakeInitial;
+                    break;
+                default:
+                    nextAnim = Animations.boxerInitial;
+                    break;
+            }
+            break;
+        default:
+            nextAnim = Animations.emptyAnim;
     }
     return nextAnim;
 }

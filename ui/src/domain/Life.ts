@@ -3,7 +3,5 @@ export interface Life {
     readonly maxHp: number;
 }
 
-export const MINIMAL_LIFE = {
-    hp: 0,
-    maxHp: 1,
-};
+export const MINIMAL_LIFE = {hp: 0, maxHp: 1};
+export const FULL_LIFE = {hp: 100, maxHp: 100};

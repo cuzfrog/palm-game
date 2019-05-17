@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Digit.less';
+import {Specs} from '../../../Specs';
 
 interface DigitProps {
     readonly value: number;
@@ -12,7 +13,7 @@ export enum FontSize {
     LARGE = styles.largeSizeFont
 }
 
-const MAX_WIDTH = 8;
+const MAX_WIDTH = Specs.screen.scoreDigitMaxWidth;
 
 export default class Digit extends React.PureComponent<DigitProps, {}> {
     private readonly backgroundDigits: number;

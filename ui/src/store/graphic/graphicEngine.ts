@@ -9,6 +9,7 @@ const frameBuffer: PixelState[] = Array(L);
 function show(state: AppState): Frame {
     let frame: Frame = BLANK_FRAME;
     switch (state.core.status) {
+        case SystemStatus.STARTING:
         case SystemStatus.MENU:
             frame = state.core.anim.currentFrame(frameBuffer);
             break;

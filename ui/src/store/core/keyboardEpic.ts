@@ -5,6 +5,10 @@ import {Direction, GameType, SystemStatus} from '../../domain';
 import {StateObservable} from 'redux-observable';
 import {ActionTypes} from '../actions';
 
+function dummyLayout(): AppAction {
+    return CoreActions.dummy();
+}
+
 function mapToMenuLayout(action: AppAction): AppAction {
     switch (action.type) {
         case ActionTypes.SELECT:
@@ -20,7 +24,7 @@ function mapToMenuLayout(action: AppAction): AppAction {
     }
 }
 
-function mapToPauedLayout(action: AppAction): AppAction {
+function mapToPausedLayout(action: AppAction): AppAction {
     switch (action.type) {
         case ActionTypes.START:
             return CoreActions.togglePause();
@@ -48,10 +52,12 @@ function mapToSnakeLayout(action: AppAction): AppAction {
 
 function chooseKeyboardLayout(state: CoreState): (action: AppAction) => AppAction {
     let keyboard;
-    if (state.status === SystemStatus.MENU) {
+    if (state.status === SystemStatus.STARTING) {
+        keyboard = dummyLayout;
+    } else if (state.status === SystemStatus.MENU) {
         keyboard = mapToMenuLayout;
     } else if (state.status === SystemStatus.IN_GAME) {
-        keyboard = state.inGamePaused ? mapToPauedLayout : getGameKeyboard(state.gameType);
+        keyboard = state.inGamePaused ? mapToPausedLayout : getGameKeyboard(state.gameType);
     } else {
         throw new TypeError('Unknown system status:' + state.status);
     }

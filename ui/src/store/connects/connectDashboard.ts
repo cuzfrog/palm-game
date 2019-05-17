@@ -1,12 +1,20 @@
 import {connect} from 'react-redux';
 import {AppState} from '../appState';
-import {GameType, Life, MINIMAL_LIFE, SystemStatus} from '../../domain';
+import {FULL_LIFE, GameType, Life, MINIMAL_LIFE, SystemStatus} from '../../domain';
 import {DashboardProps} from '../../console';
+import {Specs} from '../../Specs';
 
 function mapStateToProps(state: AppState): DashboardProps {
     let life: Life;
     let enemyLife: Life;
-    if (state.core.status === SystemStatus.MENU) {
+    let score = state.core.scores.get(state.core.gameType, 0);
+    let level = state.core.level;
+    if (state.core.status === SystemStatus.STARTING) {
+        life = FULL_LIFE;
+        enemyLife = FULL_LIFE;
+        score = all8digit(Specs.screen.scoreDigitMaxWidth);
+        level = 8;
+    } else if (state.core.status === SystemStatus.MENU) {
         life = MINIMAL_LIFE;
         enemyLife = MINIMAL_LIFE;
     } else {
@@ -26,11 +34,19 @@ function mapStateToProps(state: AppState): DashboardProps {
     }
 
     return {
-        score: state.core.scores.get(state.core.gameType, 0),
-        level: state.core.level,
+        score,
+        level,
         life,
         enemyLife,
     };
+}
+
+function all8digit(width: number) {
+    let sum = 0;
+    for (let i = 0; i < width; i++) {
+        sum += Math.pow(10, i) * 8;
+    }
+    return sum;
 }
 
 export const connectToDashboard = connect(mapStateToProps);
