@@ -1,20 +1,16 @@
-import {Anim, AnimType, I, L, O, W} from './graphicTypes';
-import {Specs} from '../../Specs';
+import {Anim, AnimType, I, O} from './graphicTypes';
 import {Frame, PixelState} from '../../domain';
 import {List} from 'immutable';
-import {validateFrame} from './graphicUtils';
-
-const FRAME_INTERVAL_MS = 100;
 
 export class ConsoleStartAnim implements Anim {
-    private readonly rowCnt: number;
+    private readonly step: number;
 
-    constructor(rowCnt?: number) {
-        this.rowCnt = rowCnt === undefined ? 0 : rowCnt;
+    constructor(step?: number) {
+        this.step = step === undefined ? 1 : step;
     }
 
     public isCompleted(): boolean {
-        return this.rowCnt > Specs.screen.graphicHeight + 3;
+        return this.step >= 3;
     }
 
     public advance(): Anim {
@@ -22,24 +18,37 @@ export class ConsoleStartAnim implements Anim {
         if (this.isCompleted()) {
             next = this;
         } else {
-            next = new ConsoleStartAnim(this.rowCnt + 1);
+            next = new ConsoleStartAnim(this.step + 1);
         }
         return next;
     }
 
     public currentFrame(frameBuffer: PixelState[]): Frame {
-        for (let i = L - 1, j = W * this.rowCnt; i >= 0; i--, j--) {
-            frameBuffer[i] = j > 0 ? I : O;
+        switch (this.step) {
+            case 1:
+                frameBuffer.fill(O);
+                break;
+            case 2:
+                frameBuffer.fill(I);
+                break;
+            case 3:
+                frameBuffer.fill(O);
+                break;
         }
-        const frame = List(frameBuffer);
-        if (validateFrame(frame)) {
-            throw Error(`Bad frame from console start anim, current step: ${this.rowCnt}`);
-        }
-        return frame;
+        return List(frameBuffer);
     }
 
     get frameInterval(): number {
-        return FRAME_INTERVAL_MS;
+        switch (this.step) {
+            case 1:
+                return 500;
+            case 2:
+                return 1000;
+            case 3:
+                return 200;
+            default:
+                throw new Error('Asssertion error: no such step');
+        }
     }
 
     get type(): AnimType {
