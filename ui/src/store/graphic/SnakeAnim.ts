@@ -8,11 +8,11 @@ const FRAME_INTERVAL_MS = 200;
 const BACKGROUND = `
 OOOOOOOOOO
 OSSSOOOOOO
-OSOSOOOOOO
-OSSSOOOOOO
-OSOOOOOOOO
-OSOOOOOOOO
-OOOOOOOOOO
+OSOSOOSSOO
+OSSSSSSOOO
+OSOSSOSSOO
+OSOOSOSOOO
+OOOOOOSSOO
 OOOOOOOOOO
 OOOOOOOOOO
 OOOOOOOOOO
@@ -24,14 +24,31 @@ OOOOOOOOOO
 OOOOOOOOOO
 `.trim().replace(/[\r\n]/g, '');
 
+function setBackgroundFrame(frameBuffer: PixelState[]): void { // todo: optimize
+    for (let i = 0; i < frameBuffer.length; i++) {
+        const p = BACKGROUND.charAt(i);
+        if (p === 'O') {
+            frameBuffer[i] = O;
+        } else if (p === 'I') {
+            frameBuffer[i] = I;
+        } else if (p === 'S') {
+            frameBuffer[i] = S;
+        } else {
+            throw new Error('Bad character:' + p);
+        }
+    }
+}
+
 export class SnakeAnim implements Anim {
-    private static readonly INITIAL_BODY = Range(2, 8).map(x => Point(x, H - 2)).toList();
+    private static readonly INITIAL_BODY = Range(1, 9).map(x => Point(x, H - 1)).toList();
     private readonly body: List<Point>;
     private readonly di: Direction;
+    private readonly lastTail?: Point;
 
-    constructor(state?: List<Point>, direction?: Direction) {
+    constructor(state?: List<Point>, direction?: Direction, lastTail?: Point) {
         this.body = state === undefined ? SnakeAnim.INITIAL_BODY : state;
         this.di = direction === undefined ? Direction.EAST : direction;
+        this.lastTail = lastTail;
     }
 
     public advance(): Anim {
@@ -41,56 +58,53 @@ export class SnakeAnim implements Anim {
         let nd = this.di;
         switch (this.di) {
             case Direction.EAST:
-                if (h.x >= W - 2) {
-                    ny = nextY(h);
+                if (h.x >= W - 1) {
+                    ny = h.y - 1;
                     nd = Direction.NORTH;
                 } else {
                     nx = h.x + 1;
                 }
                 break;
             case Direction.NORTH:
-                const y2 = h.y < H - 1 ? h.y + 2 : 0;
-                if (this.body.contains(Point(h.x, y2))) {
-                    if (h.x > (W / 2)) {
-                        nx = h.x - 1;
-                        nd = Direction.WEST;
-                    } else {
-                        nx = h.x + 1;
-                        nd = Direction.EAST;
-                    }
+                if (h.y === 0) {
+                    nx = h.x - 1;
+                    nd = Direction.WEST;
                 } else {
-                    ny = nextY(h);
+                    ny = h.y - 1;
                 }
                 break;
             case Direction.WEST:
-                if (h.x > 1) {
-                    nx = h.x - 1;
+                if (h.x === 0) {
+                    ny = h.y + 1;
+                    nd = Direction.SOUTH;
                 } else {
-                    ny = nextY(h);
-                    nd = Direction.NORTH;
+                    nx = h.x - 1;
                 }
                 break;
+            case Direction.SOUTH:
+                if (h.y >= H - 1) {
+                    nx = h.x + 1;
+                    nd = Direction.EAST;
+                } else {
+                    ny = h.y + 1;
+                }
         }
         const nb = this.body.toSeq().concat(Point(nx, ny)).takeLast(this.body.size).toList();
-        return new SnakeAnim(nb, nd);
+        const lt = this.body.first(undefined);
+        return new SnakeAnim(nb, nd, lt);
     }
 
     public currentFrame(frameBuffer: PixelState[]): Frame {
-        for (let i = 0; i < frameBuffer.length; i++) {
-            const p = BACKGROUND.charAt(i);
-            if (p === 'O') {
-                frameBuffer[i] = O;
-            } else if (p === 'I') {
-                frameBuffer[i] = I;
-            } else if (p === 'S') {
-                frameBuffer[i] = S;
-            } else {
-                throw new Error('Bad character:' + p);
-            }
+        if (this.body === SnakeAnim.INITIAL_BODY) {
+            setBackgroundFrame(frameBuffer);
         }
         this.body.forEach(p => {
             frameBuffer[toIndex(p)] = I;
         });
+        if (this.lastTail !== undefined) {
+            frameBuffer[toIndex(this.lastTail)] = O;
+        }
+
         const frame = List(frameBuffer);
         if (validateFrame(frame)) {
             throw Error(`Bad frame from snake game anim, current body: ${this.body}`);
@@ -109,8 +123,4 @@ export class SnakeAnim implements Anim {
     get type(): AnimType {
         return AnimType.GAME_SNAKE;
     }
-}
-
-function nextY(h: Point): number {
-    return h.y > 0 ? h.y - 1 : H - 1;
 }
