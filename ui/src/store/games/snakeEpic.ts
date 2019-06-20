@@ -100,8 +100,17 @@ const escapeEpic = (action$: Observable<AppAction>,
     );
 };
 
+const winEpic = (action$: Observable<AppAction>,
+                 state$: Observable<AppState>) => {
+    return action$.pipe(
+        ofType(ActionTypes.SNAKE_WIN),
+        withLatestFrom(state$),
+        map(([, s]) => s.core.getLevel() >= Specs.core.maxLevel ? CoreActions.exitGame() : CoreActions.increaseLevel()),
+    );
+};
+
 export const snakeEpic = {
-    epic: combineEpics(creepEpic, scoreEpic, escapeEpic),
+    epic: combineEpics(creepEpic, scoreEpic, escapeEpic, winEpic),
     _creepFunc: creepFunc,
     _scoreEpic: scoreEpic,
     _escapeEpic: escapeEpic,
