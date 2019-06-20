@@ -46,7 +46,7 @@ class Dashboard extends React.PureComponent<DashboardProps, {}> {
             </div>
         );
     }
-}
+} // todo: disable title Enemy
 
 function getLife(life?: Life) {
     if (life === undefined) {

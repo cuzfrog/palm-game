@@ -2,7 +2,7 @@ import {Observable} from 'rxjs';
 import {AppAction, AppState, CoreActions, CoreState, SnakeActions} from '../index';
 import {filter, map} from 'rxjs/operators';
 import {Direction, GameType, SystemStatus} from '../../domain';
-import {StateObservable} from 'redux-observable';
+import {ofType, StateObservable} from 'redux-observable';
 import {ActionTypes} from '../actions';
 
 function dummyLayout(): AppAction {
@@ -75,6 +75,8 @@ function getGameKeyboard(gameType: GameType): (action: AppAction) => AppAction {
 
 const epic = (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
     return action$.pipe(
+        ofType(ActionTypes.UP, ActionTypes.RIGHT, ActionTypes.DOWN, ActionTypes.LEFT,
+            ActionTypes.SELECT, ActionTypes.START, ActionTypes.A, ActionTypes.B),
         map(a => {
             const mapFunc = chooseKeyboardLayout(state$.value.core);
             return mapFunc(a);
