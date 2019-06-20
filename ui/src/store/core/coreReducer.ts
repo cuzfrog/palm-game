@@ -16,10 +16,12 @@ export function coreReducer(state: CoreState = DefaultCoreState, action: CoreAct
                     draft.scores = state.scores.update(state.gameType, prevScore => scoreUpdater(prevScore, action.payload));
                     break;
                 case ActionTypes.INCREASE_LEVEL:
-                    draft.level = state.level >= Specs.core.maxLevel ? 1 : state.level + 1;
+                    const li = state.getLevel();
+                    draft.level = state.level.set(state.gameType, li >= Specs.core.maxLevel ? 1 : li + 1);
                     break;
                 case ActionTypes.DECREASE_LEVEL:
-                    draft.level = state.level <= 1 ? Specs.core.maxLevel : state.level - 1;
+                    const ld = state.getLevel();
+                    draft.level = state.level.set(state.gameType, ld <= 1 ? Specs.core.maxLevel : ld - 1);
                     break;
                 case ActionTypes.CONSOLE_START:
                     draft.anim = Animations.consoleStartInitial;

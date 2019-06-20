@@ -69,7 +69,7 @@ describe('creep epic', () => {
 
     it('start and stop', () => {
         newTestScheduler().run(({hot, cold}) => {
-            const intervalMs = snakeEpic.BASIC_INTERVAL - defaultState.core.level * 100;
+            const intervalMs = snakeEpic.BASIC_INTERVAL - defaultState.core.getLevel() * 100;
             const action$ = hot(`a ${intervalMs * 2}ms b`, {a: CoreActions.enterGame(), b: CoreActions.exitGame()});
             const state$ = cold('s', {s: defaultState});
             const epic = epicFunc(action$, state$);
@@ -98,7 +98,7 @@ describe('score epic', () => {
     const GROWN = SnakeActions.creep(mockPoint, true);
     const CREEP = SnakeActions.creep(mockPoint, false);
     const WIN = SnakeActions.win();
-    const score = (defaultState.core.level + defaultState.snake.body.size) * snakeEpic.SCORE_BASE;
+    const score = (defaultState.core.getLevel() + defaultState.snake.body.size) * snakeEpic.SCORE_BASE;
 
     it('grown creep will add score', () => {
         newTestScheduler().run(({cold, expectObservable}) => {

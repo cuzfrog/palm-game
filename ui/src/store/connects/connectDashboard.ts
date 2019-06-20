@@ -8,7 +8,7 @@ function mapStateToProps(state: AppState): DashboardProps {
     let life: Life;
     let enemyLife: Life;
     let score = state.core.scores.get(state.core.gameType, 0);
-    let level = state.core.level;
+    let level = state.core.getLevel();
     if (state.core.status === SystemStatus.STARTING) {
         life = FULL_LIFE;
         enemyLife = FULL_LIFE;

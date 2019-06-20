@@ -6,18 +6,23 @@ export interface CoreState {
     readonly status: SystemStatus;
     readonly scores: Map<GameType, number>;
     readonly maxScores: Map<GameType, number>;
-    readonly level: number;
+    readonly level: Map<GameType, number>;
     readonly gameType: GameType;
     readonly inGamePaused: boolean;
     readonly anim: Anim;
+
+    getLevel(): number;
 }
 
 export const DefaultCoreState: CoreState = {
     status: SystemStatus.STARTING,
     scores: Map(),
     maxScores: Map(),
-    level: 3,
+    level: Map([[GameType.SNAKE, 3], [GameType.BOXER, 3]]),
     gameType: GameType.SNAKE,
     inGamePaused: false,
     anim: Animations.emptyAnim,
+    getLevel(): number {
+        return this.level.get(this.gameType, 3);
+    }
 };

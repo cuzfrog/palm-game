@@ -60,7 +60,7 @@ const creepFunc = (creepActionFunc: (state: AppState) => AppAction) =>
             map(([, s]) => s),
             filter(s => s.core.gameType === GameType.SNAKE),
             switchMap(state => {
-                const interval = calculateInterval(state.core.level);
+                const interval = calculateInterval(state.core.getLevel());
                 return timer(interval, interval).pipe(
                     takeUntil(action$.pipe(ofType(ActionTypes.EXIT_GAME, ActionTypes.SNAKE_ESCAPE))),
                     withLatestFrom(state$),
@@ -80,7 +80,7 @@ const scoreEpic = (action$: Observable<AppAction>,
         filter(a => (a.type === ActionTypes.SNAKE_CREEP && a.payload.grown) || a.type === ActionTypes.SNAKE_WIN),
         withLatestFrom(state$),
         map(([a, s]) => {
-            const level = s.core.level;
+            const level = s.core.getLevel();
             const bodyLength = s.snake.body.size;
             const winBonus = a.type === ActionTypes.SNAKE_WIN ? 3 : 1;
             const score = SCORE_BASE * bodyLength + SCORE_BASE * level;
