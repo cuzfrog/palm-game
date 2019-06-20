@@ -1,43 +1,10 @@
-import {Anim, AnimType, H, I, O, S, W} from './graphicTypes';
+import {Anim, AnimType, H, I, O, W} from './graphicTypes';
 import {List, Range} from 'immutable';
 import {Direction, Frame, PixelState, Point} from '../../domain';
 import {toIndex, validateFrame} from './graphicUtils';
+import {BackgroundAnims} from './backgroundAnim';
 
 const FRAME_INTERVAL_MS = 200;
-
-const BACKGROUND = `
-OOOOOOOOOO
-OSSSOOOOOO
-OSOSOOSSOO
-OSSSSSSOOO
-OSOSSOSSOO
-OSOOSOSOOO
-OOOOOOSSOO
-OOOOOOOOOO
-OOOOOOOOOO
-OOOOOOOOOO
-OOOOOOOOOO
-OOOOOOOOOO
-OOOOOOOOOO
-OOOOOOOOOO
-OOOOOOOOOO
-OOOOOOOOOO
-`.trim().replace(/[\r\n]/g, '');
-
-function setBackgroundFrame(frameBuffer: PixelState[]): void { // todo: optimize
-    for (let i = 0; i < frameBuffer.length; i++) {
-        const p = BACKGROUND.charAt(i);
-        if (p === 'O') {
-            frameBuffer[i] = O;
-        } else if (p === 'I') {
-            frameBuffer[i] = I;
-        } else if (p === 'S') {
-            frameBuffer[i] = S;
-        } else {
-            throw new Error('Bad character:' + p);
-        }
-    }
-}
 
 export class SnakeAnim implements Anim {
     private static readonly INITIAL_BODY = Range(1, 9).map(x => Point(x, H - 1)).toList();
@@ -95,14 +62,19 @@ export class SnakeAnim implements Anim {
     }
 
     public currentFrame(frameBuffer: PixelState[]): Frame {
-        if (this.body === SnakeAnim.INITIAL_BODY) {
-            setBackgroundFrame(frameBuffer);
-        }
+        BackgroundAnims.welcome.setBackgroundFrame(frameBuffer);
+
         this.body.forEach(p => {
-            frameBuffer[toIndex(p)] = I;
+            const i = toIndex(p);
+            if (frameBuffer[i] === O) {
+                frameBuffer[i] = I;
+            }
         });
         if (this.lastTail !== undefined) {
-            frameBuffer[toIndex(this.lastTail)] = O;
+            const i = toIndex(this.lastTail);
+            if (frameBuffer[i] === I) {
+                frameBuffer[i] = O;
+            }
         }
 
         const frame = List(frameBuffer);
