@@ -62,7 +62,7 @@ const creepFunc = (creepActionFunc: (state: AppState) => AppAction) =>
             switchMap(state => {
                 const interval = calculateInterval(state.core.level);
                 return timer(interval, interval).pipe(
-                    takeUntil(action$.pipe(ofType(ActionTypes.EXIT_GAME, ActionTypes.SNAKE_WIN))),
+                    takeUntil(action$.pipe(ofType(ActionTypes.EXIT_GAME, ActionTypes.SNAKE_ESCAPE))),
                     withLatestFrom(state$),
                     map(([, s]) => s),
                     filter(s => !s.core.inGamePaused),
