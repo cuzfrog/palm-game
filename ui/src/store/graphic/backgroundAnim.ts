@@ -17,10 +17,8 @@ class BackgroundAnimator {
         if (checkNonEmpty(letters).length === 0) {
             throw new Error('Background letters is empty!');
         }
-        const letterRows = convertLettersToRows(letters, SEPARATOR)
+        this.backgroundSheet = convertLettersToRows(letters, SEPARATOR)
             .map(line => line.replace(/[\s]/g, 'O'));
-        const padding = Array(9).fill('O'.repeat(letterRows[0].length));
-        this.backgroundSheet = padding.concat(letterRows);
         this.sheetWidth = this.backgroundSheet[0].length;
         if (windowWidth > this.sheetWidth) {
             throw new Error(`Windows width ${windowWidth} is greater than sheet width ${this.sheetWidth}`);
@@ -28,20 +26,18 @@ class BackgroundAnimator {
         this.windowWidth = windowWidth;
     }
 
-    public setBackgroundFrame(frameBuffer: PixelState[]): void { // todo: optimize
+    public setBackgroundFrame(frameBuffer: PixelState[], offset: number): void { // todo: optimize
         if (Date.now() - this.lastFrameTimestamp > FRAME_INTERVAL_MS) {
             const backgroundWindow = this.backgroundSheet.map(line => line.substr(this.colIdx, this.windowWidth)).join('');
             for (let i = 0; i < backgroundWindow.length; i++) {
                 const p = backgroundWindow.charAt(i);
+                const fi = i + offset;
                 if (p === 'O') {
-                    frameBuffer[i] = O;
+                    frameBuffer[fi] = O;
                 } else if (p === 'I') {
-                    frameBuffer[i] = I;
+                    frameBuffer[fi] = I;
                 } else if (p === 'S') {
-                    frameBuffer[i] = S;
-                } else {
-                    throw new Error(`Bad character: '${p}' in window:\n ${backgroundWindow},
-                     length=${backgroundWindow.length}; frameBuffer.length=${frameBuffer.length}`);
+                    frameBuffer[fi] = S;
                 }
             }
             this.shiftWindow();
@@ -49,11 +45,12 @@ class BackgroundAnimator {
     }
 
     private shiftWindow() {
-        if (this.colIdx + this.windowWidth > this.sheetWidth) {
+        if (this.colIdx + this.windowWidth >= this.sheetWidth) {
             this.colIdx = 0;
         } else {
             this.colIdx++;
         }
+        this.lastFrameTimestamp = Date.now();
     }
 }
 
@@ -72,6 +69,6 @@ function alignLetter(letter: Letter, separator: string): Letter {
 }
 
 export const BackgroundAnims = {
-    welcome: new BackgroundAnimator(Letters.PRESS_START, W),
+    snake: new BackgroundAnimator(Letters.SNAKE, W),
     _convertLettersToRows: convertLettersToRows
 };

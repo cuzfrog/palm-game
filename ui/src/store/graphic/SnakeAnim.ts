@@ -5,15 +5,23 @@ import {toIndex, validateFrame} from './graphicUtils';
 import {BackgroundAnims} from './backgroundAnim';
 
 const FRAME_INTERVAL_MS = 200;
+const INITIAL_BODY = Range(2, 8).map(x => Point(x, H / 2 - 2)).toList();
+const WORDS_OFFSET = (H / 2 + 1) * W;
+const BORDER_FRAME = Range(0, (H / 2 + 1) * W).map(i => {
+    if (i <= W || i % W === 0 || (i + 1) % W === 0 || i > (H / 2) * W) {
+        return I;
+    } else {
+        return O;
+    }
+}).toList();
 
 export class SnakeAnim implements Anim {
-    private static readonly INITIAL_BODY = Range(1, 9).map(x => Point(x, H - 1)).toList();
     private readonly body: List<Point>;
     private readonly di: Direction;
     private readonly lastTail?: Point;
 
     constructor(state?: List<Point>, direction?: Direction, lastTail?: Point) {
-        this.body = state === undefined ? SnakeAnim.INITIAL_BODY : state;
+        this.body = state === undefined ? INITIAL_BODY : state;
         this.di = direction === undefined ? Direction.EAST : direction;
         this.lastTail = lastTail;
     }
@@ -25,7 +33,7 @@ export class SnakeAnim implements Anim {
         let nd = this.di;
         switch (this.di) {
             case Direction.EAST:
-                if (h.x >= W - 1) {
+                if (h.x >= W - 3) {
                     ny = h.y - 1;
                     nd = Direction.NORTH;
                 } else {
@@ -33,7 +41,7 @@ export class SnakeAnim implements Anim {
                 }
                 break;
             case Direction.NORTH:
-                if (h.y === 0) {
+                if (h.y === 2) {
                     nx = h.x - 1;
                     nd = Direction.WEST;
                 } else {
@@ -41,7 +49,7 @@ export class SnakeAnim implements Anim {
                 }
                 break;
             case Direction.WEST:
-                if (h.x === 0) {
+                if (h.x === 2) {
                     ny = h.y + 1;
                     nd = Direction.SOUTH;
                 } else {
@@ -49,7 +57,7 @@ export class SnakeAnim implements Anim {
                 }
                 break;
             case Direction.SOUTH:
-                if (h.y >= H - 1) {
+                if (h.y >= (H / 2 - 2)) {
                     nx = h.x + 1;
                     nd = Direction.EAST;
                 } else {
@@ -62,7 +70,10 @@ export class SnakeAnim implements Anim {
     }
 
     public currentFrame(frameBuffer: PixelState[]): Frame {
-        BackgroundAnims.welcome.setBackgroundFrame(frameBuffer);
+        if (this.body === INITIAL_BODY) {
+            BORDER_FRAME.forEach((v, i) => frameBuffer[i] = v);
+        }
+        BackgroundAnims.snake.setBackgroundFrame(frameBuffer, WORDS_OFFSET);
 
         this.body.forEach(p => {
             const i = toIndex(p);
