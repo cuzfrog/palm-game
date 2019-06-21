@@ -1,6 +1,6 @@
-import {delay, filter, map, switchMap, takeUntil, withLatestFrom} from 'rxjs/operators';
+import {concatMap, delay, filter, map, switchMap, takeUntil, withLatestFrom} from 'rxjs/operators';
 import {combineEpics, ofType} from 'redux-observable';
-import {Observable, timer} from 'rxjs';
+import {Observable, of, timer} from 'rxjs';
 import {ActionTypes} from '../actions';
 import {SnakeActions} from './snakeActions';
 import {AppState} from '../appState';
@@ -55,7 +55,7 @@ function calculateInterval(level: number): number {
 const creepFunc = (creepActionFunc: (state: AppState) => AppAction) =>
     (action$: Observable<AppAction>, state$: Observable<AppState>) => { // todo: use WIN / FAIL to control
         return action$.pipe(
-            ofType(ActionTypes.ENTER_GAME),
+            ofType(ActionTypes.ENTER_GAME, ActionTypes.SNAKE_NEXT_LEVEL),
             withLatestFrom(state$),
             map(([, s]) => s),
             filter(s => s.core.gameType === GameType.SNAKE),
@@ -105,7 +105,10 @@ const winEpic = (action$: Observable<AppAction>,
     return action$.pipe(
         ofType(ActionTypes.SNAKE_WIN),
         withLatestFrom(state$),
-        map(([, s]) => s.core.getLevel() >= Specs.core.maxLevel ? CoreActions.exitGame() : CoreActions.increaseLevel()),
+        map(([, s]) => s.core.getLevel()),
+        concatMap(level =>
+            level >= Specs.core.maxLevel ? of(CoreActions.exitGame()) : of(CoreActions.increaseLevel(), SnakeActions.nextLevel())
+        )
     );
 };
 

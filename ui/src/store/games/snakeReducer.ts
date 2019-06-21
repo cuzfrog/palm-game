@@ -38,6 +38,11 @@ export function snakeGameReducer(state: SnakeGameState = DefaultSnakeGameState, 
             case ActionTypes.SNAKE_ESCAPE:
                 draft.body = state.body.takeLast(state.body.size - 1);
                 return;
+            case ActionTypes.SNAKE_WIN:
+                draft.body = DefaultSnakeGameState.body;
+                draft.direction = DefaultSnakeGameState.direction;
+                draft.hole = undefined;
+                return;
             default:
                 return;
         }

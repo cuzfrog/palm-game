@@ -26,6 +26,7 @@ export const enum ActionTypes {
     SNAKE_CREEP = '[game snake] creep',
     SNAKE_BITE_SELF = '[game snake] bite self',
     SNAKE_HIT_WALL = '[game snake] hit wall',
+    SNAKE_ESCAPE = '[game snake] escape through hole',
     SNAKE_WIN = '[game snake] win',
-    SNAKE_ESCAPE = '[game snake] escape through hole'
+    SNAKE_NEXT_LEVEL = '[game snake] next level',
 }
