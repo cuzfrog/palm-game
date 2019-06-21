@@ -53,7 +53,7 @@ function calculateInterval(level: number): number {
 }
 
 const creepFunc = (creepActionFunc: (state: AppState) => AppAction) =>
-    (action$: Observable<AppAction>, state$: Observable<AppState>) => { // todo: use WIN / FAIL to control
+    (action$: Observable<AppAction>, state$: Observable<AppState>) => { // todo: use WIN / FAIL to control anim
         return action$.pipe(
             ofType(ActionTypes.ENTER_GAME, ActionTypes.SNAKE_NEXT_LEVEL),
             withLatestFrom(state$),

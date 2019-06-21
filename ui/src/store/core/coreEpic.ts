@@ -18,6 +18,7 @@ const animationEpic = (action$: Observable<AppAction>, state$: Observable<AppSta
 const exitGameEpic = (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
     return action$.pipe(
         ofType(ActionTypes.EXIT_GAME),
+        map(() => CoreActions.consoleStart())
     );
 };
 

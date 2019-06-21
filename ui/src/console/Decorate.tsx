@@ -5,7 +5,7 @@ export default class Decorate extends React.PureComponent<{}, {}> {
     public render() {
         return (
             <div className={style.decorate}>
-                <h1 className={style.title}>Boxer Game</h1>
+                <h1 className={style.title}>Palm Game</h1>
             </div>
         );
     }
