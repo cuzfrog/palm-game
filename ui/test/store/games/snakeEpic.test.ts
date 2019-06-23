@@ -7,9 +7,9 @@ import {
     DefaultSnakeGameState,
     DefaultCoreState,
     SnakeActions,
-    snakeEpic
 } from '../../../src/store';
 import {Direction, Point} from '../../../src/domain';
+import {snakeEpic} from '../../../src/store/games/snakeEpic';
 
 const defaultState: AppState = {
     core: DefaultCoreState,
