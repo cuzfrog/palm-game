@@ -2,9 +2,10 @@ import {Action, applyMiddleware, combineReducers, createStore, Reducer, Store} f
 import logger from 'redux-logger';
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 import {combineEpics, createEpicMiddleware} from 'redux-observable';
-import {snakeEpic, snakeGameReducer, SnakeGameState} from './games';
-import {coreReducer, CoreState, coreEpic, keyboardEpic} from './core';
+import {gameEpic, snakeGameReducer, SnakeGameState} from './games';
+import {coreReducer, CoreState, coreEpic} from './core';
 import {appReducer} from './appReducer';
+import {audioEpic} from './sound';
 
 export interface AppState {
     readonly core: CoreState;
@@ -19,7 +20,7 @@ const reducers: Reducer<AppState, Action> = (state, action) => {
     return appReducer(combined(state, action), action);
 };
 
-const epics = combineEpics(coreEpic.epic, snakeEpic.epic, keyboardEpic.epic);
+const epics = combineEpics(coreEpic, gameEpic, audioEpic);
 const epicMiddleware = createEpicMiddleware<Action, Action, AppState>();
 
 const composeEnhancers = composeWithDevTools({
