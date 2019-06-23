@@ -1,39 +1,28 @@
-import {Observable} from 'rxjs';
-import {AppAction, AppState} from '../index';
-import {combineEpics, ofType, StateObservable} from 'redux-observable';
+import {combineEpics} from 'redux-observable';
 import {ActionTypes} from '../action';
-import {filter, tap, withLatestFrom} from 'rxjs/operators';
-import {SoundEffects} from './audioSources';
+import {createAudioEpic, SoundEffects} from './audioTypes';
 import {SystemStatus} from '../../domain';
 
-const menuAudioEpic = (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
-    return action$.pipe(
-        ofType(ActionTypes.INCREASE_LEVEL, ActionTypes.DECREASE_LEVEL),
-        withLatestFrom(state$),
-        filter(([, s]) => s.core.status === SystemStatus.MENU),
-        tap(() => SoundEffects.playSfxCoreMenu()),
-        filter(() => false),
-    );
-};
+const menuAudioEpic = createAudioEpic(
+    SoundEffects.sfxCoreMenu,
+    [ActionTypes.INCREASE_LEVEL, ActionTypes.DECREASE_LEVEL],
+    s => s.core.status === SystemStatus.MENU
+);
 
-const enterGameAudioEpic = (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
-    return action$.pipe(
-        ofType(ActionTypes.ENTER_GAME),
-        tap(() => SoundEffects.playSfxStart()),
-        filter(() => false),
-    );
-};
+const enterGameAudioEpic = createAudioEpic(SoundEffects.sfxEnterGame, [ActionTypes.ENTER_GAME]);
 
-const pauseAudioEpic = (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
-    return action$.pipe(
-        ofType(ActionTypes.TOGGLE_PAUSE),
-        withLatestFrom(state$),
-        filter(([, s]) => s.core.status === SystemStatus.IN_GAME),
-        tap(([, s]) => s.core.inGamePaused ? SoundEffects.playSfxPauseIn() : SoundEffects.playSfxPauseOut()),
-        filter(() => false),
-    );
-};
+const pauseInAudioEpic = createAudioEpic(
+    SoundEffects.sfxPauseIn,
+    [ActionTypes.TOGGLE_PAUSE],
+    s => s.core.status === SystemStatus.IN_GAME && s.core.inGamePaused
+);
+
+const pauseOutAudioEpic = createAudioEpic(
+    SoundEffects.sfxPauseOut,
+    [ActionTypes.TOGGLE_PAUSE],
+    s => s.core.status === SystemStatus.IN_GAME && !s.core.inGamePaused
+);
 
 export const coreAudioEpic = {
-    epic: combineEpics(menuAudioEpic, enterGameAudioEpic, pauseAudioEpic),
+    epic: combineEpics(menuAudioEpic, enterGameAudioEpic, pauseInAudioEpic, pauseOutAudioEpic),
 };

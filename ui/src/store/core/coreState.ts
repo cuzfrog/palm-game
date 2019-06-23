@@ -10,6 +10,7 @@ export interface CoreState {
     readonly gameType: GameType;
     readonly inGamePaused: boolean;
     readonly anim: Anim;
+    readonly audioEnabled: boolean;
 
     getLevel(): number;
 }
@@ -22,6 +23,7 @@ export const DefaultCoreState: CoreState = {
     gameType: GameType.SNAKE,
     inGamePaused: false,
     anim: Animations.emptyAnim,
+    audioEnabled: true,
     getLevel(): number {
         return this.level.get(this.gameType, 3);
     }
