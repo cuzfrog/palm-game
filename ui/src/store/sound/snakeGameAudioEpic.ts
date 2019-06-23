@@ -12,6 +12,11 @@ const damageAudioEpic = createAudioEpic(
     [ActionTypes.SNAKE_HIT_WALL, ActionTypes.SNAKE_BITE_SELF]
 );
 
+const escapeAudioEpic = createAudioEpic(
+    SoundEffects.sfxSnakeEscape,
+    a => a.type === ActionTypes.SNAKE_ESCAPE && a.payload === 0
+);
+
 export const snakeGameAudioEpic = {
-    epic: combineEpics(eatBeanAudioEpic, damageAudioEpic),
+    epic: combineEpics(eatBeanAudioEpic, damageAudioEpic, escapeAudioEpic),
 };

@@ -1,7 +1,7 @@
 import {concatMap, delay, filter, map, switchMap, takeUntil, withLatestFrom} from 'rxjs/operators';
 import {combineEpics, ofType} from 'redux-observable';
 import {Observable, of, timer} from 'rxjs';
-import {SnakeActions, ActionTypes} from '../action';
+import {ActionTypes, SnakeActions} from '../action';
 import {AppState} from '../appState';
 import {Direction, GameType, Point} from '../../domain';
 import {Specs} from '../../Specs';
@@ -16,7 +16,7 @@ function nextCreepAction(appState: AppState) {
     const s: SnakeGameState = appState.snake;
     const head = newHeadPoint(s.direction, s.body.last()); // last is head
     if (head.equals(s.hole)) {
-        action = SnakeActions.escape();
+        action = SnakeActions.escape(0);
     } else if (isHittingWall(head)) {
         action = s.life <= 1 ? CoreActions.exitGame() : SnakeActions.hitWall();
     } else if (s.body.contains(head)) {
@@ -93,9 +93,18 @@ const escapeEpic = (action$: Observable<AppAction>,
                     state$: Observable<AppState>) => {
     return action$.pipe(
         ofType(ActionTypes.SNAKE_ESCAPE),
+        map(a => {
+            if (a.type === ActionTypes.SNAKE_ESCAPE) {
+                return a.payload;
+            } else {
+                throw new TypeError('Assertion error: impossible to reach here!');
+            }
+        }),
         delay(ESCAPE_INTERVAL),
         withLatestFrom(state$),
-        map(([, s]) => s.snake.body.size <= 0 ? SnakeActions.win() : SnakeActions.escape()),
+        map(([step, s]) => {
+            return s.snake.body.size <= 0 ? SnakeActions.win() : SnakeActions.escape(step + 1);
+        }),
     );
 };
 

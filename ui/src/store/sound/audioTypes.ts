@@ -11,6 +11,7 @@ export const SoundEffects = {
     sfxPauseOut: new Audio('audio/sfx_pause1_out.mp3'),
     sfxSnakeEatBean: new Audio('audio/sfx_snake_eat_bean.mp3'),
     sfxSnakeDamage: new Audio('audio/sfx_snake_damage.mp3'),
+    sfxSnakeEscape: new Audio('audio/sfx_snake_escape.mp3')
 };
 
 type Predicate<T> = (value: T) => boolean;

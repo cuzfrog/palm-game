@@ -113,16 +113,16 @@ describe('score epic', () => {
 describe('escape epic', () => {
     it('escape triggers an other escape if the body still exists', () => {
         newTestScheduler().run(({cold, expectObservable}) => {
-            const action$ = cold('e|', {e: SnakeActions.escape()});
+            const action$ = cold('e|', {e: SnakeActions.escape(0)});
             const state$ = cold('s', {s: defaultState});
             const epic = snakeEpic._escapeEpic(action$, state$);
-            expectObservable(epic).toBe(`${snakeEpic.ESCAPE_INTERVAL}ms e|`, {e: SnakeActions.escape()});
+            expectObservable(epic).toBe(`${snakeEpic.ESCAPE_INTERVAL}ms e|`, {e: SnakeActions.escape(1)});
         });
     });
     it('escape triggers a win if all body has escaped', () => {
         const stateSetBody = bodyLens.set(List.of())(defaultState);
         newTestScheduler().run(({cold, expectObservable}) => {
-            const action$ = cold('e|', {e: SnakeActions.escape()});
+            const action$ = cold('e|', {e: SnakeActions.escape(0)});
             const state$ = cold('s', {s: stateSetBody});
             const epic = snakeEpic._escapeEpic(action$, state$);
             expectObservable(epic).toBe(`${snakeEpic.ESCAPE_INTERVAL}ms e|`, {e: SnakeActions.win()});
