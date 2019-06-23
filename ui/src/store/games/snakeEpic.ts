@@ -1,8 +1,7 @@
 import {concatMap, delay, filter, map, switchMap, takeUntil, withLatestFrom} from 'rxjs/operators';
 import {combineEpics, ofType} from 'redux-observable';
 import {Observable, of, timer} from 'rxjs';
-import {ActionTypes} from '../actions';
-import {SnakeActions} from './snakeActions';
+import {SnakeActions, ActionTypes} from '../action';
 import {AppState} from '../appState';
 import {Direction, GameType, Point} from '../../domain';
 import {Specs} from '../../Specs';

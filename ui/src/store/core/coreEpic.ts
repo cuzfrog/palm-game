@@ -2,7 +2,7 @@ import {Observable, of} from 'rxjs';
 import {AppAction, AppState, CoreActions} from '../index';
 import {combineEpics, ofType, StateObservable} from 'redux-observable';
 import {concatMap, delay, filter, map, withLatestFrom} from 'rxjs/operators';
-import {ActionTypes} from '../actions';
+import {ActionTypes} from '../action';
 import {AnimType} from '../graphic';
 
 const animationEpic = (action$: Observable<AppAction>, state$: Observable<AppState>) => {

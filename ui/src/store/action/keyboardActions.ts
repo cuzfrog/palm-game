@@ -1,5 +1,5 @@
-import {createAction} from '../typeHelper';
-import {ActionTypes} from '../actions';
+import {createAction} from './typeHelper';
+import {ActionTypes} from '.';
 
 const up = createAction(ActionTypes.UP);
 const right = createAction(ActionTypes.RIGHT);

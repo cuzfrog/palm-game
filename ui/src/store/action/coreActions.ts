@@ -1,5 +1,5 @@
-import {ActionUnion, createAction, createActionWithPayload} from '../typeHelper';
-import {ActionTypes} from '../actions';
+import {ActionUnion, createAction, createActionWithPayload} from './typeHelper';
+import {ActionTypes} from './actions';
 
 const consoleStart = createAction(ActionTypes.CONSOLE_START);
 const consoleAnimate = createAction(ActionTypes.CONSOLE_ANIMATE);

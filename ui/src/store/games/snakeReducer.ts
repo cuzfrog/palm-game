@@ -1,8 +1,7 @@
 import produce from 'immer';
 import {List, Range} from 'immutable';
 import {DefaultSnakeGameState, SnakeGameState} from './snakeState';
-import {SnakeAction} from './snakeActions';
-import {ActionTypes} from '../actions';
+import {SnakeAction, ActionTypes} from '../action';
 import {isOppositeDirection, Point} from '../../domain';
 import {Specs} from '../../Specs';
 import {randomInt} from '../../utils';

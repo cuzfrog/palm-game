@@ -1,7 +1,6 @@
 import {AppState} from './appState';
-import {CoreAction} from './core/coreActions';
+import {CoreAction, ActionTypes} from './action';
 import produce from 'immer';
-import {ActionTypes} from './actions';
 import {DefaultSnakeGameState} from './games';
 
 export function appReducer(state: AppState, action: CoreAction): AppState {
