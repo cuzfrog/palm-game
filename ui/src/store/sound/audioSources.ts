@@ -1,5 +1,5 @@
 const sfxCoreMenu = new Audio('audio/sfx_core_menu.mp3');
-const sfxEnterGame = new Audio('audio/sfx_start.mp3');
+const sfxEnterGame = new Audio('audio/sfx_enter_game.mp3');
 const sfxPauseIn = new Audio('audio/sfx_pause1_in.mp3');
 const sfxPauseOut = new Audio('audio/sfx_pause1_out.mp3');
 
