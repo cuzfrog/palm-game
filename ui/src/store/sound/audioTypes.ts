@@ -5,10 +5,10 @@ import {filter, tap} from 'rxjs/operators';
 import {ActionTypes} from '../action';
 
 export const SoundEffects = {
-    sfxCoreMenu: new Audio('audio/sfx_core_menu.mp3'),
-    sfxEnterGame: new Audio('audio/sfx_enter_game.mp3'),
-    sfxPauseIn: new Audio('audio/sfx_pause1_in.mp3'),
-    sfxPauseOut: new Audio('audio/sfx_pause1_out.mp3'),
+    sfxCoreMenu: new Audio('audio/sfx_core_menu1.mp3'),
+    sfxEnterGame: new Audio('audio/sfx_core_enter_game.mp3'),
+    sfxPauseIn: new Audio('audio/sfx_core_pause_in.mp3'),
+    sfxPauseOut: new Audio('audio/sfx_core_pause_out.mp3'),
     sfxSnakeEatBean: new Audio('audio/sfx_snake_eat_bean.mp3'),
     sfxSnakeDamage: new Audio('audio/sfx_snake_damage.mp3'),
     sfxSnakeEscape: new Audio('audio/sfx_snake_escape.mp3')
