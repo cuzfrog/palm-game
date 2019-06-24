@@ -33,12 +33,12 @@ class Dashboard extends React.PureComponent<DashboardProps, {}> {
                     <Digit value={this.props.level} width={LEVEL_WIDTH} fontSize={FontSize.LARGE}/>
                 </div>
 
-                <div className={classnames(styles.lifeShow, {[styles.disabled]: this.props.enemyLife})}>
+                <div className={classnames(styles.lifeShow, {[styles.deactivated]: this.props.enemyLife.maxHp <= 0})}>
                     <p>Enemy</p>
                     <LifeBar hp={enemyLife.hp} maxHp={enemyLife.maxHp} count={LIFE_HEART_COUNT}/>
                 </div>
 
-                <div className={classnames(styles.lifeShow, {[styles.disabled]: this.props.life})}>
+                <div className={classnames(styles.lifeShow, {[styles.deactivated]: this.props.life.maxHp <= 0})}>
                     <p>Life</p>
                     <LifeBar hp={life.hp} maxHp={life.maxHp} count={LIFE_HEART_COUNT}/>
                 </div>
@@ -46,11 +46,11 @@ class Dashboard extends React.PureComponent<DashboardProps, {}> {
             </div>
         );
     }
-} // todo: disable title Enemy
+}
 
 function getLife(life?: Life) {
     if (life === undefined) {
-        return {hp: 0, maxHp: 1};
+        return {hp: 0, maxHp: 0};
     } else {
         return life;
     }

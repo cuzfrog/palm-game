@@ -1,5 +1,3 @@
-@import "LifeBar";
-
 @activeColor: #161616;
 @deactiveColor: darken(@backgrounColor, 5%);
 @backgrounColor: #9ead86;
@@ -10,9 +8,8 @@
   padding: 4px;
   border: 1px solid #000;
   display: flex;
-
-  .disabled {
-    color: @backgrounColor;
-  }
 }
 
+.deactivated {
+  color: @deactiveColor;
+}
