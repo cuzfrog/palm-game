@@ -30,3 +30,9 @@ export const enum ActionTypes {
     SNAKE_WIN = '[game snake] win',
     SNAKE_NEXT_LEVEL = '[game snake] next level',
 }
+
+export const ActionGroups = Object.seal({
+    directionKeys: Object.seal([ActionTypes.UP, ActionTypes.RIGHT, ActionTypes.DOWN, ActionTypes.LEFT]),
+    mainKeys: Object.seal([ActionTypes.A, ActionTypes.B]),
+    funcKeys: Object.seal([ActionTypes.SELECT, ActionTypes.START]),
+});

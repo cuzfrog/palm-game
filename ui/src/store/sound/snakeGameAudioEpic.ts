@@ -17,6 +17,4 @@ const escapeAudioEpic = createAudioEpic(
     a => a.type === ActionTypes.SNAKE_ESCAPE && a.payload === 0
 );
 
-export const snakeGameAudioEpic = {
-    epic: combineEpics(eatBeanAudioEpic, damageAudioEpic, escapeAudioEpic),
-};
+export const snakeGameAudioEpic = combineEpics(eatBeanAudioEpic, damageAudioEpic, escapeAudioEpic);

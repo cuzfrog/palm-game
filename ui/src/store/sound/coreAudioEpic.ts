@@ -1,5 +1,5 @@
 import {combineEpics} from 'redux-observable';
-import {ActionTypes} from '../action';
+import {ActionGroups, ActionTypes} from '../action';
 import {createAudioEpic, SoundEffects} from './audioTypes';
 import {SystemStatus} from '../../domain';
 
@@ -23,6 +23,15 @@ const pauseOutAudioEpic = createAudioEpic(
     s => s.core.status === SystemStatus.IN_GAME && !s.core.inGamePaused
 );
 
-export const coreAudioEpic = {
-    epic: combineEpics(menuAudioEpic, enterGameAudioEpic, pauseInAudioEpic, pauseOutAudioEpic),
-};
+const inGameKeypressAudioEpic = createAudioEpic(
+    SoundEffects.sfxKeypress,
+    ActionGroups.directionKeys.concat(ActionGroups.mainKeys)
+);
+
+export const coreAudioEpic = combineEpics(
+    menuAudioEpic,
+    enterGameAudioEpic,
+    pauseInAudioEpic,
+    pauseOutAudioEpic,
+    inGameKeypressAudioEpic,
+);
