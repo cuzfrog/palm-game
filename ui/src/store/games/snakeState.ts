@@ -15,7 +15,7 @@ export interface SnakeGameState {
 export const DefaultSnakeGameState: SnakeGameState = {
     body: initialBody(),
     direction: Direction.NORTH,
-    life: 5
+    life: 3
 };
 
 function initialBody(): List<Point> {
