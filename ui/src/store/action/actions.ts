@@ -31,8 +31,16 @@ export const enum ActionTypes {
     SNAKE_NEXT_LEVEL = '[game snake] next level',
 }
 
+const directionKeys = Object.seal([ActionTypes.UP, ActionTypes.RIGHT, ActionTypes.DOWN, ActionTypes.LEFT]);
+const mainKeys = Object.seal([ActionTypes.A, ActionTypes.B]);
+const funcKeys = Object.seal([ActionTypes.SELECT, ActionTypes.START]);
+const allKeys = Object.seal([...funcKeys, ...mainKeys, ...funcKeys]);
+const noLogging = Object.seal([...allKeys, ActionTypes.CONSOLE_ANIMATE]);
+
 export const ActionGroups = Object.seal({
-    directionKeys: Object.seal([ActionTypes.UP, ActionTypes.RIGHT, ActionTypes.DOWN, ActionTypes.LEFT]),
-    mainKeys: Object.seal([ActionTypes.A, ActionTypes.B]),
-    funcKeys: Object.seal([ActionTypes.SELECT, ActionTypes.START]),
+    directionKeys,
+    mainKeys,
+    funcKeys,
+    allKeys,
+    noLogging
 });

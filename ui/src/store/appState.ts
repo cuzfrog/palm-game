@@ -3,11 +3,11 @@ import {createLogger} from 'redux-logger';
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 import {combineEpics, createEpicMiddleware} from 'redux-observable';
 import {gameEpic, snakeGameReducer, SnakeGameState} from './games';
-import {coreReducer, CoreState, coreEpic} from './core';
+import {coreEpic, coreReducer, CoreState} from './core';
 import {appReducer} from './appReducer';
 import {audioEpic} from './sound';
 import {AppAction} from './index';
-import {ActionTypes} from './action';
+import {ActionGroups} from './action';
 
 export interface AppState {
     readonly core: CoreState;
@@ -31,7 +31,7 @@ const composeEnhancers = composeWithDevTools({
 
 const logger = createLogger({
     collapsed: true,
-    predicate: (_, action: AppAction) => action.type !== ActionTypes.CONSOLE_ANIMATE,
+    predicate: (_, action: AppAction) => !ActionGroups.noLogging.includes(action.type),
 });
 
 export const store: Store<AppState> = createStore(
