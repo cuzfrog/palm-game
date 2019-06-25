@@ -10,10 +10,13 @@ const prevState = DefaultCoreState;
 const scoreLens = Lens.fromPath<CoreState>()(['scores']);
 
 describe('system reducer', () => {
+    const scores = Map([[GameType.BOXER, 5000], [GameType.SNAKE, 300]]);
+    const maxScores = Map([[GameType.BOXER, 3000], [GameType.SNAKE, 1000]]);
+
     it('add score to current game', () => {
         const stateWithScore = scoreLens.set(Map())(prevState);
         const state = coreReducer(stateWithScore, CoreActions.addScore(500));
-        expect(state.scores.get(state.gameType)).toEqual(500);
+        expect(state.getScore()).toEqual(500);
     });
 
     it('increase level', () => {
@@ -44,7 +47,9 @@ describe('system reducer', () => {
     });
 
     it('enter game if not in game', () => {
-        expect(coreReducer(stateNotInGame, CoreActions.enterGame()).status).toEqual(SystemStatus.IN_GAME);
+        const newState = coreReducer(scoreLens.set(scores)(stateNotInGame), CoreActions.enterGame());
+        expect(newState.status).toEqual(SystemStatus.IN_GAME);
+        expect(newState.getScore()).toBe(0);
     });
 
     it('no entering game if already in game', () => {
@@ -52,8 +57,6 @@ describe('system reducer', () => {
     });
 
     it('exit game and save scores to maxScores', () => {
-        const scores = Map([[GameType.BOXER, 5000], [GameType.SNAKE, 300]]);
-        const maxScores = Map([[GameType.BOXER, 3000], [GameType.SNAKE, 1000]]);
         const s1 = {...stateInGame, scores, maxScores};
         const s2 = coreReducer(s1, CoreActions.exitGame());
         expect(s2.status).not.toBe(SystemStatus.IN_GAME);

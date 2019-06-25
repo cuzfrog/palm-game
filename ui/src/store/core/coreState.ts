@@ -13,6 +13,7 @@ export interface CoreState {
     readonly audioEnabled: boolean;
 
     getLevel(): number;
+    getScore(): number;
 }
 
 export const DefaultCoreState: CoreState = {
@@ -26,5 +27,8 @@ export const DefaultCoreState: CoreState = {
     audioEnabled: true,
     getLevel(): number {
         return this.level.get(this.gameType, 3);
+    },
+    getScore(): number {
+        return this.scores.get(this.gameType, 0);
     }
 };
