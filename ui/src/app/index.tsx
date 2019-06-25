@@ -10,5 +10,4 @@ ReactDOM.render(
     document.getElementById('root') as HTMLElement
 );
 
-console.info('App loaded.');
 initiateConsole();

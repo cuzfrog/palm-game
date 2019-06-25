@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
@@ -79,6 +81,11 @@ const config = {
         }),
         // new BundleAnalyzerPlugin(),
         new IgnoreNotFoundExportPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                PACKAGE_VERSION: JSON.stringify(require('./package.json').version)
+            }
+        }),
     ],
     optimization: {
         splitChunks: {
