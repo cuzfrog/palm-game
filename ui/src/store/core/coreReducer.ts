@@ -6,7 +6,7 @@ import {Specs} from '../../Specs';
 import {GameType, SystemStatus} from '../../domain';
 import {Anim, Animations} from '../graphic';
 
-const GameTypeValues: ReadonlyArray<number> = Object.keys(GameType).map(key => GameType[key]);
+const GameTypeValues: ReadonlyArray<GameType> = Object.keys(GameType).map(key => GameType[key]);
 
 export function coreReducer(state: CoreState = DefaultCoreState, action: CoreAction): CoreState {
     return produce(state, draft => {
@@ -51,8 +51,8 @@ export function coreReducer(state: CoreState = DefaultCoreState, action: CoreAct
                     break;
                 case ActionTypes.TOGGLE_GAME:
                     checkStrictNonEqual(state.status, SystemStatus.IN_GAME, 'cannot toggle game when in game.');
-                    draft.anim = currentAnimation(state);
                     draft.gameType = nextEnum(state.gameType, GameTypeValues);
+                    draft.anim = currentAnimation(draft as CoreState);
             }
         }
     );

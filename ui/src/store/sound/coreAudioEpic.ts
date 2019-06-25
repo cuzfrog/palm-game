@@ -25,7 +25,8 @@ const pauseOutAudioEpic = createAudioEpic(
 
 const inGameKeypressAudioEpic = createAudioEpic(
     SoundEffects.sfxKeypress,
-    ActionGroups.directionKeys.concat(ActionGroups.mainKeys)
+    ActionGroups.directionKeys.concat(ActionGroups.mainKeys),
+    s => s.core.status === SystemStatus.IN_GAME
 );
 
 export const coreAudioEpic = combineEpics(

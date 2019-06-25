@@ -9,7 +9,7 @@ export const enum SystemStatus {
 }
 
 export enum GameType {
-    SNAKE, BOXER
+    SNAKE = 'snake', BOXER = 'boxer'
 }
 
 export const enum PixelState {

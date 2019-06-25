@@ -1,4 +1,4 @@
-import {BackgroundAnims} from '../../../src/store/graphic/backgroundAnim';
+import {BackgroundAnims} from '../../../src/store/graphic/backgroundAnimator';
 
 describe('background anim', () => {
     it('convert letter to sheet', () => {

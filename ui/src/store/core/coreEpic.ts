@@ -7,7 +7,7 @@ import {AnimType} from '../graphic';
 
 const animationEpic = (action$: Observable<AppAction>, state$: Observable<AppState>) => {
     return action$.pipe(
-        ofType(ActionTypes.CONSOLE_ANIMATE, ActionTypes.CONSOLE_START),
+        ofType(ActionTypes.CONSOLE_ANIMATE, ActionTypes.CONSOLE_START, ActionTypes.TOGGLE_GAME),
         withLatestFrom(state$),
         map(([, s]) => s.core.anim),
         filter(a => a.type !== AnimType.DUMMY),
