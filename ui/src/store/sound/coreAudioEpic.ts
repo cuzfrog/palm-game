@@ -9,6 +9,11 @@ const menuAudioEpic = createAudioEpic(
     s => s.core.status === SystemStatus.MENU
 );
 
+const selectGameAudioEpic = createAudioEpic(
+    SoundEffects.sfxCoreSelect,
+    [ActionTypes.TOGGLE_GAME]
+);
+
 const enterGameAudioEpic = createAudioEpic(SoundEffects.sfxEnterGame, [ActionTypes.ENTER_GAME]);
 
 const pauseInAudioEpic = createAudioEpic(
@@ -31,6 +36,7 @@ const inGameKeypressAudioEpic = createAudioEpic(
 
 export const coreAudioEpic = combineEpics(
     menuAudioEpic,
+    selectGameAudioEpic,
     enterGameAudioEpic,
     pauseInAudioEpic,
     pauseOutAudioEpic,

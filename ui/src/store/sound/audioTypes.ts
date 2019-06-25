@@ -5,7 +5,8 @@ import {filter, tap} from 'rxjs/operators';
 import {ActionTypes} from '../action';
 
 export const SoundEffects = {
-    sfxCoreMenu: new Audio('audio/sfx_core_menu1.mp3'),
+    sfxCoreMenu: new Audio('audio/sfx_core_menu.mp3'),
+    sfxCoreSelect: new Audio('audio/sfx_core_menu_select.mp3'),
     sfxKeypress: new Audio('audio/sfx_core_keypress.mp3'),
     sfxEnterGame: new Audio('audio/sfx_core_enter_game.mp3'),
     sfxPauseIn: new Audio('audio/sfx_core_pause_in.mp3'),
