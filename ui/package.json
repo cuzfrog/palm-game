@@ -8,6 +8,7 @@
     "redux-observable",
     "react",
     "typescript",
+    "js-css",
     "snake",
     "boxer",
     "game"
@@ -27,7 +28,8 @@
     "redux-logger": "^3.0.6",
     "redux-observable": "^1.1.0",
     "reselect": "^4.0.0",
-    "rxjs": "^6.5.2"
+    "rxjs": "^6.5.2",
+    "styled-components": "^4.3.2"
   },
   "scripts": {
     "test": "jest --env=jsdom"
@@ -44,6 +46,7 @@
     "@types/react-redux": "^7.0.8",
     "@types/react-test-renderer": "^16.8.1",
     "@types/redux-logger": "^3.0.7",
+    "@types/styled-components": "^4.1.16",
     "@types/webpack": "^4.4.31",
     "acorn": "^6.1.1",
     "autoprefixer": "^9.5.1",
