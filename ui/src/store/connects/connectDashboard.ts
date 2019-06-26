@@ -38,6 +38,7 @@ function mapStateToProps(state: AppState): DashboardProps {
         level,
         life,
         enemyLife,
+        audioMuted: !state.core.audioEnabled,
     };
 }
 

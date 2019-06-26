@@ -1,21 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-interface Props {
-    version: string;
-}
-
-class _Information extends React.PureComponent<Props, {}> {
-    public render() {
-        return (
-            <div>
-                <span>Ver {this.props.version}</span>
-            </div>
-        );
-    }
-}
-
-export const Information = styled(_Information)`
+const StyledDiv = styled.div`
   color: #9c9c9c;
   font-size: 0.8em;
   position: fixed;
@@ -24,3 +10,17 @@ export const Information = styled(_Information)`
   z-index: 100;
   font-family: monospace;
 `;
+
+interface Props {
+    version: string;
+}
+
+export class Information extends React.PureComponent<Props, {}> {
+    public render() {
+        return (
+            <StyledDiv>
+                <span>Ver {this.props.version}</span>
+            </StyledDiv>
+        );
+    }
+}

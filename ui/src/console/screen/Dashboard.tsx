@@ -5,6 +5,7 @@ import Digit, {FontSize} from './digits/Digit';
 import LifeBar from './LifeBar';
 import {Life} from '../../domain';
 import {Connects} from '../../store';
+import {VolumeMuteIcon} from './icon/VolumeMuteIcon';
 
 const SCORE_WIDTH = 7;
 const LEVEL_WIDTH = 1;
@@ -15,6 +16,7 @@ export interface DashboardProps {
     readonly level: number;
     readonly life: Life;
     readonly enemyLife: Life;
+    readonly audioMuted: boolean;
 }
 
 class Dashboard extends React.PureComponent<DashboardProps, {}> {
@@ -37,12 +39,14 @@ class Dashboard extends React.PureComponent<DashboardProps, {}> {
                     <p>Enemy</p>
                     <LifeBar hp={enemyLife.hp} maxHp={enemyLife.maxHp} count={LIFE_HEART_COUNT}/>
                 </div>
-
                 <div className={classnames(styles.lifeShow, {[styles.deactivated]: this.props.life.maxHp <= 0})}>
                     <p>Life</p>
                     <LifeBar hp={life.hp} maxHp={life.maxHp} count={LIFE_HEART_COUNT}/>
                 </div>
 
+                <div className={styles.misc}>
+                    <VolumeMuteIcon activated={this.props.audioMuted}/>
+                </div>
             </div>
         );
     }
