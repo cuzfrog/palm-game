@@ -18,8 +18,10 @@
   "dependencies": {
     "auto-bind": "^2.1.0",
     "classnames": "^2.2.6",
+    "handlebars": "^4.1.2",
     "immer": "^2.1.5",
     "immutable": "^4.0.0-rc.12",
+    "js-yaml": "^3.13.1",
     "lodash.throttle": "^4.1.1",
     "polished": "^3.4.1",
     "react": "^16.8.6",
