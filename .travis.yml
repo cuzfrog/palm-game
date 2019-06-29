@@ -1,0 +1,21 @@
+matrix:
+  include:
+    - language: node_js
+      node_js:
+        - 10
+      cache: npm
+      before_install:
+        - cd ui
+      install:
+        - npm install
+      script:
+        - npm test
+
+
+branches:
+  only:
+    - master
+    - /.*ci$/
+
+notifications:
+  email: false
