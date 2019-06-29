@@ -6,9 +6,13 @@
   "defaultSeverity": "warn",
   "linterOptions": {
     "exclude": [
-      "config/**/*.js",
-      "node_modules/**/*.ts",
-      "coverage/lcov-report/*.js"
+      "node_modules/**/*.*",
+      "coverage/**/*.*",
+      "build/**/*.*",
+      "public/**/*.*",
+      "tmp/*.*",
+      "*.js",
+      "test/__setup__/**/*.*"
     ]
   },
   "rules": {

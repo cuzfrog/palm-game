@@ -9,6 +9,45 @@ const IgnoreNotFoundExportPlugin = require('./IgnoreNotFoundExportPlugin.js');
 
 const SRC_DIR = /src/;
 
+const Rules = {
+    loadTypescript: {
+        test: /\.tsx?$/,
+        include: SRC_DIR,
+        use: [
+            {
+                loader: 'ts-loader',
+                options: {
+                    transpileOnly: true,
+                },
+            },
+        ]
+    },
+    loadCss: {
+        test: /\.less/,
+        include: SRC_DIR,
+        use: [
+            MiniCssExtractPlugin.loader,
+            {
+                loader: "css-loader",
+                options: {
+                    modules: true,
+                    localIdentName: "[local]_[hash:base64:4]",
+                }
+            },
+            "postcss-loader",
+            "less-loader",
+        ]
+    },
+    loadResources: {
+        test: /\.(png|svg|jpe?g|gif|ico|ttf)$/,
+        include: SRC_DIR,
+        loader: 'file-loader',
+        options: {
+            name: '[name].[ext]'
+        }
+    },
+};
+
 const config = {
     entry: {
         app: "./src/app/index.tsx"
@@ -25,7 +64,7 @@ const config = {
         },
     },
     watchOptions: {
-        ignored: [/node_modules/, /deprecated/, /tmp/]
+        ignored: [/node_modules/, /deprecated/, /tmp/, /coverage/, /build/]
     },
     output: {
         filename: "[name].bundle.js",
@@ -36,46 +75,16 @@ const config = {
         symlinks: false
     },
     module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                include: SRC_DIR,
-                loader: 'ts-loader',
-                options: {
-                    transpileOnly: true
-                },
-            },
-            {
-                test: /\.less/,
-                include: SRC_DIR,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    {
-                        loader: "css-loader",
-                        options: {
-                            modules: true,
-                            localIdentName: "[local]_[hash:base64:4]",
-                        }
-                    },
-                    "postcss-loader",
-                    "less-loader",
-                ]
-            },
-            {
-                test: /\.(png|svg|jpe?g|gif|ico|ttf)$/,
-                include: SRC_DIR,
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]'
-                }
-            }
-        ]
+        rules: Object.values(Rules)
     },
     plugins: [
         new CopyWebpackPlugin([{
             from: 'public'
         }]),
-        new ForkTsCheckerWebpackPlugin({workers: 2}),
+        new ForkTsCheckerWebpackPlugin({
+            workers: ForkTsCheckerWebpackPlugin.TWO_CPUS_FREE,
+            tslint: true,
+        }),
         new MiniCssExtractPlugin({
             filename: 'app.css',
         }),
