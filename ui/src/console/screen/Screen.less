@@ -1,0 +1,16 @@
+@activeColor: #161616;
+@deactiveColor: darken(@backgrounColor, 5%);
+@backgrounColor: #9ead86;
+
+.screen {
+  flex: 100%;
+  background: @backgrounColor;
+  padding: 4px;
+  border: 1px solid #000;
+  display: flex;
+}
+
+.deactivated {
+  color: @deactiveColor;
+  fill: @deactiveColor;
+}

@@ -1,0 +1,49 @@
+@import "Button";
+
+.keysContainer {
+  position: relative;
+  > div {
+    position: absolute;
+  }
+
+  @baseTop: @arrowSize*1.2;
+  @baseLeft: @arrowSize*1.2;
+  .upKey {
+    left: @baseLeft;
+  }
+  .rightKey {
+    top: @baseTop;
+    left: @baseLeft*2.1;
+  }
+  .downKey {
+    top: @baseTop*2;
+    left: @baseLeft;
+  }
+  .leftKey {
+    top: @baseTop;
+  }
+
+  .mainKeyA {
+    left: 90px;
+  }
+  .mainKeyB {
+    top: 50px
+  }
+
+  .selectKey {
+    .funcKey;
+  }
+  .startKey {
+    .funcKey;
+    left: 60px;
+  }
+
+  .funcKey {
+    font-size: 12px;
+    font-weight: bold;
+    p {
+      margin: 5px;
+    }
+  }
+}
+

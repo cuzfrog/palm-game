@@ -1,22 +1,28 @@
 const webpack = require('webpack');
+
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const IgnoreNotFoundExportPlugin = require('./IgnoreNotFoundExportPlugin.js');
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const SRC_DIR = /src/;
 
 const config = {
     entry: {
-        app: "./src/index.tsx"
+        app: "./src/app/index.tsx"
     },
-    //externals: ['react', 'react-dom'],
     mode: "development",
     devtool: 'cheap-source-map',
     devServer: {
         contentBase: path.resolve(__dirname, 'build/dist'),
         compress: true,
-        port: 9000
+        port: 9000,
+        host: '0.0.0.0',
+        stats: {
+            children: false,
+        },
     },
     watchOptions: {
         ignored: [/node_modules/, /deprecated/, /tmp/]
@@ -26,7 +32,7 @@ const config = {
         path: path.resolve(__dirname, 'build/dist')
     },
     resolve: {
-        extensions: [".ts", ".tsx", ".js"],
+        extensions: [".ts", ".tsx", ".js", ".less"],
         symlinks: false
     },
     module: {
@@ -42,10 +48,21 @@ const config = {
             {
                 test: /\.less/,
                 include: SRC_DIR,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: true,
+                            localIdentName: "[local]_[hash:base64:4]",
+                        }
+                    },
+                    "postcss-loader",
+                    "less-loader",
+                ]
             },
             {
-                test: /\.(png|svg|jpe?g|gif|ico)$/,
+                test: /\.(png|svg|jpe?g|gif|ico|ttf)$/,
                 include: SRC_DIR,
                 loader: 'file-loader',
                 options: {
@@ -59,7 +76,16 @@ const config = {
             from: 'public'
         }]),
         new ForkTsCheckerWebpackPlugin({workers: 2}),
-        new MiniCssExtractPlugin({filename: 'app.css'}),
+        new MiniCssExtractPlugin({
+            filename: 'app.css',
+        }),
+        // new BundleAnalyzerPlugin(),
+        new IgnoreNotFoundExportPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                PACKAGE_VERSION: JSON.stringify(require('./package.json').version)
+            }
+        }),
     ],
     optimization: {
         splitChunks: {
@@ -71,7 +97,7 @@ const config = {
                 }
             }
         }
-    }
+    },
 };
 
 module.exports = config;

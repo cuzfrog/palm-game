@@ -1,22 +1,19 @@
 import * as React from 'react';
-import './App.less';
-
-import logo from './logo.svg';
+import style from './App.less';
+import Console from '../console';
+import {Information} from './Information';
 
 class App extends React.Component {
-  public render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    private readonly version: string = process.env.PACKAGE_VERSION as string;
+
+    public render() {
+        return (
+            <div className={style.App}>
+                <Information version={this.version}/>
+                <Console/>
+            </div>
+        );
+    }
 }
 
 export default App;
