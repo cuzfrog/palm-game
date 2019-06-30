@@ -10,7 +10,7 @@
     "jsx": "react",
     "moduleResolution": "node",
     "rootDir": "./",
-    "types": [], // todo, remove once @types/react-native conflict is fixed in styledComponent
+    "types": ["node", "jest"], //https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33015
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
