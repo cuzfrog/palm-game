@@ -10,6 +10,7 @@ matrix:
         - npm install
       script:
         - npm test
+        - npm build
 
 
 branches:

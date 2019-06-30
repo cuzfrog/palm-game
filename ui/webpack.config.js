@@ -107,6 +107,7 @@ const config = {
             }
         }
     },
+    bail: process.env.NODE_ENV === 'CI',
 };
 
 module.exports = config;

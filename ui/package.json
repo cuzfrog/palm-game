@@ -35,7 +35,8 @@
     "styled-components": "^4.3.2"
   },
   "scripts": {
-    "test": "jest --env=jsdom"
+    "test": "jest --env=jsdom",
+    "build": "webpack"
   },
   "devDependencies": {
     "@types/auto-bind": "^1.2.0",
