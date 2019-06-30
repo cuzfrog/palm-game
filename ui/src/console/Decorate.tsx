@@ -1,12 +1,28 @@
 import React from 'react';
-import style from './Decorate.less';
+import styled from 'styled-components';
+
+const DecorateWrapper = styled.div`
+
+`;
+
+const Title = styled.h1`
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-weight: normal;
+  top: -18px;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 36px;
+`;
 
 export default class Decorate extends React.PureComponent<{}, {}> {
     public render() {
         return (
-            <div className={style.decorate}>
-                <h1 className={style.title}>Palm Game</h1>
-            </div>
+            <DecorateWrapper>
+                <Title>Palm Game</Title>
+            </DecorateWrapper>
         );
     }
 }
