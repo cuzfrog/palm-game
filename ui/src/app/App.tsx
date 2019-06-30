@@ -1,17 +1,23 @@
 import * as React from 'react';
-import style from './App.less';
 import Console from '../console';
 import {Information} from './Information';
+import styled from 'styled-components';
+
+const StyledAppWrapper = styled.div`
+  text-align: center;
+  display: flex;
+  justify-content: center;
+`;
 
 class App extends React.Component {
     private readonly version: string = process.env.PACKAGE_VERSION as string;
 
     public render() {
         return (
-            <div className={style.App}>
+            <StyledAppWrapper>
                 <Information version={this.version}/>
                 <Console/>
-            </div>
+            </StyledAppWrapper>
         );
     }
 }
