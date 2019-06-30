@@ -1,0 +1,9 @@
+engines:
+  tslint:
+    enabled: true
+    base_sub_dir: ui
+
+exclude_paths:
+  - 'ui/public/**'
+  - 'ui/test/__setup__/**'
+  - 'ui/*.js'
