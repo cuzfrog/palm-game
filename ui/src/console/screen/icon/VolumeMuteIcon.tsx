@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScreenColors} from '../screen.css';
+import {ScreenColors} from '../screenCss';
 import styled from 'styled-components';
 
 const svgPath = `M215.03 71.05L126.06 160H24c-13.26 0-24 10.74-24 24v144c0 13.25 10.74 24 24 24h102.06l88.97 88.95c15.03 15.03
