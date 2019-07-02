@@ -58,7 +58,7 @@ const LifePanel = styled.div`
 `;
 
 const MiscPanel = styled.div`
-  margin-top: 40px;
+  margin-top: 60px;
 `;
 
 class Dashboard extends React.PureComponent<DashboardProps, {}> {
