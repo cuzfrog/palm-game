@@ -1,16 +1,24 @@
 import React from 'react';
-import styles from './Screen.less';
 import Matrix from './Matrix';
 import Dashboard from './Dashboard';
+import styled from 'styled-components';
+import {ScreenColors} from './screenCss';
 
-export default class Screen extends React.PureComponent<{}, {}> {
+const ScreenWrapper = styled.div`
+  flex: 100%;
+  background: ${ScreenColors.background};
+  padding: 4px;
+  border: 1px solid #000;
+  display: flex;
+`;
+
+export default class Screen extends React.PureComponent {
     public render() {
-
         return (
-            <div className={styles.screen}>
+            <ScreenWrapper>
                 <Matrix/>
                 <Dashboard/>
-            </div>
+            </ScreenWrapper>
         );
     }
 }
