@@ -2,6 +2,7 @@ import React from 'react';
 import {Specs} from '../../../Specs';
 import styled from 'styled-components';
 import {ScreenColors} from '../screenCss';
+import DigitFont from './sa-digital-number.ttf';
 
 interface Props {
     readonly value: number;
@@ -29,7 +30,7 @@ const FontWrapper = styled.div`
   
   @font-face {
     font-family: 'sa-digital-number';
-    src: url('./sa-digital-number.ttf');
+    src: url(${DigitFont});
   }
   
   p {
