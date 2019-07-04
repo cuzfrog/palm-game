@@ -1,4 +1,4 @@
 export * from './actions';
-export * from './coreActions';
-export * from './keyboardActions';
-export * from './snakeActions';
+export * from './core-actions';
+export * from './keyboard-actions';
+export * from './snake-actions';

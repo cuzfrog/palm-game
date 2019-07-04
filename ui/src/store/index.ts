@@ -1,8 +1,8 @@
 import {CoreAction, KeyboardAction, CoreActions} from './action';
 import {SnakeAction} from './games';
-import {store} from './appState';
+import {store} from './app-state';
 
-export {store, AppState} from './appState';
+export {store, AppState} from './app-state';
 
 export * from './core';
 export * from './games';

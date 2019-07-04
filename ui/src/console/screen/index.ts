@@ -1,5 +1,5 @@
-import Screen from './Screen';
+import Screen from './screen';
 
 export default Screen;
-export {DashboardProps} from './Dashboard';
-export {MatrixProps} from './Matrix';
+export {DashboardProps} from './dashboard';
+export {MatrixProps} from './matrix';

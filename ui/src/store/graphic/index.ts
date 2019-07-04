@@ -1,9 +1,9 @@
-import {Anim, AnimType, BLANK_FRAME} from './graphicTypes';
-import {ConsoleStartAnim} from './ConsoleStartAnim';
-import {SnakeAnim} from './SnakeAnim';
+import {Anim, AnimType, BLANK_FRAME} from './graphic-types';
+import {ConsoleStartAnimation} from './console-start-animation';
+import {SnakeAnimation} from './snake-animation';
 
-export {Graphic} from './graphicEngine';
-export {Anim, AnimType} from './graphicTypes';
+export {Graphic} from './graphic-engine';
+export {Anim, AnimType} from './graphic-types';
 
 const emptyAnim: Anim = {
     type: AnimType.DUMMY,
@@ -15,7 +15,7 @@ const emptyAnim: Anim = {
 
 export const Animations = Object.seal({
     emptyAnim,
-    consoleStartInitial: new ConsoleStartAnim(),
-    snakeInitial: new SnakeAnim(),
+    consoleStartInitial: new ConsoleStartAnimation(),
+    snakeInitial: new SnakeAnimation(),
     boxerInitial: emptyAnim,
 });

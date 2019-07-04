@@ -1,8 +1,8 @@
 import {List} from 'immutable';
 
-export * from './Direction';
-export * from './Life';
-export * from './Point';
+export * from './direction';
+export * from './life';
+export * from './point';
 
 export const enum SystemStatus {
     STARTING, MENU, IN_GAME
