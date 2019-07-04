@@ -1,5 +1,7 @@
 import React from 'react';
-import style from './Button.less';
+import autoBind from 'auto-bind';
+import styled from 'styled-components';
+import {mapStyledButton} from './button-styles';
 
 interface Props {
     readonly type: BtnType;
@@ -9,14 +11,18 @@ interface Props {
     readonly clickHandler?: () => void;
 }
 
-export enum BtnType {
-    MAIN = style.mainButton,
-    FUNC = style.funcButton,
-    UP = style.upButton,
-    LEFT = style.leftButton,
-    RIGHT = style.rightButton,
-    DOWN = style.downButton
+export const enum BtnType {
+    MAIN = 'main',
+    FUNC = 'func',
+    UP = 'up',
+    LEFT = 'left',
+    RIGHT = 'right',
+    DOWN = 'down'
 }
+
+const StyledButton = styled.div`
+  ${(props: Props) => mapStyledButton(props.type)};
+`;
 
 export default class Button extends React.PureComponent<Props, {}> {
     constructor(props: Props) {
@@ -24,20 +30,19 @@ export default class Button extends React.PureComponent<Props, {}> {
         if (typeof props.downHandler !== typeof props.upHandler) {
             throw ReferenceError('downHandler and upHandler must be both absent or both present.');
         }
-        this.handleDown = this.handleDown.bind(this);
-        this.handleUp = this.handleUp.bind(this);
+        autoBind.react(this);
     }
 
     public render() {
         return (
-            <div
-                className={this.props.type.toString()}
+            <StyledButton
+                type={this.props.type}
                 onMouseDown={this.handleDown}
                 onMouseUp={this.handleUp}
                 onClick={this.props.clickHandler}
             >
                 {this.props.caption}
-            </div>
+            </StyledButton>
         );
     }
 

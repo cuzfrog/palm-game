@@ -1,24 +1,32 @@
 import React from 'react';
-import styles from './KeysLayout.less';
 import Button from './ActionButton';
-import {BtnType} from './Button';
+import {BtnType} from './button';
+import styled from 'styled-components';
+import {KeysContainer} from './keys-container';
 
 interface MainKeysProps {
     readonly actionA: () => void;
     readonly actionB: () => void;
 }
 
+const KeyAContainer = styled.div`
+  left: 90px;
+`;
+const KeyBContainer = styled.div`
+  top: 50px
+`;
+
 export default class extends React.PureComponent<MainKeysProps, {}> {
     public render() {
         return (
-            <div className={styles.keysContainer}>
-                <div className={styles.mainKeyA}>
+            <KeysContainer>
+                <KeyAContainer>
                     <Button type={BtnType.MAIN} caption={'A'} action={this.props.actionA} throttleIntervalMs={200}/>
-                </div>
-                <div className={styles.mainKeyB}>
+                </KeyAContainer>
+                <KeyBContainer>
                     <Button type={BtnType.MAIN} caption={'B'} action={this.props.actionB} throttleIntervalMs={200}/>
-                </div>
-            </div>
+                </KeyBContainer>
+            </KeysContainer>
         );
     }
 }

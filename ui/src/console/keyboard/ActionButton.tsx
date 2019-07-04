@@ -2,7 +2,7 @@ import React from 'react';
 import throttle from 'lodash.throttle';
 import {List} from 'immutable';
 import autoBind from 'auto-bind';
-import Button, {BtnType} from './Button';
+import Button, {BtnType} from './button';
 
 const DEFAULT_THROTTLE_INTERVAL = 150; // ms
 

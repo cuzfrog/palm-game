@@ -1,24 +1,43 @@
 import React from 'react';
-import styles from './KeysLayout.less';
-import {BtnType} from './Button';
+import {BtnType} from './button';
 import Button from './ActionButton';
+import styled from 'styled-components';
+import {KeysContainer} from './keys-container';
+import {ButtonStyles} from './button-styles';
 
-interface ArrowKeysProps {
+interface Props {
     readonly upAction: () => void;
     readonly rightAction: () => void;
     readonly downAction: () => void;
     readonly leftAction: () => void;
 }
 
-export default class extends React.PureComponent<Readonly<ArrowKeysProps>, {}> {
+const baseTop = ButtonStyles.arrayKeySize * 1.2;
+const baseLeft = ButtonStyles.arrayKeySize * 1.2;
+const UpKeyContainer = styled.div`
+  left: ${baseLeft}px;
+`;
+const RightKeyContainer = styled.div`
+  top: ${baseTop}px;
+  left: ${baseLeft * 2.1}px;
+`;
+const DownKeyContainer = styled.div`
+  top: ${baseTop * 2}px;
+  left: ${baseLeft}px;
+`;
+const LeftKeyContainer = styled.div`
+  top: ${baseTop}px;
+`;
+
+export default class extends React.PureComponent<Props, {}> {
     public render() {
         return (
-            <div className={styles.keysContainer}>
-                <div className={styles.upKey}><Button type={BtnType.UP} action={this.props.upAction}/></div>
-                <div className={styles.rightKey}><Button type={BtnType.RIGHT} action={this.props.rightAction}/></div>
-                <div className={styles.downKey}><Button type={BtnType.DOWN} action={this.props.downAction}/></div>
-                <div className={styles.leftKey}><Button type={BtnType.LEFT} action={this.props.leftAction}/></div>
-            </div>
+            <KeysContainer>
+                <UpKeyContainer><Button type={BtnType.UP} action={this.props.upAction}/></UpKeyContainer>
+                <RightKeyContainer><Button type={BtnType.RIGHT} action={this.props.rightAction}/></RightKeyContainer>
+                <DownKeyContainer><Button type={BtnType.DOWN} action={this.props.downAction}/></DownKeyContainer>
+                <LeftKeyContainer><Button type={BtnType.LEFT} action={this.props.leftAction}/></LeftKeyContainer>
+            </KeysContainer>
         );
     }
 }
