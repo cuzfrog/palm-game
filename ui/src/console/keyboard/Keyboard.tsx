@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './Keyboard.less';
 import ArrowKeys from './ArrowKeys';
 import FunctionKeys from './FunctionKeys';
 import MainKeys from './MainKeys';
 import {Connects} from '../../store/connects';
+import styled from 'styled-components';
 
 export interface KeyboardProps {
     readonly upAction: () => void;
@@ -18,21 +18,38 @@ export interface KeyboardProps {
     readonly actionB: () => void;
 }
 
+const KeyboardWrapper = styled.div`
+  position: relative;
+  > div {
+    position: absolute;
+  }
+`;
+
+const ArrowKeysContainer = styled.div`
+  top: 30px;
+`;
+
+const FuncKeysContainer = styled.div`
+  left: 170px;
+`;
+
+const MainKeysContainer = styled.div`
+  left: 220px;
+  top: 30px;
+`;
+
 class Keyboard extends React.PureComponent<KeyboardProps, {}> {
     constructor(props: KeyboardProps) {
         super(props);
     }
 
-    public render() {
+    public render() { // todo: try to remove container
         return (
-            <div className={styles.keyBoard}>
-                <div className={styles.arrowKeysContainer}>
-                    <ArrowKeys {...this.props}/></div>
-                <div className={styles.funcKeysContainer}>
-                    <FunctionKeys {...this.props}/></div>
-                <div className={styles.mainKeysContainer}>
-                    <MainKeys {...this.props}/></div>
-            </div>
+            <KeyboardWrapper>
+                <ArrowKeysContainer><ArrowKeys {...this.props}/></ArrowKeysContainer>
+                <FuncKeysContainer><FunctionKeys {...this.props}/></FuncKeysContainer>
+                <MainKeysContainer><MainKeys {...this.props}/></MainKeysContainer>
+            </KeyboardWrapper>
         );
     }
 }
