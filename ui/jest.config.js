@@ -1,8 +1,8 @@
-const fileMockPath = "<rootDir>/test/__setup__/__mocks__/fileMock.js";
+const fileMockPath = "<rootDir>/test/__setup__/__mocks__/file-mock.js";
 
 module.exports = {
     preset: 'ts-jest',
-    setupFiles: ["<rootDir>/test/__setup__/testSetup.js"],
+    setupFiles: ["<rootDir>/test/__setup__/test-setup.js"],
     moduleNameMapper: {
         "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": fileMockPath,
         "\\.(css|less)$": "identity-obj-proxy"
