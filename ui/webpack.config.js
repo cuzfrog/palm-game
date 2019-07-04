@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const IgnoreNotFoundExportPlugin = require('./IgnoreNotFoundExportPlugin.js');
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -20,22 +19,6 @@ const Rules = {
                     transpileOnly: true,
                 },
             },
-        ]
-    },
-    loadCss: {
-        test: /\.less/,
-        include: SRC_DIR,
-        use: [
-            MiniCssExtractPlugin.loader,
-            {
-                loader: "css-loader",
-                options: {
-                    modules: true,
-                    localIdentName: "[local]_[hash:base64:4]",
-                }
-            },
-            "postcss-loader",
-            "less-loader",
         ]
     },
     loadResources: {
@@ -71,7 +54,7 @@ const config = {
         path: path.resolve(__dirname, 'build/dist')
     },
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".less"],
+        extensions: [".ts", ".tsx", ".js"],
         symlinks: false
     },
     module: {
@@ -84,9 +67,6 @@ const config = {
         new ForkTsCheckerWebpackPlugin({
             workers: ForkTsCheckerWebpackPlugin.TWO_CPUS_FREE,
             tslint: true,
-        }),
-        new MiniCssExtractPlugin({
-            filename: 'app.css',
         }),
         // new BundleAnalyzerPlugin(),
         new IgnoreNotFoundExportPlugin(),
