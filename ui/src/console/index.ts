@@ -1,4 +1,4 @@
-import Console from './Console';
+import Console from './console';
 
 export default Console;
 export {KeyboardProps} from './keyboard';

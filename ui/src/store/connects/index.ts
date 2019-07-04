@@ -1,6 +1,6 @@
-import {connectToDashboard} from './connectDashboard';
-import {connectToMatrix} from './connectMatrix';
-import {connectToKeyboard} from './connectKeyboard';
+import {connectToDashboard} from './connect-dashboard';
+import {connectToMatrix} from './connect-matrix';
+import {connectToKeyboard} from './connect-keyboard';
 
 export const Connects = Object.seal({
     connectToDashboard,
