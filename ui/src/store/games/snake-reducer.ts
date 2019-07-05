@@ -1,7 +1,7 @@
 import produce from 'immer';
 import {List, Range} from 'immutable';
 import {SnakeGameState} from './snake-state';
-import {ActionTypes, SnakeAction} from '../action';
+import {ActionType} from '../action';
 import {isOppositeDirection, Point} from '../../domain';
 import {Specs} from '../../specs';
 import {randomInt} from '../../utils';
@@ -11,12 +11,12 @@ const WIN_BODY_LENGTH = Specs.snakeGame.winBodyLength;
 export function snakeGameReducer(state: SnakeGameState = SnakeGameState.Default, action: SnakeAction): SnakeGameState {
     return produce(state, draft => {
         switch (action.type) {
-            case ActionTypes.SET_DIRECTION:
+            case ActionType.SET_DIRECTION:
                 if (!isOppositeDirection(state.direction, action.payload) && state.direction !== action.payload) {
                     draft.direction = action.payload;
                 }
                 return;
-            case ActionTypes.SNAKE_CREEP:
+            case ActionType.SNAKE_CREEP:
                 const {head, grown} = action.payload;
                 const length = state.body.size;
                 const body = state.body.toSeq().concat(head).takeLast(grown ? length + 1 : length).toList();
@@ -28,16 +28,16 @@ export function snakeGameReducer(state: SnakeGameState = SnakeGameState.Default,
                     draft.bean = grown ? undefined : (state.bean ? state.bean : generateBean(body));
                 }
                 return;
-            case ActionTypes.SNAKE_HIT_WALL:
-            case ActionTypes.SNAKE_BITE_SELF:
+            case ActionType.SNAKE_HIT_WALL:
+            case ActionType.SNAKE_BITE_SELF:
                 return {
                     ...SnakeGameState.Default,
                     life: state.life - 1,
                 };
-            case ActionTypes.SNAKE_ESCAPE:
+            case ActionType.SNAKE_ESCAPE:
                 draft.body = state.body.takeLast(state.body.size - 1);
                 return;
-            case ActionTypes.SNAKE_WIN:
+            case ActionType.SNAKE_WIN:
                 draft.body = SnakeGameState.Default.body;
                 draft.direction = SnakeGameState.Default.direction;
                 draft.hole = undefined;

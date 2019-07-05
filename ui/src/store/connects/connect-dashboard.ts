@@ -1,10 +1,10 @@
 import {connect} from 'react-redux';
-import {AppState} from '../app-state';
 import {GameType, Life, SystemStatus} from '../../domain';
-import {DashboardProps} from '../../console';
 import {Specs} from '../../specs';
 
-function mapStateToProps(state: AppState): DashboardProps {
+type P = import('../../console').DashboardProps;
+
+function mapStateToProps(state: AppState): P {
     let life: Life;
     let enemyLife: Life;
     let score = state.core.getScore();

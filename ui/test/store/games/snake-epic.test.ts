@@ -3,10 +3,10 @@ import {List} from 'immutable';
 import {TestScheduler} from 'rxjs/testing';
 import {Direction, Point} from '../../../src/domain';
 import {snakeEpic} from '../../../src/store/games/snake-epic';
-import {SnakeActions, SnakeGameState} from '../../../src/store/games';
-import {AppState} from '../../../src/store/app-state';
+import {SnakeActions} from '../../../src/store/games';
 import {CoreActions} from '../../../src/store/action';
-import {CoreState} from '../../../src/store/core';
+import {SnakeGameState} from '../../../src/store/games/snake-state';
+import {CoreState} from '../../../src/store/core/core-state';
 
 const defaultState: AppState = {
     core: CoreState.Default,

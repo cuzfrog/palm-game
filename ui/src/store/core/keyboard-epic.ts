@@ -2,9 +2,8 @@ import {Observable} from 'rxjs';
 import {ofType, StateObservable} from 'redux-observable';
 import {filter, map} from 'rxjs/operators';
 import {Direction, GameType, SystemStatus} from '../../domain';
-import {ActionTypes, AppAction, SnakeActions} from '../action';
-import {AppState} from '../app-state';
-import {CoreActions, CoreState} from '../core';
+import {ActionType, SnakeActions} from '../action';
+import {CoreActions} from '../core';
 
 function dummyLayout(): AppAction {
     return CoreActions.dummy();
@@ -12,13 +11,13 @@ function dummyLayout(): AppAction {
 
 function mapToMenuLayout(action: AppAction): AppAction {
     switch (action.type) {
-        case ActionTypes.SELECT:
+        case ActionType.SELECT:
             return CoreActions.toggleGame();
-        case ActionTypes.START:
+        case ActionType.START:
             return CoreActions.enterGame();
-        case ActionTypes.LEFT:
+        case ActionType.LEFT:
             return CoreActions.decreaseLevel();
-        case ActionTypes.RIGHT:
+        case ActionType.RIGHT:
             return CoreActions.increaseLevel();
         default:
             return CoreActions.dummy();
@@ -27,7 +26,7 @@ function mapToMenuLayout(action: AppAction): AppAction {
 
 function mapToPausedLayout(action: AppAction): AppAction {
     switch (action.type) {
-        case ActionTypes.START:
+        case ActionType.START:
             return CoreActions.togglePause();
         default:
             return CoreActions.dummy();
@@ -36,15 +35,15 @@ function mapToPausedLayout(action: AppAction): AppAction {
 
 function mapToSnakeLayout(action: AppAction): AppAction {
     switch (action.type) {
-        case ActionTypes.START:
+        case ActionType.START:
             return CoreActions.togglePause();
-        case ActionTypes.UP:
+        case ActionType.UP:
             return SnakeActions.setDirection(Direction.NORTH);
-        case ActionTypes.RIGHT:
+        case ActionType.RIGHT:
             return SnakeActions.setDirection(Direction.EAST);
-        case ActionTypes.DOWN:
+        case ActionType.DOWN:
             return SnakeActions.setDirection(Direction.SOUTH);
-        case ActionTypes.LEFT:
+        case ActionType.LEFT:
             return SnakeActions.setDirection(Direction.WEST);
         default:
             return CoreActions.dummy();
@@ -76,13 +75,13 @@ function getGameKeyboard(gameType: GameType): (action: AppAction) => AppAction {
 
 const epic = (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
     return action$.pipe(
-        ofType(ActionTypes.UP, ActionTypes.RIGHT, ActionTypes.DOWN, ActionTypes.LEFT,
-            ActionTypes.SELECT, ActionTypes.START, ActionTypes.A, ActionTypes.B),
+        ofType(ActionType.UP, ActionType.RIGHT, ActionType.DOWN, ActionType.LEFT,
+            ActionType.SELECT, ActionType.START, ActionType.A, ActionType.B),
         map(a => {
             const mapFunc = chooseKeyboardLayout(state$.value.core);
             return mapFunc(a);
         }),
-        filter(a => a.type !== ActionTypes.DUMMY_ACTION)
+        filter(a => a.type !== ActionType.DUMMY_ACTION)
     );
 };
 

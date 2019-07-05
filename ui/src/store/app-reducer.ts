@@ -1,12 +1,11 @@
-import {AppState} from './app-state';
-import {CoreAction, ActionTypes} from './action';
 import produce from 'immer';
-import {SnakeGameState} from './games';
+import {SnakeGameState} from './games/snake-state';
+import {ActionType} from './action';
 
 export function appReducer(state: AppState, action: CoreAction): AppState {
     return produce(state, draft => {
         switch (action.type) {
-            case ActionTypes.EXIT_GAME:
+            case ActionType.EXIT_GAME:
                 draft.snake = SnakeGameState.Default;
                 break;
         }

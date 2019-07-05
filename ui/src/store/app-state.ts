@@ -1,23 +1,21 @@
-import {Action, applyMiddleware, combineReducers, createStore, Reducer, Store} from 'redux';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
 import {createLogger} from 'redux-logger';
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 import {combineEpics, createEpicMiddleware} from 'redux-observable';
-import {gameEpic, snakeGameReducer, SnakeGameState} from './games';
-import {coreEpic, coreReducer, CoreState} from './core';
+import {gameEpic, snakeGameReducer} from './games';
+import {coreEpic, coreReducer} from './core';
 import {appReducer} from './app-reducer';
 import {audioEpic} from './sound';
-import {AppAction} from './action';
 import {ActionGroups} from './action';
 
-export interface AppState {
-    readonly core: CoreState;
-    readonly snake: SnakeGameState;
-}
+type Action = import('redux').Action;
+type Store<S> = import('redux').Store<S>;
+type Reducer<S, A> = import('redux').Reducer<S, A>;
 
 const reducers: Reducer<AppState, Action> = (state, action) => {
     const combined = combineReducers({
         core: coreReducer,
-        snake: snakeGameReducer
+        snake: snakeGameReducer,
     });
     return appReducer(combined(state, action), action);
 };
@@ -37,7 +35,7 @@ const logger = createLogger({
 export const store: Store<AppState> = createStore(
     reducers,
     undefined,
-    composeEnhancers(applyMiddleware(epicMiddleware, logger))
+    composeEnhancers(applyMiddleware(epicMiddleware, logger)),
 );
 
 epicMiddleware.run(epics);

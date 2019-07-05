@@ -1,31 +1,31 @@
 import produce from 'immer';
-import {CoreState} from './core-state';
 import {checkStrictEqual, checkStrictNonEqual, nextEnum} from '../../utils';
-import {CoreAction, ActionTypes} from '../action';
+import {ActionType} from '../action';
 import {Specs} from '../../specs';
 import {GameType, SystemStatus} from '../../domain';
 import {Anim, Animations} from '../graphic';
+import {CoreState} from './core-state';
 
 const GameTypeValues: ReadonlyArray<GameType> = Object.keys(GameType).map(key => GameType[key]);
 
 export function coreReducer(state: CoreState = CoreState.Default, action: CoreAction): CoreState {
     return produce(state, draft => {
             switch (action.type) {
-                case ActionTypes.ADD_SCORE:
+                case ActionType.ADD_SCORE:
                     draft.scores = state.scores.update(state.gameType, prevScore => scoreUpdater(prevScore, action.payload));
                     break;
-                case ActionTypes.INCREASE_LEVEL:
+                case ActionType.INCREASE_LEVEL:
                     const li = state.getLevel();
                     draft.level = state.level.set(state.gameType, li >= Specs.core.maxLevel ? 1 : li + 1);
                     break;
-                case ActionTypes.DECREASE_LEVEL:
+                case ActionType.DECREASE_LEVEL:
                     const ld = state.getLevel();
                     draft.level = state.level.set(state.gameType, ld <= 1 ? Specs.core.maxLevel : ld - 1);
                     break;
-                case ActionTypes.CONSOLE_START:
+                case ActionType.CONSOLE_START:
                     draft.anim = Animations.consoleStartInitial;
                     break;
-                case ActionTypes.CONSOLE_ANIMATE:
+                case ActionType.CONSOLE_ANIMATE:
                     if (draft.anim.isCompleted()) {
                         if (state.status === SystemStatus.STARTING) {
                             draft.status = SystemStatus.MENU;
@@ -35,22 +35,22 @@ export function coreReducer(state: CoreState = CoreState.Default, action: CoreAc
                         draft.anim = draft.anim.advance();
                     }
                     break;
-                case ActionTypes.TOGGLE_PAUSE:
+                case ActionType.TOGGLE_PAUSE:
                     checkStrictEqual(state.status, SystemStatus.IN_GAME, 'cannot pause game if not in game.');
                     draft.inGamePaused = !state.inGamePaused;
                     break;
-                case ActionTypes.ENTER_GAME:
+                case ActionType.ENTER_GAME:
                     checkStrictEqual(state.status, SystemStatus.MENU, 'can only enter game from menu.');
                     draft.scores = state.scores.set(state.gameType, 0);
                     draft.anim = Animations.emptyAnim;
                     draft.status = SystemStatus.IN_GAME;
                     break;
-                case ActionTypes.EXIT_GAME:
+                case ActionType.EXIT_GAME:
                     checkStrictEqual(state.status, SystemStatus.IN_GAME, 'cannot exit game if not in game.');
                     draft.status = SystemStatus.MENU;
                     draft.maxScores = state.scores.mergeWith(maxFunc, state.maxScores);
                     break;
-                case ActionTypes.TOGGLE_GAME:
+                case ActionType.TOGGLE_GAME:
                     checkStrictNonEqual(state.status, SystemStatus.IN_GAME, 'cannot toggle game when in game.');
                     draft.gameType = nextEnum(state.gameType, GameTypeValues);
                     draft.anim = currentAnimation(draft as CoreState);

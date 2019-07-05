@@ -1,10 +1,6 @@
-import {Observable} from 'rxjs';
-import {AppState} from '../index';
-import {StateObservable} from 'redux-observable';
 import {filter, tap} from 'rxjs/operators';
-import {ActionTypes, AppAction} from '../action';
 
-export const SoundEffects = {
+export const SoundEffects = Object.freeze({
     sfxCoreMenu: new Audio('audio/sfx_core_menu.mp3'),
     sfxCoreSelect: new Audio('audio/sfx_core_menu_select.mp3'),
     sfxKeypress: new Audio('audio/sfx_core_keypress.mp3'),
@@ -14,17 +10,19 @@ export const SoundEffects = {
     sfxSnakeEatBean: new Audio('audio/sfx_snake_eat_bean.mp3'),
     sfxSnakeDamage: new Audio('audio/sfx_snake_damage.mp3'),
     sfxSnakeEscape: new Audio('audio/sfx_snake_escape.mp3')
-};
+});
 
-type Predicate<T> = (value: T) => boolean;
+type ActionType = import('../action').ActionType;
+type SO = import('redux-observable').StateObservable<AppState>;
+type O = import('rxjs').Observable<AppAction>;
 
 export function createAudioEpic(audio: HTMLAudioElement,
-                                actionFilter: Predicate<AppAction> | ActionTypes[],
+                                actionFilter: Predicate<AppAction> | ActionType[],
                                 statePredicate: Predicate<AppState> = () => true) {
     const actionFilterOp = typeof actionFilter === 'function' ?
         filter(actionFilter) : filter((a: AppAction) => actionFilter.includes(a.type));
 
-    return (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
+    return (action$: O, state$: SO) => {
         return action$.pipe(
             filter(() => state$.value.core.audioEnabled),
             actionFilterOp,

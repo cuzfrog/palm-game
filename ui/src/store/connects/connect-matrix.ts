@@ -1,9 +1,9 @@
 import {connect} from 'react-redux';
-import {AppState} from '../app-state';
 import {Graphic} from '../graphic';
-import {MatrixProps} from '../../console';
 
-function mapStateToProps(state: AppState): MatrixProps {
+type P = import('../../console').MatrixProps;
+
+function mapStateToProps(state: AppState): P {
     return {
         frame: Graphic.show(state), // todo check: it relies on the Graphic to provide optimization.
     };

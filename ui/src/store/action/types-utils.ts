@@ -1,5 +1,6 @@
-import {Action} from 'redux';
 import {checkNonEmpty} from '../../utils';
+
+type Action<T> = import('redux').Action<T>;
 
 interface ActionWithPayload<T extends string, P> extends Action<T> {
     readonly payload: P;

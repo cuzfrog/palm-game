@@ -1,11 +1,9 @@
 import {concatMap, delay, filter, map, mapTo, switchMap, takeUntil, withLatestFrom} from 'rxjs/operators';
 import {combineEpics, ofType} from 'redux-observable';
 import {Observable, of, timer} from 'rxjs';
-import {ActionTypes, AppAction, SnakeActions} from '../action';
-import {AppState} from '../app-state';
+import {ActionType, SnakeActions} from '../action';
 import {Direction, GameType, Point} from '../../domain';
 import {Specs} from '../../specs';
-import {SnakeGameState} from './snake-state';
 import {CoreActions} from '../core';
 
 const BASIC_INTERVAL = Specs.snakeGame.baseCreepIntervalMs;
@@ -53,14 +51,14 @@ function calculateInterval(level: number): number {
 const creepFunc = (creepActionFunc: (state: AppState) => AppAction) =>
     (action$: Observable<AppAction>, state$: Observable<AppState>) => { // todo: use WIN / FAIL to control anim
         return action$.pipe(
-            ofType(ActionTypes.ENTER_GAME, ActionTypes.SNAKE_NEXT_LEVEL),
+            ofType(ActionType.ENTER_GAME, ActionType.SNAKE_NEXT_LEVEL),
             withLatestFrom(state$),
             map(([, s]) => s),
             filter(s => s.core.gameType === GameType.SNAKE),
             switchMap(state => {
                 const interval = calculateInterval(state.core.getLevel());
                 return timer(interval, interval).pipe(
-                    takeUntil(action$.pipe(ofType(ActionTypes.EXIT_GAME, ActionTypes.SNAKE_ESCAPE))),
+                    takeUntil(action$.pipe(ofType(ActionType.EXIT_GAME, ActionType.SNAKE_ESCAPE))),
                     withLatestFrom(state$),
                     map(([, s]) => s),
                     filter(s => !s.core.inGamePaused),
@@ -75,12 +73,12 @@ const SCORE_BASE = Specs.snakeGame.baseScore;
 const scoreEpic = (action$: Observable<AppAction>,
                    state$: Observable<AppState>) => {
     return action$.pipe(
-        filter(a => (a.type === ActionTypes.SNAKE_CREEP && a.payload.grown) || a.type === ActionTypes.SNAKE_WIN),
+        filter(a => (a.type === ActionType.SNAKE_CREEP && a.payload.grown) || a.type === ActionType.SNAKE_WIN),
         withLatestFrom(state$),
         map(([a, s]) => {
             const level = s.core.getLevel();
             const bodyLength = s.snake.body.size;
-            const winBonus = a.type === ActionTypes.SNAKE_WIN ? 3 : 1;
+            const winBonus = a.type === ActionType.SNAKE_WIN ? 3 : 1;
             const score = SCORE_BASE * bodyLength + SCORE_BASE * level;
             return CoreActions.addScore(score * winBonus);
         }),
@@ -91,9 +89,9 @@ const ESCAPE_INTERVAL = Specs.snakeGame.escapeAnimationIntervalMs;
 const escapeEpic = (action$: Observable<AppAction>,
                     state$: Observable<AppState>) => {
     return action$.pipe(
-        ofType(ActionTypes.SNAKE_ESCAPE),
+        ofType(ActionType.SNAKE_ESCAPE),
         map(a => {
-            if (a.type === ActionTypes.SNAKE_ESCAPE) {
+            if (a.type === ActionType.SNAKE_ESCAPE) {
                 return a.payload;
             } else {
                 throw new TypeError('Assertion error: impossible to reach here!');
@@ -110,7 +108,7 @@ const escapeEpic = (action$: Observable<AppAction>,
 const winEpic = (action$: Observable<AppAction>,
                  state$: Observable<AppState>) => {
     return action$.pipe(
-        ofType(ActionTypes.SNAKE_WIN),
+        ofType(ActionType.SNAKE_WIN),
         withLatestFrom(state$),
         map(([, s]) => s.core.getLevel()),
         concatMap(level =>
@@ -122,7 +120,7 @@ const winEpic = (action$: Observable<AppAction>,
 const exitEpic = (action$: Observable<AppAction>,
                   state$: Observable<AppState>) => {
     return action$.pipe(
-        ofType(ActionTypes.SNAKE_HIT_WALL, ActionTypes.SNAKE_BITE_SELF),
+        ofType(ActionType.SNAKE_HIT_WALL, ActionType.SNAKE_BITE_SELF),
         withLatestFrom(state$),
         filter(([, s]) => s.snake.life < 1),
         mapTo(CoreActions.exitGame())

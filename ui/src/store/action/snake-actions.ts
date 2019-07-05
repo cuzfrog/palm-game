@@ -1,20 +1,20 @@
-import {ActionUnion, createAction, createActionWithPayload} from './types-utils';
-import {ActionTypes} from './actions';
+import {createAction, createActionWithPayload} from './types-utils';
+import {ActionType} from './actions';
 import {Direction, Point} from '../../domain';
 
-const biteSelf = createAction(ActionTypes.SNAKE_BITE_SELF);
-const hitWall = createAction(ActionTypes.SNAKE_HIT_WALL);
-const win = createAction(ActionTypes.SNAKE_WIN);
-const nextLevel = createAction(ActionTypes.SNAKE_NEXT_LEVEL);
+const biteSelf = createAction(ActionType.SNAKE_BITE_SELF);
+const hitWall = createAction(ActionType.SNAKE_HIT_WALL);
+const win = createAction(ActionType.SNAKE_WIN);
+const nextLevel = createAction(ActionType.SNAKE_NEXT_LEVEL);
 
 export const SnakeActions = {
-    setDirection: (direction: Direction) => createActionWithPayload(ActionTypes.SET_DIRECTION, direction),
+    setDirection: (direction: Direction) => createActionWithPayload(ActionType.SET_DIRECTION, direction),
     biteSelf: () => biteSelf,
     hitWall: () => hitWall,
-    creep: (head: Point, grown: boolean) => createActionWithPayload(ActionTypes.SNAKE_CREEP, {head, grown}),
+    creep: (head: Point, grown: boolean) => createActionWithPayload(ActionType.SNAKE_CREEP, {head, grown}),
     win: () => win,
-    escape: (step: number) => createActionWithPayload(ActionTypes.SNAKE_ESCAPE, step),
+    escape: (step: number) => createActionWithPayload(ActionType.SNAKE_ESCAPE, step),
     nextLevel: () => nextLevel,
 };
 
-export type SnakeAction = ActionUnion<typeof SnakeActions>;
+export type SnakeAction = import('./types-utils').ActionUnion<typeof SnakeActions>;
