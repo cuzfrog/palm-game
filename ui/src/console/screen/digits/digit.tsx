@@ -5,9 +5,9 @@ import {ScreenColors} from '../screen-colors';
 import DigitFont from './sa-digital-number.ttf';
 
 interface Props {
-    readonly value: number;
-    readonly width: number;
-    readonly fontSize: FontSize;
+    value: number;
+    width: number;
+    fontSize: FontSize;
 }
 
 export const enum FontSize {
@@ -18,7 +18,7 @@ export const enum FontSize {
 const MAX_WIDTH = Specs.screen.scoreDigitMaxWidth;
 
 interface FontProps {
-    readonly fontSize: FontSize;
+    fontSize: FontSize;
 }
 
 const FontWrapper = styled.div`

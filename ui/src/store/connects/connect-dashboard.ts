@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import {AppState} from '../app-state';
-import {FULL_LIFE, GameType, Life, MINIMAL_LIFE, SystemStatus} from '../../domain';
+import {GameType, Life, SystemStatus} from '../../domain';
 import {DashboardProps} from '../../console';
 import {Specs} from '../../specs';
 
@@ -10,13 +10,13 @@ function mapStateToProps(state: AppState): DashboardProps {
     let score = state.core.getScore();
     let level = state.core.getLevel();
     if (state.core.status === SystemStatus.STARTING) {
-        life = FULL_LIFE;
-        enemyLife = FULL_LIFE;
+        life = Life.Full;
+        enemyLife = Life.Full;
         score = all8digit(Specs.screen.scoreDigitMaxWidth);
         level = 8;
     } else if (state.core.status === SystemStatus.MENU) {
-        life = MINIMAL_LIFE;
-        enemyLife = MINIMAL_LIFE;
+        life = Life.Minimal;
+        enemyLife = Life.Minimal;
     } else {
         switch (state.core.gameType) {
             case GameType.SNAKE:
@@ -24,7 +24,7 @@ function mapStateToProps(state: AppState): DashboardProps {
                     hp: state.snake.life,
                     maxHp: 10,
                 };
-                enemyLife = MINIMAL_LIFE;
+                enemyLife = Life.Minimal;
                 break;
             case GameType.BOXER:
                 throw new Error('Not implemented');

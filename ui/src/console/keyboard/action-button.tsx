@@ -2,19 +2,20 @@ import React from 'react';
 import throttle from 'lodash.throttle';
 import {List} from 'immutable';
 import autoBind from 'auto-bind';
-import Button, {BtnType} from './button';
+import Button from './button';
+import {BtnType} from './button-styles';
 
 const DEFAULT_THROTTLE_INTERVAL = 150; // ms
 
 interface Props {
-    readonly type: BtnType;
-    readonly caption?: string;
-    readonly action: () => void;
-    readonly throttleIntervalMs?: number;
+    type: BtnType;
+    caption?: string;
+    action: () => void;
+    throttleIntervalMs?: number;
 }
 
 interface State {
-    readonly handles: List<number>;
+    handles: List<number>;
 }
 
 export default class ActionButton extends React.PureComponent<Props, State> {
@@ -30,7 +31,7 @@ export default class ActionButton extends React.PureComponent<Props, State> {
         autoBind.react(this);
     }
 
-    public render(): React.ReactNode {
+    render(): React.ReactNode {
         return (
             <Button
                 type={this.props.type}

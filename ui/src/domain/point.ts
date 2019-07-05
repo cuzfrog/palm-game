@@ -1,6 +1,11 @@
 import {ValueObject} from 'immutable';
 
-class _Point implements ValueObject {
+export interface Point extends ValueObject {
+    readonly x: number;
+    readonly y: number;
+}
+
+class _PointImpl implements Point {
     public readonly x: number;
     public readonly y: number;
 
@@ -10,7 +15,7 @@ class _Point implements ValueObject {
     }
 
     public equals(other: any): boolean {
-        return other instanceof _Point && other.x === this.x && other.y === this.y;
+        return other instanceof _PointImpl && other.x === this.x && other.y === this.y;
     }
 
     public hashCode(): number {
@@ -18,9 +23,6 @@ class _Point implements ValueObject {
     }
 }
 
-/** No binding for performance's sake */
-export type Point = _Point;
-
 export function Point(x: number, y: number): Point {
-    return new _Point(x, y);
+    return new _PointImpl(x, y);
 }

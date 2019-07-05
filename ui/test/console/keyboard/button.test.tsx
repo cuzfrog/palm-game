@@ -1,6 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import Button, {BtnType} from '../../../src/console/keyboard/button';
+import Button from '../../../src/console/keyboard/button';
+import {BtnType} from '../../../src/console/keyboard/button-styles';
 
 const props = {
     type: BtnType.FUNC,

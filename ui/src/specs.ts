@@ -1,4 +1,4 @@
-const constants = Object.seal({
+const constants = Object.freeze({
     screen: {
         graphicWidth: 10,
         graphicHeight: 16,

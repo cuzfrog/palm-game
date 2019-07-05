@@ -11,7 +11,7 @@ const togglePause = createAction(ActionTypes.TOGGLE_PAUSE);
 const toggleGame = createAction(ActionTypes.TOGGLE_GAME);
 const dummyAction = createAction(ActionTypes.DUMMY_ACTION);
 
-export const CoreActions = Object.seal({
+export const CoreActions = Object.freeze({
     consoleStart: () => consoleStart,
     consoleAnimate: () => consoleAnimate,
     addScore: (score: number) => createActionWithPayload(ActionTypes.ADD_SCORE, score),

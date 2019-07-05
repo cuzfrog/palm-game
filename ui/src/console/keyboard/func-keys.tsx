@@ -1,14 +1,14 @@
 import React from 'react';
-import {BtnType} from './button';
+import {BtnType} from './button-styles';
 import Button from './action-button';
-import {KeysContainer} from './keys-container';
+import KeysContainer from './keys-container';
 import styled, {css} from 'styled-components';
 
 const FUNC_KEY_THROTTLE_INTERVAL = 300;
 
-interface FuncKeysProps {
-    readonly selectAction: () => void;
-    readonly startAction: () => void;
+interface Props {
+    selectAction: () => void;
+    startAction: () => void;
 }
 
 const BaseFuncKeyCss = css`
@@ -27,7 +27,7 @@ const StartKeyContainer = styled.div`
   left: 60px;
 `;
 
-export default class extends React.PureComponent<FuncKeysProps, {}> {
+export default class FuncKeys extends React.PureComponent<Props, {}> {
     public render() {
         return (
             <KeysContainer>

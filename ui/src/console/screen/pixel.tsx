@@ -1,9 +1,9 @@
 import {PixelState} from '../../domain';
-import styled, {css, keyframes, StyledComponent} from 'styled-components';
+import styled, {css, keyframes} from 'styled-components';
 import {ScreenColors} from './screen-colors';
 
 interface Props {
-    readonly value: PixelState;
+    value: PixelState;
 }
 
 const deactivatedStyle = css`
@@ -32,7 +32,7 @@ const twinkleStyle = css`
   animation-duration: 1s;
 `;
 
-const Pixel: StyledComponent<'td', any, Props> = styled.td`
+const Pixel: import('styled-components').StyledComponent<'td', any, Props> = styled.td`
   display: inline-block;
   width: 12px;
   height: 12px;

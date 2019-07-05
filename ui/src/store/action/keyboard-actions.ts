@@ -10,7 +10,7 @@ const start = createAction(ActionTypes.START);
 const a = createAction(ActionTypes.A);
 const b = createAction(ActionTypes.B);
 
-export const KeyboardActions = Object.seal({
+export const KeyboardActions = Object.freeze({
     up,
     right,
     down,

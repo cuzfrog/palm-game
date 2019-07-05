@@ -5,7 +5,7 @@ export * from './life';
 export * from './point';
 
 export const enum SystemStatus {
-    STARTING, MENU, IN_GAME
+    STARTING = 'STARTING', MENU = 'MENU', IN_GAME = 'IN_GAME'
 }
 
 export enum GameType {

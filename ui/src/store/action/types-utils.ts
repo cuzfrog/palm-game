@@ -6,11 +6,11 @@ interface ActionWithPayload<T extends string, P> extends Action<T> {
 }
 
 export function createAction<T extends string, P>(type: T): Action<T> {
-    return Object.seal({type: checkNonEmpty(type)});
+    return Object.freeze({type: checkNonEmpty(type)});
 }
 
 export function createActionWithPayload<T extends string, P>(type: T, payload: P): ActionWithPayload<T, P> {
-    return Object.seal({type: checkNonEmpty(type), payload: checkNonEmpty(payload)});
+    return Object.freeze({type: checkNonEmpty(type), payload: checkNonEmpty(payload)});
 }
 
 type FunctionType = (...arg: any[]) => any;

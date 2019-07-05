@@ -1,6 +1,7 @@
 import {css} from 'styled-components';
-import {darken, lighten, transparentize} from 'polished';
-import {BtnType} from './button';
+import darken from 'polished/lib/color/darken';
+import lighten from 'polished/lib/color/lighten';
+import transparentize from 'polished/lib/color/transparentize';
 
 const BasicColor = Object.freeze({
     blue: '#108FE8',
@@ -171,6 +172,15 @@ const RightButtonCss = css`
                 0 3px 2px -1px ${Color.transparentWhite} inset;
   }
 `;
+
+export const enum BtnType {
+    MAIN = 'main',
+    FUNC = 'func',
+    UP = 'up',
+    LEFT = 'left',
+    RIGHT = 'right',
+    DOWN = 'down'
+}
 
 export const mapStyledButton = (btnType: BtnType): import('styled-components').FlattenSimpleInterpolation => {
     switch (btnType) {

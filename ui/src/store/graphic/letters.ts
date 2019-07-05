@@ -104,6 +104,6 @@ function spaceN(n: number) {
 
 const SNAKE: ReadonlyArray<Letter> = [SPACE8, S, N, A, K, E, SPACE8];
 
-export const Letters = Object.seal({
+export const Letters = Object.freeze({
     SNAKE
 });

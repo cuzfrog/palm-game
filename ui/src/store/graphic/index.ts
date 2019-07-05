@@ -13,7 +13,7 @@ const emptyAnim: Anim = {
     currentFrame: () => BLANK_FRAME,
 };
 
-export const Animations = Object.seal({
+export const Animations = Object.freeze({
     emptyAnim,
     consoleStartInitial: new ConsoleStartAnimation(),
     snakeInitial: new SnakeAnimation(),

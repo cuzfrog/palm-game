@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
-export const KeysContainer = styled.div`
+const KeysContainer: import('styled-components').StyledComponent<'div', any> = styled.div`
   position: relative;
   > div {
     position: absolute;
   }
 `;
+
+export default KeysContainer;

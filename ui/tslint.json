@@ -29,6 +29,8 @@
     "no-namespace": false,
     "arrow-parens": false,
     "class-name": false,
-    "variable-name": false
+    "variable-name": false,
+    "interface-over-type-literal": false,
+    "member-access": false
   }
 }

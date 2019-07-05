@@ -20,7 +20,7 @@ const MatrixTable = styled.table`
   padding:1px;
 `;
 
-class _Matrix extends React.PureComponent<MatrixProps, {}> {
+class Matrix extends React.PureComponent<MatrixProps, {}> {
     constructor(props: Readonly<MatrixProps>) {
         super(props);
         if (props.frame.size !== MATRIX_WIDTH * MATRIX_HEIGHT) {
@@ -50,4 +50,4 @@ class _Matrix extends React.PureComponent<MatrixProps, {}> {
     }
 }
 
-export default Connects.connectToMatrix(_Matrix);
+export default Connects.connectToMatrix(Matrix);

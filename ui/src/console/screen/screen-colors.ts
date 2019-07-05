@@ -1,4 +1,4 @@
-import {darken} from 'polished';
+import darken from 'polished/lib/color/darken';
 
 const _backgroundColor = '#9ead86';
 

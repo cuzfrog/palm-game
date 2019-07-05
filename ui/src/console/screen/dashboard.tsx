@@ -20,7 +20,7 @@ export interface DashboardProps {
 }
 
 interface PanelProps {
-    readonly isActive: boolean;
+    isActive: boolean;
 }
 
 const heartSize = 10;
