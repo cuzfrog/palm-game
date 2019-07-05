@@ -1,8 +1,9 @@
 import {List, Range} from 'immutable';
-import {AppState, SnakeGameState} from '..';
 import {Frame, GameType, PixelState, SystemStatus} from '../../domain';
 import {BLANK_FRAME, I, L, O, S, W} from './graphic-types';
 import {toIndex, validateFrame} from './graphic-utils';
+import {SnakeGameState} from '../games';
+import {AppState} from '../app-state';
 
 const frameBuffer: PixelState[] = Array(L);
 

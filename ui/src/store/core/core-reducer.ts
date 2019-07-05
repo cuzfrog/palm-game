@@ -1,5 +1,5 @@
 import produce from 'immer';
-import {CoreState, DefaultCoreState} from './core-state';
+import {CoreState} from './core-state';
 import {checkStrictEqual, checkStrictNonEqual, nextEnum} from '../../utils';
 import {CoreAction, ActionTypes} from '../action';
 import {Specs} from '../../specs';
@@ -8,7 +8,7 @@ import {Anim, Animations} from '../graphic';
 
 const GameTypeValues: ReadonlyArray<GameType> = Object.keys(GameType).map(key => GameType[key]);
 
-export function coreReducer(state: CoreState = DefaultCoreState, action: CoreAction): CoreState {
+export function coreReducer(state: CoreState = CoreState.Default, action: CoreAction): CoreState {
     return produce(state, draft => {
             switch (action.type) {
                 case ActionTypes.ADD_SCORE:

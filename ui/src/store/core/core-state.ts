@@ -16,10 +16,10 @@ export interface CoreState {
     getScore(): number;
 }
 
-export const DefaultCoreState: CoreState = {
+const DefaultCoreState: CoreState = Object.freeze({
     status: SystemStatus.STARTING,
-    scores: Map(),
-    maxScores: Map(),
+    scores: Map<GameType, number>(),
+    maxScores: Map<GameType, number>(),
     level: Map([[GameType.SNAKE, 3], [GameType.BOXER, 3]]),
     gameType: GameType.SNAKE,
     inGamePaused: false,
@@ -31,4 +31,8 @@ export const DefaultCoreState: CoreState = {
     getScore(): number {
         return this.scores.get(this.gameType, 0);
     }
-};
+});
+
+export const CoreState = Object.freeze({
+    Default: DefaultCoreState
+});

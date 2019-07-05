@@ -1,5 +1,5 @@
 import {createAction} from './types-utils';
-import {ActionTypes} from '.';
+import {ActionTypes} from './actions';
 
 const up = createAction(ActionTypes.UP);
 const right = createAction(ActionTypes.RIGHT);

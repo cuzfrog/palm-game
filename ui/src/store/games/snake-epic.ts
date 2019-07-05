@@ -1,13 +1,12 @@
 import {concatMap, delay, filter, map, mapTo, switchMap, takeUntil, withLatestFrom} from 'rxjs/operators';
 import {combineEpics, ofType} from 'redux-observable';
 import {Observable, of, timer} from 'rxjs';
-import {ActionTypes, SnakeActions} from '../action';
+import {ActionTypes, AppAction, SnakeActions} from '../action';
 import {AppState} from '../app-state';
 import {Direction, GameType, Point} from '../../domain';
 import {Specs} from '../../specs';
 import {SnakeGameState} from './snake-state';
-import {CoreActions} from '../core/';
-import {AppAction} from '../index';
+import {CoreActions} from '../core';
 
 const BASIC_INTERVAL = Specs.snakeGame.baseCreepIntervalMs;
 

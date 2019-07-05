@@ -1,9 +1,10 @@
 import {Observable} from 'rxjs';
-import {AppAction, AppState, CoreActions, CoreState, SnakeActions} from '../index';
+import {ofType, StateObservable} from 'redux-observable';
 import {filter, map} from 'rxjs/operators';
 import {Direction, GameType, SystemStatus} from '../../domain';
-import {ofType, StateObservable} from 'redux-observable';
-import {ActionTypes} from '../action';
+import {ActionTypes, AppAction, SnakeActions} from '../action';
+import {AppState} from '../app-state';
+import {CoreActions, CoreState} from '../core';
 
 function dummyLayout(): AppAction {
     return CoreActions.dummy();

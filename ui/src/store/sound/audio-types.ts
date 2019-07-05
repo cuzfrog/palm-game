@@ -1,8 +1,8 @@
 import {Observable} from 'rxjs';
-import {AppAction, AppState} from '../index';
+import {AppState} from '../index';
 import {StateObservable} from 'redux-observable';
 import {filter, tap} from 'rxjs/operators';
-import {ActionTypes} from '../action';
+import {ActionTypes, AppAction} from '../action';
 
 export const SoundEffects = {
     sfxCoreMenu: new Audio('audio/sfx_core_menu.mp3'),

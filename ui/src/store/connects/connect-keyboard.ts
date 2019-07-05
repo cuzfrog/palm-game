@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
-import {KeyboardProps} from '../../console/keyboard';
+import {KeyboardProps} from '../../console';
 import {KeyboardActions} from '../core';
 
 const mapDispatchToProps = (dispatch: Dispatch): KeyboardProps => {

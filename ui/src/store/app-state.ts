@@ -6,7 +6,7 @@ import {gameEpic, snakeGameReducer, SnakeGameState} from './games';
 import {coreEpic, coreReducer, CoreState} from './core';
 import {appReducer} from './app-reducer';
 import {audioEpic} from './sound';
-import {AppAction} from './index';
+import {AppAction} from './action';
 import {ActionGroups} from './action';
 
 export interface AppState {

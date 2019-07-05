@@ -3,7 +3,6 @@ export const enum ActionTypes {
 
     CONSOLE_START = '[sys] console start',
     CONSOLE_ANIMATE = '[sys] console animate',
-    CONSOLE_ANIMATE_DONE = '[sys] console animate done',
     TOGGLE_PAUSE = '[sys] toggle pause',
     ENTER_GAME = '[sys] enter game',
     EXIT_GAME = '[sys] exit game',

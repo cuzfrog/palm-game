@@ -16,4 +16,4 @@ const constants = Object.freeze({
     },
 });
 
-export const Specs: Readonly<typeof constants> = constants;
+export const Specs = constants;

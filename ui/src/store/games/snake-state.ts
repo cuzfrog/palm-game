@@ -12,11 +12,15 @@ export interface SnakeGameState {
     readonly hole?: Point;
 }
 
-export const DefaultSnakeGameState: SnakeGameState = {
+const DefaultSnakeGameState: SnakeGameState = Object.freeze({
     body: initialBody(),
     direction: Direction.NORTH,
     life: 3
-};
+});
+
+export const SnakeGameState = Object.freeze({
+    Default: DefaultSnakeGameState
+});
 
 function initialBody(): List<Point> {
     const tailY = Specs.screen.graphicHeight - 2;

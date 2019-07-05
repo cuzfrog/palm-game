@@ -1,14 +1,14 @@
 import produce from 'immer';
 import {List, Range} from 'immutable';
-import {DefaultSnakeGameState, SnakeGameState} from './snake-state';
-import {SnakeAction, ActionTypes} from '../action';
+import {SnakeGameState} from './snake-state';
+import {ActionTypes, SnakeAction} from '../action';
 import {isOppositeDirection, Point} from '../../domain';
 import {Specs} from '../../specs';
 import {randomInt} from '../../utils';
 
 const WIN_BODY_LENGTH = Specs.snakeGame.winBodyLength;
 
-export function snakeGameReducer(state: SnakeGameState = DefaultSnakeGameState, action: SnakeAction): SnakeGameState {
+export function snakeGameReducer(state: SnakeGameState = SnakeGameState.Default, action: SnakeAction): SnakeGameState {
     return produce(state, draft => {
         switch (action.type) {
             case ActionTypes.SET_DIRECTION:
@@ -31,15 +31,15 @@ export function snakeGameReducer(state: SnakeGameState = DefaultSnakeGameState, 
             case ActionTypes.SNAKE_HIT_WALL:
             case ActionTypes.SNAKE_BITE_SELF:
                 return {
-                    ...DefaultSnakeGameState,
+                    ...SnakeGameState.Default,
                     life: state.life - 1,
                 };
             case ActionTypes.SNAKE_ESCAPE:
                 draft.body = state.body.takeLast(state.body.size - 1);
                 return;
             case ActionTypes.SNAKE_WIN:
-                draft.body = DefaultSnakeGameState.body;
-                draft.direction = DefaultSnakeGameState.direction;
+                draft.body = SnakeGameState.Default.body;
+                draft.direction = SnakeGameState.Default.direction;
                 draft.hole = undefined;
                 return;
             default:
