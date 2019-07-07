@@ -1,7 +1,9 @@
 import React from 'react';
 import autoBind from 'auto-bind';
 import styled from 'styled-components';
-import {BtnType, mapStyledButton} from './button-styles';
+import {mapStyledButton} from './button-styles';
+
+type BtnType = import('./button-styles').BtnType;
 
 interface Props {
     type: BtnType;

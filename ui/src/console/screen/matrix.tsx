@@ -1,9 +1,7 @@
 import React from 'react';
-import {List} from 'immutable';
 import Pixel from './pixel';
 import {Specs} from '../../specs';
 import {Connects} from '../../store';
-import {PixelState} from '../../domain';
 import styled from 'styled-components';
 
 const MATRIX_WIDTH = Specs.screen.graphicWidth;
@@ -11,7 +9,7 @@ const MATRIX_HEIGHT = Specs.screen.graphicHeight;
 const ROWS_START_ARRAY: ReadonlyArray<number> = [...Array(MATRIX_HEIGHT).keys()];
 
 export interface MatrixProps {
-    readonly frame: List<PixelState>;
+    readonly frame: Frame;
 }
 
 const MatrixTable = styled.table`
