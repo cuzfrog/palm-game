@@ -1,7 +1,6 @@
-import {PixelState} from '../../domain';
 import {I, O, S, W} from './graphic-types';
 import {checkNonEmpty} from '../../utils';
-import {Letter, Letters} from './letters';
+import {Letters} from './letters';
 
 const FRAME_INTERVAL_MS = 300;
 const SEPARATOR = '\n';

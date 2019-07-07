@@ -1,5 +1,5 @@
 import {List, Range} from 'immutable';
-import {Frame, GameType, PixelState, SystemStatus} from '../../domain';
+import {GameType, SystemStatus} from '../../domain';
 import {BLANK_FRAME, I, L, O, S, W} from './graphic-types';
 import {toIndex, validateFrame} from './graphic-utils';
 

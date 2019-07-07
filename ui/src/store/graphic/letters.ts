@@ -1,8 +1,3 @@
-export interface Letter {
-    readonly value: string;
-    readonly width: number;
-}
-
 const A = {
     value: `
 III

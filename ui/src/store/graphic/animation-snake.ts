@@ -1,8 +1,11 @@
-import {Anim, AnimType, H, I, O, W} from './graphic-types';
-import {List, Range} from 'immutable';
-import {Direction, Frame, PixelState, Point} from '../../domain';
-import {toIndex, validateFrame} from './graphic-utils';
-import {BackgroundAnims} from './background-animator';
+import { H, I, O, W } from './graphic-types';
+import { List, Range } from 'immutable';
+import { Direction, Point } from '../../domain';
+import { toIndex, validateFrame } from './graphic-utils';
+import { BackgroundAnims } from './animator';
+import { AnimType } from './anim';
+
+type Anim = import('./anim').Anim;
 
 const FRAME_INTERVAL_MS = 200;
 const INITIAL_BODY = Range(2, 8).map(x => Point(x, H / 2 - 2)).toList();

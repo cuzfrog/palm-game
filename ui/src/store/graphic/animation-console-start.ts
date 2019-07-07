@@ -1,6 +1,8 @@
-import {Anim, AnimType, I, O} from './graphic-types';
-import {Frame, PixelState} from '../../domain';
-import {List} from 'immutable';
+import { I, O } from './graphic-types';
+import { List } from 'immutable';
+import { AnimType } from './anim';
+
+type Anim = import('./anim').Anim;
 
 export class ConsoleStartAnimation implements Anim {
     private readonly step: number;
