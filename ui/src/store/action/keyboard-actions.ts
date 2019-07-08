@@ -1,16 +1,16 @@
 import {createAction} from './types-utils';
-import {ActionTypes} from '.';
+import {ActionType} from './actions';
 
-const up = createAction(ActionTypes.UP);
-const right = createAction(ActionTypes.RIGHT);
-const down = createAction(ActionTypes.DOWN);
-const left = createAction(ActionTypes.LEFT);
-const select = createAction(ActionTypes.SELECT);
-const start = createAction(ActionTypes.START);
-const a = createAction(ActionTypes.A);
-const b = createAction(ActionTypes.B);
+const up = createAction(ActionType.UP);
+const right = createAction(ActionType.RIGHT);
+const down = createAction(ActionType.DOWN);
+const left = createAction(ActionType.LEFT);
+const select = createAction(ActionType.SELECT);
+const start = createAction(ActionType.START);
+const a = createAction(ActionType.A);
+const b = createAction(ActionType.B);
 
-export const KeyboardActions = Object.seal({
+export const KeyboardActions = Object.freeze({
     up,
     right,
     down,
@@ -18,7 +18,7 @@ export const KeyboardActions = Object.seal({
     select,
     start,
     a,
-    b
+    b,
 });
 
 type A = typeof KeyboardActions;

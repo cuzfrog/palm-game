@@ -1,4 +1,4 @@
-const constants = Object.seal({
+const constants = Object.freeze({
     screen: {
         graphicWidth: 10,
         graphicHeight: 16,
@@ -16,4 +16,4 @@ const constants = Object.seal({
     },
 });
 
-export const Specs: Readonly<typeof constants> = constants;
+export const Specs = constants;

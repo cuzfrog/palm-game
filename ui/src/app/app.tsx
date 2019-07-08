@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Console from '../console';
 import {Information} from './Information';
 import styled from 'styled-components';
@@ -9,7 +9,7 @@ const StyledAppWrapper = styled.div`
   justify-content: center;
 `;
 
-class App extends React.Component {
+export default class App extends React.PureComponent {
     private readonly version: string = process.env.PACKAGE_VERSION as string;
 
     public render() {
@@ -21,5 +21,3 @@ class App extends React.Component {
         );
     }
 }
-
-export default App;

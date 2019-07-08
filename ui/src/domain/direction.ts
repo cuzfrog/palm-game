@@ -1,5 +1,8 @@
-export enum Direction {
-    NORTH, EAST, SOUTH, WEST
+export const enum Direction {
+    NORTH = 'NORTH',
+    EAST = 'EAST',
+    SOUTH = 'SOUTH',
+    WEST = 'WEST'
 }
 
 export function isOppositeDirection(d1: Direction, d2: Direction): boolean {

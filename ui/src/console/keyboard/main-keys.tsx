@@ -1,12 +1,12 @@
 import React from 'react';
 import Button from './action-button';
-import {BtnType} from './button';
+import {BtnType} from './button-styles';
 import styled from 'styled-components';
-import {KeysContainer} from './keys-container';
+import KeysContainer from './keys-container';
 
-interface MainKeysProps {
-    readonly actionA: () => void;
-    readonly actionB: () => void;
+interface Props {
+    actionA: () => void;
+    actionB: () => void;
 }
 
 const KeyAContainer = styled.div`
@@ -16,7 +16,7 @@ const KeyBContainer = styled.div`
   top: 50px
 `;
 
-export default class extends React.PureComponent<MainKeysProps, {}> {
+export default class extends React.PureComponent<Props, {}> {
     public render() {
         return (
             <KeysContainer>

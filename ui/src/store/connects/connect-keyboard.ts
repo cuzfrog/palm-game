@@ -1,9 +1,10 @@
 import {connect} from 'react-redux';
-import {Dispatch} from 'redux';
-import {KeyboardProps} from '../../console/keyboard';
 import {KeyboardActions} from '../core';
 
-const mapDispatchToProps = (dispatch: Dispatch): KeyboardProps => {
+type P = import('../../console').KeyboardProps;
+type Dispatch = import('redux').Dispatch;
+
+const mapDispatchToProps = (dispatch: Dispatch): P => {
     return {
         upAction: () => dispatch(KeyboardActions.up),
         rightAction: () => dispatch(KeyboardActions.right),

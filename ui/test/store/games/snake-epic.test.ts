@@ -1,19 +1,16 @@
 import {Lens} from 'monocle-ts';
 import {List} from 'immutable';
 import {TestScheduler} from 'rxjs/testing';
-import {
-    AppState,
-    CoreActions,
-    DefaultSnakeGameState,
-    DefaultCoreState,
-    SnakeActions,
-} from '../../../src/store';
 import {Direction, Point} from '../../../src/domain';
 import {snakeEpic} from '../../../src/store/games/snake-epic';
+import {SnakeActions} from '../../../src/store/games';
+import {CoreActions} from '../../../src/store/action';
+import {SnakeGameState} from '../../../src/store/games/snake-state';
+import {CoreState} from '../../../src/store/core/core-state';
 
 const defaultState: AppState = {
-    core: DefaultCoreState,
-    snake: DefaultSnakeGameState,
+    core: CoreState.Default,
+    snake: SnakeGameState.Default,
 };
 
 const pauseGameLens = Lens.fromPath<AppState>()(['core', 'inGamePaused']);

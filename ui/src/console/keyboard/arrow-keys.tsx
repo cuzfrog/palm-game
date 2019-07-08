@@ -1,15 +1,15 @@
 import React from 'react';
-import {BtnType} from './button';
+import {BtnType} from './button-styles';
 import Button from './action-button';
 import styled from 'styled-components';
-import {KeysContainer} from './keys-container';
+import KeysContainer from './keys-container';
 import {ButtonStyles} from './button-styles';
 
 interface Props {
-    readonly upAction: () => void;
-    readonly rightAction: () => void;
-    readonly downAction: () => void;
-    readonly leftAction: () => void;
+    upAction: () => void;
+    rightAction: () => void;
+    downAction: () => void;
+    leftAction: () => void;
 }
 
 const baseTop = ButtonStyles.arrayKeySize * 1.2;

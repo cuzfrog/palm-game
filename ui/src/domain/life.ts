@@ -3,5 +3,7 @@ export interface Life {
     readonly maxHp: number;
 }
 
-export const MINIMAL_LIFE = {hp: 0, maxHp: 0};
-export const FULL_LIFE = {hp: 100, maxHp: 100};
+const Minimal: Life = {hp: 0, maxHp: 0};
+const Full: Life = {hp: 100, maxHp: 100};
+
+export const Life = Object.freeze({Minimal, Full});

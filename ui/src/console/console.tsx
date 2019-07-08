@@ -3,7 +3,7 @@ import Decorate from './decorate';
 import Screen from './screen';
 import Keyboard from './keyboard';
 import styled from 'styled-components';
-import {rgb} from 'polished';
+import rgb from 'polished/lib/color/rgb';
 
 const panelPrimary = 'lightskyblue';
 const panelBright = rgb(172, 222, 255);

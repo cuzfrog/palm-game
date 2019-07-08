@@ -1,9 +1,8 @@
-export const enum ActionTypes {
+export const enum ActionType {
     DUMMY_ACTION = '[none] dummy action',
 
     CONSOLE_START = '[sys] console start',
     CONSOLE_ANIMATE = '[sys] console animate',
-    CONSOLE_ANIMATE_DONE = '[sys] console animate done',
     TOGGLE_PAUSE = '[sys] toggle pause',
     ENTER_GAME = '[sys] enter game',
     EXIT_GAME = '[sys] exit game',
@@ -31,13 +30,13 @@ export const enum ActionTypes {
     SNAKE_NEXT_LEVEL = '[game snake] next level',
 }
 
-const directionKeys = Object.seal([ActionTypes.UP, ActionTypes.RIGHT, ActionTypes.DOWN, ActionTypes.LEFT]);
-const mainKeys = Object.seal([ActionTypes.A, ActionTypes.B]);
-const funcKeys = Object.seal([ActionTypes.SELECT, ActionTypes.START]);
-const allKeys = Object.seal([...funcKeys, ...mainKeys, ...funcKeys]);
-const noLogging = Object.seal([...allKeys, ActionTypes.CONSOLE_ANIMATE]);
+const directionKeys = Object.freeze([ActionType.UP, ActionType.RIGHT, ActionType.DOWN, ActionType.LEFT]);
+const mainKeys = Object.freeze([ActionType.A, ActionType.B]);
+const funcKeys = Object.freeze([ActionType.SELECT, ActionType.START]);
+const allKeys = Object.freeze([...funcKeys, ...mainKeys, ...funcKeys]);
+const noLogging = Object.freeze([...allKeys, ActionType.CONSOLE_ANIMATE]);
 
-export const ActionGroups = Object.seal({
+export const ActionGroups = Object.freeze({
     directionKeys,
     mainKeys,
     funcKeys,

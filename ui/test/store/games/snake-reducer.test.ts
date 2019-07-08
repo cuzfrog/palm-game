@@ -1,7 +1,7 @@
 import {List} from 'immutable';
-import {SnakeActions, snakeGameReducer, SnakeGameState} from '../../../src/store';
 import {Direction, Point} from '../../../src/domain';
 import {Specs} from '../../../src/specs';
+import {SnakeActions, snakeGameReducer} from '../../../src/store/games';
 
 const prevState: SnakeGameState = {
     body: List.of(Point(5, 5), Point(4, 5)),

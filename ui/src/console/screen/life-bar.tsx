@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import {ScreenColors} from './screen-colors';
 
 interface Props {
-    readonly hp: number;
-    readonly maxHp: number;
-    readonly count: number;
+    hp: number;
+    maxHp: number;
+    count: number;
 }
 
 interface HeartProps {
-    readonly isActive: boolean;
+    isActive: boolean;
 }
 
 const heartSize = 10;

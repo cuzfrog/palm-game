@@ -3,21 +3,14 @@ import autoBind from 'auto-bind';
 import styled from 'styled-components';
 import {mapStyledButton} from './button-styles';
 
-interface Props {
-    readonly type: BtnType;
-    readonly caption?: string;
-    readonly downHandler?: () => void;
-    readonly upHandler?: () => void;
-    readonly clickHandler?: () => void;
-}
+type BtnType = import('./button-styles').BtnType;
 
-export const enum BtnType {
-    MAIN = 'main',
-    FUNC = 'func',
-    UP = 'up',
-    LEFT = 'left',
-    RIGHT = 'right',
-    DOWN = 'down'
+interface Props {
+    type: BtnType;
+    caption?: string;
+    downHandler?: () => void;
+    upHandler?: () => void;
+    clickHandler?: () => void;
 }
 
 const StyledButton = styled.div`

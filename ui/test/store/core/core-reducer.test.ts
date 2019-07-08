@@ -1,11 +1,11 @@
 import {Lens} from 'monocle-ts';
 import {Map} from 'immutable';
 import {GameType, SystemStatus} from '../../../src/domain';
-
-import {CoreActions, coreReducer, CoreState, DefaultCoreState} from '../../../src/store';
 import {Specs} from '../../../src/specs';
+import {CoreActions, coreReducer} from '../../../src/store/core';
+import {CoreState} from '../../../src/store/core/core-state';
 
-const prevState = DefaultCoreState;
+const prevState = CoreState.Default;
 
 const scoreLens = Lens.fromPath<CoreState>()(['scores']);
 

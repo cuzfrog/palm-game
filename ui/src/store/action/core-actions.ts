@@ -1,20 +1,20 @@
-import {ActionUnion, createAction, createActionWithPayload} from './types-utils';
-import {ActionTypes} from './actions';
+import {createAction, createActionWithPayload} from './types-utils';
+import {ActionType} from './actions';
 
-const consoleStart = createAction(ActionTypes.CONSOLE_START);
-const consoleAnimate = createAction(ActionTypes.CONSOLE_ANIMATE);
-const increaseLevel = createAction(ActionTypes.INCREASE_LEVEL);
-const decreaseLevel = createAction(ActionTypes.DECREASE_LEVEL);
-const enterGame = createAction(ActionTypes.ENTER_GAME);
-const exitGame = createAction(ActionTypes.EXIT_GAME);
-const togglePause = createAction(ActionTypes.TOGGLE_PAUSE);
-const toggleGame = createAction(ActionTypes.TOGGLE_GAME);
-const dummyAction = createAction(ActionTypes.DUMMY_ACTION);
+const consoleStart = createAction(ActionType.CONSOLE_START);
+const consoleAnimate = createAction(ActionType.CONSOLE_ANIMATE);
+const increaseLevel = createAction(ActionType.INCREASE_LEVEL);
+const decreaseLevel = createAction(ActionType.DECREASE_LEVEL);
+const enterGame = createAction(ActionType.ENTER_GAME);
+const exitGame = createAction(ActionType.EXIT_GAME);
+const togglePause = createAction(ActionType.TOGGLE_PAUSE);
+const toggleGame = createAction(ActionType.TOGGLE_GAME);
+const dummyAction = createAction(ActionType.DUMMY_ACTION);
 
-export const CoreActions = Object.seal({
+export const CoreActions = Object.freeze({
     consoleStart: () => consoleStart,
     consoleAnimate: () => consoleAnimate,
-    addScore: (score: number) => createActionWithPayload(ActionTypes.ADD_SCORE, score),
+    addScore: (score: number) => createActionWithPayload(ActionType.ADD_SCORE, score),
     increaseLevel: () => increaseLevel,
     decreaseLevel: () => decreaseLevel,
     enterGame: () => enterGame,
@@ -24,4 +24,4 @@ export const CoreActions = Object.seal({
     dummy: () => dummyAction,
 });
 
-export type CoreAction = ActionUnion<typeof CoreActions>;
+export type CoreAction = import('./types-utils').ActionUnion<typeof CoreActions>;
