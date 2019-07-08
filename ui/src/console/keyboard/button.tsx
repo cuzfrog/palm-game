@@ -1,7 +1,7 @@
 import React from 'react';
 import autoBind from 'auto-bind';
 import styled from 'styled-components';
-import {mapStyledButton} from './button-styles';
+import { mapStyledButton } from './button-styles';
 
 type BtnType = import('./button-styles').BtnType;
 
@@ -11,6 +11,7 @@ interface Props {
     downHandler?: () => void;
     upHandler?: () => void;
     clickHandler?: () => void;
+    keyboardCode?: string;
 }
 
 const StyledButton = styled.div`
@@ -24,6 +25,9 @@ export default class Button extends React.PureComponent<Props, {}> {
             throw ReferenceError('downHandler and upHandler must be both absent or both present.');
         }
         autoBind.react(this);
+        if (props.keyboardCode && props.clickHandler) {
+            handleKeyboardEvent(props.keyboardCode, props.clickHandler);
+        }
     }
 
     public render() {
@@ -40,16 +44,24 @@ export default class Button extends React.PureComponent<Props, {}> {
     }
 
     private handleDown() {
-        if (this.props.downHandler !== undefined) {
+        if (this.props.downHandler) {
             this.props.downHandler();
             document.addEventListener('mouseup', this.handleUp);
         }
     }
 
     private handleUp() {
-        if (this.props.upHandler !== undefined) {
+        if (this.props.upHandler) {
             document.removeEventListener('mouseup', this.handleUp);
             this.props.upHandler();
         }
     }
+}
+
+function handleKeyboardEvent(code: string, keypressHandler: () => void) {
+    console.log('regiester keyboard event');
+    document.addEventListener('keypress', (ev: KeyboardEvent) => {
+        console.log('Capture keypress:' + ev.code);
+        if (ev.code === code) { keypressHandler(); }
+    });
 }
