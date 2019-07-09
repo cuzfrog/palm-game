@@ -1,6 +1,6 @@
 import React from 'react';
 import Console from '../console';
-import {Information} from './Information';
+import Menu from '../menu/menu';
 import styled from 'styled-components';
 
 const StyledAppWrapper = styled.div`
@@ -10,12 +10,10 @@ const StyledAppWrapper = styled.div`
 `;
 
 export default class App extends React.PureComponent {
-    private readonly version: string = process.env.PACKAGE_VERSION as string;
-
     public render() {
         return (
             <StyledAppWrapper>
-                <Information version={this.version}/>
+                <Menu/>
                 <Console/>
             </StyledAppWrapper>
         );

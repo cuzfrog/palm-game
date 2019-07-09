@@ -32,7 +32,7 @@ export default class Button extends React.PureComponent<Props, State> {
     if (props.keyboardCode && props.clickHandler) {
       handleKeyboardEvent(props.keyboardCode, props.clickHandler);
     }
-    this.setState({ active: false }); // todo: use state to control css
+    this.state = { active: false }; // todo: use state to control css
   }
 
   public render() {
@@ -64,9 +64,7 @@ export default class Button extends React.PureComponent<Props, State> {
 }
 
 function handleKeyboardEvent(code: string, keypressHandler: () => void) {
-  console.log('regiester keyboard event');
   document.addEventListener('keypress', (ev: KeyboardEvent) => {
-    console.log('Capture keypress:' + ev.code);
     if (ev.code === code) { keypressHandler(); }
   });
 }
