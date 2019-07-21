@@ -1,9 +1,11 @@
-import {connectToDashboard} from './connect-dashboard';
-import {connectToMatrix} from './connect-matrix';
-import {connectToKeyboard} from './connect-keyboard';
+import { connectToMenu } from './connect-menu';
+import { connectToDashboard } from './connect-dashboard';
+import { connectToMatrix } from './connect-matrix';
+import { connectToKeyboard } from './connect-keyboard';
 
 export const Connects = Object.freeze({
-    connectToDashboard,
-    connectToMatrix,
-    connectToKeyboard,
+  connectToMenu,
+  connectToDashboard,
+  connectToMatrix,
+  connectToKeyboard,
 });

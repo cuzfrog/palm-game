@@ -65,7 +65,6 @@ const config = {
             from: 'public'
         }]),
         new ForkTsCheckerWebpackPlugin({
-            workers: ForkTsCheckerWebpackPlugin.TWO_CPUS_FREE,
             tslint: true,
         }),
         // new BundleAnalyzerPlugin(),
