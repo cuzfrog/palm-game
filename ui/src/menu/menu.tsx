@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Information } from './Information';
-import MenuBar from './icon/menu-bar';
 import { Connects } from '../store';
 import autoBind from 'auto-bind';
+import MenuBar from './icon/menu-bar';
 
 export interface MenuStateProps {
   expanded: boolean;
@@ -17,13 +17,13 @@ const LayoutWrapper = styled.div`
   position: fixed;
   align-content: right;
   z-index: 100;
-  width: 100%;
-  height: ${(props: MenuStateProps) => props.expanded ? '100%' : '18px'};
+  width: ${(props: MenuStateProps) => props.expanded ? '100%' : '56px'};
+  height: ${(props: MenuStateProps) => props.expanded ? '100%' : '56px'};
   margin: 0;
   padding: 0;
   top:0;
-  left:0;
-  background: rgba(0, 0, 0, 0.5);
+  right:0;
+  ${(props: MenuStateProps) => props.expanded ? 'background-color:rgba(0,0,0,0.6)' : ''};
 `;
 
 type Props = MenuStateProps & MenuActionProps;
@@ -38,7 +38,7 @@ class Menu extends React.PureComponent<Props, {}> {
     return (
       <LayoutWrapper expanded={this.props.expanded}>
         <MenuBar onClickHandler={this.menuToggleHandler} />
-        <Information />
+        <Information show={this.props.expanded} />
       </LayoutWrapper>
     );
   }

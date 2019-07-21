@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+interface Props {
+  show: boolean;
+}
+
 const StyledDiv = styled.div`
   color: #9c9c9c;
   font-size: 0.8em;
@@ -9,12 +13,17 @@ const StyledDiv = styled.div`
 
 const version: string = process.env.PACKAGE_VERSION as string;
 
-export class Information extends React.PureComponent {
+export class Information extends React.PureComponent<Props, {}> {
   public render() {
-    return (
-      <StyledDiv>
-        <span>Ver {version}</span>
-      </StyledDiv>
-    );
+    if (this.props.show) {
+      return (
+        <StyledDiv>
+          <span>V{version}</span>
+        </StyledDiv>
+      );
+    } else {
+      return null;
+    }
+
   }
 }
