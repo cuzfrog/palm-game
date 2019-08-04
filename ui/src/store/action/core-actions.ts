@@ -3,6 +3,8 @@ import { ActionType } from './actions';
 
 const menuExpand = createAction(ActionType.MENU_EXPAND);
 const menuFold = createAction(ActionType.MENU_FOLD);
+const soundEnable = createAction(ActionType.ENABLE_SOUND);
+const soundDisable = createAction(ActionType.DISABLE_SOUND);
 const consoleStart = createAction(ActionType.CONSOLE_START);
 const consoleAnimate = createAction(ActionType.CONSOLE_ANIMATE);
 const increaseLevel = createAction(ActionType.INCREASE_LEVEL);
@@ -16,6 +18,8 @@ const dummyAction = createAction(ActionType.DUMMY_ACTION);
 export const CoreActions = Object.freeze({
   menuExpand: () => menuExpand,
   menuFold: () => menuFold,
+  soundEnable: () => soundEnable,
+  soundDisable: () => soundDisable,
   consoleStart: () => consoleStart,
   consoleAnimate: () => consoleAnimate,
   addScore: (score: number) => createActionWithPayload(ActionType.ADD_SCORE, score),

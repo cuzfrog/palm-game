@@ -63,6 +63,12 @@ export function coreReducer(state: CoreState = CoreState.Default, action: CoreAc
         draft.menuExpanded = false;
         draft.inGamePaused = false;
         break;
+      case ActionType.ENABLE_SOUND:
+        draft.audioEnabled = true;
+        break;
+      case ActionType.DISABLE_SOUND:
+        draft.audioEnabled = false;
+        break;
     }
   }
   );

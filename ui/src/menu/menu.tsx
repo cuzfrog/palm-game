@@ -1,16 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Information } from './Information';
 import { Connects } from '../store';
 import autoBind from 'auto-bind';
 import MenuBar from './icon/menu-bar';
+import GithubIcon from './icon/github-icon';
+import { Toggle } from './toggle-button';
 
 export interface MenuStateProps {
   expanded: boolean;
+  audioEnabled: boolean;
 }
 
 export interface MenuActionProps {
   toggleExpansion: (folded: boolean) => void;
+  toggleSound: (enabled: boolean) => void;
 }
 
 const Container = styled.div`
@@ -35,6 +38,14 @@ const MenuBarLayout = styled.div`
   top:0;
 `;
 
+const StyledDiv = styled.div`
+  color: #9c9c9c;
+  font-size: 0.8em;
+  font-family: monospace;
+`;
+
+const version: string = process.env.PACKAGE_VERSION as string;
+
 type Props = MenuStateProps & MenuActionProps;
 
 class Menu extends React.PureComponent<Props, {}> {
@@ -45,15 +56,29 @@ class Menu extends React.PureComponent<Props, {}> {
 
   public render() {
     return (
-      <Container expanded={this.props.expanded}>
-        <MenuBarLayout><MenuBar onClickHandler={this.menuToggleHandler}/></MenuBarLayout>
-        <Information show={this.props.expanded} />
+      <Container {...this.props}>
+        <MenuBarLayout><MenuBar onClickHandler={this.menuToggleHandler} /></MenuBarLayout>
+        {this.renderContent()}
       </Container>
     );
   }
 
   private menuToggleHandler() {
     this.props.toggleExpansion(!this.props.expanded);
+  }
+
+  private renderContent() {
+    if (this.props.expanded) {
+      return (
+        <StyledDiv>
+          <GithubIcon />
+          <p>UI-version:{version}</p>
+          <Toggle label='Enable sound:' toggle={this.props.toggleSound} initChecked={this.props.audioEnabled} />
+        </StyledDiv>
+      );
+    } else {
+      return null;
+    }
   }
 }
 
