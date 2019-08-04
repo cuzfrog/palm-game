@@ -12,8 +12,6 @@ interface Props {
 
 export const StyledSvg = styled.svg`
   width: 36px;
-  position: absolute;
-  right: 0;
   cursor: pointer;
 `;
 
