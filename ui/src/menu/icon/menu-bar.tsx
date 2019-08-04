@@ -10,7 +10,7 @@ interface Props {
   onClickHandler: () => void;
 }
 
-export const StyledSvg = styled.svg`
+const StyledSvg = styled.svg`
   width: 36px;
   cursor: pointer;
 `;

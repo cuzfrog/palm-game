@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import GithubIcon from './icon/github-icon';
 
 interface Props {
   show: boolean;
@@ -18,12 +19,12 @@ export class Information extends React.PureComponent<Props, {}> {
     if (this.props.show) {
       return (
         <StyledDiv>
-          <span>V{version}</span>
+          <GithubIcon/>
+          <p>UI-version:{version}</p>
         </StyledDiv>
       );
     } else {
       return null;
     }
-
   }
 }
