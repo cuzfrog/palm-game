@@ -51,7 +51,7 @@ class Menu extends React.PureComponent<Props, {}> {
   public render() {
     const audioSvnPath = this.props.audioEnabled ? IconSvgPaths.audio : IconSvgPaths.mute;
     return (
-      <Container {...this.props} onClick={this.toggleInfo}>
+      <Container {...this.props} onClick={this.closeInfo}>
         <IconContainer>
           <MenuIcon svgPath={IconSvgPaths.github} onClickHandler={this.openGithub} />
           <MenuIcon svgPath={audioSvnPath} onClickHandler={this.toggleAudio} size={22} />
@@ -64,6 +64,12 @@ class Menu extends React.PureComponent<Props, {}> {
 
   private toggleInfo() {
     this.props.toggleExpansion(!this.props.infoExpanded);
+  }
+
+  private closeInfo() {
+    if (this.props.infoExpanded) {
+      this.props.toggleExpansion(false);
+    }
   }
 
   private openGithub() {
