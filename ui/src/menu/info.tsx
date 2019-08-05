@@ -9,11 +9,12 @@ const StyledDiv = styled.div`
 
 const version: string = process.env.PACKAGE_VERSION as string;
 
-export class Information extends React.PureComponent {
+export default class Info extends React.PureComponent {
   public render() {
     return (
       <StyledDiv>
-        <span>Ver {version}</span>
+        <p>UI-version:{version}</p>
+        <p>Author:Cause Chung</p>
       </StyledDiv>
     );
   }

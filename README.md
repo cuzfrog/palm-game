@@ -12,12 +12,21 @@
 4. `npx webpack-dev-server`
 5. open your browser at `127.0.0.1:9000`
 
+## Todo list
+
+* more games
+* optimize on mobile client
+* better appearance
+
 ## Games
 
-Menu operations:
+Operations:
 * Change game `select`
 * Start game `start`
-* Increase level `->`
-* Decrease level `<-`
+* Increase level `a`
+* Decrease level `d`
 
 ### Snake
+
+Operations:
+* Change direction `a`, `w`, `d`, `s`

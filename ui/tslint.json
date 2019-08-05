@@ -31,6 +31,7 @@
     "class-name": false,
     "variable-name": false,
     "interface-over-type-literal": false,
-    "member-access": false
+    "member-access": false,
+    "jsx-alignment": false
   }
 }
