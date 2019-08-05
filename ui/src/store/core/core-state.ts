@@ -3,7 +3,7 @@ import { GameType, SystemStatus } from '../../domain';
 import { Anim, Animations } from '../graphic';
 
 export interface CoreState {
-  readonly menuExpanded: boolean;
+  readonly infoExpanded: boolean;
   readonly status: SystemStatus;
   readonly scores: Map<GameType, number>;
   readonly maxScores: Map<GameType, number>;
@@ -18,7 +18,7 @@ export interface CoreState {
 }
 
 const DefaultCoreState: CoreState = Object.freeze({
-  menuExpanded: false,
+  infoExpanded: false,
   status: SystemStatus.STARTING,
   scores: Map<GameType, number>(),
   maxScores: Map<GameType, number>(),

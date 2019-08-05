@@ -56,11 +56,11 @@ export function coreReducer(state: CoreState = CoreState.Default, action: CoreAc
         draft.anim = currentAnimation(draft as CoreState);
         break;
       case ActionType.MENU_EXPAND:
-        draft.menuExpanded = true;
+        draft.infoExpanded = true;
         draft.inGamePaused = true;
         break;
       case ActionType.MENU_FOLD:
-        draft.menuExpanded = false;
+        draft.infoExpanded = false;
         draft.inGamePaused = false;
         break;
       case ActionType.ENABLE_SOUND:
