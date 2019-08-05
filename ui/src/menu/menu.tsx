@@ -4,6 +4,7 @@ import { Connects } from '../store';
 import autoBind from 'auto-bind';
 import MenuIcon from './menu-icon';
 import { IconSvgPaths } from '../svg-path';
+import Info from './info';
 
 export interface MenuStateProps {
   infoExpanded: boolean;
@@ -22,8 +23,8 @@ const Container = styled.div`
   flex-direction: column;
   position: fixed;
   z-index: 100;
-  width: ${(props: MenuStateProps) => props.infoExpanded ? '100%' : '56px'};
-  height: ${(props: MenuStateProps) => props.infoExpanded ? '100%' : '56px'};
+  width: ${(props: MenuStateProps) => props.infoExpanded ? '100%' : '0'};
+  height: ${(props: MenuStateProps) => props.infoExpanded ? '100%' : '0'};
   margin: 0;
   padding: 0;
   top:2px;
@@ -39,14 +40,6 @@ const IconContainer = styled.div`
   top:0;
 `;
 
-const StyledDiv = styled.div`
-  color: #9c9c9c;
-  font-size: 0.8em;
-  font-family: monospace;
-`;
-
-const version: string = process.env.PACKAGE_VERSION as string;
-
 type Props = MenuStateProps & MenuActionProps;
 
 class Menu extends React.PureComponent<Props, {}> {
@@ -58,13 +51,13 @@ class Menu extends React.PureComponent<Props, {}> {
   public render() {
     const audioSvnPath = this.props.audioEnabled ? IconSvgPaths.audio : IconSvgPaths.mute;
     return (
-      <Container {...this.props}>
+      <Container {...this.props} onClick={this.toggleInfo}>
         <IconContainer>
           <MenuIcon svgPath={IconSvgPaths.github} onClickHandler={this.openGithub} />
-          <MenuIcon svgPath={audioSvnPath} onClickHandler={this.toggleAudio} size={22}/>
+          <MenuIcon svgPath={audioSvnPath} onClickHandler={this.toggleAudio} size={22} />
           <MenuIcon svgPath={IconSvgPaths.question} onClickHandler={this.toggleInfo} />
         </IconContainer>
-        {this.renderContent()}
+        {this.props.infoExpanded ? <Info /> : null}
       </Container>
     );
   }
@@ -79,18 +72,6 @@ class Menu extends React.PureComponent<Props, {}> {
 
   private toggleAudio() {
     this.props.toggleAudio(this.props.audioEnabled);
-  }
-
-  private renderContent() {
-    if (this.props.infoExpanded) {
-      return (
-        <StyledDiv>
-          <p>UI-version:{version}</p>
-        </StyledDiv>
-      );
-    } else {
-      return null;
-    }
   }
 }
 
