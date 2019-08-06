@@ -17,7 +17,6 @@ const GlobalStyle = createGlobalStyle`
 
 ReactDOM.render(
   <Provider store={store}><GlobalStyle /><App /></Provider>,
-  document.getElementById('root') as HTMLElement
+  (document.getElementById('root') as HTMLElement)
 );
-
 initiateConsole();
