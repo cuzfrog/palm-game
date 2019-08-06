@@ -6,13 +6,14 @@ import { store, initiateConsole } from '../store';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-  body{
+  body {
     margin: 0;
     padding: 0;
     background: #060816;
     font: 20px/1 "HanHei SC","PingHei","PingFang SC","STHeitiSC-Light","Helvetica Neue","Helvetica","Arial",sans-serif;
     text-rendering: optimizeLegibility;
-    }
+    touch-action: manipulation;
+  }
 `;
 
 ReactDOM.render(
