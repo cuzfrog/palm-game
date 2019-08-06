@@ -99,7 +99,6 @@ export default class Console extends React.PureComponent<{}, State> {
       window.innerWidth / 500,
       window.innerHeight / 865
     );
-    const nextState = { scale };
-    this.setState(() => nextState);
+    this.setState({ scale });
   }
 }
