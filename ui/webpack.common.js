@@ -35,20 +35,6 @@ const config = {
     entry: {
         app: "./src/app/index.tsx"
     },
-    mode: "development",
-    devtool: 'cheap-source-map',
-    devServer: {
-        contentBase: path.resolve(__dirname, 'build/dist'),
-        compress: true,
-        port: 9000,
-        host: '0.0.0.0',
-        stats: {
-            children: false,
-        },
-    },
-    watchOptions: {
-        ignored: [/node_modules/, /deprecated/, /tmp/, /coverage/, /build/]
-    },
     output: {
         filename: "[name].bundle.js",
         path: path.resolve(__dirname, 'build/dist')
