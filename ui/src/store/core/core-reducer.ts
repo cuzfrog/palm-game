@@ -55,14 +55,6 @@ export function coreReducer(state: CoreState = CoreState.Default, action: CoreAc
         draft.gameType = nextEnum(state.gameType, GameTypeValues);
         draft.anim = currentAnimation(draft as CoreState);
         break;
-      case ActionType.MENU_EXPAND:
-        draft.infoExpanded = true;
-        draft.inGamePaused = true;
-        break;
-      case ActionType.MENU_FOLD:
-        draft.infoExpanded = false;
-        draft.inGamePaused = false;
-        break;
       case ActionType.ENABLE_SOUND:
         draft.audioEnabled = true;
         break;

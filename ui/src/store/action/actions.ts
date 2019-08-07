@@ -1,12 +1,8 @@
 export const enum ActionType {
     DUMMY_ACTION = '[none] dummy action',
 
-    MENU_EXPAND = '[menu] expand',
-    MENU_FOLD = '[menu] fold',
-
     ENABLE_SOUND = '[sys] enable sound',
     DISABLE_SOUND = '[sys] disable sound',
-
     CONSOLE_START = '[sys] console start',
     CONSOLE_ANIMATE = '[sys] console animate',
     TOGGLE_PAUSE = '[sys] toggle pause',

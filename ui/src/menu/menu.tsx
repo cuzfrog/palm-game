@@ -7,14 +7,17 @@ import { IconSvgPaths } from '../svg-path';
 import Info from './info';
 
 export interface MenuStateProps {
-  infoExpanded: boolean;
   audioEnabled: boolean;
 }
 
 export interface MenuActionProps {
-  toggleExpansion: (folded: boolean) => void;
   toggleAudio: (enabled: boolean) => void;
 }
+
+interface State {
+  infoExpanded: boolean;
+}
+const DEFAULT_STATE = { infoExpanded: false };
 
 const Container = styled.div`
   display: flex;
@@ -23,8 +26,8 @@ const Container = styled.div`
   flex-direction: column;
   position: fixed;
   z-index: 100;
-  width: ${(props: MenuStateProps) => props.infoExpanded ? '100%' : '0'};
-  height: ${(props: MenuStateProps) => props.infoExpanded ? '100%' : '0'};
+  width: ${(props: State) => props.infoExpanded ? '100%' : '0'};
+  height: ${(props: State) => props.infoExpanded ? '100%' : '0'};
   margin: 0;
   padding: 0;
   top:2px;
@@ -42,33 +45,35 @@ const IconContainer = styled.div`
 
 type Props = MenuStateProps & MenuActionProps;
 
-class Menu extends React.PureComponent<Props, {}> {
+class Menu extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
+    this.state = DEFAULT_STATE;
     autoBind.react(this);
   }
 
   public render() {
     const audioSvnPath = this.props.audioEnabled ? IconSvgPaths.audio : IconSvgPaths.mute;
     return (
-      <Container {...this.props} onClick={this.closeInfo}>
+      <Container infoExpanded={this.state.infoExpanded} onClick={this.closeInfo}>
         <IconContainer>
           <MenuIcon svgPath={IconSvgPaths.github} onClickHandler={this.openGithub} />
           <MenuIcon svgPath={audioSvnPath} onClickHandler={this.toggleAudio} size={22} />
           <MenuIcon svgPath={IconSvgPaths.question} onClickHandler={this.toggleInfo} />
         </IconContainer>
-        {this.props.infoExpanded ? <Info /> : null}
+        {this.state.infoExpanded ? <Info /> : null}
       </Container>
     );
   }
 
   private toggleInfo() {
-    this.props.toggleExpansion(!this.props.infoExpanded);
+    const nextState = { infoExpanded: !this.state.infoExpanded };
+    this.setState(nextState);
   }
 
   private closeInfo() {
-    if (this.props.infoExpanded) {
-      this.props.toggleExpansion(false);
+    if (this.state.infoExpanded) {
+      this.setState(DEFAULT_STATE);
     }
   }
 

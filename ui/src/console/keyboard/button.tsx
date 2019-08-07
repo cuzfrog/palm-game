@@ -37,11 +37,9 @@ export default class Button extends React.PureComponent<Props, State> {
 
   public render() {
     return (
-      <StyledButton
-        type={this.props.type}
-        onMouseDown={this.handleDown}
-        onMouseUp={this.handleUp}
-        onClick={this.props.clickHandler}
+      <StyledButton type={this.props.type}
+        onMouseDown={this.handleDown} onMouseUp={this.handleUp} onClick={this.props.clickHandler}
+        onTouchStart={this.props.clickHandler}
       >
         {this.props.caption}
       </StyledButton>
