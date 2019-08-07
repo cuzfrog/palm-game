@@ -4,7 +4,6 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const IgnoreNotFoundExportPlugin = require('./IgnoreNotFoundExportPlugin.js');
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const SRC_DIR = /src/;
 
@@ -37,7 +36,7 @@ const config = {
     },
     output: {
         filename: "[name].bundle.js",
-        path: path.resolve(__dirname, 'build/dist')
+        path: path.resolve(__dirname, '../build/dist')
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js"],
@@ -53,11 +52,10 @@ const config = {
         new ForkTsCheckerWebpackPlugin({
             tslint: true,
         }),
-        // new BundleAnalyzerPlugin(),
         new IgnoreNotFoundExportPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
-                PACKAGE_VERSION: JSON.stringify(require('./package.json').version)
+                PACKAGE_VERSION: JSON.stringify(require('../package.json').version)
             }
         }),
     ],

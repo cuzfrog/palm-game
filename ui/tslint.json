@@ -12,7 +12,8 @@
       "public/**/*.*",
       "tmp/*.*",
       "*.js",
-      "test/__setup__/**/*.*"
+      "test/__setup__/**/*.*",
+      "webpack//**/*.*"
     ]
   },
   "rules": {
