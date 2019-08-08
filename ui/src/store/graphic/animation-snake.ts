@@ -1,7 +1,7 @@
 import { H, I, O, W } from './graphic-types';
 import { List, Range } from 'immutable';
 import { Direction, Point } from '../../domain';
-import { toIndex, validateFrame } from './graphic-utils';
+import { toIndex } from './graphic-utils';
 import { BackgroundAnims } from './animator';
 import { AnimType } from './anim';
 
@@ -72,7 +72,7 @@ export class SnakeAnimation implements Anim {
         return new SnakeAnimation(nb, nd, lt);
     }
 
-    public currentFrame(frameBuffer: PixelState[]): Frame {
+    public currentFrame(frameBuffer: Uint8Array): Frame {
         if (this.body === INITIAL_BODY) {
             BORDER_FRAME.forEach((v, i) => frameBuffer[i] = v);
         }
@@ -92,9 +92,6 @@ export class SnakeAnimation implements Anim {
         }
 
         const frame = List(frameBuffer);
-        if (validateFrame(frame)) {
-            throw Error(`Bad frame from snake game anim, current body: ${this.body}`);
-        }
         return frame;
     }
 
