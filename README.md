@@ -8,9 +8,10 @@ A palm game console built on Typescript + React + RxJS.
 
 ## Todo list
 
-* more games
-* optimize on mobile client
-* better appearance
+- [x] MVP
+- [ ] more games
+- [ ] optimize on mobile client
+- [ ] better appearance
 
 ## Games
 
