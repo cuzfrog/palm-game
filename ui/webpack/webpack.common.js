@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const IgnoreNotFoundExportPlugin = require('./IgnoreNotFoundExportPlugin.js');
 
 const SRC_DIR = /src/;
@@ -56,6 +57,12 @@ const config = {
         new webpack.DefinePlugin({
             'process.env': {
                 PACKAGE_VERSION: JSON.stringify(require('../package.json').version)
+            }
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/index.ejs',
+            meta: {
+                keywords : require('../package.json').keywords.join(','),
             }
         }),
     ],
