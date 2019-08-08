@@ -4,13 +4,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/82590dbed2e848e9aecc381d7cf054fb)](https://www.codacy.com/app/cuzfrog1/palm-game?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=cuzfrog/palm-game&amp;utm_campaign=Badge_Grade)
 # palm-game
 
-## How to build & run
-
-1. install `node/npm`
-2. `cd ui`
-3. `npm install`
-4. `npx webpack-dev-server`
-5. open your browser at `127.0.0.1:9000`
+A palm game console built on Typescript + React + RxJS.
 
 ## Todo list
 
@@ -20,13 +14,27 @@
 
 ## Games
 
-Operations:
-* Change game `select`
-* Start game `start`
-* Increase level `a`
-* Decrease level `d`
+* Change game `select` or `J`
+* Start game `start` or `K`
+* Increase level `A`
+* Decrease level `D`
 
 ### Snake
 
-Operations:
-* Change direction `a`, `w`, `d`, `s`
+* Change direction `A`, `W`, `S`, `D`
+
+## Build & Run
+
+1. install `node/npm`
+2. `cd ui`
+3. `npm install`
+4. `npx webpack-dev-server`
+5. open your browser at `127.0.0.1:9000`
+
+## Acknowledgement
+
+Some Css styles are borrowed from the Internet.
+
+## Author
+
+Cause Chung(cuzfrog@gmail.com)
