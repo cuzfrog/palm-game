@@ -11,7 +11,9 @@ matrix:
       script:
         - npm run test
         - npm run build
-        - npm run deploy
+      deploy:
+        provider: script
+        script: npm run deploy
 
 
 branches:
