@@ -3,9 +3,10 @@ const webpack = require('webpack');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const IgnoreNotFoundExportPlugin = require('./IgnoreNotFoundExportPlugin.js');
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
+const packageJson = require('../package.json');
 const SRC_DIR = /src/;
 
 const Rules = {
@@ -35,23 +36,9 @@ const config = {
     entry: {
         app: "./src/app/index.tsx"
     },
-    mode: "development",
-    devtool: 'cheap-source-map',
-    devServer: {
-        contentBase: path.resolve(__dirname, 'build/dist'),
-        compress: true,
-        port: 9000,
-        host: '0.0.0.0',
-        stats: {
-            children: false,
-        },
-    },
-    watchOptions: {
-        ignored: [/node_modules/, /deprecated/, /tmp/, /coverage/, /build/]
-    },
     output: {
         filename: "[name].bundle.js",
-        path: path.resolve(__dirname, 'build/dist')
+        path: path.resolve(__dirname, '../build/dist')
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js"],
@@ -67,11 +54,19 @@ const config = {
         new ForkTsCheckerWebpackPlugin({
             tslint: true,
         }),
-        // new BundleAnalyzerPlugin(),
         new IgnoreNotFoundExportPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
-                PACKAGE_VERSION: JSON.stringify(require('./package.json').version)
+                PACKAGE_VERSION: JSON.stringify(packageJson.version)
+            }
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/index.ejs',
+            meta: {
+                keywords : packageJson.keywords.join(','),
+            },
+            versions: {
+                react: packageJson.dependencies.react.slice(1),
             }
         }),
     ],

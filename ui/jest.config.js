@@ -17,6 +17,7 @@ module.exports = {
     },
     testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/build/"],
     collectCoverage: false,
+    coverageDirectory: "<rootDir>/build/coverage",
     collectCoverageFrom: [
         "src/**/*.{ts,tsx,js,jsx}",
         "!src/defs.d.ts",
