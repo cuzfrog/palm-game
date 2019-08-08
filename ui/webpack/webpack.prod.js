@@ -6,9 +6,8 @@ module.exports = merge(common, {
   mode: 'production',
   devtool: 'source-map',
   externals: {
-    'react': 'react',
-    'react-dom': 'react-dom',
-    'rxjs': 'rxjs',
+    'react': 'React',
+    'react-dom': 'ReactDOM',
   },
   plugins: [
     new CleanWebpackPlugin(),

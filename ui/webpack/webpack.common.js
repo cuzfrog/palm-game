@@ -6,6 +6,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const IgnoreNotFoundExportPlugin = require('./IgnoreNotFoundExportPlugin.js');
 
+const packageJson = require('../package.json');
 const SRC_DIR = /src/;
 
 const Rules = {
@@ -56,13 +57,16 @@ const config = {
         new IgnoreNotFoundExportPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
-                PACKAGE_VERSION: JSON.stringify(require('../package.json').version)
+                PACKAGE_VERSION: JSON.stringify(packageJson.version)
             }
         }),
         new HtmlWebpackPlugin({
             template: './src/index.ejs',
             meta: {
-                keywords : require('../package.json').keywords.join(','),
+                keywords : packageJson.keywords.join(','),
+            },
+            versions: {
+                react: packageJson.dependencies.react.slice(1),
             }
         }),
     ],
