@@ -6,7 +6,7 @@
   <meta name="viewport" content="user-scalable=no, initial-scale=1, width=device-width">
   <link rel="manifest" href="manifest.json">
   <link rel="shortcut icon" href="favicon.ico">
-  <title>React Palm Game</title>
+  <title>React Palm Game<%= process.env.NODE_ENV === 'production' ? '' : '(dev)' %></title>
 </head>
 
 <body>
