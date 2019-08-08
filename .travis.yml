@@ -12,8 +12,10 @@ matrix:
         - npm run test
         - npm run build
       deploy:
-        provider: script
-        script: npm run deploy
+        provider: pages
+        skip_cleanup: true
+        github_token: $GITHUB_TOKEN
+        local_dir: ui/build/dist
 
 
 branches:
