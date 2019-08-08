@@ -1,4 +1,4 @@
-import { GameType, SystemStatus } from '../../domain';
+import { GameType, SystemStatus, GameStatus } from '../../domain';
 import { BLANK_FRAME, I, L, O, S } from './graphic-types';
 import { snakeGameFrame } from './graphic-snake';
 
@@ -19,7 +19,7 @@ function draw(state: AppState): Frame {
         default:
           throw new TypeError('Unknown gameType:' + state.core.gameType);
       }
-      if (state.core.inGamePaused) {
+      if (state.core.gameStatus === GameStatus.PAUSED) {
         frame = pauseIndication(frame);
       }
   }

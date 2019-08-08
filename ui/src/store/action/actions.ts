@@ -19,6 +19,8 @@ export const enum ActionType {
     A = '[key] trigger A',
     B = '[key] trigger B',
 
+    QUIT_GAME = '[game] quit',
+
     INCREASE_LEVEL = '[game] increase level',
     DECREASE_LEVEL = '[game] decrease level',
     ADD_SCORE = '[game] add score',

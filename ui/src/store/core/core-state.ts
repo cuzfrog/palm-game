@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { GameType, SystemStatus } from '../../domain';
+import { GameType, SystemStatus, GameStatus } from '../../domain';
 import { Anim, Animations } from '../graphic';
 
 export interface CoreState {
@@ -8,12 +8,13 @@ export interface CoreState {
   readonly maxScores: Map<GameType, number>;
   readonly level: Map<GameType, number>;
   readonly gameType: GameType;
-  readonly inGamePaused: boolean;
+  readonly gameStatus: GameStatus;
   readonly anim: Anim;
   readonly audioEnabled: boolean;
 
   getLevel(): number;
   getScore(): number;
+  isPaused(): boolean;
 }
 
 const DefaultCoreState: CoreState = Object.freeze({
@@ -22,7 +23,7 @@ const DefaultCoreState: CoreState = Object.freeze({
   maxScores: Map<GameType, number>(),
   level: Map([[GameType.SNAKE, 3], [GameType.BOXER, 3]]),
   gameType: GameType.SNAKE,
-  inGamePaused: false,
+  gameStatus: GameStatus.STOPPED,
   anim: Animations.emptyAnim,
   audioEnabled: true,
   getLevel(): number {
@@ -30,8 +31,13 @@ const DefaultCoreState: CoreState = Object.freeze({
   },
   getScore(): number {
     return this.scores.get(this.gameType, 0);
-  }
+  },
+  isPaused,
 });
+
+function isPaused(this: CoreState) {
+  return (this.gameStatus === GameStatus.PAUSED) || (this.gameStatus === GameStatus.TO_QUIT);
+}
 
 export const CoreState = Object.freeze({
   Default: DefaultCoreState

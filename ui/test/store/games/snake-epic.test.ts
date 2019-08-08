@@ -1,7 +1,7 @@
 import {Lens} from 'monocle-ts';
 import {List} from 'immutable';
 import {TestScheduler} from 'rxjs/testing';
-import {Direction, Point} from '../../../src/domain';
+import {Direction, Point, GameStatus} from '../../../src/domain';
 import {snakeEpic} from '../../../src/store/games/snake-epic';
 import {SnakeActions} from '../../../src/store/games';
 import {CoreActions} from '../../../src/store/action';
@@ -13,7 +13,7 @@ const defaultState: AppState = {
     snake: SnakeGameState.Default,
 };
 
-const pauseGameLens = Lens.fromPath<AppState>()(['core', 'inGamePaused']);
+const pauseGameLens = Lens.fromPath<AppState>()(['core', 'gameStatus']);
 const bodyLens = Lens.fromPath<AppState>()(['snake', 'body']);
 const directionLens = Lens.fromPath<AppState>()(['snake', 'direction']);
 const beanLens = Lens.fromPath<AppState>()(['snake', 'bean']);
@@ -78,7 +78,7 @@ describe('creep epic', () => {
     });
 
     it('no creep when game is paused', () => {
-        const state = pauseGameLens.set(true)(defaultState);
+        const state = pauseGameLens.set(GameStatus.PAUSED)(defaultState);
         newTestScheduler().run(({hot, cold}) => {
             const action$ = hot('a 5s b', {a: CoreActions.enterGame(), b: CoreActions.exitGame()});
             const state$ = cold('s', {s: state});

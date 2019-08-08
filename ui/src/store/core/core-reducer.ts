@@ -2,7 +2,7 @@ import produce from 'immer';
 import { checkStrictEqual, checkStrictNonEqual, nextEnum } from '../../utils';
 import { ActionType } from '../action';
 import { Specs } from '../../specs';
-import { GameType, SystemStatus } from '../../domain';
+import { GameType, SystemStatus, GameStatus } from '../../domain';
 import { Anim, Animations } from '../graphic';
 import { CoreState } from './core-state';
 
@@ -37,13 +37,14 @@ export function coreReducer(state: CoreState = CoreState.Default, action: CoreAc
         break;
       case ActionType.TOGGLE_PAUSE:
         checkStrictEqual(state.status, SystemStatus.IN_GAME, 'cannot pause game if not in game.');
-        draft.inGamePaused = !state.inGamePaused;
+        draft.gameStatus = state.gameStatus === GameStatus.RUNNING ? GameStatus.PAUSED : GameStatus.RUNNING;
         break;
       case ActionType.ENTER_GAME:
         checkStrictEqual(state.status, SystemStatus.MENU, 'can only enter game from menu.');
         draft.scores = state.scores.set(state.gameType, 0);
         draft.anim = Animations.emptyAnim;
         draft.status = SystemStatus.IN_GAME;
+        draft.gameStatus = GameStatus.RUNNING;
         break;
       case ActionType.EXIT_GAME:
         checkStrictEqual(state.status, SystemStatus.IN_GAME, 'cannot exit game if not in game.');
@@ -54,6 +55,9 @@ export function coreReducer(state: CoreState = CoreState.Default, action: CoreAc
         checkStrictNonEqual(state.status, SystemStatus.IN_GAME, 'cannot toggle game when in game.');
         draft.gameType = nextEnum(state.gameType, GameTypeValues);
         draft.anim = currentAnimation(draft as CoreState);
+        break;
+      case ActionType.QUIT_GAME:
+        draft.gameStatus = action.payload ? GameStatus.STOPPED : GameStatus.TO_QUIT;
         break;
       case ActionType.ENABLE_SOUND:
         draft.audioEnabled = true;
