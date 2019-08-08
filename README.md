@@ -15,14 +15,16 @@ A palm game console built on Typescript + React + RxJS.
 
 ## Games
 
-* Change game `select` or `J`
-* Start game `start` or `K`
-* Increase level `A`
-* Decrease level `D`
+* Change game: `select` or `J`
+* Start game: `start` or `K`
+* Increase level: `A`
+* Decrease level: `D`
+* Pause game: during game `start` or `K`
+* Quit game: when game paused `select` or `J` 2 times
 
 ### Snake
 
-* Change direction `A`, `W`, `S`, `D`
+* Change direction: `A`, `W`, `S`, `D`
 
 ## Build & Run
 

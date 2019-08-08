@@ -19,7 +19,7 @@ function draw(state: AppState): Frame {
         default:
           throw new TypeError('Unknown gameType:' + state.core.gameType);
       }
-      if (state.core.gameStatus === GameStatus.PAUSED) {
+      if (state.core.isPaused()) {
         frame = pauseIndication(frame);
       }
   }
