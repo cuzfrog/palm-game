@@ -3,7 +3,8 @@ const webpack = require('webpack');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
 const IgnoreNotFoundExportPlugin = require('./IgnoreNotFoundExportPlugin.js');
 const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default;
 const styledComponentsTransformer = createStyledComponentsTransformer();
@@ -65,13 +66,12 @@ const config = {
         }),
         new HtmlWebpackPlugin({
             template: './src/index.ejs',
+            minify: false,
             meta: {
                 keywords : packageJson.keywords.join(','),
             },
-            versions: {
-                react: packageJson.dependencies.react.slice(1),
-            }
         }),
+        new HtmlBeautifyPlugin(),
     ],
     optimization: {
         splitChunks: {
