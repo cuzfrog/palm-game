@@ -25,7 +25,7 @@ class BackgroundAnimator {
         this.windowWidth = windowWidth;
     }
 
-    public setBackgroundFrame(frameBuffer: PixelState[], offset: number): void { // todo: optimize
+    public setBackgroundFrame(frameBuffer: Uint8Array, offset: number): void { // todo: optimize
         if (Date.now() - this.lastFrameTimestamp > FRAME_INTERVAL_MS) {
             const backgroundWindow = this.backgroundSheet.map(line => line.substr(this.colIdx, this.windowWidth)).join('');
             for (let i = 0; i < backgroundWindow.length; i++) {

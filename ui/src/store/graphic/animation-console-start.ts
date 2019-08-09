@@ -25,7 +25,7 @@ export class ConsoleStartAnimation implements Anim {
         return next;
     }
 
-    public currentFrame(frameBuffer: PixelState[]): Frame {
+    public currentFrame(frameBuffer: Uint8Array): Frame {
         switch (this.step) {
             case 1:
                 frameBuffer.fill(O);

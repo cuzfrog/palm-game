@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import {ScreenColors} from './screen-colors';
+import { ScreenColors } from './screen-colors';
 
 interface Props {
-    hp: number;
-    maxHp: number;
-    count: number;
+  hp: number;
+  maxHp: number;
+  count: number;
 }
 
 interface HeartProps {
-    isActive: boolean;
+  isActive: boolean;
 }
 
 const heartSize = 10;
@@ -18,13 +18,12 @@ const LifeBarWrapper = styled.div`
   overflow: auto;
 `;
 
-const Heart = styled.div`
+const Heart = React.memo(styled.div`
     display: inline-block;
     margin: 2px;
     position: relative;
     width: ${heartSize}px;
     height: ${heartSize}px;
-    float: left;
     
     &:before, &:after {
       position: absolute;
@@ -43,30 +42,30 @@ const Heart = styled.div`
       transform: rotate(45deg);
       transform-origin: 100% 100%;
     }
-`;
+`);
 
 export default class LifeBar extends React.PureComponent<Props, {}> {
-    constructor(props: Readonly<Props>) {
-        super(props);
-        if (props.maxHp <= 0) {
-            throw new RangeError(`Life bar maxHp must be > 0. But it's set to ${props.maxHp}.`);
-        }
-        if (props.count <= 0) {
-            throw new RangeError(`Life bar width must be > 0. But it's set to ${props.count}.`);
-        }
+  constructor(props: Readonly<Props>) {
+    super(props);
+    if (props.maxHp <= 0) {
+      throw new RangeError(`Life bar maxHp must be > 0. But it's set to ${props.maxHp}.`);
     }
+    if (props.count <= 0) {
+      throw new RangeError(`Life bar width must be > 0. But it's set to ${props.count}.`);
+    }
+  }
 
-    public render() {
-        return (
-            <LifeBarWrapper>
-                {renderHearts(this.props)}
-            </LifeBarWrapper>
-        );
-    }
+  public render() {
+    return (
+      <LifeBarWrapper>
+        {renderHearts(this.props)}
+      </LifeBarWrapper>
+    );
+  }
 }
 
 // todo: optimize
 function renderHearts(props: Readonly<Props>) {
-    const deActiveCnt = props.maxHp <= 0 ? props.count : (1 - props.hp / props.maxHp) * props.count;
-    return [...Array(props.count).keys()].map(i => (<Heart isActive={deActiveCnt <= i} key={i}/>));
+  const deActiveCnt = props.maxHp <= 0 ? props.count : (1 - props.hp / props.maxHp) * props.count;
+  return [...Array(props.count).keys()].map(i => (<Heart isActive={deActiveCnt <= i} key={i} />));
 }

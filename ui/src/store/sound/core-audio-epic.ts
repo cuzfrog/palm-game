@@ -1,7 +1,7 @@
 import {combineEpics} from 'redux-observable';
 import {ActionGroups, ActionType} from '../action';
 import {createAudioEpic, SoundEffects} from './audio-types';
-import {SystemStatus} from '../../domain';
+import {SystemStatus, GameStatus} from '../../domain';
 
 const menuAudioEpic = createAudioEpic(
     SoundEffects.sfxCoreMenu,
@@ -19,13 +19,13 @@ const enterGameAudioEpic = createAudioEpic(SoundEffects.sfxEnterGame, [ActionTyp
 const pauseInAudioEpic = createAudioEpic(
     SoundEffects.sfxPauseIn,
     [ActionType.TOGGLE_PAUSE],
-    s => s.core.status === SystemStatus.IN_GAME && s.core.inGamePaused
+    s => s.core.status === SystemStatus.IN_GAME && s.core.isPaused()
 );
 
 const pauseOutAudioEpic = createAudioEpic(
     SoundEffects.sfxPauseOut,
     [ActionType.TOGGLE_PAUSE],
-    s => s.core.status === SystemStatus.IN_GAME && !s.core.inGamePaused
+    s => s.core.status === SystemStatus.IN_GAME && s.core.gameStatus === GameStatus.RUNNING
 );
 
 const inGameKeypressAudioEpic = createAudioEpic(

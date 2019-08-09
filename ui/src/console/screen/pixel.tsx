@@ -1,9 +1,10 @@
-import {PixelState} from '../../domain';
-import styled, {css, keyframes} from 'styled-components';
-import {ScreenColors} from './screen-colors';
+import React from 'react';
+import { PixelState } from '../../domain';
+import styled, { css, keyframes } from 'styled-components';
+import { ScreenColors } from './screen-colors';
 
 interface Props {
-    value: PixelState;
+  value: PixelState;
 }
 
 const deactivatedStyle = css`
@@ -45,14 +46,14 @@ const Pixel: import('styled-components').StyledComponent<'td', any, Props> = sty
 `;
 
 function getPixelStyle(state: PixelState) {
-    switch (state) {
-        case PixelState.ON:
-            return activeStyle;
-        case PixelState.OFF:
-            return deactivatedStyle;
-        case PixelState.TWINKLE:
-            return twinkleStyle;
-    }
+  switch (state) {
+    case PixelState.ON:
+      return activeStyle;
+    case PixelState.OFF:
+      return deactivatedStyle;
+    case PixelState.TWINKLE:
+      return twinkleStyle;
+  }
 }
 
-export default Pixel;
+export default React.memo(Pixel);

@@ -25,6 +25,7 @@ export const CoreActions = Object.freeze({
   exitGame: () => exitGame,
   togglePause: () => togglePause,
   toggleGame: () => toggleGame,
+  quitGame: (confirm: boolean) => createActionWithPayload(ActionType.QUIT_GAME, confirm),
   dummy: () => dummyAction,
 });
 

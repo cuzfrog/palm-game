@@ -1,3 +1,5 @@
+const isProd = process.env.NODE_ENV === 'production';
+
 const constants = Object.freeze({
     screen: {
         graphicWidth: 10,
@@ -10,7 +12,7 @@ const constants = Object.freeze({
     snakeGame: {
         beanProduceChance: 0.5,
         baseCreepIntervalMs: 900,
-        winBodyLength: 7,
+        winBodyLength: isProd ? 15 : 7,
         baseScore: 5,
         escapeAnimationIntervalMs: 100,
     },

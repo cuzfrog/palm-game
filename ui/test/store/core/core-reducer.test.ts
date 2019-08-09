@@ -1,6 +1,6 @@
 import {Lens} from 'monocle-ts';
 import {Map} from 'immutable';
-import {GameType, SystemStatus} from '../../../src/domain';
+import {GameType, SystemStatus, GameStatus} from '../../../src/domain';
 import {Specs} from '../../../src/specs';
 import {CoreActions, coreReducer} from '../../../src/store/core';
 import {CoreState} from '../../../src/store/core/core-state';
@@ -36,14 +36,14 @@ describe('system reducer', () => {
     });
 
     const stateNotInGame = {...prevState, status: SystemStatus.MENU};
-    const stateInGame = {...prevState, status: SystemStatus.IN_GAME};
+    const stateInGame = {...prevState, status: SystemStatus.IN_GAME, gameStatus: GameStatus.RUNNING};
 
     it('no pausing game if not in game', () => {
         expect(() => coreReducer(stateNotInGame, CoreActions.togglePause())).toThrow();
     });
 
     it('pause game if in game', () => {
-        expect(coreReducer(stateInGame, CoreActions.togglePause()).inGamePaused).toBeTruthy();
+        expect(coreReducer(stateInGame, CoreActions.togglePause()).gameStatus).toBe(GameStatus.PAUSED);
     });
 
     it('enter game if not in game', () => {

@@ -2,7 +2,7 @@ import {concatMap, delay, filter, map, mapTo, switchMap, takeUntil, withLatestFr
 import {combineEpics, ofType} from 'redux-observable';
 import {Observable, of, timer} from 'rxjs';
 import {ActionType, SnakeActions} from '../action';
-import {Direction, GameType, Point} from '../../domain';
+import {Direction, GameType, Point, GameStatus} from '../../domain';
 import {Specs} from '../../specs';
 import {CoreActions} from '../core';
 
@@ -49,7 +49,7 @@ function calculateInterval(level: number): number {
 }
 
 const creepFunc = (creepActionFunc: (state: AppState) => AppAction) =>
-    (action$: Observable<AppAction>, state$: Observable<AppState>) => { // todo: use WIN / FAIL to control anim
+    (action$: Observable<AppAction>, state$: Observable<AppState>) => {
         return action$.pipe(
             ofType(ActionType.ENTER_GAME, ActionType.SNAKE_NEXT_LEVEL),
             withLatestFrom(state$),
@@ -61,7 +61,7 @@ const creepFunc = (creepActionFunc: (state: AppState) => AppAction) =>
                     takeUntil(action$.pipe(ofType(ActionType.EXIT_GAME, ActionType.SNAKE_ESCAPE))),
                     withLatestFrom(state$),
                     map(([, s]) => s),
-                    filter(s => !s.core.inGamePaused),
+                    filter(s => s.core.gameStatus === GameStatus.RUNNING),
                     map(creepActionFunc)
                 );
             }),

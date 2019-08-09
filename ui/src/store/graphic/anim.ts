@@ -7,7 +7,7 @@ export interface Anim {
     readonly frameInterval: number;
     isCompleted(): boolean;
     advance(): Anim;
-    currentFrame(frameBuffer: PixelState[]): Frame;
+    currentFrame(frameBuffer: Uint8Array): Frame;
 }
 
 export const enum AnimType {
