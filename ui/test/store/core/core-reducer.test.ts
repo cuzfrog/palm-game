@@ -36,7 +36,7 @@ describe('system reducer', () => {
     });
 
     const stateNotInGame = {...prevState, status: SystemStatus.MENU};
-    const stateInGame = {...prevState, status: SystemStatus.IN_GAME};
+    const stateInGame = {...prevState, status: SystemStatus.IN_GAME, gameStatus: GameStatus.RUNNING};
 
     it('no pausing game if not in game', () => {
         expect(() => coreReducer(stateNotInGame, CoreActions.togglePause())).toThrow();
