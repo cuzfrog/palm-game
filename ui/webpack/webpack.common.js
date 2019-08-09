@@ -5,6 +5,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const IgnoreNotFoundExportPlugin = require('./IgnoreNotFoundExportPlugin.js');
+const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default;
+const styledComponentsTransformer = createStyledComponentsTransformer();
 
 const packageJson = require('../package.json');
 const SRC_DIR = /src/;
@@ -18,6 +20,7 @@ const Rules = {
                 loader: 'ts-loader',
                 options: {
                     transpileOnly: true,
+                    getCustomTransformers: () => ({ before: [styledComponentsTransformer] }),
                 },
             },
         ]
