@@ -1,4 +1,4 @@
-import { GameType, SystemStatus, GameStatus } from '../../domain';
+import { GameType, SystemStatus } from '../../domain';
 import { BLANK_FRAME, I, L, O, S } from './graphic-types';
 import { snakeGameFrame } from './graphic-snake';
 

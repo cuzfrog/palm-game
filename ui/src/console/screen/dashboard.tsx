@@ -77,11 +77,11 @@ class Dashboard extends React.PureComponent<DashboardProps, {}> {
                     <Digit value={this.props.level} width={LEVEL_WIDTH} fontSize={FontSize.LARGE}/>
                 </LevelPanel>
 
-                <LifePanel isActive={this.props.enemyLife.maxHp > 0}>
+                <LifePanel isActive={enemyLife.maxHp > 0}>
                     <p>Enemy</p>
                     <LifeBar hp={enemyLife.hp} maxHp={enemyLife.maxHp} count={LIFE_HEART_COUNT}/>
                 </LifePanel>
-                <LifePanel isActive={this.props.life.maxHp > 0}>
+                <LifePanel isActive={life.maxHp > 0}>
                     <p>Life</p>
                     <LifeBar hp={life.hp} maxHp={life.maxHp} count={LIFE_HEART_COUNT}/>
                 </LifePanel>
