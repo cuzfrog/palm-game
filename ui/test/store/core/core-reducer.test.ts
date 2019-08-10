@@ -10,8 +10,8 @@ const prevState = CoreState.Default;
 const scoreLens = Lens.fromPath<CoreState>()(['scores']);
 
 describe('system reducer', () => {
-    const scores = Map([[GameType.BOXER, 5000], [GameType.SNAKE, 300]]);
-    const maxScores = Map([[GameType.BOXER, 3000], [GameType.SNAKE, 1000]]);
+    const scores = Map([[GameType.TETRIS, 5000], [GameType.SNAKE, 300]]);
+    const maxScores = Map([[GameType.TETRIS, 3000], [GameType.SNAKE, 1000]]);
 
     it('add score to current game', () => {
         const stateWithScore = scoreLens.set(Map())(prevState);
@@ -61,7 +61,7 @@ describe('system reducer', () => {
         const s2 = coreReducer(s1, CoreActions.exitGame());
         expect(s2.status).not.toBe(SystemStatus.IN_GAME);
         expect(s2.maxScores.get(GameType.SNAKE)).toBe(1000);
-        expect(s2.maxScores.get(GameType.BOXER)).toBe(5000);
+        expect(s2.maxScores.get(GameType.TETRIS)).toBe(5000);
     });
 
     it('no exiting game if not in game', () => {

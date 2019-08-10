@@ -21,7 +21,7 @@ const DefaultCoreState: CoreState = Object.freeze({
   status: SystemStatus.STARTING,
   scores: Map<GameType, number>(),
   maxScores: Map<GameType, number>(),
-  level: Map([[GameType.SNAKE, 3], [GameType.BOXER, 3]]),
+  level: Map([[GameType.SNAKE, 3], [GameType.TETRIS, 3]]),
   gameType: GameType.SNAKE,
   gameStatus: GameStatus.STOPPED,
   anim: Animations.emptyAnim,

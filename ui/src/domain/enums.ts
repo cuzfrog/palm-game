@@ -7,7 +7,7 @@ export const enum GameStatus {
 }
 
 export enum GameType {
-  SNAKE = 'snake', BOXER = 'boxer'
+  SNAKE = 'snake', TETRIS = 'tetris'
 }
 
 export const enum PixelState {

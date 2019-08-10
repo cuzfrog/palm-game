@@ -29,7 +29,7 @@ function mapStateToProps(state: AppState): P {
         life = snakeLifeSelector(state);
         enemyLife = Life.Minimal;
         break;
-      case GameType.BOXER:
+      case GameType.TETRIS:
         throw new Error('Not implemented');
       default:
         throw new TypeError(`Illegal game type:${state.core.gameType}`);
