@@ -6,3 +6,5 @@ export interface TetrisGameState {
   readonly block: List<Point>;
   readonly nextBlock: List<Point>;
 }
+
+
