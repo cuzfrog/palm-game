@@ -1,5 +1,5 @@
-import ActionButton from '../../../src/console/keyboard/action-button';
-import {BtnType} from '../../../src/console/keyboard/button-styles';
+import ActionButton from 'src/console/keyboard/action-button';
+import {BtnType} from 'src/console/keyboard/button-styles';
 import React from 'react';
 import {mount} from 'enzyme';
 

@@ -1,8 +1,8 @@
 import produce from 'immer';
-import { checkStrictEqual, checkStrictNonEqual, nextEnum } from '../../utils';
+import { checkStrictEqual, checkStrictNonEqual, nextEnum } from 'src/utils';
 import { ActionType } from '../action';
-import { Specs } from '../../specs';
-import { GameType, SystemStatus, GameStatus } from '../../domain';
+import { Specs } from 'src/specs';
+import { GameType, SystemStatus, GameStatus } from 'src/domain';
 import { Anim, Animations } from '../graphic';
 import { CoreState } from './core-state';
 

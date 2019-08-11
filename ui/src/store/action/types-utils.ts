@@ -1,4 +1,4 @@
-import {checkNonEmpty} from '../../utils';
+import {checkNonEmpty} from 'src/utils';
 
 type Action<T> = import('redux').Action<T>;
 

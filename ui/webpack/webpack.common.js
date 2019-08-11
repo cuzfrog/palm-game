@@ -17,7 +17,9 @@ const config = {
     path: path.resolve(__dirname, '../build/dist')
   },
   resolve: {
-    modules: [path.join(__dirname, 'src'), 'node_modules'],
+    alias: {
+      src: path.resolve(__dirname, '../src')
+    },
     extensions: [".ts", ".tsx", ".js"],
     symlinks: false
   },

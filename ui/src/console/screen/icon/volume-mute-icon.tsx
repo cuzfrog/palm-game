@@ -1,7 +1,7 @@
 import React from 'react';
 import {ScreenColors} from '../screen-colors';
 import styled from 'styled-components';
-import { IconSvgPaths } from '../../../svg-path';
+import { IconSvgPaths } from 'src/svg-path';
 
 const svgPath = IconSvgPaths.mute;
 

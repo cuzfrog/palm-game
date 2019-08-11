@@ -1,7 +1,7 @@
 import React from 'react';
 import Pixel from './pixel';
-import { Specs } from '../../specs';
-import { Connects } from '../../store';
+import { Specs } from 'src/specs';
+import { Connects } from 'src/store';
 import styled from 'styled-components';
 import autoBind from 'auto-bind';
 

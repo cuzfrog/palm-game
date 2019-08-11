@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { ofType, StateObservable } from 'redux-observable';
 import { filter, map } from 'rxjs/operators';
-import { Direction, GameType, SystemStatus, GameStatus } from '../../domain';
+import { Direction, GameType, SystemStatus, GameStatus } from 'src/domain';
 import { ActionType, SnakeActions } from '../action';
 import { CoreActions } from '../core';
 

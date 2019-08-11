@@ -2,7 +2,7 @@ import React from 'react';
 import ArrowKeys from './arrow-keys';
 import FunctionKeys from './func-keys';
 import MainKeys from './main-keys';
-import { Connects } from '../../store/connects';
+import { Connects } from 'src/store/connects';
 import styled from 'styled-components';
 
 export interface KeyboardProps {

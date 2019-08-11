@@ -3,13 +3,13 @@ import { CoreActions } from '../core';
 
 type Dispatch = import('redux').Dispatch;
 
-function mapStateToProps(state: AppState): import('../../menu').MenuStateProps {
+function mapStateToProps(state: AppState): import('src/menu').MenuStateProps {
   return {
     audioEnabled: state.core.audioEnabled,
   };
 }
 
-function mapDispatchToProps(dispatch: Dispatch): import('../../menu').MenuActionProps {
+function mapDispatchToProps(dispatch: Dispatch): import('src/menu').MenuActionProps {
   return {
     toggleAudio: (enabled: boolean) => enabled ? dispatch(CoreActions.soundDisable()) : dispatch(CoreActions.soundEnable()),
   };

@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { GameType, SystemStatus, GameStatus } from '../../domain';
+import { GameType, SystemStatus, GameStatus } from 'src/domain';
 import { Anim, Animations } from '../graphic';
 
 export interface CoreState {

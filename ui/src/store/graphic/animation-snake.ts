@@ -1,6 +1,6 @@
 import { H, I, O, W } from './graphic-types';
 import { List, Range } from 'immutable';
-import { Direction, Point } from '../../domain';
+import { Direction, Point } from 'src/domain';
 import { toIndex } from './graphic-utils';
 import { BackgroundAnims } from './animator';
 import { AnimType } from './anim';

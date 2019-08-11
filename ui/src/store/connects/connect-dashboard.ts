@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import { GameType, Life, SystemStatus } from '../../domain';
-import { Specs } from '../../specs';
+import { GameType, Life, SystemStatus } from 'src/domain';
+import { Specs } from 'src/specs';
 import { createSelector } from 'reselect';
 
-type P = import('../../console').DashboardProps;
+type P = import('src/console').DashboardProps;
 
 const snakeLifeSelector = createSelector(
   (s: AppState) => s.snake.life,

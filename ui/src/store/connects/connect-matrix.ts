@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import {Graphic} from '../graphic';
 
-type P = import('../../console').MatrixProps;
+type P = import('src/console').MatrixProps;
 
 function mapStateToProps(state: AppState): P {
     return {

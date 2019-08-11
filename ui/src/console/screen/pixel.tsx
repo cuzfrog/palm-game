@@ -1,5 +1,5 @@
 import React from 'react';
-import { PixelState } from '../../domain';
+import { PixelState } from 'src/domain';
 import styled, { css, keyframes } from 'styled-components';
 import { ScreenColors } from './screen-colors';
 

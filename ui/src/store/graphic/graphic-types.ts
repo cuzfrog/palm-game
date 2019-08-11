@@ -1,6 +1,6 @@
-import {PixelState} from '../../domain';
+import {PixelState} from 'src/domain';
 import {Range} from 'immutable';
-import {Specs} from '../../specs';
+import {Specs} from 'src/specs';
 
 export const I = PixelState.ON;
 export const O = PixelState.OFF;
