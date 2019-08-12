@@ -19,7 +19,9 @@ const constants = Object.freeze({
   tetrisGame: {
     probability: {
       I: 10, L: 5, J: 5, T: 8, S: 5, Z: 5, O: 8
-    }
+    },
+    initialX: this.screen.availWidth / 2,
+    initialY: this.screen.availWidth - 1,
   }
 });
 
