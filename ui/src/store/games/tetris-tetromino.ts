@@ -61,7 +61,7 @@ class TetrominoImpl implements Tetromino {
   }
 }
 
-const probabilityEntries = Object.entries(Specs.tetrisGame.probability) as [TetrominoType, number][];
+const probabilityEntries = Object.entries(Specs.tetrisGame.probability) as ReadonlyArray<[TetrominoType, number]>;
 const PROBABILITY_TOP = Object.values(Specs.tetrisGame.probability).reduce((n1, n2) => n1 + n2);
 
 function nextTetromino(): Tetromino {

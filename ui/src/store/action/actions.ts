@@ -32,6 +32,10 @@ export const enum ActionType {
     SNAKE_ESCAPE = '[game snake] escape through hole',
     SNAKE_WIN = '[game snake] win',
     SNAKE_NEXT_LEVEL = '[game snake] next level',
+
+    TETRIS_ROTATE = '[game tetris] rotate',
+    TETRIS_DESCEND = '[game tetris] descend',
+    TETRIS_MOVE = '[game tetris] move' 
 }
 
 const directionKeys = Object.freeze([ActionType.UP, ActionType.RIGHT, ActionType.DOWN, ActionType.LEFT]);
