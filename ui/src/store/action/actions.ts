@@ -20,6 +20,7 @@ export const enum ActionType {
     B = '[key] trigger B',
 
     QUIT_GAME = '[game] quit',
+    NEXT_LEVEL = '[game] next level',
 
     INCREASE_LEVEL = '[game] increase level',
     DECREASE_LEVEL = '[game] decrease level',
@@ -31,7 +32,6 @@ export const enum ActionType {
     SNAKE_HIT_WALL = '[game snake] hit wall',
     SNAKE_ESCAPE = '[game snake] escape through hole',
     SNAKE_WIN = '[game snake] win',
-    SNAKE_NEXT_LEVEL = '[game snake] next level',
 
     TETRIS_ROTATE = '[game tetris] rotate',
     TETRIS_DESCEND = '[game tetris] descend',

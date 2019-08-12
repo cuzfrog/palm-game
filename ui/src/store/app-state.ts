@@ -7,6 +7,7 @@ import {coreEpic, coreReducer} from './core';
 import {appReducer} from './app-reducer';
 import {audioEpic} from './sound';
 import {ActionGroups} from './action';
+import { tetrisGameReducer } from './games/tetris-reducer';
 
 type Action = import('redux').Action;
 type Store<S> = import('redux').Store<S>;
@@ -16,6 +17,7 @@ const reducers: Reducer<AppState, Action> = (state, action) => {
     const combined = combineReducers({
         core: coreReducer,
         snake: snakeGameReducer,
+        tetris: tetrisGameReducer,
     });
     return appReducer(combined(state, action), action);
 };

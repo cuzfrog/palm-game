@@ -1,28 +1,32 @@
 const isProd = process.env.NODE_ENV === 'production';
 
-const constants = Object.freeze({
-  screen: {
-    graphicWidth: 10,
-    graphicHeight: 16,
-    scoreDigitMaxWidth: 8,
-  },
-  core: {
-    maxLevel: 8,
-  },
-  snakeGame: {
-    beanProduceChance: 0.5,
-    baseCreepIntervalMs: 900,
-    winBodyLength: isProd ? 15 : 7,
-    baseScore: 5,
-    escapeAnimationIntervalMs: 100,
-  },
-  tetrisGame: {
-    probability: {
-      I: 10, L: 5, J: 5, T: 8, S: 5, Z: 5, O: 8
-    },
-    initialX: this.screen.availWidth / 2,
-    initialY: this.screen.availWidth - 1,
-  }
+const screen = Object.freeze({
+  graphicWidth: 10,
+  graphicHeight: 16,
+  scoreDigitMaxWidth: 8,
 });
+
+const core = Object.freeze({
+  maxLevel: 8,
+});
+
+const snakeGame = Object.freeze({
+  beanProduceChance: 0.5,
+  baseCreepIntervalMs: 900,
+  winBodyLength: isProd ? 15 : 7,
+  baseScore: 5,
+  escapeAnimationIntervalMs: 100,
+});
+
+const tetrisGame = Object.freeze({
+  probability: {
+    I: 10, L: 5, J: 5, T: 8, S: 5, Z: 5, O: 8
+  },
+  initialX: screen.graphicWidth / 2,
+  initialY: screen.graphicHeight - 1,
+  baseDescendIntervalMs: 1000,
+});
+
+const constants = Object.freeze({ screen, core, snakeGame, tetrisGame });
 
 export const Specs = constants;

@@ -1,26 +1,14 @@
-import { Lens } from 'monocle-ts';
 import { List } from 'immutable';
-import { TestScheduler } from 'rxjs/testing';
-import { Direction, Point, GameStatus } from 'src/domain';
-import { snakeEpic } from 'src/store/games/snake-epic';
-import { SnakeActions } from 'src/store/games';
+import { Lens } from 'monocle-ts';
+import { Direction, Point } from 'src/domain';
 import { CoreActions } from 'src/store/action';
-import { SnakeGameState } from 'src/store/games/snake-state';
-import { CoreState } from 'src/store/core/core-state';
+import { SnakeActions } from 'src/store/games';
+import { snakeEpic } from 'src/store/games/snake-epic';
+import { defaultState, newTestScheduler } from '../support';
 
-const defaultState: AppState = {
-  core: CoreState.Default,
-  snake: SnakeGameState.Default,
-};
-
-const pauseGameLens = Lens.fromPath<AppState>()(['core', 'gameStatus']);
 const bodyLens = Lens.fromPath<AppState>()(['snake', 'body']);
 const directionLens = Lens.fromPath<AppState>()(['snake', 'direction']);
 const beanLens = Lens.fromPath<AppState>()(['snake', 'bean']);
-
-const newTestScheduler = () => new TestScheduler((actual, expected) => {
-  expect(actual).toEqual(expected);
-});
 
 describe('creep action', () => {
   describe('creep forward', () => {
@@ -54,41 +42,6 @@ describe('creep action', () => {
         .toEqual(SnakeActions.biteSelf());
     });
   });
-});
-
-describe('creep epic', () => {
-  const mockCallback = jest.fn();
-  const epicFunc = snakeEpic._creepFunc(mockCallback);
-
-  beforeEach(() => {
-    mockCallback.mockClear();
-  });
-
-  it('start and stop', () => {
-    const state = pauseGameLens.set(GameStatus.RUNNING)(defaultState);
-    newTestScheduler().run(({ hot, cold }) => {
-      const intervalMs = snakeEpic.BASIC_INTERVAL - defaultState.core.getLevel() * 100;
-      const action$ = hot(`a ${intervalMs * 2}ms b`, { a: CoreActions.enterGame(), b: CoreActions.exitGame() });
-      const state$ = cold('s', { s: state });
-      const epic = epicFunc(action$, state$);
-      epic.subscribe();
-      // expectObservable(epic)
-      //     .toBe('a 899ms a', {a: mockAction}); // todo try to fix mergeMap?
-    });
-    expect(mockCallback.mock.calls.length).toBe(2);
-  });
-
-  it('no creep when game is paused', () => {
-    const state = pauseGameLens.set(GameStatus.PAUSED)(defaultState);
-    newTestScheduler().run(({ hot, cold }) => {
-      const action$ = hot('a 5s b', { a: CoreActions.enterGame(), b: CoreActions.exitGame() });
-      const state$ = cold('s', { s: state });
-      const epic = epicFunc(action$, state$);
-      epic.subscribe();
-    });
-    expect(mockCallback.mock.calls.length).toBe(0);
-  });
-
 });
 
 describe('score epic', () => {

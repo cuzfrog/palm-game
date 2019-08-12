@@ -5,7 +5,7 @@ import {Direction, Point} from 'src/domain';
 const biteSelf = createAction(ActionType.SNAKE_BITE_SELF);
 const hitWall = createAction(ActionType.SNAKE_HIT_WALL);
 const win = createAction(ActionType.SNAKE_WIN);
-const nextLevel = createAction(ActionType.SNAKE_NEXT_LEVEL);
+const nextLevel = createAction(ActionType.NEXT_LEVEL);
 
 export const SnakeActions = Object.freeze({
     setDirection: (direction: Direction) => createActionWithPayload(ActionType.SET_DIRECTION, direction),
