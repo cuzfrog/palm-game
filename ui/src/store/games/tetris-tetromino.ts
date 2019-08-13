@@ -1,8 +1,9 @@
 import { List } from 'immutable';
-import { Point, Orientation, rotateOrientation } from 'src/domain';
+import { Orientation, Point, rotateOrientation } from 'src/domain';
 import { Specs } from 'src/specs';
 import { randomInt } from 'src/utils';
 
+type DepositeTable = import('./tetris-state').DepositeTable;
 type RotationDegree = import('src/domain').RotationDegree;
 
 const enum TetrominoType {
@@ -10,8 +11,12 @@ const enum TetrominoType {
 }
 
 export interface Tetromino {
+  moveLeft(): Tetromino;
+  moveRight(): Tetromino;
   rotate(degree: RotationDegree): Tetromino;
-  render(x: number, y: number, borderLeft: number, bordRight: number): List<Point>;
+  descend(): Tetromino;
+  render(): List<Point>;
+  shouldLock(deposite: DepositeTable): boolean;
 }
 
 type TetrominoBase = { b: List<Point>, w: number };
@@ -42,22 +47,33 @@ const TetrominoRepo = Object.freeze({
   [Orientation.DOWN]: { I, L: L_180, J: J_180, T: T_180, S, Z, O },
 });
 
-class TetrominoImpl implements Tetromino {
-  readonly type: TetrominoType;
-  readonly orientation: Orientation;
+const MAX_X = Specs.screen.graphicWidth - 1;
+class _Tetromino implements Tetromino {
 
-  constructor(type: TetrominoType, orientation: Orientation) {
-    this.type = type;
-    this.orientation = orientation;
+  constructor(private readonly type: TetrominoType,
+              private readonly orientation: Orientation,
+              private readonly x: number,
+              private readonly y: number) {
   }
 
+  moveRight(): Tetromino {
+    return this.x >= MAX_X ? this : new _Tetromino(this.type, this.orientation, this.x + 1, this.y);
+  }
+  moveLeft(): Tetromino {
+    return this.x <= 0 ? this : new _Tetromino(this.type, this.orientation, this.x - 1, this.y);
+  }
   rotate(degree: RotationDegree): Tetromino {
-    return new TetrominoImpl(this.type, rotateOrientation(this.orientation, degree));
+    return new _Tetromino(this.type, rotateOrientation(this.orientation, degree), this.x, this.y);
   }
-  render(x: number, y: number, borderLeft: number, bordRight: number): List<Point> {
+  descend(): Tetromino {
+    return new _Tetromino(this.type, this.orientation, this.x, this.y - 1);
+  }
+  render(): List<Point> {
     const base: TetrominoBase = TetrominoRepo[this.orientation][this.type];
-    const _x = x + base.w > bordRight ? bordRight - base.w : x;
-    return base.b.map(p => Point(p.x + _x, p.y + y));
+    return base.b.map(p => Point(p.x + this.x, p.y + this.y));
+  }
+  shouldLock(deposite: DepositeTable): boolean {
+    return true;
   }
 }
 
@@ -69,7 +85,7 @@ function nextTetromino(): Tetromino {
   for (const [k, v] of probabilityEntries) {
     n -= v;
     if (n <= 0) {
-      return new TetrominoImpl(k, Orientation.UP);
+      return new _Tetromino(k, Orientation.UP, Specs.tetrisGame.initialX, Specs.tetrisGame.initialY);
     }
   }
   throw Error('Assertion error: tetris PROBABILITY_TOP is invalid!');

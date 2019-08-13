@@ -6,7 +6,13 @@ import { heartbeatFunc } from './common-epic';
 
 function nextDescendAction(appState: AppState): TetrisAction {
   const s = appState.tetris;
-  return TetrisActions.descend();
+  let a: TetrisAction;
+  if (s.block.shouldLock(s.deposit)) {
+    a = TetrisActions.lockDown();
+  } else {
+    a = TetrisActions.descend();
+  }
+  return a;
 }
 
 const descendEpic = heartbeatFunc(Specs.tetrisGame.baseDescendIntervalMs, [ActionType.NEXT_LEVEL], [], nextDescendAction);
