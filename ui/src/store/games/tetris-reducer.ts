@@ -13,7 +13,7 @@ export function tetrisGameReducer(state: TetrisGameState = TetrisGameState.Defau
         draft.block = draft.block.rotate(action.payload);
         break;
       case ActionType.TETRIS_DESCEND:
-        draft.y = draft.y - action.payload;
+        draft.y = draft.y - 1;
         break;
     }
   });

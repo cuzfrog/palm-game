@@ -35,7 +35,10 @@ export const enum ActionType {
 
     TETRIS_ROTATE = '[game tetris] rotate',
     TETRIS_DESCEND = '[game tetris] descend',
-    TETRIS_MOVE = '[game tetris] move' 
+    TETRIS_MOVE = '[game tetris] move',
+    TETRIS_HARD_DROP = '[game tetris] hard drop',
+    TETRIS_LOCK_DOWN = '[game tetris] lock down',
+    TETRIS_LINE_CLEAR = '[game tetris] line clear'
 }
 
 const directionKeys = Object.freeze([ActionType.UP, ActionType.RIGHT, ActionType.DOWN, ActionType.LEFT]);
