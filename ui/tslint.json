@@ -33,6 +33,7 @@
     "variable-name": false,
     "interface-over-type-literal": false,
     "member-access": false,
-    "jsx-alignment": false
+    "jsx-alignment": false,
+    "member-ordering": false
   }
 }
