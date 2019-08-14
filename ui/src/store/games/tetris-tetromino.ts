@@ -1,4 +1,4 @@
-import { List } from 'immutable';
+import { Set } from 'immutable';
 import { Orientation, Point, rotateOrientation } from 'src/domain';
 import { Specs } from 'src/specs';
 import { randomInt } from 'src/utils';
@@ -11,17 +11,20 @@ export interface Tetromino {
   moveRight(): Tetromino;
   rotate(degree: RotationDegree): Tetromino;
   descend(): Tetromino;
-  render(): List<Point>;
+  render(): Set<Point>;
   shouldLock(deposite: DepositeTable): boolean;
-
+}
+export interface Tetromino {
   _x: number;
   _y: number;
+  _orientation: Orientation;
+  _width: number;
 }
 
 type Type = 'I' | 'L' | 'J' | 'T' | 'S' | 'Z' | 'O';
 interface Base {
   readonly type: Type;
-  readonly points: List<Point>;
+  readonly points: Set<Point>;
   readonly width: number;
 }
 const I = buildBase('I', Point(0, 0), Point(0, 1), Point(0, 2), Point(0, 3));
@@ -47,7 +50,7 @@ const O = buildBase('O', Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0));
 function buildBase(type: Type, ...points: Point[]): Base {
   const xs = points.map(p => p.x).sort();
   const width = xs[xs.length - 1] - xs[0] + 1;
-  return Object.freeze({ type, points: List(points), width });
+  return Object.freeze({ type, points: Set(points), width });
 }
 
 const Repo = Object.freeze({
@@ -73,13 +76,14 @@ class _Tetromino implements Tetromino {
     return this.x <= 0 ? this : new _Tetromino(this.base, this.orientation, this.x - 1, this.y);
   }
   rotate(degree: RotationDegree): Tetromino {
-    const base: Base = Repo[this.orientation][this.base.type];
-    return new _Tetromino(base, rotateOrientation(this.orientation, degree), this.x, this.y);
+    const o = rotateOrientation(this.orientation, degree);
+    const base: Base = Repo[o][this.base.type];
+    return new _Tetromino(base, o, this.x, this.y);
   }
   descend(): Tetromino {
     return new _Tetromino(this.base, this.orientation, this.x, this.y - 1);
   }
-  render(): List<Point> {
+  render(): Set<Point> {
     return this.base.points.map(p => Point(p.x + this.x, p.y + this.y));
   }
   shouldLock(deposite: DepositeTable): boolean {
@@ -91,6 +95,12 @@ class _Tetromino implements Tetromino {
   }
   get _y(): number {
     return this.y;
+  }
+  get _orientation() {
+    return this.orientation;
+  }
+  get _width() {
+    return this.base.width;
   }
 }
 
