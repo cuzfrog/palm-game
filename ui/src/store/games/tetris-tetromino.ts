@@ -1,4 +1,4 @@
-import { Set } from 'immutable';
+import { Set, List } from 'immutable';
 import { Orientation, Point, rotateOrientation } from 'src/domain';
 import { Specs } from 'src/specs';
 import { randomInt } from 'src/utils';
@@ -80,14 +80,18 @@ class _Tetromino implements Tetromino {
     const base: Base = Repo[o][this.base.type];
     return new _Tetromino(base, o, this.x, this.y);
   }
-  descend(): Tetromino {
+  descend(): _Tetromino {
     return new _Tetromino(this.base, this.orientation, this.x, this.y - 1);
   }
   render(): Set<Point> {
     return this.base.points.map(p => Point(p.x + this.x, p.y + this.y));
   }
-  shouldLock(deposite: DepositeTable): boolean {
-    return true;
+  shouldLock(deposite: DepositeTable): boolean { // todo: optimize, make base.point sorted
+    return this.base.points.toSeq()
+      .map(p => Point(p.x, p.y - 1))
+      .filter(p => !this.base.points.includes(p))
+      .map(p => Point(p.x + this.x, p.y + this.y))
+      .find(p => deposite.last(List()).includes(p)) !== undefined;
   }
 
   get _x(): number {
