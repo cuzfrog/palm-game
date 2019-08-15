@@ -13,6 +13,9 @@ const togglePause = createAction(ActionType.TOGGLE_PAUSE);
 const toggleGame = createAction(ActionType.TOGGLE_GAME);
 const dummyAction = createAction(ActionType.DUMMY_ACTION);
 
+const nextLevel = createAction(ActionType.GAME_NEXT_LEVEL);
+const win = createAction(ActionType.GAME_WIN);
+
 export const CoreActions = Object.freeze({
   soundEnable: () => soundEnable,
   soundDisable: () => soundDisable,
@@ -27,6 +30,9 @@ export const CoreActions = Object.freeze({
   toggleGame: () => toggleGame,
   quitGame: (confirm: boolean) => createActionWithPayload(ActionType.QUIT_GAME, confirm),
   dummy: () => dummyAction,
+
+  nextLevel: () => nextLevel,
+  win: () => win,
 });
 
 export type CoreAction = import('./types-utils').ActionUnion<typeof CoreActions>;

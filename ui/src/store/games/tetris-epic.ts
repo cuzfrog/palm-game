@@ -15,7 +15,7 @@ function nextDescendAction(appState: AppState): TetrisAction {
   return a;
 }
 
-const descendEpic = heartbeatFunc(Specs.tetrisGame.baseDescendIntervalMs, [ActionType.NEXT_LEVEL], [], nextDescendAction);
+const descendEpic = heartbeatFunc(Specs.tetrisGame.baseDescendIntervalMs, [ActionType.GAME_NEXT_LEVEL], [], nextDescendAction);
 
 export const tetrisEpic = Object.freeze({
   epic: combineEpics(descendEpic),

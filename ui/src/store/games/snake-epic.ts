@@ -44,17 +44,17 @@ function isHittingWall(head: Point): boolean {
 }
 
 const BASIC_INTERVAL = Specs.snakeGame.baseCreepIntervalMs;
-const creepEpic = heartbeatFunc(BASIC_INTERVAL, [ActionType.NEXT_LEVEL], [ActionType.SNAKE_ESCAPE], nextCreepAction);
+const creepEpic = heartbeatFunc(BASIC_INTERVAL, [ActionType.GAME_NEXT_LEVEL], [ActionType.SNAKE_ESCAPE], nextCreepAction);
 
 const SCORE_BASE = Specs.snakeGame.baseScore;
 const scoreEpic = (action$: Observable<AppAction>, state$: Observable<AppState>) => {
   return action$.pipe(
-    filter(a => (a.type === ActionType.SNAKE_CREEP && a.payload.grown) || a.type === ActionType.SNAKE_WIN),
+    filter(a => (a.type === ActionType.SNAKE_CREEP && a.payload.grown) || a.type === ActionType.GAME_WIN),
     withLatestFrom(state$),
     map(([a, s]) => {
       const level = s.core.getLevel();
       const bodyLength = s.snake.body.size;
-      const winBonus = a.type === ActionType.SNAKE_WIN ? 3 : 1;
+      const winBonus = a.type === ActionType.GAME_WIN ? 3 : 1;
       const score = SCORE_BASE * bodyLength + SCORE_BASE * level;
       return CoreActions.addScore(score * winBonus);
     }),
@@ -75,18 +75,18 @@ const escapeEpic = (action$: Observable<AppAction>, state$: Observable<AppState>
     delay(ESCAPE_INTERVAL),
     withLatestFrom(state$),
     map(([step, s]) => {
-      return s.snake.body.size <= 0 ? SnakeActions.win() : SnakeActions.escape(step + 1);
+      return s.snake.body.size <= 0 ? CoreActions.win() : SnakeActions.escape(step + 1);
     }),
   );
 };
 
 const winEpic = (action$: Observable<AppAction>, state$: Observable<AppState>) => {
   return action$.pipe(
-    ofType(ActionType.SNAKE_WIN),
+    ofType(ActionType.GAME_WIN),
     withLatestFrom(state$),
     map(([, s]) => s.core.getLevel()),
     concatMap(level =>
-      level >= Specs.core.maxLevel ? of(CoreActions.exitGame()) : of(CoreActions.increaseLevel(), SnakeActions.nextLevel())
+      level >= Specs.core.maxLevel ? of(CoreActions.exitGame()) : of(CoreActions.increaseLevel(), CoreActions.nextLevel())
     )
   );
 };

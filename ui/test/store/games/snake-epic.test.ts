@@ -48,7 +48,7 @@ describe('score epic', () => {
   const mockPoint = Point(1, 2);
   const GROWN = SnakeActions.creep(mockPoint, true);
   const CREEP = SnakeActions.creep(mockPoint, false);
-  const WIN = SnakeActions.win();
+  const WIN = CoreActions.win();
   const score = (defaultState.core.getLevel() + defaultState.snake.body.size) * snakeEpic.SCORE_BASE;
 
   it('grown creep will add score', () => {
@@ -76,7 +76,7 @@ describe('escape epic', () => {
       const action$ = cold('e|', { e: SnakeActions.escape(0) });
       const state$ = cold('s', { s: stateSetBody });
       const epic = snakeEpic._escapeEpic(action$, state$);
-      expectObservable(epic).toBe(`${snakeEpic.ESCAPE_INTERVAL}ms e|`, { e: SnakeActions.win() });
+      expectObservable(epic).toBe(`${snakeEpic.ESCAPE_INTERVAL}ms e|`, { e: CoreActions.win() });
     });
   });
 });
