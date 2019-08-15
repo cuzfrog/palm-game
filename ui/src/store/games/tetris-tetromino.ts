@@ -1,7 +1,7 @@
-import { Set } from 'immutable';
+import { Set, Range } from 'immutable';
 import { Orientation, Point, rotateOrientation } from 'src/domain';
 import { Specs } from 'src/specs';
-import { randomInt } from 'src/utils';
+import { randomInt, fallback } from 'src/utils';
 
 type Deposit = import('./tetris-state').Deposit;
 type RotationDegree = import('src/domain').RotationDegree;
@@ -11,6 +11,7 @@ export interface Tetromino {
   moveRight(): Tetromino;
   rotate(degree: RotationDegree): Tetromino;
   descend(): Tetromino;
+  drop(deposit: Deposit): Tetromino;
   render(): Set<Point>;
   shouldLock(deposite: Deposit): boolean;
 }
@@ -82,6 +83,14 @@ class _Tetromino implements Tetromino {
   }
   descend(): _Tetromino {
     return new _Tetromino(this.base, this.orientation, this.x, this.y - 1);
+  }
+  drop(deposit: Deposit): Tetromino { // todo: optimize algorithm
+    const xs = Range(this.x, this.x + this.base.width);
+    const depositYs = xs.toSeq().map(x => fallback(deposit.toSeq().filter(p => p.x === x).map(p => p.y).max(), -1)).toList();
+    const baseYs = xs.toSeq().map(x =>
+      this.base.points.toSeq().filter(p => p.x === x).map(p => p.y + this.y).min() as number).toList();
+    const minY = depositYs.zip(baseYs).map(([dy, by]) => by - dy).min() as number;
+    return new _Tetromino(this.base, this.orientation, this.x, this.y - minY + 1);
   }
   render(): Set<Point> {
     return this.base.points.map(p => Point(p.x + this.x, p.y + this.y));

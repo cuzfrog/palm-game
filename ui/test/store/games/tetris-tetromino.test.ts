@@ -20,6 +20,11 @@ describe('tetromino', () => {
     expect(I_v.descend()._y).toBe(I_v._y - 1);
   });
 
+  it('drop', () => {
+    expect(I_v.drop(Set.of(Point(0, 7)))._y).toBe(8);
+    expect(I_v.drop(Set())._y).toBe(0);
+  });
+
   it('rotate', () => {
     const ih = I_v.rotate(90);
     expect(ih._orientation).toBe(90);

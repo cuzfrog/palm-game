@@ -36,6 +36,10 @@ function checkNonEmpty<T>(v: T | undefined): T {
   return v;
 }
 
+function fallback<T>(v: T | undefined, defaultValue: T): T {
+  return v ? v : defaultValue;
+}
+
 function checkStrictEqual(v: any, expected: any, msg: string = `'${v}' is not strictly equal to '${expected}'!`) {
   if (!Object.is(v, expected)) {
     throw Error(msg);
@@ -69,6 +73,7 @@ export {
   logicNot,
   randomInt,
   checkNonEmpty,
+  fallback,
   checkStrictEqual,
   checkStrictNonEqual,
   throwTypeError,

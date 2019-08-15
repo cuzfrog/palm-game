@@ -17,9 +17,12 @@ export function tetrisGameReducer(state: TetrisGameState = TetrisGameState.Defau
       case ActionType.TETRIS_DESCEND:
         draft.block = state.block.descend();
         break;
+      case ActionType.TETRIS_HARD_DROP:
+        draft.block = state.block.drop(state.deposit);
+        break;
       case ActionType.TETRIS_LOCK_DOWN:
-        draft.deposit = draft.deposit.concat(draft.block.render());
-        draft.block = draft.nextBlock;
+        draft.deposit = state.deposit.concat(state.block.render());
+        draft.block = state.nextBlock;
         draft.nextBlock = Tetromino.next();
         break;
       case ActionType.TETRIS_LINE_CLEAR:
