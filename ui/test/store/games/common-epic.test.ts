@@ -1,5 +1,5 @@
 import { Lens } from 'monocle-ts';
-import { GameStatus } from 'src/domain';
+import { GameStatus, GameType } from 'src/domain';
 import { CoreActions } from 'src/store/core';
 import { heartbeatFunc } from 'src/store/games/common-epic';
 import { defaultState, newTestScheduler } from '../support';
@@ -9,7 +9,7 @@ const BASIC_INTERVAL = 900;
 
 describe('creep epic', () => {
   const mockCallback = jest.fn();
-  const epicFunc = heartbeatFunc(BASIC_INTERVAL, [], [], mockCallback);
+  const epicFunc = heartbeatFunc(GameType.SNAKE, BASIC_INTERVAL, [], [], mockCallback);
 
   beforeEach(() => {
     mockCallback.mockClear();
@@ -29,7 +29,7 @@ describe('creep epic', () => {
     expect(mockCallback.mock.calls.length).toBe(2);
   });
 
-  it('no creep when game is paused', () => {
+  it('no heartbeat when game is paused', () => {
     const state = pauseGameLens.set(GameStatus.PAUSED)(defaultState);
     newTestScheduler().run(({ hot, cold }) => {
       const action$ = hot('a 5s b', { a: CoreActions.enterGame(), b: CoreActions.exitGame() });

@@ -11,8 +11,8 @@ const snakeLifeSelector = createSelector(
 );
 
 function mapStateToProps(state: AppState): P {
-  let life: Life;
-  let enemyLife: Life;
+  let life: Life = Life.Minimal;
+  let enemyLife: Life = Life.Minimal;
   let score = state.core.getScore();
   let level = state.core.getLevel();
   if (state.core.status === SystemStatus.STARTING) {
@@ -20,17 +20,14 @@ function mapStateToProps(state: AppState): P {
     enemyLife = Life.Full;
     score = all8digit(Specs.screen.scoreDigitMaxWidth);
     level = 8;
-  } else if (state.core.status === SystemStatus.MENU) {
-    life = Life.Minimal;
-    enemyLife = Life.Minimal;
-  } else {
+  } else if (state.core.status === SystemStatus.IN_GAME) {
     switch (state.core.gameType) {
       case GameType.SNAKE:
         life = snakeLifeSelector(state);
-        enemyLife = Life.Minimal;
         break;
       case GameType.TETRIS:
-        throw new Error('Not implemented');
+        // todo
+        break;
       default:
         throw new TypeError(`Illegal game type:${state.core.gameType}`);
     }

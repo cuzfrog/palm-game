@@ -2,12 +2,11 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
-import { gameEpic, snakeGameReducer } from './games';
+import { gameEpic, snakeGameReducer, tetrisGameReducer } from './games';
 import { coreEpic, coreReducer } from './core';
 import { appReducer } from './app-reducer';
 import { audioEpic } from './sound';
 import { ActionGroups } from './action';
-import { tetrisGameReducer } from './games/tetris-reducer';
 
 type Action = import('redux').Action;
 type Store<S> = import('redux').Store<S>;
