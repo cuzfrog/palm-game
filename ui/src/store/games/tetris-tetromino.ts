@@ -1,9 +1,9 @@
-import { Set, List } from 'immutable';
+import { Set } from 'immutable';
 import { Orientation, Point, rotateOrientation } from 'src/domain';
 import { Specs } from 'src/specs';
 import { randomInt } from 'src/utils';
 
-type DepositeTable = import('./tetris-state').DepositeTable;
+type Deposit = import('./tetris-state').Deposit;
 type RotationDegree = import('src/domain').RotationDegree;
 
 export interface Tetromino {
@@ -12,7 +12,7 @@ export interface Tetromino {
   rotate(degree: RotationDegree): Tetromino;
   descend(): Tetromino;
   render(): Set<Point>;
-  shouldLock(deposite: DepositeTable): boolean;
+  shouldLock(deposite: Deposit): boolean;
 }
 export interface Tetromino {
   _x: number;
@@ -86,12 +86,12 @@ class _Tetromino implements Tetromino {
   render(): Set<Point> {
     return this.base.points.map(p => Point(p.x + this.x, p.y + this.y));
   }
-  shouldLock(deposite: DepositeTable): boolean { // todo: optimize, make base.point sorted
+  shouldLock(deposit: Deposit): boolean { // todo: optimize, make base.point sorted
     return this.base.points.toSeq()
       .map(p => Point(p.x, p.y - 1))
       .filter(p => !this.base.points.includes(p))
       .map(p => Point(p.x + this.x, p.y + this.y))
-      .find(p => deposite.last(List()).includes(p)) !== undefined;
+      .find(p => deposit.includes(p)) !== undefined;
   }
 
   get _x(): number {

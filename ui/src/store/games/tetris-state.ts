@@ -1,16 +1,16 @@
-import { List } from 'immutable';
+import { Set } from 'immutable';
 import { Point } from 'src/domain';
 import { Tetromino } from './tetris-tetromino';
 
-export type DepositeTable = List<List<Point>>;
+export type Deposit = Set<Point>; // todo: optimize data structure
 export interface TetrisGameState {
-  readonly deposit: DepositeTable;
+  readonly deposit: Deposit;
   readonly block: Tetromino;
   readonly nextBlock: Tetromino;
 }
 
 const DefaultTetrisGameState: TetrisGameState = {
-  deposit: List(),
+  deposit: Set(),
   block: Tetromino.next(),
   nextBlock: Tetromino.next()
 };

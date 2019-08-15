@@ -1,6 +1,6 @@
 import { Tetromino } from 'src/store/games/tetris-tetromino';
 import { Orientation, Point } from 'src/domain';
-import { Set, List } from 'immutable';
+import { Set } from 'immutable';
 
 describe('tetromino', () => {
   const MAX_X = Tetromino._MAX_X;
@@ -31,9 +31,9 @@ describe('tetromino', () => {
   });
 
   it('shouldLock', () => {
-    // expect(I_v.shouldLock(List.of(List.of(Point(0, 14))))).toBeTruthy();
-    // expect(I_v.shouldLock(List.of(List.of(Point(2, 15))))).toBeFalsy();
-    expect(I_h.shouldLock(List.of(List.of(Point(MAX_X, 14))))).toBeTruthy();
-    expect(I_h.shouldLock(List.of(List.of(Point(MAX_X, 13))))).toBeFalsy();
+    expect(I_v.shouldLock(Set.of(Point(0, 14)))).toBeTruthy();
+    expect(I_v.shouldLock(Set.of(Point(2, 15)))).toBeFalsy();
+    expect(I_h.shouldLock(Set.of(Point(MAX_X, 14)))).toBeTruthy();
+    expect(I_h.shouldLock(Set.of(Point(MAX_X, 13)))).toBeFalsy();
   });
 });

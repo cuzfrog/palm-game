@@ -2,6 +2,8 @@ import produce from 'immer';
 import { ActionType } from '../action';
 import { TetrisAction } from '../action/tetris-actions';
 import { TetrisGameState } from './tetris-state';
+import { Tetromino } from './tetris-tetromino';
+import { Point } from 'src/domain';
 
 export function tetrisGameReducer(state: TetrisGameState = TetrisGameState.Default, action: TetrisAction): TetrisGameState {
   return produce(state, draft => {
@@ -14,6 +16,18 @@ export function tetrisGameReducer(state: TetrisGameState = TetrisGameState.Defau
         break;
       case ActionType.TETRIS_DESCEND:
         draft.block = state.block.descend();
+        break;
+      case ActionType.TETRIS_LOCK_DOWN:
+        draft.deposit = draft.deposit.concat(draft.block.render());
+        draft.block = draft.nextBlock;
+        draft.nextBlock = Tetromino.next();
+        break;
+      case ActionType.TETRIS_LINE_CLEAR:
+        const lines = action.payload;
+        const maxY = lines.reduce((y1, y2) => Math.max(y1, y2), 0);
+        draft.deposit = draft.deposit.toSeq()
+          .filter(p => !lines.includes(p.y))
+          .map(p => p.y > maxY ? Point(p.x, p.y - lines.length) : p).toSet();
         break;
     }
   });
