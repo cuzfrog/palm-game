@@ -1,7 +1,7 @@
 import { combineEpics, ofType } from 'redux-observable';
-import { Observable, of } from 'rxjs';
-import { concatMap, delay, filter, map, mapTo, withLatestFrom } from 'rxjs/operators';
-import { Direction, Point } from 'src/domain';
+import { Observable } from 'rxjs';
+import { delay, filter, map, mapTo, withLatestFrom } from 'rxjs/operators';
+import { Direction, Point, GameType } from 'src/domain';
 import { Specs } from 'src/specs';
 import { ActionType, SnakeActions } from '../action';
 import { CoreActions } from '../core';
@@ -23,6 +23,9 @@ function nextCreepAction(appState: AppState): SnakeAction {
   }
   return action;
 }
+const BASIC_INTERVAL = Specs.snakeGame.baseCreepIntervalMs;
+const creepEpic = heartbeatFunc(
+  GameType.SNAKE, BASIC_INTERVAL, [ActionType.GAME_NEXT_LEVEL], [ActionType.SNAKE_ESCAPE], nextCreepAction);
 
 function newHeadPoint(direction: Direction, head: Point): Point {
   switch (direction) {
@@ -42,9 +45,6 @@ function newHeadPoint(direction: Direction, head: Point): Point {
 function isHittingWall(head: Point): boolean {
   return head.x < 1 || head.x >= Specs.screen.graphicWidth - 1 || head.y < 1 || head.y >= Specs.screen.graphicHeight - 1;
 }
-
-const BASIC_INTERVAL = Specs.snakeGame.baseCreepIntervalMs;
-const creepEpic = heartbeatFunc(BASIC_INTERVAL, [ActionType.GAME_NEXT_LEVEL], [ActionType.SNAKE_ESCAPE], nextCreepAction);
 
 const SCORE_BASE = Specs.snakeGame.baseScore;
 const scoreEpic = (action$: Observable<AppAction>, state$: Observable<AppState>) => {
@@ -80,17 +80,6 @@ const escapeEpic = (action$: Observable<AppAction>, state$: Observable<AppState>
   );
 };
 
-const winEpic = (action$: Observable<AppAction>, state$: Observable<AppState>) => {
-  return action$.pipe(
-    ofType(ActionType.GAME_WIN),
-    withLatestFrom(state$),
-    map(([, s]) => s.core.getLevel()),
-    concatMap(level =>
-      level >= Specs.core.maxLevel ? of(CoreActions.exitGame()) : of(CoreActions.increaseLevel(), CoreActions.nextLevel())
-    )
-  );
-};
-
 const exitEpic = (action$: Observable<AppAction>, state$: Observable<AppState>) => {
   return action$.pipe(
     ofType(ActionType.SNAKE_HIT_WALL, ActionType.SNAKE_BITE_SELF),
@@ -101,11 +90,10 @@ const exitEpic = (action$: Observable<AppAction>, state$: Observable<AppState>) 
 };
 
 export const snakeEpic = {
-  epic: combineEpics(creepEpic, scoreEpic, escapeEpic, winEpic, exitEpic),
+  epic: combineEpics(creepEpic, scoreEpic, escapeEpic, exitEpic),
   _scoreEpic: scoreEpic,
   _escapeEpic: escapeEpic,
   _nextCreepAction: nextCreepAction,
-  _winEpic: winEpic,
   _exitEpic: exitEpic,
   BASIC_INTERVAL,
   SCORE_BASE,

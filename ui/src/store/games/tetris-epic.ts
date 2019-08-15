@@ -5,6 +5,7 @@ import { TetrisActions } from '../action/tetris-actions';
 import { heartbeatFunc } from './common-epic';
 import { Observable } from 'rxjs';
 import { mapTo } from 'rxjs/operators';
+import { GameType } from 'src/domain';
 
 function nextDescendAction(appState: AppState): TetrisAction {
   const s = appState.tetris;
@@ -16,12 +17,13 @@ function nextDescendAction(appState: AppState): TetrisAction {
   }
   return a;
 }
-const descendEpic = heartbeatFunc(Specs.tetrisGame.baseDescendIntervalMs, [ActionType.GAME_NEXT_LEVEL], [], nextDescendAction);
+const descendEpic = heartbeatFunc(
+  GameType.TETRIS, Specs.tetrisGame.baseDescendIntervalMs, [ActionType.GAME_NEXT_LEVEL], [], nextDescendAction);
 
 const hardDropEpic = (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
   return action$.pipe(
     ofType(ActionType.TETRIS_HARD_DROP),
-    /* state updated in reducer */ 
+    /* state updated in reducer */
     mapTo(TetrisActions.lockDown())
   );
 };

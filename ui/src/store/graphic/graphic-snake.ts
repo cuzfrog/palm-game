@@ -21,6 +21,5 @@ export function snakeGameFrame(state: SnakeGameState, frameBuffer: Uint8Array): 
   if (state.hole) {
     frameBuffer[toIndex(state.hole)] = O;
   }
-  const frame = List(frameBuffer);
-  return frame;
+  return List(frameBuffer);
 }
