@@ -96,7 +96,7 @@ class _Tetromino implements Tetromino {
     return this.base.points.map(p => Point(p.x + this.x, p.y + this.y));
   }
   shouldLock(deposit: Deposit): boolean { // todo: optimize, make base.point sorted
-    return this.base.points.toSeq()
+    return this.y <= 0 || this.base.points.toSeq()
       .map(p => Point(p.x, p.y - 1))
       .filter(p => !this.base.points.includes(p))
       .map(p => Point(p.x + this.x, p.y + this.y))
