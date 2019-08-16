@@ -12,7 +12,7 @@ function dummyLayout(): AppAction {
 function mapToMenuLayout(action: KeyboardAction): AppAction {
   switch (action.type) {
     case ActionType.SELECT:
-      return CoreActions.toggleGame();
+      return CoreActions.dummy();
     case ActionType.START:
       return CoreActions.enterGame();
     case ActionType.LEFT:
