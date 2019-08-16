@@ -4,12 +4,11 @@ import { Specs } from "src/specs";
 import { randomInt, fallback } from "src/utils";
 
 type Deposit = import("./tetris-state").Deposit;
-type RotationDegree = import("src/domain").RotationDegree;
 
 export interface Tetromino {
   moveLeft(deposit: Deposit): Tetromino;
   moveRight(deposit: Deposit): Tetromino;
-  rotate(degree: RotationDegree): Tetromino;
+  rotate(deposit: Deposit): Tetromino;
   descend(): Tetromino;
   drop(deposit: Deposit): Tetromino;
   render(): Set<Point>;
@@ -88,10 +87,11 @@ class _Tetromino implements Tetromino {
     }
     return moved;
   }
-  rotate(degree: RotationDegree): Tetromino {
-    const o = rotateOrientation(this.orientation, degree);
+  rotate(deposit: Deposit): Tetromino {
+    const o = rotateOrientation(this.orientation, 90);
     const base: Base = Repo[o][this.base.type];
-    return new _Tetromino(base, o, this.x, this.y);
+    const offX = Math.max(this.x + base.width - MAX_X - 1, 0);
+    return new _Tetromino(base, o, this.x - offX, this.y);
   }
   descend(): _Tetromino {
     return new _Tetromino(this.base, this.orientation, this.x, this.y - 1);

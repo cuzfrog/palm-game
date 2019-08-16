@@ -31,7 +31,7 @@ describe("tetromino", () => {
   });
 
   it("rotate", () => {
-    const ih = I_v.rotate(90);
+    const ih = I_v.rotate(Set());
     expect(ih._orientation).toBe(90);
     expect(ih._width).toBe(4);
   });

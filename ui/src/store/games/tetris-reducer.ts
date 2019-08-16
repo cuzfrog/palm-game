@@ -12,7 +12,7 @@ export function tetrisGameReducer(state: TetrisGameState = TetrisGameState.Defau
         draft.block = action.payload > 0 ? state.block.moveRight(state.deposit) : state.block.moveLeft(state.deposit);
         break;
       case ActionType.TETRIS_ROTATE:
-        draft.block = state.block.rotate(action.payload);
+        draft.block = state.block.rotate(state.deposit);
         break;
       case ActionType.TETRIS_DESCEND:
         draft.block = state.block.descend();

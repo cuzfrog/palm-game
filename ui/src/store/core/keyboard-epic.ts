@@ -64,7 +64,7 @@ function mapToTetrisLayout(action: KeyboardAction): AppAction {
     case ActionType.A:
       return TetrisActions.hardDrop();
     case ActionType.B:
-      return TetrisActions.rotate(90);
+      return TetrisActions.rotate();
     case ActionType.START:
       return CoreActions.togglePause();
     default:
