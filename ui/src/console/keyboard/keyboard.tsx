@@ -44,11 +44,14 @@ class Keyboard extends React.PureComponent<KeyboardProps, {}> {
   }
 
   public render() { // todo: try to remove container
+    const p = this.props;
     return (
       <KeyboardWrapper>
-        <ArrowKeysContainer><ArrowKeys {...this.props} /></ArrowKeysContainer>
-        <FuncKeysContainer><FunctionKeys {...this.props} /></FuncKeysContainer>
-        <MainKeysContainer><MainKeys {...this.props} /></MainKeysContainer>
+        <ArrowKeysContainer>
+          <ArrowKeys upAction={p.upAction} rightAction={p.rightAction} downAction={p.downAction} leftAction={p.leftAction} />
+        </ArrowKeysContainer>
+        <FuncKeysContainer><FunctionKeys selectAction={p.selectAction} startAction={p.startAction} /></FuncKeysContainer>
+        <MainKeysContainer><MainKeys actionA={p.actionA} actionB={p.actionB} /></MainKeysContainer>
       </KeyboardWrapper>
     );
   }
