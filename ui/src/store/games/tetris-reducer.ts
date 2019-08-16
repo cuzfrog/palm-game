@@ -9,7 +9,7 @@ export function tetrisGameReducer(state: TetrisGameState = TetrisGameState.Defau
   return produce(state, draft => {
     switch (action.type) {
       case ActionType.TETRIS_MOVE:
-        draft.block = action.payload > 0 ? state.block.moveRight() : state.block.moveLeft();
+        draft.block = action.payload > 0 ? state.block.moveRight(state.deposit) : state.block.moveLeft(state.deposit);
         break;
       case ActionType.TETRIS_ROTATE:
         draft.block = state.block.rotate(action.payload);

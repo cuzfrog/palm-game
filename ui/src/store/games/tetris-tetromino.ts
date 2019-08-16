@@ -7,8 +7,8 @@ type Deposit = import("./tetris-state").Deposit;
 type RotationDegree = import("src/domain").RotationDegree;
 
 export interface Tetromino {
-  moveLeft(): Tetromino;
-  moveRight(): Tetromino;
+  moveLeft(deposit: Deposit): Tetromino;
+  moveRight(deposit: Deposit): Tetromino;
   rotate(degree: RotationDegree): Tetromino;
   descend(): Tetromino;
   drop(deposit: Deposit): Tetromino;
@@ -70,11 +70,23 @@ class _Tetromino implements Tetromino {
     private readonly y: number) {
   }
 
-  moveRight(): Tetromino {
-    return (this.x + this.base.width) > MAX_X ? this : new _Tetromino(this.base, this.orientation, this.x + 1, this.y);
+  moveRight(deposit: Deposit): Tetromino {
+    let moved: Tetromino;
+    if ((this.x + this.base.width) > MAX_X) moved = this;
+    else {
+      moved = new _Tetromino(this.base, this.orientation, this.x + 1, this.y);
+      if (!deposit.intersect(moved.render()).isEmpty()) moved = this;
+    }
+    return moved;
   }
-  moveLeft(): Tetromino {
-    return this.x <= 0 ? this : new _Tetromino(this.base, this.orientation, this.x - 1, this.y);
+  moveLeft(deposit: Deposit): Tetromino {
+    let moved: Tetromino;
+    if (this.x <= 0) moved = this;
+    else {
+      moved = new _Tetromino(this.base, this.orientation, this.x - 1, this.y);
+      if (!deposit.intersect(moved.render()).isEmpty()) moved = this;
+    }
+    return moved;
   }
   rotate(degree: RotationDegree): Tetromino {
     const o = rotateOrientation(this.orientation, degree);

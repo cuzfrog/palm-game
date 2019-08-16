@@ -9,13 +9,15 @@ describe("tetromino", () => {
   const S = Tetromino._create("S", Orientation.UP, 5, 0);
   const O = Tetromino._create("O", Orientation.UP, 0, 3);
   it("move right", () => {
-    expect(I_v.moveRight()._x).toBe(I_v._x + 1);
-    expect(I_h.moveRight()._x).toBe(I_h._x);
+    expect(I_v.moveRight(Set())._x).toBe(I_v._x + 1);
+    expect(I_h.moveRight(Set())._x).toBe(I_h._x);
+    expect(I_v.moveRight(Set.of(Point(4, 17)))._x).toBe(I_v._x);
   });
 
   it("move left", () => {
-    expect(O.moveLeft()._x).toBe(O._x);
-    expect(I_h.moveLeft()._x).toBe(I_h._x - 1);
+    expect(O.moveLeft(Set())._x).toBe(O._x);
+    expect(I_h.moveLeft(Set())._x).toBe(I_h._x - 1);
+    expect(I_v.moveLeft(Set.of(Point(2, 17)))._x).toBe(I_v._x);
   });
 
   it("descend", () => {
