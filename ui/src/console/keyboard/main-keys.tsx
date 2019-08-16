@@ -26,7 +26,7 @@ class MainKeys extends React.PureComponent<Props, {}> {
             type={BtnType.MAIN}
             caption={"A"}
             action={this.props.actionA}
-            throttleIntervalMs={200}
+            throttleIntervalMs={100}
             keyboardCode={Key.BracketLeft}
           />
         </KeyAContainer>
@@ -35,7 +35,7 @@ class MainKeys extends React.PureComponent<Props, {}> {
             type={BtnType.MAIN}
             caption={"B"}
             action={this.props.actionB}
-            throttleIntervalMs={200}
+            throttleIntervalMs={100}
             keyboardCode={Key.BracketRight}
           />
         </KeyBContainer>

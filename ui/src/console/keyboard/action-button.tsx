@@ -5,7 +5,7 @@ import autoBind from "auto-bind";
 import Button from "./button";
 import { BtnType } from "./button-styles";
 
-const DEFAULT_THROTTLE_INTERVAL = 150; // ms
+const DEFAULT_THROTTLE_INTERVAL = 50; // ms
 
 interface Props {
     type: BtnType;
