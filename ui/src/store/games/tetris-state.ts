@@ -1,6 +1,6 @@
-import { Set } from 'immutable';
-import { Point } from 'src/domain';
-import { Tetromino } from './tetris-tetromino';
+import { Set } from "immutable";
+import { Point } from "src/domain";
+import { Tetromino } from "./tetris-tetromino";
 
 export type Deposit = Set<Point>; // todo: optimize data structure
 export interface TetrisGameState {

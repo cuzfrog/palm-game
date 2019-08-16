@@ -1,10 +1,10 @@
-import produce from 'immer';
-import { List, Range } from 'immutable';
-import { SnakeGameState } from './snake-state';
-import { ActionType } from '../action';
-import { isOppositeDirection, Point } from 'src/domain';
-import { Specs } from 'src/specs';
-import { randomInt } from 'src/utils';
+import produce from "immer";
+import { List, Range } from "immutable";
+import { SnakeGameState } from "./snake-state";
+import { ActionType } from "../action";
+import { isOppositeDirection, Point } from "src/domain";
+import { Specs } from "src/specs";
+import { randomInt } from "src/utils";
 
 const WIN_BODY_LENGTH = Specs.snakeGame.winBodyLength;
 

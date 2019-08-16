@@ -1,8 +1,8 @@
-import { GameStatus, GameType } from 'src/domain';
-import { ActionType } from '../action';
-import { filter, withLatestFrom, map, switchMap, takeUntil } from 'rxjs/operators';
-import { calculateInterval } from 'src/utils';
-import { Observable, timer } from 'rxjs';
+import { GameStatus, GameType } from "src/domain";
+import { ActionType } from "../action";
+import { filter, withLatestFrom, map, switchMap, takeUntil } from "rxjs/operators";
+import { calculateInterval } from "src/utils";
+import { Observable, timer } from "rxjs";
 
 export function heartbeatFunc(gameType: GameType,
                               baseInterval: number,

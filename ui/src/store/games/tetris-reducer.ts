@@ -1,9 +1,9 @@
-import produce from 'immer';
-import { ActionType } from '../action';
-import { TetrisAction } from '../action/tetris-actions';
-import { TetrisGameState } from './tetris-state';
-import { Tetromino } from './tetris-tetromino';
-import { Point } from 'src/domain';
+import produce from "immer";
+import { ActionType } from "../action";
+import { TetrisAction } from "../action/tetris-actions";
+import { TetrisGameState } from "./tetris-state";
+import { Tetromino } from "./tetris-tetromino";
+import { Point } from "src/domain";
 
 export function tetrisGameReducer(state: TetrisGameState = TetrisGameState.Default, action: TetrisAction): TetrisGameState {
   return produce(state, draft => {

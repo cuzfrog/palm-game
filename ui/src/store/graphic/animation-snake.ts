@@ -1,11 +1,11 @@
-import { H, I, O, W } from './graphic-types';
-import { List, Range } from 'immutable';
-import { Direction, Point } from 'src/domain';
-import { toIndex } from './graphic-utils';
-import { BackgroundAnims } from './animator';
-import { AnimType } from './anim';
+import { H, I, O, W } from "./graphic-types";
+import { List, Range } from "immutable";
+import { Direction, Point } from "src/domain";
+import { toIndex1 } from "./graphic-utils";
+import { BackgroundAnims } from "./animator";
+import { AnimType } from "./anim";
 
-type Anim = import('./anim').Anim;
+type Anim = import("./anim").Anim;
 
 const FRAME_INTERVAL_MS = 200;
 const INITIAL_BODY = Range(2, 8).map(x => Point(x, H / 2 - 2)).toList();
@@ -79,13 +79,13 @@ export class SnakeAnimation implements Anim {
         BackgroundAnims.snake.setBackgroundFrame(frameBuffer, WORDS_OFFSET);
 
         this.body.forEach(p => {
-            const i = toIndex(p);
+            const i = toIndex1(p);
             if (frameBuffer[i] === O) {
                 frameBuffer[i] = I;
             }
         });
         if (this.lastTail !== undefined) {
-            const i = toIndex(this.lastTail);
+            const i = toIndex1(this.lastTail);
             if (frameBuffer[i] === I) {
                 frameBuffer[i] = O;
             }

@@ -1,11 +1,11 @@
-import { combineEpics, ofType, StateObservable } from 'redux-observable';
-import { Specs } from 'src/specs';
-import { ActionType } from '../action';
-import { TetrisActions } from '../action/tetris-actions';
-import { heartbeatFunc } from './common-epic';
-import { Observable } from 'rxjs';
-import { mapTo } from 'rxjs/operators';
-import { GameType } from 'src/domain';
+import { combineEpics, ofType, StateObservable } from "redux-observable";
+import { Specs } from "src/specs";
+import { ActionType } from "../action";
+import { TetrisActions } from "../action/tetris-actions";
+import { heartbeatFunc } from "./common-epic";
+import { Observable } from "rxjs";
+import { mapTo } from "rxjs/operators";
+import { GameType } from "src/domain";
 
 function nextDescendAction(appState: AppState): TetrisAction {
   const s = appState.tetris;

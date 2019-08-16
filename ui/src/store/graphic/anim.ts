@@ -1,6 +1,6 @@
-import { BLANK_FRAME } from './graphic-types';
-import { ConsoleStartAnimation } from './animation-console-start';
-import { SnakeAnimation } from './animation-snake';
+import { BLANK_FRAME } from "./graphic-types";
+import { ConsoleStartAnimation } from "./animation-console-start";
+import { SnakeAnimation } from "./animation-snake";
 
 export interface Anim {
     readonly type: AnimType;
@@ -11,10 +11,10 @@ export interface Anim {
 }
 
 export const enum AnimType {
-    DUMMY = 'animation - dummy',
-    CONSOLE_START = 'animation - console start',
-    GAME_SNAKE = 'animation - game snake',
-    GAME_BOXER = 'animation - game boxer',
+    DUMMY = "animation - dummy",
+    CONSOLE_START = "animation - console start",
+    GAME_SNAKE = "animation - game snake",
+    GAME_BOXER = "animation - game boxer",
 }
 
 const emptyAnim: Anim = {

@@ -1,7 +1,7 @@
-import produce from 'immer';
-import {SnakeGameState} from './games/snake-state';
-import {ActionType} from './action';
-import { TetrisGameState } from './games/tetris-state';
+import produce from "immer";
+import {SnakeGameState} from "./games/snake-state";
+import {ActionType} from "./action";
+import { TetrisGameState } from "./games/tetris-state";
 
 export function appReducer(state: AppState, action: CoreAction): AppState {
     return produce(state, draft => {

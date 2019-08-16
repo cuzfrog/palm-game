@@ -1,7 +1,7 @@
-import {List} from 'immutable';
-import {Direction, Point} from 'src/domain';
-import {Specs} from 'src/specs';
-import {SnakeActions, snakeGameReducer} from 'src/store/games';
+import {List} from "immutable";
+import {Direction, Point} from "src/domain";
+import {Specs} from "src/specs";
+import {SnakeActions, snakeGameReducer} from "src/store/games";
 
 const prevState: SnakeGameState = {
     body: List.of(Point(5, 5), Point(4, 5)),
@@ -9,8 +9,8 @@ const prevState: SnakeGameState = {
     direction: Direction.NORTH,
 };
 
-describe('snake reducer', () => {
-    it('change direction', () => {
+describe("snake reducer", () => {
+    it("change direction", () => {
         const changeDirection = (di: Direction) => snakeGameReducer(prevState, SnakeActions.setDirection(di)).direction;
         expect(changeDirection(Direction.WEST)).toEqual(Direction.WEST);
         expect(changeDirection(Direction.SOUTH)).toEqual(prevState.direction);
@@ -19,7 +19,7 @@ describe('snake reducer', () => {
 
     const CHECK_TIMES = 1000;
 
-    it('creep forward', async () => {
+    it("creep forward", async () => {
         let beanCnt = 0;
         for (let i = 0; i < CHECK_TIMES; i++) {
             const state = snakeGameReducer(prevState, SnakeActions.creep(Point(3, 5), false));
@@ -37,7 +37,7 @@ describe('snake reducer', () => {
         expect(beanCnt / CHECK_TIMES).toBeCloseTo(Specs.snakeGame.beanProduceChance, 1);
     });
 
-    it('grow forward', async () => {
+    it("grow forward", async () => {
         for (let i = 0; i < CHECK_TIMES; i++) {
             const stateWithBean = {...prevState, bean: Point(3, 5)};
             const state = snakeGameReducer(stateWithBean, SnakeActions.creep(Point(3, 5), true));

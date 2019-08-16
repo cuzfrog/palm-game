@@ -1,14 +1,14 @@
-import React from 'react';
-import Decorate from './decorate';
-import Screen from './screen';
-import Keyboard from './keyboard';
-import styled from 'styled-components';
-import rgb from 'polished/lib/color/rgb';
-import autoBind from 'auto-bind';
+import React from "react";
+import Decorate from "./decorate";
+import Screen from "./screen";
+import Keyboard from "./keyboard";
+import styled from "styled-components";
+import rgb from "polished/lib/color/rgb";
+import autoBind from "auto-bind";
 
-const panelPrimary = 'lightskyblue';
+const panelPrimary = "lightskyblue";
 const panelBright = rgb(172, 222, 255);
-const panelDark = '#5f92bd';
+const panelDark = "#5f92bd";
 
 interface StyleProps {
   scale: number;
@@ -71,16 +71,16 @@ export default class Console extends React.PureComponent<{}, State> {
 
   componentDidMount() {
     this.scaleUI();
-    window.addEventListener('resize', this.scaleUI);
+    window.addEventListener("resize", this.scaleUI);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.scaleUI);
+    window.removeEventListener("resize", this.scaleUI);
   }
 
   public render() {
     return (
-      <ConsoleWrapper scale={this.state.scale} id='console'>
+      <ConsoleWrapper scale={this.state.scale} id="console">
         <UpperRect>
           <Decorate />
           <ScreenRect>

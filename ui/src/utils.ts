@@ -19,7 +19,7 @@ function logicNot(value: boolean): boolean {
 /** both params are inclusive */
 function randomInt(max: number, min?: number): number {
   const base = min ? min : 0;
-  requireTrue(max > base, 'max must > min');
+  requireTrue(max > base, "max must > min");
   const ceiling = max - base;
   return Math.floor(Math.random() * Math.floor(ceiling)) + base;
 }
@@ -27,11 +27,11 @@ function randomInt(max: number, min?: number): number {
 /** Not undefined, not null, not empty string. */
 function checkNonEmpty<T>(v: T | undefined): T {
   if (v === null) {
-    throw new TypeError('Value is null');
+    throw new TypeError("Value is null");
   } else if (v === undefined) {
-    throw new TypeError('Value is undefined');
-  } else if (typeof v === 'string' && v.length === 0) {
-    throw new Error('Value is empty string.');
+    throw new TypeError("Value is undefined");
+  } else if (typeof v === "string" && v.length === 0) {
+    throw new Error("Value is empty string.");
   }
   return v;
 }
@@ -53,7 +53,7 @@ function checkStrictNonEqual(v: any, expected: any, msg: string = `'${v}' is str
 }
 
 function throwTypeError(v: any): void {
-  throw new TypeError('unknown type:' + v);
+  throw new TypeError("unknown type:" + v);
 }
 
 function requireTrue(condition: boolean, msg?: string) {

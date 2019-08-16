@@ -1,15 +1,15 @@
-import { connect } from 'react-redux';
-import { CoreActions } from '../core';
+import { connect } from "react-redux";
+import { CoreActions } from "../core";
 
-type Dispatch = import('redux').Dispatch;
+type Dispatch = import("redux").Dispatch;
 
-function mapStateToProps(state: AppState): import('src/menu').MenuStateProps {
+function mapStateToProps(state: AppState): import("src/menu").MenuStateProps {
   return {
     audioEnabled: state.core.audioEnabled,
   };
 }
 
-function mapDispatchToProps(dispatch: Dispatch): import('src/menu').MenuActionProps {
+function mapDispatchToProps(dispatch: Dispatch): import("src/menu").MenuActionProps {
   return {
     toggleAudio: (enabled: boolean) => enabled ? dispatch(CoreActions.soundDisable()) : dispatch(CoreActions.soundEnable()),
   };

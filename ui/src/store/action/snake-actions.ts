@@ -1,6 +1,6 @@
-import {createAction, createActionWithPayload} from './types-utils';
-import {ActionType} from './actions';
-import {Direction, Point} from 'src/domain';
+import {createAction, createActionWithPayload} from "./types-utils";
+import {ActionType} from "./actions";
+import {Direction, Point} from "src/domain";
 
 const biteSelf = createAction(ActionType.SNAKE_BITE_SELF);
 const hitWall = createAction(ActionType.SNAKE_HIT_WALL);
@@ -13,4 +13,4 @@ export const SnakeActions = Object.freeze({
     escape: (step: number) => createActionWithPayload(ActionType.SNAKE_ESCAPE, step),
 });
 
-export type SnakeAction = import('./types-utils').ActionUnion<typeof SnakeActions>;
+export type SnakeAction = import("./types-utils").ActionUnion<typeof SnakeActions>;

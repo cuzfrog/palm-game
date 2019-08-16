@@ -1,11 +1,11 @@
-import React from 'react';
-import Digit, {FontSize} from './digits/digit';
-import LifeBar from './life-bar';
-import {Life} from 'src/domain';
-import {Connects} from 'src/store';
-import {VolumeMuteIcon} from './icon/volume-mute-icon';
-import styled from 'styled-components';
-import {ScreenColors} from './screen-colors';
+import React from "react";
+import Digit, {FontSize} from "./digits/digit";
+import LifeBar from "./life-bar";
+import {Life} from "src/domain";
+import {Connects} from "src/store";
+import {VolumeMuteIcon} from "./icon/volume-mute-icon";
+import styled from "styled-components";
+import {ScreenColors} from "./screen-colors";
 
 const SCORE_WIDTH = 7;
 const LEVEL_WIDTH = 1;

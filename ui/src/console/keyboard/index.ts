@@ -1,4 +1,4 @@
-import Keyboard from './keyboard';
+import Keyboard from "./keyboard";
 
 export default Keyboard;
-export {KeyboardProps} from './keyboard';
+export {KeyboardProps} from "./keyboard";

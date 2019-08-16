@@ -1,5 +1,5 @@
-import { createAction, createActionWithPayload } from './types-utils';
-import { ActionType } from './actions';
+import { createAction, createActionWithPayload } from "./types-utils";
+import { ActionType } from "./actions";
 
 const soundEnable = createAction(ActionType.ENABLE_SOUND);
 const soundDisable = createAction(ActionType.DISABLE_SOUND);
@@ -35,4 +35,4 @@ export const CoreActions = Object.freeze({
   win: () => win,
 });
 
-export type CoreAction = import('./types-utils').ActionUnion<typeof CoreActions>;
+export type CoreAction = import("./types-utils").ActionUnion<typeof CoreActions>;

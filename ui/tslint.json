@@ -17,7 +17,7 @@
     ]
   },
   "rules": {
-    "quotemark": [true,"single"],
+    "quotemark": [true,"double"],
     "trailing-comma": [false],
     "object-literal-sort-keys": false,
     "ordered-imports": false,

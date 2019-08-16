@@ -1,9 +1,9 @@
-import React from 'react';
-import { BtnType } from './button-styles';
-import Button from './action-button';
-import KeysContainer from './keys-container';
-import styled, { css } from 'styled-components';
-import { Key } from './key-code';
+import React from "react";
+import { BtnType } from "./button-styles";
+import Button from "./action-button";
+import KeysContainer from "./keys-container";
+import styled, { css } from "styled-components";
+import { Key } from "./key-code";
 
 interface Props {
   selectAction: () => void;

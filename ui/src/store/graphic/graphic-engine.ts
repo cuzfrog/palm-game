@@ -1,7 +1,7 @@
-import { GameType, SystemStatus } from 'src/domain';
-import { BLANK_FRAME, I, L, O, S } from './graphic-types';
-import { snakeGameFrame } from './graphic-snake';
-import { tetrisGameFrame } from './graphic-tetris';
+import { GameType, SystemStatus } from "src/domain";
+import { BLANK_FRAME, I, L, O, S } from "./graphic-types";
+import { snakeGameFrame } from "./graphic-snake";
+import { tetrisGameFrame } from "./graphic-tetris";
 
 const frameBuffer: Uint8Array = new Uint8Array(new ArrayBuffer(L));
 
@@ -21,7 +21,7 @@ function draw(state: AppState): Frame {
           frame = tetrisGameFrame(state.tetris, frameBuffer);
           break;
         default:
-          throw new TypeError('Unknown gameType:' + state.core.gameType);
+          throw new TypeError("Unknown gameType:" + state.core.gameType);
       }
       if (state.core.isPaused()) {
         frame = pauseIndication(frame);

@@ -1,10 +1,10 @@
-import { Set, Range } from 'immutable';
-import { Orientation, Point, rotateOrientation } from 'src/domain';
-import { Specs } from 'src/specs';
-import { randomInt, fallback } from 'src/utils';
+import { Set, Range } from "immutable";
+import { Orientation, Point, rotateOrientation } from "src/domain";
+import { Specs } from "src/specs";
+import { randomInt, fallback } from "src/utils";
 
-type Deposit = import('./tetris-state').Deposit;
-type RotationDegree = import('src/domain').RotationDegree;
+type Deposit = import("./tetris-state").Deposit;
+type RotationDegree = import("src/domain").RotationDegree;
 
 export interface Tetromino {
   moveLeft(): Tetromino;
@@ -22,31 +22,31 @@ export interface Tetromino {
   _width: number;
 }
 
-type Type = 'I' | 'L' | 'J' | 'T' | 'S' | 'Z' | 'O';
+type Type = "I" | "L" | "J" | "T" | "S" | "Z" | "O";
 interface Base {
   readonly type: Type;
   readonly points: Set<Point>;
   readonly width: number;
 }
-const I = buildBase('I', Point(0, 0), Point(0, 1), Point(0, 2), Point(0, 3));
-const I_h = buildBase('I', Point(0, 0), Point(1, 0), Point(2, 0), Point(3, 0));
-const L = buildBase('L', Point(0, 0), Point(0, 1), Point(0, 2), Point(1, 0));
-const L_m90 = buildBase('L', Point(0, 0), Point(1, 0), Point(2, 0), Point(2, 1));
-const L_90 = buildBase('L', Point(0, 0), Point(0, 1), Point(1, 1), Point(2, 1));
-const L_180 = buildBase('L', Point(0, 2), Point(1, 2), Point(1, 1), Point(1, 0));
-const J = buildBase('J', Point(0, 0), Point(1, 0), Point(1, 1), Point(1, 2));
-const J_m90 = buildBase('J', Point(0, 1), Point(1, 1), Point(2, 1), Point(0, 2));
-const J_90 = buildBase('J', Point(0, 0), Point(0, 1), Point(1, 0), Point(2, 0));
-const J_180 = buildBase('J', Point(0, 0), Point(0, 1), Point(0, 2), Point(1, 2));
-const T = buildBase('T', Point(1, 0), Point(0, 1), Point(1, 1), Point(2, 1));
-const T_m90 = buildBase('T', Point(0, 0), Point(0, 1), Point(1, 1), Point(0, 2));
-const T_90 = buildBase('T', Point(0, 1), Point(1, 0), Point(1, 1), Point(1, 2));
-const T_180 = buildBase('T', Point(0, 0), Point(0, 1), Point(1, 1), Point(0, 2));
-const S = buildBase('S', Point(0, 0), Point(1, 0), Point(1, 1), Point(2, 1));
-const S_v = buildBase('S', Point(0, 1), Point(1, 1), Point(1, 0), Point(0, 2));
-const Z = buildBase('Z', Point(0, 1), Point(1, 1), Point(1, 0), Point(2, 0));
-const Z_v = buildBase('Z', Point(0, 0), Point(1, 1), Point(0, 1), Point(1, 2));
-const O = buildBase('O', Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0));
+const I = buildBase("I", Point(0, 0), Point(0, 1), Point(0, 2), Point(0, 3));
+const I_h = buildBase("I", Point(0, 0), Point(1, 0), Point(2, 0), Point(3, 0));
+const L = buildBase("L", Point(0, 0), Point(0, 1), Point(0, 2), Point(1, 0));
+const L_m90 = buildBase("L", Point(0, 0), Point(1, 0), Point(2, 0), Point(2, 1));
+const L_90 = buildBase("L", Point(0, 0), Point(0, 1), Point(1, 1), Point(2, 1));
+const L_180 = buildBase("L", Point(0, 2), Point(1, 2), Point(1, 1), Point(1, 0));
+const J = buildBase("J", Point(0, 0), Point(1, 0), Point(1, 1), Point(1, 2));
+const J_m90 = buildBase("J", Point(0, 1), Point(1, 1), Point(2, 1), Point(0, 2));
+const J_90 = buildBase("J", Point(0, 0), Point(0, 1), Point(1, 0), Point(2, 0));
+const J_180 = buildBase("J", Point(0, 0), Point(0, 1), Point(0, 2), Point(1, 2));
+const T = buildBase("T", Point(1, 0), Point(0, 1), Point(1, 1), Point(2, 1));
+const T_m90 = buildBase("T", Point(0, 0), Point(0, 1), Point(1, 1), Point(0, 2));
+const T_90 = buildBase("T", Point(0, 1), Point(1, 0), Point(1, 1), Point(1, 2));
+const T_180 = buildBase("T", Point(0, 0), Point(0, 1), Point(1, 1), Point(0, 2));
+const S = buildBase("S", Point(0, 0), Point(1, 0), Point(1, 1), Point(2, 1));
+const S_v = buildBase("S", Point(0, 1), Point(1, 1), Point(1, 0), Point(0, 2));
+const Z = buildBase("Z", Point(0, 1), Point(1, 1), Point(1, 0), Point(2, 0));
+const Z_v = buildBase("Z", Point(0, 0), Point(1, 1), Point(0, 1), Point(1, 2));
+const O = buildBase("O", Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0));
 
 function buildBase(type: Type, ...points: Point[]): Base {
   const xs = points.map(p => p.x).sort();
@@ -128,7 +128,7 @@ function nextTetromino(): Tetromino {
       return createTetromino(k, Orientation.UP, Specs.tetrisGame.initialX, Specs.tetrisGame.initialY);
     }
   }
-  throw Error('Assertion error: tetris PROBABILITY_TOP is invalid!');
+  throw Error("Assertion error: tetris PROBABILITY_TOP is invalid!");
 }
 
 function createTetromino(type: Type, orientation: Orientation, x: number, y: number): Tetromino {

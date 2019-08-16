@@ -1,9 +1,9 @@
-import React from 'react';
-import Pixel from './pixel';
-import { Specs } from 'src/specs';
-import { Connects } from 'src/store';
-import styled from 'styled-components';
-import autoBind from 'auto-bind';
+import React from "react";
+import Pixel from "./pixel";
+import { Specs } from "src/specs";
+import { Connects } from "src/store";
+import styled from "styled-components";
+import autoBind from "auto-bind";
 
 const MATRIX_WIDTH = Specs.screen.graphicWidth;
 const MATRIX_HEIGHT = Specs.screen.graphicHeight;

@@ -1,6 +1,6 @@
-import {combineEpics} from 'redux-observable';
-import {ActionType} from '../action';
-import {createAudioEpic, SoundEffects} from './audio-types';
+import {combineEpics} from "redux-observable";
+import {ActionType} from "../action";
+import {createAudioEpic, SoundEffects} from "./audio-types";
 
 const eatBeanAudioEpic = createAudioEpic(
     SoundEffects.sfxSnakeEatBean,

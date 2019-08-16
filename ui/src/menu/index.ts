@@ -1,1 +1,1 @@
-export { MenuStateProps, MenuActionProps } from './menu';
+export { MenuStateProps, MenuActionProps } from "./menu";

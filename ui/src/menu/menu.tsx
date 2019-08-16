@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Connects } from '../store';
-import autoBind from 'auto-bind';
-import MenuIcon from './menu-icon';
-import { IconSvgPaths } from '../svg-path';
-import Info from './info';
+import React from "react";
+import styled from "styled-components";
+import { Connects } from "../store";
+import autoBind from "auto-bind";
+import MenuIcon from "./menu-icon";
+import { IconSvgPaths } from "../svg-path";
+import Info from "./info";
 
 export interface MenuStateProps {
   audioEnabled: boolean;
@@ -26,8 +26,8 @@ const Container = styled.div`
   flex-direction: column;
   position: fixed;
   z-index: 100;
-  width: ${(props: State) => props.infoExpanded ? '100%' : '0'};
-  height: ${(props: State) => props.infoExpanded ? '100%' : '0'};
+  width: ${(props: State) => props.infoExpanded ? "100%" : "0"};
+  height: ${(props: State) => props.infoExpanded ? "100%" : "0"};
   margin: 0;
   padding: 0;
   top:2px;
@@ -78,7 +78,7 @@ class Menu extends React.PureComponent<Props, State> {
   }
 
   private openGithub() {
-    window.open('https://github.com/cuzfrog/palm-game');
+    window.open("https://github.com/cuzfrog/palm-game");
   }
 
   private toggleAudio() {

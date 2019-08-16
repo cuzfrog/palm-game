@@ -1,10 +1,10 @@
-import { Observable } from 'rxjs';
-import { ofType, StateObservable } from 'redux-observable';
-import { filter, map } from 'rxjs/operators';
-import { Direction, GameType, SystemStatus, GameStatus } from 'src/domain';
-import { ActionType, SnakeActions } from '../action';
-import { CoreActions } from '../core';
-import { TetrisActions } from '../action/tetris-actions';
+import { Observable } from "rxjs";
+import { ofType, StateObservable } from "redux-observable";
+import { filter, map } from "rxjs/operators";
+import { Direction, GameType, SystemStatus, GameStatus } from "src/domain";
+import { ActionType, SnakeActions } from "../action";
+import { CoreActions } from "../core";
+import { TetrisActions } from "../action/tetris-actions";
 
 function dummyLayout(): AppAction {
   return CoreActions.dummy();
@@ -81,7 +81,7 @@ function chooseKeyboardLayout(state: CoreState): (action: AppAction, state: Core
   } else if (state.status === SystemStatus.IN_GAME) {
     keyboard = state.isPaused() ? mapToPausedLayout : getGameKeyboard(state.gameType);
   } else {
-    throw new TypeError('Unknown system status:' + state.status);
+    throw new TypeError("Unknown system status:" + state.status);
   }
   return keyboard;
 }
@@ -93,7 +93,7 @@ function getGameKeyboard(gameType: GameType): (action: AppAction) => AppAction {
     case GameType.TETRIS:
       return mapToTetrisLayout;
     default:
-      throw new TypeError('Unknown enum type:' + gameType);
+      throw new TypeError("Unknown enum type:" + gameType);
   }
 }
 

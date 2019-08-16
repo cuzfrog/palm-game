@@ -92,7 +92,7 @@ const SPACE8 = spaceN(8);
 
 function spaceN(n: number) {
     return {
-        value: SPACE.value.split(/\n/g).map(l => l.repeat(n)).join('\n'),
+        value: SPACE.value.split(/\n/g).map(l => l.repeat(n)).join("\n"),
         width: n
     };
 }

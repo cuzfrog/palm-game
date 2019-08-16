@@ -1,7 +1,7 @@
-import React from 'react';
-import { PixelState } from 'src/domain';
-import styled, { css, keyframes } from 'styled-components';
-import { ScreenColors } from './screen-colors';
+import React from "react";
+import { PixelState } from "src/domain";
+import styled, { css, keyframes } from "styled-components";
+import { ScreenColors } from "./screen-colors";
 
 interface Props {
   value: PixelState;
@@ -33,7 +33,7 @@ const twinkleStyle = css`
   animation-duration: 1s;
 `;
 
-const Pixel: import('styled-components').StyledComponent<'td', any, Props> = styled.td`
+const Pixel: import("styled-components").StyledComponent<"td", any, Props> = styled.td`
   display: inline-block;
   width: 12px;
   height: 12px;

@@ -1,14 +1,14 @@
-import {css} from 'styled-components';
-import darken from 'polished/lib/color/darken';
-import lighten from 'polished/lib/color/lighten';
-import transparentize from 'polished/lib/color/transparentize';
+import {css} from "styled-components";
+import darken from "polished/lib/color/darken";
+import lighten from "polished/lib/color/lighten";
+import transparentize from "polished/lib/color/transparentize";
 
 const BasicColor = Object.freeze({
-    blue: '#108FE8',
-    yellow: '#FFC334',
-    red: '#E53030',
-    green: '#0EC518',
-    black: '#1b1b1b',
+    blue: "#108FE8",
+    yellow: "#FFC334",
+    red: "#E53030",
+    green: "#0EC518",
+    black: "#1b1b1b",
 });
 
 const btnColor = BasicColor.blue;
@@ -21,7 +21,7 @@ const Color = Object.freeze({
     darken10: darken(0.1, btnColor),
     lighten20: lighten(0.2, btnColor),
     lighten15: lighten(0.15, btnColor),
-    transparentWhite : transparentize(0.83, '#ffffff')
+    transparentWhite : transparentize(0.83, "#ffffff")
 });
 
 const fissureBorder = `${BasicColor.black} solid 2px`;
@@ -174,15 +174,15 @@ const RightButtonCss = css`
 `;
 
 export const enum BtnType {
-    MAIN = 'main',
-    FUNC = 'func',
-    UP = 'up',
-    LEFT = 'left',
-    RIGHT = 'right',
-    DOWN = 'down'
+    MAIN = "main",
+    FUNC = "func",
+    UP = "up",
+    LEFT = "left",
+    RIGHT = "right",
+    DOWN = "down"
 }
 
-export const mapStyledButton = (btnType: BtnType): import('styled-components').FlattenSimpleInterpolation => {
+export const mapStyledButton = (btnType: BtnType): import("styled-components").FlattenSimpleInterpolation => {
     switch (btnType) {
         case BtnType.MAIN:
             return MainButtonCss;

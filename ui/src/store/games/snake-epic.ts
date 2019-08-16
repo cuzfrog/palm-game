@@ -1,11 +1,11 @@
-import { combineEpics, ofType } from 'redux-observable';
-import { Observable } from 'rxjs';
-import { delay, filter, map, mapTo, withLatestFrom } from 'rxjs/operators';
-import { Direction, Point, GameType } from 'src/domain';
-import { Specs } from 'src/specs';
-import { ActionType, SnakeActions } from '../action';
-import { CoreActions } from '../core';
-import { heartbeatFunc } from './common-epic';
+import { combineEpics, ofType } from "redux-observable";
+import { Observable } from "rxjs";
+import { delay, filter, map, mapTo, withLatestFrom } from "rxjs/operators";
+import { Direction, Point, GameType } from "src/domain";
+import { Specs } from "src/specs";
+import { ActionType, SnakeActions } from "../action";
+import { CoreActions } from "../core";
+import { heartbeatFunc } from "./common-epic";
 
 function nextCreepAction(appState: AppState): SnakeAction {
   let action: AppAction;
@@ -38,7 +38,7 @@ function newHeadPoint(direction: Direction, head: Point): Point {
     case Direction.WEST:
       return Point(head.x - 1, head.y);
     default:
-      throw new TypeError('UnknownDirection:' + direction);
+      throw new TypeError("UnknownDirection:" + direction);
   }
 }
 
@@ -69,7 +69,7 @@ const escapeEpic = (action$: Observable<AppAction>, state$: Observable<AppState>
       if (a.type === ActionType.SNAKE_ESCAPE) {
         return a.payload;
       } else {
-        throw new TypeError('Assertion error: impossible to reach here!');
+        throw new TypeError("Assertion error: impossible to reach here!");
       }
     }),
     delay(ESCAPE_INTERVAL),

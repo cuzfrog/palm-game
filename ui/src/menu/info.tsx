@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import autoBind from 'auto-bind';
+import React from "react";
+import styled from "styled-components";
+import autoBind from "auto-bind";
 
 const StyledDiv = styled.div`
   color: #9c9c9c;
@@ -25,11 +25,11 @@ export default class Info extends React.PureComponent<{}, State> {
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.updateUiInfo);
+    window.addEventListener("resize", this.updateUiInfo);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateUiInfo);
+    window.removeEventListener("resize", this.updateUiInfo);
   }
 
   public render() {

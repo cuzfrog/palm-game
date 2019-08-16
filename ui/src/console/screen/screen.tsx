@@ -1,8 +1,8 @@
-import React from 'react';
-import Matrix from './matrix';
-import Dashboard from './dashboard';
-import styled from 'styled-components';
-import {ScreenColors} from './screen-colors';
+import React from "react";
+import Matrix from "./matrix";
+import Dashboard from "./dashboard";
+import styled from "styled-components";
+import {ScreenColors} from "./screen-colors";
 
 const ScreenWrapper = styled.div`
   flex: 100%;

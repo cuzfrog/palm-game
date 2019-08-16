@@ -1,8 +1,8 @@
-import { I, O } from './graphic-types';
-import { List } from 'immutable';
-import { AnimType } from './anim';
+import { I, O } from "./graphic-types";
+import { List } from "immutable";
+import { AnimType } from "./anim";
 
-type Anim = import('./anim').Anim;
+type Anim = import("./anim").Anim;
 
 export class ConsoleStartAnimation implements Anim {
     private readonly step: number;
@@ -49,7 +49,7 @@ export class ConsoleStartAnimation implements Anim {
             case 3:
                 return 200;
             default:
-                throw new Error('Asssertion error: no such step');
+                throw new Error("Asssertion error: no such step");
         }
     }
 

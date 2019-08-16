@@ -1,7 +1,7 @@
-import {combineEpics} from 'redux-observable';
-import {ActionGroups, ActionType} from '../action';
-import {createAudioEpic, SoundEffects} from './audio-types';
-import {SystemStatus, GameStatus} from 'src/domain';
+import {combineEpics} from "redux-observable";
+import {ActionGroups, ActionType} from "../action";
+import {createAudioEpic, SoundEffects} from "./audio-types";
+import {SystemStatus, GameStatus} from "src/domain";
 
 const menuAudioEpic = createAudioEpic(
     SoundEffects.sfxCoreMenu,
