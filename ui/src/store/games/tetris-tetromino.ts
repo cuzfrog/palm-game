@@ -41,7 +41,7 @@ const J_180 = buildBase("J", Point(0, 0), Point(0, 1), Point(0, 2), Point(1, 2))
 const T = buildBase("T", Point(1, 0), Point(0, 1), Point(1, 1), Point(2, 1));
 const T_m90 = buildBase("T", Point(0, 0), Point(0, 1), Point(1, 1), Point(0, 2));
 const T_90 = buildBase("T", Point(0, 1), Point(1, 0), Point(1, 1), Point(1, 2));
-const T_180 = buildBase("T", Point(0, 0), Point(0, 1), Point(1, 1), Point(0, 2));
+const T_180 = buildBase("T", Point(0, 0), Point(1, 0), Point(2, 0), Point(1, 1));
 const S = buildBase("S", Point(0, 0), Point(1, 0), Point(1, 1), Point(2, 1));
 const S_v = buildBase("S", Point(0, 1), Point(1, 1), Point(1, 0), Point(0, 2));
 const Z = buildBase("Z", Point(0, 1), Point(1, 1), Point(1, 0), Point(2, 0));
@@ -85,9 +85,10 @@ class _Tetromino implements Tetromino {
     return new _Tetromino(this.base, this.orientation, this.x, this.y - 1);
   }
   drop(deposit: Deposit): Tetromino { // todo: optimize algorithm
-    const xs = Range(this.x, this.x + this.base.width);
-    const depositYs = xs.toSeq().map(x => fallback(deposit.toSeq().filter(p => p.x === x).map(p => p.y).max(), -1)).toList();
-    const baseYs = xs.toSeq().map(x =>
+    const x0s = Range(0, this.base.width);
+    const depositYs = x0s.toSeq().map(x =>
+      fallback(deposit.toSeq().filter(p => p.x === x + this.x).map(p => p.y).max(), -1)).toList();
+    const baseYs = x0s.toSeq().map(x =>
       this.base.points.toSeq().filter(p => p.x === x).map(p => p.y + this.y).min() as number).toList();
     const minY = depositYs.zip(baseYs).map(([dy, by]) => by - dy).min() as number;
     return new _Tetromino(this.base, this.orientation, this.x, this.y - minY + 1);

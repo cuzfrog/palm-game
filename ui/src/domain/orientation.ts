@@ -6,6 +6,10 @@ export type RotationDegree = -90 | 90 | 180;
 
 export function rotateOrientation(o: Orientation, degree: RotationDegree): Orientation {
   let next = o + degree;
-  next = next > 180 ? next - 180 : next;
+  if (next > 180) {
+    next = next - 360;
+  } else if (next < -90) {
+    next = next + 360;
+  }
   return next;
 }
