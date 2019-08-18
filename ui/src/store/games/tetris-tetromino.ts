@@ -1,7 +1,8 @@
 import { Set, Range } from "immutable";
 import { Orientation, Point, rotateOrientation } from "src/domain";
 import { Specs } from "src/specs";
-import { randomInt, findIndexOfLast } from "src/utils";
+import { randomInt } from "src/utils";
+import { TetrisDeposit } from "./tetris-deposit";
 
 export interface Tetromino {
   moveLeft(): Tetromino;
@@ -59,11 +60,8 @@ const Repo = Object.freeze({
   [Orientation.DOWN]: { I, L: L_180, J: J_180, T: T_180, S, Z, O },
 });
 
-type Deposit = ReadonlyArray<Uint8Array>;
 /** Deposit buffer */
-const DEPO: Deposit = Array(Specs.screen.graphicHeight + 4).fill(0)
-  .map(() => new Uint8Array(new ArrayBuffer(Specs.screen.graphicWidth)).fill(0));
-
+const depo = TetrisDeposit.getInstance();
 const MAX_X = Specs.screen.graphicWidth - 1;
 class _Tetromino implements Tetromino {
   private readonly body: Set<Point>;
@@ -78,14 +76,14 @@ class _Tetromino implements Tetromino {
   moveRight(): Tetromino {
     let moved: Tetromino;
     if ((this.x + this._width) > MAX_X) moved = this;
-    else if (this.body.find(p => DEPO[p.y][p.x + 1] > 0)) moved = this;
+    else if (this.body.find(p => depo.check(p.x + 1, p.y))) moved = this;
     else moved = new _Tetromino(this.base, this.orientation, this.x + 1, this.y);
     return moved;
   }
   moveLeft(): Tetromino {
     let moved: Tetromino;
     if (this.x <= 0) moved = this;
-    else if (this.body.find(p => DEPO[p.y][p.x - 1] > 0)) moved = this;
+    else if (this.body.find(p => depo.check(p.x - 1, p.y))) moved = this;
     else moved = new _Tetromino(this.base, this.orientation, this.x - 1, this.y);
     return moved;
   }
@@ -94,7 +92,7 @@ class _Tetromino implements Tetromino {
     const base: Base = Repo[o][this.base.type];
     const offX = Math.max(this.x + base.width - MAX_X - 1, 0);
     const moved = new _Tetromino(base, o, this.x - offX, this.y);
-    return moved.body.find(p => DEPO[p.y][p.x] > 0) ? this : moved;
+    return moved.body.find(p => depo.check(p.x, p.y)) ? this : moved;
   }
   descend(): _Tetromino {
     return new _Tetromino(this.base, this.orientation, this.x, this.y - 1);
@@ -102,7 +100,7 @@ class _Tetromino implements Tetromino {
   hardDrop(): Tetromino { // todo: optimize algorithm
     const xs = Range(this.x, this.x + this.base.width);
     const lowestBody = xs.map(x => this.body.toSeq().filter(p => p.x === x).minBy(p => p.y) as Point);
-    const depositYs = lowestBody.toSeq().map(p => findIndexOfLast(DEPO, (row, y) => y <= p.y && row[p.x] > 0)).toList();
+    const depositYs = lowestBody.toSeq().map(p => depo.dropDistance(p)).toList();
     const bodyYs = lowestBody.map(p => p.y);
     const minY = depositYs.zip(bodyYs).map(([dy, by]) => by - dy).min() as number;
     return new _Tetromino(this.base, this.orientation, this.x, this.y - minY + 1);
@@ -111,10 +109,10 @@ class _Tetromino implements Tetromino {
     return this.body;
   }
   shouldLock(): boolean {
-    return this.y <= 0 || this.body.find(p => DEPO[p.y - 1][p.x] > 0) !== undefined;
+    return this.y <= 0 || this.body.find(p => depo.check(p.x, p.y - 1)) !== undefined;
   }
   lockDown(): void {
-    this.body.forEach(p => DEPO[p.y][p.x] = 1);
+    this.body.forEach(p => depo.mark(p.x, p.y));
   }
 
   get _x(): number {
@@ -152,12 +150,5 @@ function createTetromino(type: Type, orientation: Orientation, x: number, y: num
 export const Tetromino = Object.freeze({
   next: nextTetromino,
   _new: createTetromino,
-  _setDepo(...points: Point[]) { points.forEach(p => DEPO[p.y][p.x] = 1); },
-  _clearDepo() { DEPO.forEach(row => row.fill(0)); },
-  _withDepo(point: Point, callback: () => void) {
-    this._setDepo(point);
-    callback();
-    this._clearDepo();
-  },
   _MAX_X: MAX_X,
 });

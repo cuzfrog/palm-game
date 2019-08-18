@@ -12,3 +12,6 @@ const maxY = H - 1;
 export function toIndex2(p: Point): number {
   return p.x + (maxY - p.y) * W;
 }
+export function xyToIndex2(x: number, y: number): number {
+  return x + (maxY - y) * W;
+}

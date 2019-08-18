@@ -19,7 +19,7 @@ export function tetrisGameReducer(state: TetrisGameState = TetrisGameState.Defau
       case ActionType.TETRIS_HARD_DROP:
         draft.block = state.block.hardDrop();
         break;
-      case ActionType.TETRIS_LOCK_DOWN:
+      case ActionType.TETRIS_NEXT_BLOCK:
         draft.block = state.nextBlock;
         draft.nextBlock = Tetromino.next();
         break;
