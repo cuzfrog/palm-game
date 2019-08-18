@@ -10,7 +10,7 @@ import { GameType } from "src/domain";
 function nextDescendAction(appState: AppState): TetrisAction {
   const s = appState.tetris;
   let a: TetrisAction;
-  if (s.block.shouldLock(s.deposit)) {
+  if (s.block.shouldLock()) {
     a = TetrisActions.lockDown();
   } else {
     a = TetrisActions.descend();

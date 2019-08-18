@@ -66,6 +66,14 @@ function calculateInterval(base: number, level: number): number {
   return base - level * 100;
 }
 
+function findIndexOfLast<T>(arr: ReadonlyArray<T>, predicate: (elem: T, idx: number) => boolean): number {
+  for (let i = arr.length - 1; i >= 0; i--) {
+    const element = arr[i];
+    if (predicate(element, i)) return i;
+  }
+  return -1;
+}
+
 export {
   delay,
   nextEnum,
@@ -77,5 +85,6 @@ export {
   checkStrictEqual,
   checkStrictNonEqual,
   throwTypeError,
-  calculateInterval
+  calculateInterval,
+  findIndexOfLast
 };
