@@ -1,6 +1,6 @@
 import { combineEpics, ofType, StateObservable } from "redux-observable";
 import { Observable } from "rxjs";
-import { mapTo, tap } from "rxjs/operators";
+import { mapTo, tap, filter } from "rxjs/operators";
 import { GameType } from "src/domain";
 import { Specs } from "src/specs";
 import { ActionType } from "../action";
@@ -20,6 +20,14 @@ function nextDescendAction(appState: AppState): TetrisAction {
 const descendEpic = heartbeatFunc(
   GameType.TETRIS, Specs.tetrisGame.baseDescendIntervalMs, [ActionType.GAME_NEXT_LEVEL], [], nextDescendAction);
 
+const descendCheckEpic = (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
+  return action$.pipe(
+    ofType(ActionType.TETRIS_DESCEND),
+    filter(() => state$.value.tetris.block.shouldLock()),
+    mapTo(TetrisActions.lockDown()),
+  );
+};
+
 const hardDropEpic = (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
   return action$.pipe(
     ofType(ActionType.TETRIS_HARD_DROP),
@@ -38,5 +46,5 @@ const lockDownEpic = (action$: Observable<AppAction>, state$: StateObservable<Ap
 };
 
 export const tetrisEpic = Object.freeze({
-  epic: combineEpics(descendEpic, hardDropEpic, lockDownEpic),
+  epic: combineEpics(descendEpic, descendCheckEpic, hardDropEpic, lockDownEpic),
 });

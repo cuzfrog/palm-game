@@ -14,7 +14,9 @@ export function tetrisGameReducer(state: TetrisGameState = TetrisGameState.Defau
         draft.block = state.block.rotate();
         break;
       case ActionType.TETRIS_DESCEND:
-        draft.block = state.block.descend();
+        if (!state.block.shouldLock()) {
+          draft.block = state.block.descend();
+        }
         break;
       case ActionType.TETRIS_HARD_DROP:
         draft.block = state.block.hardDrop();
