@@ -3,29 +3,28 @@ import { Orientation, Point } from "src/domain";
 import { Set } from "immutable";
 import { TetrisDeposit } from "src/store/games/tetris-deposit";
 
-const depo = TetrisDeposit.getInstance();
+const depo = TetrisDeposit._new(10, 18);
 
 afterEach(() => {
-  depo._clearDepo();
+  depo._clear();
 });
 
 describe("tetromino", () => {
-  const MAX_X = Tetromino._MAX_X;
   const I_v = Tetromino._new("I", Orientation.UP, 3, 15);
-  const I_h = Tetromino._new("I", Orientation.RIGHT, MAX_X - 3, 15);
+  const I_h = Tetromino._new("I", Orientation.RIGHT, 7, 15);
   const S = Tetromino._new("S", Orientation.UP, 5, 0);
   const O = Tetromino._new("O", Orientation.UP, 0, 3);
   it("move right", () => {
     expect(I_v.moveRight()._x).toBe(I_v._x + 1);
     expect(I_h.moveRight()._x).toBe(I_h._x);
-    depo._setDepo(Point(4, 17));
+    depo._set(Point(4, 17));
     expect(I_v.moveRight()._x).toBe(I_v._x);
   });
 
   it("move left", () => {
     expect(O.moveLeft()._x).toBe(O._x);
     expect(I_h.moveLeft()._x).toBe(I_h._x - 1);
-    depo._setDepo(Point(2, 17));
+    depo._set(Point(2, 17));
     expect(I_v.moveLeft()._x).toBe(I_v._x);
   });
 
@@ -34,11 +33,11 @@ describe("tetromino", () => {
   });
 
   it("drop", () => {
-    depo._withDepo(Point(3, 7), () => {
+    depo._with(Point(3, 7), () => {
       expect(I_v.hardDrop()._y).toBe(8);
     });
 
-    depo._withDepo(Point(6, 7), () => {
+    depo._with(Point(6, 7), () => {
       expect(I_v.hardDrop()._y).toBe(0);
     });
     expect(I_v.hardDrop()._y).toBe(0);
@@ -55,7 +54,7 @@ describe("tetromino", () => {
   });
 
   it("shouldLock", () => {
-    depo._setDepo(Point(3, 14), Point(2, 15), Point(MAX_X, 13));
+    depo._set(Point(3, 14), Point(2, 15), Point(10, 13));
     expect(I_v.shouldLock()).toBeTruthy();
     expect(I_h.shouldLock()).toBeFalsy();
     expect(S.shouldLock()).toBeTruthy();

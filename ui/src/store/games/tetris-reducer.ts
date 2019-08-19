@@ -25,13 +25,6 @@ export function tetrisGameReducer(state: TetrisGameState = TetrisGameState.Defau
         draft.block = state.nextBlock;
         draft.nextBlock = Tetromino.next();
         break;
-      case ActionType.TETRIS_LINE_CLEAR:
-        // const lines = action.payload;
-        // const maxY = lines.reduce((y1, y2) => Math.max(y1, y2), 0);
-        // draft.deposit = draft.deposit.toSeq()
-        //   .filter(p => !lines.includes(p.y))
-        //   .map(p => p.y > maxY ? Point(p.x, p.y - lines.length) : p).toSet();
-        break;
     }
   });
 }

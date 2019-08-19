@@ -34,6 +34,8 @@
     "interface-over-type-literal": false,
     "member-access": false,
     "jsx-alignment": false,
-    "curly": false
+    "curly": false,
+    "one-variable-per-declaration": false,
+    "member-ordering": false
   }
 }

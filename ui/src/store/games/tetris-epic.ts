@@ -1,6 +1,6 @@
 import { combineEpics, ofType, StateObservable } from "redux-observable";
 import { Observable } from "rxjs";
-import { mapTo, tap, filter } from "rxjs/operators";
+import { mapTo, tap, filter, map } from "rxjs/operators";
 import { GameType } from "src/domain";
 import { Specs } from "src/specs";
 import { ActionType } from "../action";
@@ -41,10 +41,23 @@ const lockDownEpic = (action$: Observable<AppAction>, state$: StateObservable<Ap
     ofType(ActionType.TETRIS_LOCK_DOWN),
     /* state updated in reducer */
     tap(() => state$.value.tetris.block.lockDown()),
+    mapTo(state$.value.tetris.deposit),
+    map(depo => {
+      const lineToBeCleared = depo.fullLines();
+      return (lineToBeCleared.length === 0) ? TetrisActions.nextBlock() : TetrisActions.lineClear(lineToBeCleared);
+    }),
+  );
+};
+
+const lineClearEpic = (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
+  const t = ActionType.TETRIS_LINE_CLEAR;
+  return action$.pipe(
+    ofType(t),
+    tap(a => { if (a.type === t) state$.value.tetris.deposit.clearLines(a.payload); }),
     mapTo(TetrisActions.nextBlock()),
   );
 };
 
 export const tetrisEpic = Object.freeze({
-  epic: combineEpics(descendEpic, descendCheckEpic, hardDropEpic, lockDownEpic),
+  epic: combineEpics(descendEpic, descendCheckEpic, hardDropEpic, lockDownEpic, lineClearEpic),
 });
