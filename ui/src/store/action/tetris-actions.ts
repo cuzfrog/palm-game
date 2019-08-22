@@ -14,7 +14,8 @@ export const TetrisActions = Object.freeze({
   hardDrop: () => hardDrop,
   lockDown: () => lockDown,
   nextBlock: () => nextBlock,
-  lineClear: (lines: ReadonlyArray<number>) => createActionWithPayload(ActionType.TETRIS_LINE_CLEAR, lines),
+  lineMarkPause: (ys: ReadonlyArray<number>) => createActionWithPayload(ActionType.TETRIS_LINE_MARK_PAUSE, ys),
+  lineClear: (ys: ReadonlyArray<number>) => createActionWithPayload(ActionType.TETRIS_LINE_CLEAR, ys),
 });
 
 export type TetrisAction = import("./types-utils").ActionUnion<typeof TetrisActions>;

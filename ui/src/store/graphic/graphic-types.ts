@@ -5,6 +5,7 @@ import {Specs} from "src/specs";
 export const I = PixelState.ON;
 export const O = PixelState.OFF;
 export const S = PixelState.TWINKLE;
+export const K = PixelState.SPARK;
 export const W = Specs.screen.graphicWidth;
 export const H = Specs.screen.graphicHeight;
 export const L = W * H;

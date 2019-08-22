@@ -25,6 +25,9 @@ export function tetrisGameReducer(state: TetrisGameState = TetrisGameState.Defau
         draft.block = state.nextBlock;
         draft.nextBlock = Tetromino.next();
         break;
+      case ActionType.TETRIS_LINE_MARK_PAUSE:
+        draft.block = Tetromino.dummy;
+        break;
     }
   });
 }

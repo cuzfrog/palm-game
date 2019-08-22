@@ -26,12 +26,15 @@ const keyframe = keyframes`
   }
 `;
 
-const twinkleStyle = css`
+const animationCss = (dura: string) => css`
   ${deactivatedStyle};
   animation-iteration-count: infinite;
   animation-name: ${keyframe};
-  animation-duration: 1s;
+  animation-duration: ${dura};
 `;
+
+const twinkleStyle = animationCss("1s");
+const sparkStle = animationCss("400ms");
 
 const Pixel: import("styled-components").StyledComponent<"td", any, Props> = styled.td`
   display: inline-block;
@@ -53,6 +56,8 @@ function getPixelStyle(state: PixelState) {
       return deactivatedStyle;
     case PixelState.TWINKLE:
       return twinkleStyle;
+    case PixelState.SPARK:
+      return sparkStle;
   }
 }
 

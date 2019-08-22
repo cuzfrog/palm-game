@@ -10,7 +10,7 @@ export interface TetrisGameState {
 const DefaultTetrisGameState: TetrisGameState = Object.freeze({
   deposit: TetrisDeposit.getInstance(),
   block: Tetromino.next(),
-  nextBlock: Tetromino.next()
+  nextBlock: Tetromino.next(),
 });
 
 export const TetrisGameState = Object.freeze({

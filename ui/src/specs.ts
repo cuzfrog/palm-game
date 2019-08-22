@@ -25,6 +25,7 @@ const tetrisGame = Object.freeze({
   initialX: screen.graphicWidth / 2,
   initialY: screen.graphicHeight - 1,
   baseDescendIntervalMs: 1000,
+  markClearPauseDurationMs: 400,
 });
 
 const constants = Object.freeze({ screen, core, snakeGame, tetrisGame });

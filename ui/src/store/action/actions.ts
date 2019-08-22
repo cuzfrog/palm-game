@@ -39,6 +39,7 @@ export const enum ActionType {
     TETRIS_HARD_DROP = "[game tetris] hard drop",
     TETRIS_LOCK_DOWN = "[game tetris] lock down",
     TETRIS_NEXT_BLOCK = "[game tetris] next block",
+    TETRIS_LINE_MARK_PAUSE = "[game tetris] line mark pause (pre-clear)",
     TETRIS_LINE_CLEAR = "[game tetris] line clear"
 }
 

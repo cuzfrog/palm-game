@@ -129,6 +129,21 @@ class _Tetromino implements Tetromino {
   }
 }
 
+const DummyTetromino: Tetromino = Object.freeze({
+  moveLeft() { return this; },
+  moveRight() { return this; },
+  rotate() { return this; },
+  descend() { return this; },
+  hardDrop() { return this; },
+  render() { return Set(); },
+  shouldLock() { return false; },
+  lockDown: () => null,
+  _x: -1,
+  _y: -1,
+  _orientation: Orientation.UP,
+  _width: -1,
+});
+
 const probabilityEntries = Object.entries(Specs.tetrisGame.probability) as ReadonlyArray<[Type, number]>;
 const PROBABILITY_TOP = Object.values(Specs.tetrisGame.probability).reduce((n1, n2) => n1 + n2);
 
@@ -149,6 +164,7 @@ function createTetromino(type: Type, orientation: Orientation, x: number, y: num
 
 export const Tetromino = Object.freeze({
   next: nextTetromino,
+  dummy: DummyTetromino,
   _new: createTetromino,
   _MAX_X: MAX_X,
 });
