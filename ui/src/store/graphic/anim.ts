@@ -1,7 +1,7 @@
+import { InitialConsoleStartAnimation } from "./animation-console-start";
+import { InitialSnakeAnimation } from "./animation-snake";
+import { InitialTetrisAnimation } from "./animation-tetris";
 import { BLANK_FRAME } from "./graphic-types";
-import { ConsoleStartAnimation } from "./animation-console-start";
-import { SnakeAnimation } from "./animation-snake";
-import { TetrisAnimation } from "./animation-tetris";
 
 export interface Anim {
     readonly type: AnimType;
@@ -29,8 +29,7 @@ const emptyAnim: Anim = {
 
 export const Animations = Object.freeze({
     emptyAnim,
-    consoleStartInitial: new ConsoleStartAnimation(),
-    snakeInitial: new SnakeAnimation(),
-    tetrisInitial: new TetrisAnimation(),
-    boxerInitial: emptyAnim,
+    consoleStartInitial: InitialConsoleStartAnimation,
+    snakeInitial: InitialSnakeAnimation,
+    tetrisInitial: InitialTetrisAnimation,
 });

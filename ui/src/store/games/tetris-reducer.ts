@@ -23,7 +23,7 @@ export function tetrisGameReducer(state: TetrisGameState = TetrisGameState.Defau
         break;
       case ActionType.TETRIS_NEXT_BLOCK:
         draft.block = state.nextBlock;
-        draft.nextBlock = Tetromino.next();
+        draft.nextBlock = Tetromino.nextRandom();
         break;
       case ActionType.TETRIS_LINE_MARK_PAUSE:
         draft.block = Tetromino.dummy;

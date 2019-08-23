@@ -17,9 +17,7 @@ const BORDER_FRAME = Range(0, (H / 2 + 1) * W).map(i => {
   }
 }).toList();
 
-export class SnakeAnimation implements Anim {
-  readonly type = AnimType.GAME_SNAKE;
-  readonly frameInterval = 200;
+class SnakeAnimation implements Anim {
   private readonly body: List<Point>;
   private readonly di: Direction;
   private readonly lastTail?: Point;
@@ -92,11 +90,20 @@ export class SnakeAnimation implements Anim {
       }
     }
 
-    const frame = List(frameBuffer);
-    return frame;
+    return List(frameBuffer);
   }
 
   isCompleted(): boolean {
     return false;
   }
+
+  get type() {
+    return AnimType.GAME_SNAKE;
+  }
+
+  get frameInterval() {
+    return 200;
+  }
 }
+
+export const InitialSnakeAnimation: Anim = new SnakeAnimation();

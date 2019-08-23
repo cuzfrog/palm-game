@@ -22,7 +22,7 @@ const DefaultCoreState: CoreState = Object.freeze({
   scores: Map<GameType, number>(),
   maxScores: Map<GameType, number>(),
   level: Map([[GameType.SNAKE, 3], [GameType.TETRIS, 3]]),
-  gameType: GameType.SNAKE,
+  gameType: GameType.TETRIS,
   gameStatus: GameStatus.STOPPED,
   anim: Animations.emptyAnim,
   audioEnabled: true,

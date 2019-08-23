@@ -1,5 +1,5 @@
-import { I, O, S, W } from "./graphic-types";
 import { checkNonEmpty } from "src/utils";
+import { I, O, S, W } from "./graphic-types";
 import { Letters } from "./letters";
 
 const FRAME_INTERVAL_MS = 300;

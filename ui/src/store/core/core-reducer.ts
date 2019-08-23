@@ -82,7 +82,7 @@ function maxFunc(s1: number | undefined, s2: number | undefined) {
 }
 
 function currentAnimation(state: CoreState): Anim {
-  let nextAnim: Anim;
+  let nextAnim = Animations.emptyAnim;
   switch (state.status) {
     case SystemStatus.STARTING:
     case SystemStatus.MENU:
@@ -90,13 +90,9 @@ function currentAnimation(state: CoreState): Anim {
         case GameType.SNAKE:
           nextAnim = Animations.snakeInitial;
           break;
-        default:
-          nextAnim = Animations.boxerInitial;
-          break;
+        case GameType.TETRIS:
+          nextAnim = Animations.tetrisInitial;
       }
-      break;
-    default:
-      nextAnim = Animations.emptyAnim;
   }
   return nextAnim;
 }

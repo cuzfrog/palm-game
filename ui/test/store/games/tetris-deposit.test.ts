@@ -21,7 +21,7 @@ describe("tetris-deposit", () => {
     const fullLines = [0, 1, 3];
     depo._setLines(...fullLines);
     depo._set(Point(1, 2));
-    depo.clearLines(fullLines);
+    depo.clearLines(fullLines, "clear");
     expect(depo.buffer).toEqual([
       [0, 1, 0],
       [0, 0, 0],

@@ -18,12 +18,12 @@ export interface Tetromino {
   _x: number;
   _y: number;
   _orientation: Orientation;
-  _width: number;
+  width: number;
 }
 
-type Type = "I" | "L" | "J" | "T" | "S" | "Z" | "O";
+export type TetrominoType = "I" | "L" | "J" | "T" | "S" | "Z" | "O";
 interface Base {
-  readonly type: Type;
+  readonly type: TetrominoType;
   readonly body: Set<Point>;
   readonly width: number;
 }
@@ -47,7 +47,7 @@ const Z = buildBase("Z", Point(0, 1), Point(1, 1), Point(1, 0), Point(2, 0));
 const Z_v = buildBase("Z", Point(0, 0), Point(1, 1), Point(0, 1), Point(1, 2));
 const O = buildBase("O", Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0));
 
-function buildBase(type: Type, ...points: Point[]): Base {
+function buildBase(type: TetrominoType, ...points: Point[]): Base {
   const xs = points.map(p => p.x).sort();
   const width = xs[xs.length - 1] - xs[0] + 1;
   return Object.freeze({ type, body: Set(points), width });
@@ -75,7 +75,7 @@ class _Tetromino implements Tetromino {
 
   moveRight(): Tetromino {
     let moved: Tetromino;
-    if ((this.x + this._width) > MAX_X) moved = this;
+    if ((this.x + this.width) > MAX_X) moved = this;
     else if (this.body.find(p => depo.check(p.x + 1, p.y))) moved = this;
     else moved = new _Tetromino(this.base, this.orientation, this.x + 1, this.y);
     return moved;
@@ -124,7 +124,7 @@ class _Tetromino implements Tetromino {
   get _orientation() {
     return this.orientation;
   }
-  get _width() {
+  get width() {
     return this.base.width;
   }
 }
@@ -141,13 +141,13 @@ const DummyTetromino: Tetromino = Object.freeze({
   _x: -1,
   _y: -1,
   _orientation: Orientation.UP,
-  _width: -1,
+  width: -1,
 });
 
-const probabilityEntries = Object.entries(Specs.tetrisGame.probability) as ReadonlyArray<[Type, number]>;
+const probabilityEntries = Object.entries(Specs.tetrisGame.probability) as ReadonlyArray<[TetrominoType, number]>;
 const PROBABILITY_TOP = Object.values(Specs.tetrisGame.probability).reduce((n1, n2) => n1 + n2);
 
-function nextTetromino(): Tetromino {
+function randomTetromino(): Tetromino {
   let n = randomInt(PROBABILITY_TOP);
   for (const [k, v] of probabilityEntries) {
     n -= v;
@@ -158,13 +158,13 @@ function nextTetromino(): Tetromino {
   throw Error("Assertion error: tetris PROBABILITY_TOP is invalid!");
 }
 
-function createTetromino(type: Type, orientation: Orientation, x: number, y: number): Tetromino {
+function createTetromino(type: TetrominoType, orientation: Orientation, x: number, y: number): Tetromino {
   return new _Tetromino(Repo[orientation][type], orientation, x, y);
 }
 
 export const Tetromino = Object.freeze({
-  next: nextTetromino,
+  nextRandom: randomTetromino,
   dummy: DummyTetromino,
-  _new: createTetromino,
+  new: createTetromino,
   _MAX_X: MAX_X,
 });

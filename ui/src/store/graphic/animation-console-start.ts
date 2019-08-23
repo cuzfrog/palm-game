@@ -4,7 +4,7 @@ import { AnimType } from "./anim";
 
 type Anim = import("./anim").Anim;
 
-export class ConsoleStartAnimation implements Anim {
+class ConsoleStartAnimation implements Anim {
     private readonly step: number;
 
     constructor(step?: number) {
@@ -57,3 +57,5 @@ export class ConsoleStartAnimation implements Anim {
         return AnimType.CONSOLE_START;
     }
 }
+
+export const InitialConsoleStartAnimation: Anim = new ConsoleStartAnimation();
