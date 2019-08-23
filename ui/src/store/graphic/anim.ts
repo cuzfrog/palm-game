@@ -1,6 +1,7 @@
 import { BLANK_FRAME } from "./graphic-types";
 import { ConsoleStartAnimation } from "./animation-console-start";
 import { SnakeAnimation } from "./animation-snake";
+import { TetrisAnimation } from "./animation-tetris";
 
 export interface Anim {
     readonly type: AnimType;
@@ -14,6 +15,7 @@ export const enum AnimType {
     DUMMY = "animation - dummy",
     CONSOLE_START = "animation - console start",
     GAME_SNAKE = "animation - game snake",
+    GAME_TETRIS = "animation - game tetris",
     GAME_BOXER = "animation - game boxer",
 }
 
@@ -29,5 +31,6 @@ export const Animations = Object.freeze({
     emptyAnim,
     consoleStartInitial: new ConsoleStartAnimation(),
     snakeInitial: new SnakeAnimation(),
+    tetrisInitial: new TetrisAnimation(),
     boxerInitial: emptyAnim,
 });

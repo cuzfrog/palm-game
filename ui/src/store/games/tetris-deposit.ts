@@ -76,7 +76,7 @@ class _TetrisDeposit implements TetrisDeposit, TestTetrisDeposit {
 }
 
 const singleton: TetrisDeposit = new _TetrisDeposit(Specs.screen.graphicWidth, Specs.screen.graphicHeight + 4);
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "development") { // todo: remove block
   const s = singleton as TestTetrisDeposit;
   s._setLines(0);
   s._clear(Point(2, 0));
