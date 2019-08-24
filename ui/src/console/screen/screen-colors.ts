@@ -1,9 +1,12 @@
 import darken from "polished/lib/color/darken";
+import lighten from "polished/lib/color/lighten";
 
-const _backgroundColor = "#9ead86";
+const background = "#9ead86";
+const active = "#161616";
 
 export const ScreenColors = {
-    active: "#161616",
-    deactivated: darken(0.05, _backgroundColor),
-    background: _backgroundColor,
+  active,
+  activeLight: lighten(0.05, active),
+  deactivated: darken(0.05, background),
+  background,
 };

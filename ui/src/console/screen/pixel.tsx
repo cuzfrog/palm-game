@@ -20,6 +20,10 @@ const activeStyle = css`
     border-color: ${ScreenColors.active};
 `;
 
+const activeLightStyle = css`
+    background: ${ScreenColors.activeLight};
+`;
+
 const keyframe = keyframes`
   50% {
     ${activeStyle}
@@ -52,13 +56,13 @@ const Pixel: import("styled-components").StyledComponent<"td", any, Props> = sty
   width: ${props => props.size}px;
   height: ${props => props.size}px;
   ${props => props.size === 12 ? NormalStyle : undefined};
-  ${(props: Props) => getPixelStyle(props.value)};
+  ${(props: Props) => getPixelStyle(props.value, props.size)};
 `;
 
-function getPixelStyle(state: PixelState) {
+function getPixelStyle(state: PixelState, size: PixelSize) {
   switch (state) {
     case PixelState.ON:
-      return activeStyle;
+      return size === 12 ? activeStyle : activeLightStyle;
     case PixelState.OFF:
       return deactivatedStyle;
     case PixelState.TWINKLE:
