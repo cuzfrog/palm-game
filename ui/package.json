@@ -12,11 +12,19 @@
     "js-css",
     "styled-components",
     "snake",
+    "tetris",
     "game"
   ],
   "author": "Cause Chung <cuzfrog@gmail.com>",
   "license": "MIT",
   "repository": "https://github.com/cuzfrog/palm-game",
+  "scripts": {
+    "test": "jest --env=jsdom",
+    "test-coverage": "jest --env=jsdom --collect-coverage",
+    "start": "webpack-dev-server --config webpack/webpack.dev.js",
+    "build": "webpack --config webpack/webpack.prod.js",
+    "analyze": "webpack --config webpack/webpack.analysis.js"
+  },
   "dependencies": {
     "auto-bind": "^2.1.0",
     "immer": "^3.2.0",
@@ -32,13 +40,6 @@
     "reselect": "^4.0.0",
     "rxjs": "^6.5.2",
     "styled-components": "^4.3.2"
-  },
-  "scripts": {
-    "test": "jest --env=jsdom",
-    "test-coverage": "jest --env=jsdom --collect-coverage",
-    "start": "webpack-dev-server --config webpack/webpack.dev.js",
-    "build": "webpack --config webpack/webpack.prod.js",
-    "analyze": "webpack --config webpack/webpack.analysis.js"
   },
   "devDependencies": {
     "@types/auto-bind": "^2.1.0",
