@@ -8,23 +8,30 @@ A palm game console built on Typescript + React + RxJS.
 
 ## Todo list
 
-- [x] MVP
+- [x] Snake
+- [x] Tetris
 - [ ] more games
 - [ ] optimize on mobile client
 - [ ] better appearance
 
 ## Games
 
-* Change game: `select` or `J`
-* Start game: `start` or `K`
-* Increase level: `A`
-* Decrease level: `D`
-* Pause game: during game `start` or `K`
-* Quit game: when game paused `select` or `J` 2 times
+* Change game: `select` or <img src="./doc/keyboard/1.png" width="16" height="16">
+* Start game: `start` or <img src="./doc/keyboard/2.png" width="16" height="16">
+* Increase level: <img src="./doc/keyboard/A.png" width="16" height="16">
+* Decrease level: <img src="./doc/keyboard/D.png" width="16" height="16">
+* Pause game: during game `start` or <img src="./doc/keyboard/2.png" width="16" height="16">
+* Quit game: when game paused `select` or <img src="./doc/keyboard/1.png" width="16" height="16"> 2 times
+
+### Tetris
+
+* Move: <img src="./doc/keyboard/A.png" width="16" height="16"> <img src="./doc/keyboard/D.png" width="16" height="16"> <img src="./doc/keyboard/S.png" width="16" height="16">
+* Rotate: <img src="./doc/keyboard/J.png" width="16" height="16">
+* Hard drop: <img src="./doc/keyboard/K.png" width="16" height="16">
 
 ### Snake
 
-* Change direction: `A`, `W`, `S`, `D`
+* Change direction: <img src="./doc/keyboard/A.png" width="16" height="16"> <img src="./doc/keyboard/D.png" width="16" height="16"> <img src="./doc/keyboard/S.png" width="16" height="16"> <img src="./doc/keyboard/W.png" width="16" height="16">
 
 ## Build & Run
 

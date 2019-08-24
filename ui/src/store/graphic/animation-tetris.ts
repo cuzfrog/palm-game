@@ -17,10 +17,8 @@ const Y = Specs.tetrisGame.initialY;
 const TetrominoLayouts: ReadonlyArray<Layout> = Object.freeze([
   { t: "I", o: Orientation.RIGHT, x: X - 4, y: Y - 2 },
   { t: "L", o: Orientation.UP, x: X - 4, y: Y - 7 },
-  // { t: "J", o: Orientation.UP, x: X - 4, y: Y - 2 },
   { t: "T", o: Orientation.RIGHT, x: X + 2, y: Y - 7 },
   { t: "S", o: Orientation.RIGHT, x: X - 1, y: Y - 7 },
-  // { t: "Z", o: Orientation.RIGHT, x: X, y: Y },
   { t: "O", o: Orientation.UP, x: X + 2, y: Y - 3 },
 ]);
 
