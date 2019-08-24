@@ -3,6 +3,7 @@ import { Orientation, Point, rotateOrientation } from "src/domain";
 import { Specs } from "src/specs";
 import { randomInt } from "src/utils";
 import { TetrisDeposit } from "./tetris-deposit";
+import { createSelector } from "reselect";
 
 export interface Tetromino {
   moveLeft(): Tetromino;
@@ -11,14 +12,16 @@ export interface Tetromino {
   descend(): Tetromino;
   hardDrop(): Tetromino;
   render(): Set<Point>;
+  renderBase(): Set<Point>;
   shouldLock(): boolean;
   lockDown(): void;
 }
 export interface Tetromino {
+  width: number;
+  height: number;
   _x: number;
   _y: number;
   _orientation: Orientation;
-  width: number;
 }
 
 export type TetrominoType = "I" | "L" | "J" | "T" | "S" | "Z" | "O";
@@ -26,6 +29,7 @@ interface Base {
   readonly type: TetrominoType;
   readonly body: Set<Point>;
   readonly width: number;
+  readonly height: number;
 }
 const I = buildBase("I", Point(0, 0), Point(0, 1), Point(0, 2), Point(0, 3));
 const I_h = buildBase("I", Point(0, 0), Point(1, 0), Point(2, 0), Point(3, 0));
@@ -50,7 +54,9 @@ const O = buildBase("O", Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0));
 function buildBase(type: TetrominoType, ...points: Point[]): Base {
   const xs = points.map(p => p.x).sort();
   const width = xs[xs.length - 1] - xs[0] + 1;
-  return Object.freeze({ type, body: Set(points), width });
+  const ys = points.map(p => p.y).sort();
+  const height = ys[ys.length - 1] - ys[0] + 1;
+  return Object.freeze({ type, body: Set(points), width, height });
 }
 
 const Repo = Object.freeze({
@@ -63,6 +69,7 @@ const Repo = Object.freeze({
 /** Deposit buffer */
 const depo = TetrisDeposit.getInstance();
 const MAX_X = Specs.screen.graphicWidth - 1;
+/** Immutable */
 class _Tetromino implements Tetromino {
   private readonly body: Set<Point>;
   constructor(
@@ -108,6 +115,9 @@ class _Tetromino implements Tetromino {
   render(): Set<Point> {
     return this.body;
   }
+  renderBase() {
+    return this.base.body;
+  }
   shouldLock(): boolean {
     return this.y <= 0 || this.body.find(p => depo.check(p.x, p.y - 1)) !== undefined;
   }
@@ -127,6 +137,9 @@ class _Tetromino implements Tetromino {
   get width() {
     return this.base.width;
   }
+  get height() {
+    return this.base.height;
+  }
 }
 
 const DummyTetromino: Tetromino = Object.freeze({
@@ -136,12 +149,14 @@ const DummyTetromino: Tetromino = Object.freeze({
   descend() { return this; },
   hardDrop() { return this; },
   render() { return Set(); },
+  renderBase() { return Set(); },
   shouldLock() { return false; },
   lockDown: () => null,
   _x: -1,
   _y: -1,
   _orientation: Orientation.UP,
   width: -1,
+  height: -1
 });
 
 const probabilityEntries = Object.entries(Specs.tetrisGame.probability) as ReadonlyArray<[TetrominoType, number]>;
@@ -152,7 +167,7 @@ function randomTetromino(): Tetromino {
   for (const [k, v] of probabilityEntries) {
     n -= v;
     if (n <= 0) {
-      return createTetromino(k, Orientation.UP, Specs.tetrisGame.initialX, Specs.tetrisGame.initialY);
+      return memorisedCreateTetromino(k);
     }
   }
   throw Error("Assertion error: tetris PROBABILITY_TOP is invalid!");
@@ -161,6 +176,10 @@ function randomTetromino(): Tetromino {
 function createTetromino(type: TetrominoType, orientation: Orientation, x: number, y: number): Tetromino {
   return new _Tetromino(Repo[orientation][type], orientation, x, y);
 }
+const memorisedCreateTetromino = createSelector(
+  (type: TetrominoType) => type,
+  t => createTetromino(t, Orientation.UP, Specs.tetrisGame.initialX, Specs.tetrisGame.initialY)
+);
 
 export const Tetromino = Object.freeze({
   nextRandom: randomTetromino,

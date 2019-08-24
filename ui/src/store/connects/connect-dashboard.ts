@@ -3,6 +3,7 @@ import { GameType, Life, SystemStatus, PixelState } from "src/domain";
 import { Specs } from "src/specs";
 import { createSelector } from "reselect";
 import { Range } from "immutable";
+import { Graphic } from "../graphic";
 
 type P = import("src/console").DashboardProps;
 
@@ -11,19 +12,24 @@ const snakeLifeSelector = createSelector(
   life => ({ hp: life, maxHp: 10 })
 );
 
+const SmallFrame = Object.freeze({
+  allOff: Range(0, 8).map(() => PixelState.OFF).toList(),
+  allOn: Range(0, 8).map(() => PixelState.ON).toList(),
+});
+
 function mapStateToProps(state: AppState): P {
   let life: Life = Life.Minimal;
   let enemyLife: Life = Life.Minimal;
   let score = state.core.getScore();
   let count = state.core.getCount();
   let level = state.core.getLevel();
-  let smallFrame = Range(0, 8).map(() => PixelState.OFF).toList();
+  let smallFrame = SmallFrame.allOff;
   if (state.core.status === SystemStatus.STARTING) {
     life = Life.Full;
     enemyLife = Life.Full;
     score = all8digit(Specs.screen.scoreDigitMaxWidth);
     count = all8digit(Specs.screen.countDigitMaxWidth);
-    smallFrame = Range(0, 8).map(() => PixelState.ON).toList();
+    smallFrame = SmallFrame.allOn;
     level = 8;
   } else if (state.core.status === SystemStatus.IN_GAME) {
     switch (state.core.gameType) {
@@ -31,7 +37,7 @@ function mapStateToProps(state: AppState): P {
         life = snakeLifeSelector(state);
         break;
       case GameType.TETRIS:
-        // todo
+        smallFrame = Graphic.drawTetrisSmallMatrix(state.tetris.nextBlock);
         break;
       default:
         throw new TypeError(`Illegal game type:${state.core.gameType}`);

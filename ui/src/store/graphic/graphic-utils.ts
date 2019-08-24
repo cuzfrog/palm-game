@@ -1,4 +1,4 @@
-import { W, H } from "./graphic-types";
+import { W, H, sW, sH } from "./graphic-types";
 
 type Point = import("src/domain").Point;
 
@@ -7,11 +7,16 @@ export function toIndex1(p: Point): number {
   return p.y * W + p.x;
 }
 
-const maxY = H - 1;
+const MaxY = H - 1;
 /** Classic coordination */
 export function toIndex2(p: Point): number {
-  return p.x + (maxY - p.y) * W;
+  return p.x + (MaxY - p.y) * W;
 }
 export function xyToIndex2(x: number, y: number): number {
-  return x + (maxY - y) * W;
+  return x + (MaxY - y) * W;
+}
+
+const MaxYs = sH - 1;
+export function toIndex2s(p: Point): number {
+  return p.x + (MaxYs - p.y) * sW;
 }

@@ -10,7 +10,7 @@ function mapStateToProps(state: AppState): P {
     height: Specs.screen.graphicHeight,
     hasBorder: true,
     pixelSize: 12,
-    frame: Graphic.draw(state),
+    frame: Graphic.drawMatrix(state),
   };
 }
 

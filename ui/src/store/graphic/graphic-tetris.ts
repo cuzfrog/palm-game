@@ -1,6 +1,8 @@
 import { List } from "immutable";
+import { Specs } from "src/specs";
+import { Tetromino } from "../games";
 import { I, K, O } from "./graphic-types";
-import { toIndex2, xyToIndex2 } from "./graphic-utils";
+import { toIndex2, xyToIndex2, toIndex2s } from "./graphic-utils";
 
 export function tetrisGameFrame(state: TetrisGameState, buffer: Uint8Array): Frame {
   buffer.fill(O);
@@ -15,5 +17,14 @@ export function tetrisGameFrame(state: TetrisGameState, buffer: Uint8Array): Fra
     });
   });
   state.block.render().forEach(p => buffer[toIndex2(p)] = I);
+  return List(buffer);
+}
+
+export function tetrisSmallFrame(tetromino: Tetromino, buffer: Uint8Array): Frame {
+  buffer.fill(O);
+  const t = tetromino.height > Specs.screen.smallMatrixHeight ? tetromino.rotate() : tetromino;
+  console.log(t.renderBase());
+  t.renderBase().forEach(p => buffer[toIndex2s(p)] = I);
+  console.log(buffer);
   return List(buffer);
 }

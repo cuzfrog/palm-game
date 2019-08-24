@@ -1,11 +1,15 @@
 import { GameType, SystemStatus } from "src/domain";
-import { BLANK_FRAME, I, L, O, S } from "./graphic-types";
+import { BLANK_FRAME, I, L, O, S, sL } from "./graphic-types";
 import { snakeGameFrame } from "./graphic-snake";
-import { tetrisGameFrame } from "./graphic-tetris";
+import { tetrisGameFrame, tetrisSmallFrame } from "./graphic-tetris";
+import { createSelector } from "reselect";
+import { identity } from "src/utils";
+import { Tetromino } from "../games";
 
 const frameBuffer: Uint8Array = new Uint8Array(new ArrayBuffer(L));
+const smallFrameBuffer: Uint8Array = new Uint8Array(new ArrayBuffer(sL));
 
-function draw(state: AppState): Frame {
+function drawMatrix(state: AppState): Frame {
   let frame: Frame = BLANK_FRAME;
   switch (state.core.status) {
     case SystemStatus.STARTING:
@@ -34,6 +38,7 @@ function pauseIndication(frame: Frame): Frame {
   return frame.map(s => s === I ? S : O);
 }
 
-export const Graphic = {
-  draw
-};
+export const Graphic = Object.freeze({
+  drawMatrix,
+  drawTetrisSmallMatrix: createSelector(identity, (t: Tetromino) => tetrisSmallFrame(t, smallFrameBuffer)),
+});

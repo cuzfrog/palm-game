@@ -11,5 +11,5 @@ export enum GameType {
 }
 
 export const enum PixelState {
-  ON, OFF, TWINKLE, SPARK
+  OFF, ON, TWINKLE, BLINK
 }

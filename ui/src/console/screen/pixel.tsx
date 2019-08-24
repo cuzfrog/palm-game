@@ -59,7 +59,7 @@ function getPixelStyle(state: PixelState) {
       return deactivatedStyle;
     case PixelState.TWINKLE:
       return twinkleStyle;
-    case PixelState.SPARK:
+    case PixelState.BLINK:
       return sparkStle;
   }
 }
