@@ -6,7 +6,7 @@ import { TetrisDeposit } from "src/store/games/tetris-deposit";
 const depo = TetrisDeposit._new(10, 18);
 
 afterEach(() => {
-  depo._clear();
+  depo.clear();
 });
 
 describe("tetromino", () => {

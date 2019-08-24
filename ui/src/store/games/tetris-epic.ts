@@ -7,13 +7,21 @@ import { ActionType, CoreActions } from "../action";
 import { TetrisActions } from "../action/tetris-actions";
 import { heartbeatFunc } from "./common-epic";
 
+const exitGameEpic = (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
+  return action$.pipe(
+    ofType(ActionType.EXIT_GAME, ActionType.QUIT_GAME),
+    tap(() => state$.value.tetris.deposit.clear()),
+    filter(() => false),
+  );
+};
+
 function nextDescendAction(appState: AppState): TetrisAction {
   const s = appState.tetris;
   let a: TetrisAction;
   if (s.block.shouldLock()) {
     a = TetrisActions.lockDown();
   } else {
-    a = TetrisActions.descend();
+    a = TetrisActions.descend("auto");
   }
   return a;
 }
@@ -24,9 +32,9 @@ const descendEpic = heartbeatFunc(
   [ActionType.TETRIS_LINE_MARK_PAUSE],
   nextDescendAction);
 
-const descendCheckEpic = (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
+const manualDescendLockEpic = (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
   return action$.pipe(
-    ofType(ActionType.TETRIS_DESCEND),
+    filter(a => a.type === ActionType.TETRIS_DESCEND && a.payload === "manual"),
     filter(() => state$.value.tetris.block.shouldLock()),
     mapTo(TetrisActions.lockDown()),
   );
@@ -92,5 +100,6 @@ const scoreEpic = (action$: Observable<AppAction>) => {
 };
 
 export const tetrisEpic = Object.freeze({
-  epic: combineEpics(descendEpic, descendCheckEpic, hardDropEpic, lockDownEpic, lineMarkEpic, lineClearEpic, scoreEpic),
+  epic: combineEpics(exitGameEpic, descendEpic, hardDropEpic, lockDownEpic, manualDescendLockEpic,
+    lineMarkEpic, lineClearEpic, scoreEpic),
 });

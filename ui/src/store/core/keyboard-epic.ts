@@ -58,7 +58,7 @@ function mapToTetrisLayout(action: KeyboardAction): AppAction {
     case ActionType.RIGHT:
       return TetrisActions.move(1);
     case ActionType.DOWN:
-      return TetrisActions.descend();
+      return TetrisActions.descend("manual");
     case ActionType.LEFT:
       return TetrisActions.move(-1);
     case ActionType.A:

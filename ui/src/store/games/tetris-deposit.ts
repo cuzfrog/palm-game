@@ -12,13 +12,13 @@ export interface TetrisDeposit {
   /** Return Y-indices of lines that are full. */
   fullLines(): ReadonlyArray<number>;
   clearLines(ys: ReadonlyArray<number>, mode: ClearMode): void;
+  clear(...points: Point[]): void;
 }
 
 export interface TestTetrisDeposit extends TetrisDeposit {
   buffer: ReadonlyArray<Uint8Array>;
   _set(...points: Point[]): void;
   _setLines(...ys: number[]): void;
-  _clear(...points: Point[]): void;
   _with(point: Point, callback: () => void): void;
 }
 
@@ -64,14 +64,14 @@ class _TetrisDeposit implements TetrisDeposit, TestTetrisDeposit {
   _setLines(...ys: number[]) {
     ys.forEach(y => this.buffer[y].fill(1));
   }
-  _clear(...points: Point[]) {
+  clear(...points: Point[]) {
     if (points.length === 0) this.buffer.forEach(row => row.fill(0));
     else points.forEach(p => this.buffer[p.y][p.x] = 0);
   }
   _with(point: Point, callback: () => void) {
     this._set(point);
     callback();
-    this._clear();
+    this.clear();
   }
 }
 
@@ -79,7 +79,7 @@ const singleton: TetrisDeposit = new _TetrisDeposit(Specs.screen.graphicWidth, S
 if (process.env.NODE_ENV === "development") { // todo: remove block
   const s = singleton as TestTetrisDeposit;
   s._setLines(0);
-  s._clear(Point(2, 0));
+  s.clear(Point(2, 0));
 }
 
 export const TetrisDeposit = Object.freeze({

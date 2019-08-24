@@ -4,7 +4,7 @@ import { Point } from "src/domain";
 const depo = TetrisDeposit._new(3, 4);
 
 afterEach(() => {
-  depo._clear();
+  depo.clear();
 });
 
 describe("tetris-deposit", () => {
