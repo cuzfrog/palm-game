@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
-import { GameType, Life, SystemStatus } from "src/domain";
+import { GameType, Life, SystemStatus, PixelState } from "src/domain";
 import { Specs } from "src/specs";
 import { createSelector } from "reselect";
+import { Range } from "immutable";
 
 type P = import("src/console").DashboardProps;
 
@@ -16,11 +17,13 @@ function mapStateToProps(state: AppState): P {
   let score = state.core.getScore();
   let count = state.core.getCount();
   let level = state.core.getLevel();
+  let smallFrame = Range(0, 8).map(() => PixelState.OFF).toList();
   if (state.core.status === SystemStatus.STARTING) {
     life = Life.Full;
     enemyLife = Life.Full;
     score = all8digit(Specs.screen.scoreDigitMaxWidth);
     count = all8digit(Specs.screen.countDigitMaxWidth);
+    smallFrame = Range(0, 8).map(() => PixelState.ON).toList();
     level = 8;
   } else if (state.core.status === SystemStatus.IN_GAME) {
     switch (state.core.gameType) {
@@ -41,6 +44,7 @@ function mapStateToProps(state: AppState): P {
     level,
     life,
     enemyLife,
+    smallFrame,
     audioMuted: !state.core.audioEnabled,
   };
 }

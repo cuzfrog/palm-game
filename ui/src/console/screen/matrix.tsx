@@ -1,7 +1,6 @@
 import autoBind from "auto-bind";
 import { Range } from "immutable";
 import React from "react";
-import { Connects } from "src/store";
 import styled from "styled-components";
 import Pixel from "./pixel";
 
@@ -13,16 +12,17 @@ interface Style {
 export interface MatrixProps extends Style {
   readonly width: number;
   readonly height: number;
+  readonly pixelSize: import("./pixel").PixelSize;
   readonly frame: Frame;
 }
 
 const MatrixTable = styled.table`
-  width: ${(props: Style) => 23 * props.width}px;
+  width: ${(props: Style) => 22 * props.width + 10}px;
   ${(props: Style) => props.hasBorder ? "border:2px solid #000" : ""};
   padding:1px;
 `;
 
-class Matrix extends React.PureComponent<MatrixProps, {}> {
+export default class Matrix extends React.PureComponent<MatrixProps, {}> {
 
   constructor(props: Readonly<MatrixProps>) {
     super(props);
@@ -45,9 +45,7 @@ class Matrix extends React.PureComponent<MatrixProps, {}> {
     const colIdxBegin = rowIdx * this.props.width;
     const colIdxEndExclusive = colIdxBegin + this.props.width;
     return this.props.frame.toSeq().slice(colIdxBegin, colIdxEndExclusive).map((a, ci) => (
-      <Pixel value={a} key={ci} />
+      <Pixel value={a} key={ci} size={this.props.pixelSize} />
     ));
   }
 }
-
-export default Connects.connectToMatrix(Matrix);
