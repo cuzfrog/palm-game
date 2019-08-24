@@ -3,7 +3,7 @@ import { PixelState } from "src/domain";
 import styled, { css, keyframes } from "styled-components";
 import { ScreenColors } from "./screen-colors";
 
-export type PixelSize = 6 | 12;
+export type PixelSize = 8 | 12;
 
 interface Props {
   value: PixelState;
@@ -39,15 +39,19 @@ const animationCss = (dura: string) => css`
 const twinkleStyle = animationCss("1s");
 const sparkStle = animationCss("400ms");
 
+const NormalStyle = css`
+  padding: 2px;
+  border: 2px solid;
+  box-shadow: inset 0 0 0 2px ${ScreenColors.background};
+  background-clip: content-box;
+`;
+
 const Pixel: import("styled-components").StyledComponent<"td", any, Props> = styled.td`
   display: inline-block;
+  margin: 1px;
   width: ${props => props.size}px;
   height: ${props => props.size}px;
-  padding: ${props => props.size / 6}px;
-  border: ${props => props.size / 6}px solid;
-  box-shadow: inset 0 0 0 ${props => props.size > 6 ? 2 : 0}px ${ScreenColors.background};
-  margin: 1px;
-  background-clip: content-box;
+  ${props => props.size === 12 ? NormalStyle : undefined};
   ${(props: Props) => getPixelStyle(props.value)};
 `;
 

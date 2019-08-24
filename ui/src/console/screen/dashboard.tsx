@@ -98,7 +98,7 @@ class Dashboard extends React.PureComponent<DashboardProps, {}> {
 
         <SmallMatrixPanel isActive={this.props.smallFrame.includes(PixelState.ON)}>
           <p>Next</p>
-          <Matrix width={4} height={2} hasBorder={false} frame={this.props.smallFrame} pixelSize={6} />
+          <Matrix width={4} height={2} hasBorder={false} frame={this.props.smallFrame} pixelSize={8} />
         </SmallMatrixPanel>
         <MiscPanel>
           <VolumeMuteIcon activated={this.props.audioMuted} />

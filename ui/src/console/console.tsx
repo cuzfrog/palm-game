@@ -42,7 +42,6 @@ const UpperRect = styled.div`
 
 const ScreenRect = styled.div`
   width: 340px;
-  height: 418px;
   border: solid 5px;
   border-color: ${panelDark} ${panelBright} ${panelBright} ${panelDark};
   margin: 0 auto;

@@ -20,6 +20,7 @@ const MatrixTable = styled.table`
   width: ${(props: Style) => 22 * props.width + 10}px;
   ${(props: Style) => props.hasBorder ? "border:2px solid #000" : ""};
   padding:1px;
+  line-height: 1px;
 `;
 
 export default class Matrix extends React.PureComponent<MatrixProps, {}> {
