@@ -5,6 +5,7 @@ const rotate = createAction(ActionType.TETRIS_ROTATE);
 const hardDrop = createAction(ActionType.TETRIS_HARD_DROP);
 const lockDown = createAction(ActionType.TETRIS_LOCK_DOWN);
 const nextBlock = createAction(ActionType.TETRIS_NEXT_BLOCK);
+const overflow = createAction(ActionType.TETRIS_OVERFLOW);
 
 export const TetrisActions = Object.freeze({
   move: (x: number) => createActionWithPayload(ActionType.TETRIS_MOVE, x),
@@ -15,6 +16,7 @@ export const TetrisActions = Object.freeze({
   nextBlock: () => nextBlock,
   lineMarkPause: (ys: ReadonlyArray<number>) => createActionWithPayload(ActionType.TETRIS_LINE_MARK_PAUSE, ys),
   lineClear: (ys: ReadonlyArray<number>) => createActionWithPayload(ActionType.TETRIS_LINE_CLEAR, ys),
+  overflow: () => overflow,
 });
 
 export type TetrisAction = import("./types-utils").ActionUnion<typeof TetrisActions>;

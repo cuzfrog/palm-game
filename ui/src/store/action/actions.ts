@@ -41,7 +41,8 @@ export const enum ActionType {
     TETRIS_LOCK_DOWN = "[game tetris] lock down",
     TETRIS_NEXT_BLOCK = "[game tetris] next block",
     TETRIS_LINE_MARK_PAUSE = "[game tetris] line mark pause (pre-clear)",
-    TETRIS_LINE_CLEAR = "[game tetris] line clear"
+    TETRIS_LINE_CLEAR = "[game tetris] line clear",
+    TETRIS_OVERFLOW = "[game tetris] overflow",
 }
 
 const directionKeys = Object.freeze([ActionType.UP, ActionType.RIGHT, ActionType.DOWN, ActionType.LEFT]);

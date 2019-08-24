@@ -56,8 +56,12 @@ const lockDownEpic = (action$: Observable<AppAction>, state$: StateObservable<Ap
     mapTo(state$.value.tetris.deposit),
     map(depo => {
       const ys = depo.fullLines();
-      state$.value.tetris.deposit.clearLines(ys, "mark");
-      return (ys.length === 0) ? TetrisActions.nextBlock() : TetrisActions.lineMarkPause(ys);
+      if (ys.length === 0) {
+        return depo.isOverflow() ? TetrisActions.overflow() : TetrisActions.nextBlock();
+      } else {
+        depo.clearLines(ys, "mark");
+        return TetrisActions.lineMarkPause(ys);
+      }
     }),
   );
 };
@@ -99,7 +103,14 @@ const scoreEpic = (action$: Observable<AppAction>) => {
   );
 };
 
+const overflowEpic = (action$: Observable<AppAction>) => {
+  return action$.pipe(
+    ofType(ActionType.TETRIS_OVERFLOW),
+    mapTo(CoreActions.exitGame()),
+  );
+};
+
 export const tetrisEpic = Object.freeze({
   epic: combineEpics(exitGameEpic, descendEpic, hardDropEpic, lockDownEpic, manualDescendLockEpic,
-    lineMarkEpic, lineClearEpic, scoreEpic),
+    lineMarkEpic, lineClearEpic, scoreEpic, overflowEpic),
 });
