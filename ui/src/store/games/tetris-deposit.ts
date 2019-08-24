@@ -31,11 +31,11 @@ class _TetrisDeposit implements TetrisDeposit, TestTetrisDeposit {
 
   constructor(xCap: number, yCap: number) {
     this.yCap = yCap;
-    this.buffer = Array(yCap + 4).fill(0).map(() => new Uint8Array(new ArrayBuffer(xCap)).fill(0));
+    this.buffer = Array(yCap).fill(0).map(() => new Uint8Array(new ArrayBuffer(xCap)).fill(0));
   }
 
   check(x: number, y: number): boolean {
-    return this.buffer[y][x] > 0;
+    return y < this.yCap && this.buffer[y][x] > 0;
   }
   mark(x: number, y: number): void {
     if (y >= this.yCap) {

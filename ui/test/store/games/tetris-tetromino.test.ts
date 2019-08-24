@@ -10,10 +10,10 @@ afterEach(() => {
 });
 
 describe("tetromino", () => {
-  const I_v = Tetromino.new("I", Orientation.UP, 3, 15);
-  const I_h = Tetromino.new("I", Orientation.RIGHT, 7, 15);
-  const S = Tetromino.new("S", Orientation.UP, 5, 0);
-  const O = Tetromino.new("O", Orientation.UP, 0, 3);
+  const I_v = Tetromino.new("I", Orientation.UP, 3, 15, depo);
+  const I_h = Tetromino.new("I", Orientation.RIGHT, 7, 15, depo);
+  const S = Tetromino.new("S", Orientation.UP, 5, 0, depo);
+  const O = Tetromino.new("O", Orientation.UP, 0, 3, depo);
   it("move right", () => {
     expect(I_v.moveRight()._x).toBe(I_v._x + 1);
     expect(I_h.moveRight()._x).toBe(I_h._x);

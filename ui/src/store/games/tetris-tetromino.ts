@@ -66,13 +66,12 @@ const Repo = Object.freeze({
   [Orientation.DOWN]: { I, L: L_180, J: J_180, T: T_180, S, Z, O },
 });
 
-/** Deposit buffer */
-const depo = TetrisDeposit.getInstance();
 const MAX_X = Specs.screen.graphicWidth - 1;
 /** Immutable */
 class _Tetromino implements Tetromino {
   private readonly body: Set<Point>;
   constructor(
+    private readonly depo: TetrisDeposit,
     private readonly base: Base,
     private readonly orientation: Orientation,
     private readonly x: number,
@@ -83,34 +82,34 @@ class _Tetromino implements Tetromino {
   moveRight(): Tetromino {
     let moved: Tetromino;
     if ((this.x + this.width) > MAX_X) moved = this;
-    else if (this.body.find(p => depo.check(p.x + 1, p.y))) moved = this;
-    else moved = new _Tetromino(this.base, this.orientation, this.x + 1, this.y);
+    else if (this.body.find(p => this.depo.check(p.x + 1, p.y))) moved = this;
+    else moved = new _Tetromino(this.depo, this.base, this.orientation, this.x + 1, this.y);
     return moved;
   }
   moveLeft(): Tetromino {
     let moved: Tetromino;
     if (this.x <= 0) moved = this;
-    else if (this.body.find(p => depo.check(p.x - 1, p.y))) moved = this;
-    else moved = new _Tetromino(this.base, this.orientation, this.x - 1, this.y);
+    else if (this.body.find(p => this.depo.check(p.x - 1, p.y))) moved = this;
+    else moved = new _Tetromino(this.depo, this.base, this.orientation, this.x - 1, this.y);
     return moved;
   }
   rotate(): Tetromino {
     const o = rotateOrientation(this.orientation, 90);
     const base: Base = Repo[o][this.base.type];
     const offX = Math.max(this.x + base.width - MAX_X - 1, 0);
-    const moved = new _Tetromino(base, o, this.x - offX, this.y);
-    return moved.body.find(p => depo.check(p.x, p.y)) ? this : moved;
+    const moved = new _Tetromino(this.depo, base, o, this.x - offX, this.y);
+    return moved.body.find(p => this.depo.check(p.x, p.y)) ? this : moved;
   }
   descend(): _Tetromino {
-    return new _Tetromino(this.base, this.orientation, this.x, this.y - 1);
+    return new _Tetromino(this.depo, this.base, this.orientation, this.x, this.y - 1);
   }
   hardDrop(): Tetromino { // todo: optimize algorithm
     const xs = Range(this.x, this.x + this.base.width);
     const lowestBody = xs.map(x => this.body.toSeq().filter(p => p.x === x).minBy(p => p.y) as Point);
-    const depositYs = lowestBody.toSeq().map(p => depo.dropDistance(p)).toList();
+    const depositYs = lowestBody.toSeq().map(p => this.depo.dropDistance(p)).toList();
     const bodyYs = lowestBody.map(p => p.y);
     const minY = depositYs.zip(bodyYs).map(([dy, by]) => by - dy).min() as number;
-    return new _Tetromino(this.base, this.orientation, this.x, this.y - minY + 1);
+    return new _Tetromino(this.depo, this.base, this.orientation, this.x, this.y - minY + 1);
   }
   render(): Set<Point> {
     return this.body;
@@ -119,10 +118,10 @@ class _Tetromino implements Tetromino {
     return this.base.body;
   }
   shouldLock(): boolean {
-    return this.y <= 0 || this.body.find(p => depo.check(p.x, p.y - 1)) !== undefined;
+    return this.y <= 0 || this.body.find(p => this.depo.check(p.x, p.y - 1)) !== undefined;
   }
   lockDown(): void {
-    this.body.forEach(p => depo.mark(p.x, p.y));
+    this.body.forEach(p => this.depo.mark(p.x, p.y));
   }
 
   get _x(): number {
@@ -173,8 +172,12 @@ function randomTetromino(): Tetromino {
   throw Error("Assertion error: tetris PROBABILITY_TOP is invalid!");
 }
 
-function createTetromino(type: TetrominoType, orientation: Orientation, x: number, y: number): Tetromino {
-  return new _Tetromino(Repo[orientation][type], orientation, x, y);
+function createTetromino(type: TetrominoType,
+                         orientation: Orientation,
+                         x: number,
+                         y: number,
+                         depo: TetrisDeposit = TetrisDeposit.getInstance()): Tetromino {
+  return new _Tetromino(depo, Repo[orientation][type], orientation, x, y);
 }
 const memorisedCreateTetromino = createSelector(
   (type: TetrominoType) => type,
