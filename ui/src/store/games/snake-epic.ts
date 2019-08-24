@@ -1,6 +1,6 @@
 import { combineEpics, ofType } from "redux-observable";
-import { Observable, of } from "rxjs";
-import { delay, filter, map, mapTo, withLatestFrom, concatMap } from "rxjs/operators";
+import { Observable } from "rxjs";
+import { delay, filter, map, mapTo, withLatestFrom } from "rxjs/operators";
 import { Direction, Point, GameType } from "src/domain";
 import { Specs } from "src/specs";
 import { ActionType, SnakeActions } from "../action";
@@ -51,12 +51,12 @@ const scoreEpic = (action$: Observable<AppAction>, state$: Observable<AppState>)
   return action$.pipe(
     filter(a => (a.type === ActionType.SNAKE_CREEP && a.payload.grown) || a.type === ActionType.GAME_WIN),
     withLatestFrom(state$),
-    concatMap(([a, s]) => {
+    map(([a, s]) => {
       const level = s.core.getLevel();
       const bodyLength = s.snake.body.size;
       const winBonus = a.type === ActionType.GAME_WIN ? 3 : 1;
       const score = SCORE_BASE * bodyLength + SCORE_BASE * level;
-      return of(CoreActions.addScore(score * winBonus), CoreActions.addCount(1));
+      return CoreActions.addScore(score * winBonus, 1);
     }),
   );
 };

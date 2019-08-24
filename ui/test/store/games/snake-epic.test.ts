@@ -56,7 +56,7 @@ describe("score epic", () => {
       const action$ = cold("cggcgw|", { g: GROWN, c: CREEP, w: WIN });
       const state$ = cold("s", { s: defaultState });
       const epic = snakeEpic._scoreEpic(action$, state$);
-      expectObservable(epic).toBe("-aa-at|", { a: CoreActions.addScore(score), t: CoreActions.addScore(score * 3) });
+      expectObservable(epic).toBe("-aa-at|", { a: CoreActions.addScore(score, 1), t: CoreActions.addScore(score * 3, 1) });
     });
   });
 });

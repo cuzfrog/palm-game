@@ -12,10 +12,8 @@ export function coreReducer(state: CoreState = CoreState.Default, action: CoreAc
   return produce(state, draft => {
     switch (action.type) {
       case ActionType.ADD_SCORE:
-        draft.scores = state.scores.update(state.gameType, prev => add(prev, action.payload));
-        break;
-      case ActionType.ADD_COUNT:
-        draft.counts = state.counts.update(state.gameType, prev => add(prev, action.payload));
+        draft.scores = state.scores.update(state.gameType, prev => add(prev, action.payload.score));
+        draft.counts = state.counts.update(state.gameType, prev => add(prev, action.payload.count));
         break;
       case ActionType.INCREASE_LEVEL:
         const li = state.getLevel();

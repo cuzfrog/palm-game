@@ -95,10 +95,10 @@ const scoreEpic = (action$: Observable<AppAction>) => {
   const t = ActionType.TETRIS_LINE_CLEAR;
   return action$.pipe(
     ofType(t),
-    concatMap(a => {
+    map(a => {
       const lineCnt = a.type === t && a.payload.length || 0;
       const score = SCORE_BASE * Math.pow(lineCnt, 1.5);
-      return of(CoreActions.addScore(score), CoreActions.addCount(lineCnt));
+      return CoreActions.addScore(score, 1);
     }),
   );
 };
