@@ -45,6 +45,7 @@ export function coreReducer(state: CoreState = CoreState.Default, action: CoreAc
       case ActionType.ENTER_GAME:
         checkStrictEqual(state.status, SystemStatus.MENU, "can only enter game from menu.");
         draft.scores = state.scores.set(state.gameType, 0);
+        draft.counts = state.counts.set(state.gameType, 0);
         draft.anim = Animations.emptyAnim;
         draft.status = SystemStatus.IN_GAME;
         draft.gameStatus = GameStatus.RUNNING;

@@ -18,10 +18,6 @@ const DefaultSnakeGameState: SnakeGameState = Object.freeze({
     life: 3
 });
 
-export const SnakeGameState = Object.freeze({
-    Default: DefaultSnakeGameState
-});
-
 function initialBody(): List<Point> {
     const tailY = Specs.screen.graphicHeight - 2;
     const tailX = tailY - INITIAL_LENGTH;
@@ -29,3 +25,7 @@ function initialBody(): List<Point> {
         return Point(3, y);
     }).toList();
 }
+
+export const SnakeGameState = Object.freeze({
+  Default: DefaultSnakeGameState
+});
