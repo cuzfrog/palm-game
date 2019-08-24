@@ -28,6 +28,7 @@ const tetrisGame = Object.freeze({
   baseDescendIntervalMs: 1500,
   markClearPauseDurationMs: 400,
   baseScore: 5,
+  winFloorCountPerLevel: isProd ? 200 : 5,
 });
 
 const constants = Object.freeze({ screen, core, snakeGame, tetrisGame });

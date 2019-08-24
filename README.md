@@ -35,6 +35,7 @@ A palm game console built on Typescript + React + Redux + RxJS.
 
 ## Performance
 
+Prod build:
 * Snake - per frame <10ms 
 
 ## Build & Run
