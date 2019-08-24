@@ -31,11 +31,11 @@ export default class FuncKeys extends React.PureComponent<Props, {}> {
     return (
       <KeysContainer>
         <SelectKeyContainer>
-          <Button type={BtnType.FUNC} action={this.props.selectAction} throttleIntervalMs={300} keyboardCode={Key.J} />
+          <Button type={BtnType.FUNC} action={this.props.selectAction} throttleIntervalMs={300} keyboardCode={Key.One} />
           <p>Select</p>
         </SelectKeyContainer>
         <StartKeyContainer>
-          <Button type={BtnType.FUNC} action={this.props.startAction} throttleIntervalMs={300} keyboardCode={Key.K} />
+          <Button type={BtnType.FUNC} action={this.props.startAction} throttleIntervalMs={300} keyboardCode={Key.Two} />
           <p>Start</p>
         </StartKeyContainer>
       </KeysContainer>

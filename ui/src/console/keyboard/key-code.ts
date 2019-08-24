@@ -7,4 +7,6 @@ export const enum Key {
     K = "KeyK",
     BracketLeft = "BracketLeft",
     BracketRight = "BracketRight",
+    One = "Digit1",
+    Two = "Digit2"
 }
