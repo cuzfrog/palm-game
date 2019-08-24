@@ -23,8 +23,6 @@ export function tetrisGameFrame(state: TetrisGameState, buffer: Uint8Array): Fra
 export function tetrisSmallFrame(tetromino: Tetromino, buffer: Uint8Array): Frame {
   buffer.fill(O);
   const t = tetromino.height > Specs.screen.smallMatrixHeight ? tetromino.rotate() : tetromino;
-  console.log(t.renderBase());
   t.renderBase().forEach(p => buffer[toIndex2s(p)] = I);
-  console.log(buffer);
   return List(buffer);
 }

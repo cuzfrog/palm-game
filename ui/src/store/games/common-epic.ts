@@ -1,7 +1,6 @@
 import { GameStatus, GameType } from "src/domain";
 import { ActionType } from "../action";
 import { filter, withLatestFrom, map, switchMap, takeUntil } from "rxjs/operators";
-import { calculateInterval } from "src/utils";
 import { Observable, timer } from "rxjs";
 
 export function heartbeatFunc(gameType: GameType,
@@ -16,7 +15,7 @@ export function heartbeatFunc(gameType: GameType,
       map(([, s]) => s),
       filter(s => s.core.gameType === gameType),
       switchMap(state => {
-        const interval = calculateInterval(baseInterval, state.core.getLevel());
+        const interval = baseInterval - state.core.getLevel() * 100;
         return timer(interval, interval).pipe(
           takeUntil(action$.pipe(filter(a => a.type === ActionType.EXIT_GAME || stopActionTypes.includes(a.type)))),
           withLatestFrom(state$),

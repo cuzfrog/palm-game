@@ -1,6 +1,6 @@
 import { combineEpics, ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
-import { mapTo, tap, filter, map, delay, concatMap } from "rxjs/operators";
+import { mapTo, tap, filter, map, delay, concatMap, withLatestFrom } from "rxjs/operators";
 import { GameType } from "src/domain";
 import { Specs } from "src/specs";
 import { ActionType, CoreActions } from "../action";
@@ -32,7 +32,7 @@ const descendCheckEpic = (action$: Observable<AppAction>, state$: StateObservabl
   );
 };
 
-const hardDropEpic = (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
+const hardDropEpic = (action$: Observable<AppAction>) => {
   return action$.pipe(
     ofType(ActionType.TETRIS_HARD_DROP),
     /* state updated in reducer */
@@ -55,26 +55,31 @@ const lockDownEpic = (action$: Observable<AppAction>, state$: StateObservable<Ap
 };
 
 const LINE_CLEAR_PAUSE_DURATION = Specs.tetrisGame.markClearPauseDurationMs;
-const lineMarkEpic = (action$: Observable<AppAction>) => {
+const lineMarkEpic = (action$: Observable<AppAction>, state$: Observable<AppState>) => {
   const t = ActionType.TETRIS_LINE_MARK_PAUSE;
   return action$.pipe(
     ofType(t),
     delay(LINE_CLEAR_PAUSE_DURATION),
-    map(a => a.type === t && TetrisActions.lineClear(a.payload)),
+    map(a => a.type === t && a.payload || []),
+    withLatestFrom(state$),
+    concatMap(([lines, s]) => s.tetris.floorCount > Specs.tetrisGame.winFloorCountPerLevel ?
+      of(TetrisActions.lineClear(lines), CoreActions.win()) : of(TetrisActions.lineClear(lines))
+    ),
   );
 };
 
-const lineClearEpic = (action$: Observable<AppAction>, state$: StateObservable<AppState>) => {
+const lineClearEpic = (action$: Observable<AppAction>, state$: Observable<AppState>) => {
   const t = ActionType.TETRIS_LINE_CLEAR;
   return action$.pipe(
     ofType(t),
-    tap(a => a.type === t && state$.value.tetris.deposit.clearLines(a.payload, "clear")),
+    withLatestFrom(state$),
+    tap(([a, s]) => a.type === t && s.tetris.deposit.clearLines(a.payload, "clear")),
     mapTo(TetrisActions.nextBlock()),
   );
 };
 
 const SCORE_BASE = Specs.tetrisGame.baseScore;
-const scoreEpic = (action$: Observable<AppAction>, state$: Observable<AppState>) => {
+const scoreEpic = (action$: Observable<AppAction>) => {
   const t = ActionType.TETRIS_LINE_CLEAR;
   return action$.pipe(
     ofType(t),
