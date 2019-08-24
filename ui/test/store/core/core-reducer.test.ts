@@ -15,8 +15,9 @@ describe("system reducer", () => {
 
     it("add score to current game", () => {
         const stateWithScore = scoreLens.set(Map())(prevState);
-        const state = coreReducer(stateWithScore, CoreActions.addScore(500));
+        const state = coreReducer(stateWithScore, CoreActions.addScore(500, 3));
         expect(state.getScore()).toEqual(500);
+        expect(state.getCount()).toEqual(3);
     });
 
     it("increase level", () => {
