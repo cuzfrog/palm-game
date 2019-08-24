@@ -1,10 +1,10 @@
-import React from 'react';
-import { BtnType } from './button-styles';
-import Button from './action-button';
-import styled from 'styled-components';
-import KeysContainer from './keys-container';
-import { ButtonStyles } from './button-styles';
-import { Key } from './key-code';
+import React from "react";
+import { BtnType } from "./button-styles";
+import Button from "./action-button";
+import styled from "styled-components";
+import KeysContainer from "./keys-container";
+import { ButtonStyles } from "./button-styles";
+import { Key } from "./key-code";
 
 interface Props {
   upAction: () => void;

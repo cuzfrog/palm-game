@@ -1,10 +1,11 @@
-import { Map } from 'immutable';
-import { GameType, SystemStatus, GameStatus } from '../../domain';
-import { Anim, Animations } from '../graphic';
+import { Map } from "immutable";
+import { GameType, SystemStatus, GameStatus } from "src/domain";
+import { Anim, Animations } from "../graphic";
 
 export interface CoreState {
   readonly status: SystemStatus;
   readonly scores: Map<GameType, number>;
+  readonly counts: Map<GameType, number>;
   readonly maxScores: Map<GameType, number>;
   readonly level: Map<GameType, number>;
   readonly gameType: GameType;
@@ -14,15 +15,17 @@ export interface CoreState {
 
   getLevel(): number;
   getScore(): number;
+  getCount(): number;
   isPaused(): boolean;
 }
 
 const DefaultCoreState: CoreState = Object.freeze({
   status: SystemStatus.STARTING,
   scores: Map<GameType, number>(),
+  counts: Map<GameType, number>(),
   maxScores: Map<GameType, number>(),
-  level: Map([[GameType.SNAKE, 3], [GameType.BOXER, 3]]),
-  gameType: GameType.SNAKE,
+  level: Map([[GameType.SNAKE, 3], [GameType.TETRIS, 3]]),
+  gameType: GameType.TETRIS,
   gameStatus: GameStatus.STOPPED,
   anim: Animations.emptyAnim,
   audioEnabled: true,
@@ -31,6 +34,9 @@ const DefaultCoreState: CoreState = Object.freeze({
   },
   getScore(): number {
     return this.scores.get(this.gameType, 0);
+  },
+  getCount(): number {
+    return this.counts.get(this.gameType, 0);
   },
   isPaused,
 });

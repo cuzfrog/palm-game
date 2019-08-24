@@ -3,5 +3,5 @@ interface Letter {
     readonly width: number;
 }
 
-type PixelState = import('../../domain').PixelState;
-type Frame = import('immutable').List<PixelState>;
+type PixelState = import("src/domain").PixelState;
+type Frame = import("immutable").List<PixelState>;

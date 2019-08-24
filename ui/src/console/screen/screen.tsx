@@ -1,8 +1,9 @@
-import React from 'react';
-import Matrix from './matrix';
-import Dashboard from './dashboard';
-import styled from 'styled-components';
-import {ScreenColors} from './screen-colors';
+import React from "react";
+import Matrix from "./matrix";
+import Dashboard from "./dashboard";
+import styled from "styled-components";
+import {ScreenColors} from "./screen-colors";
+import { Connects } from "src/store";
 
 const ScreenWrapper = styled.div`
   flex: 100%;
@@ -12,11 +13,13 @@ const ScreenWrapper = styled.div`
   display: flex;
 `;
 
+const ConnectedMatrix = Connects.connectToMatrix(Matrix);
+
 export default class Screen extends React.PureComponent {
     public render() {
         return (
             <ScreenWrapper>
-                <Matrix/>
+                <ConnectedMatrix/>
                 <Dashboard/>
             </ScreenWrapper>
         );

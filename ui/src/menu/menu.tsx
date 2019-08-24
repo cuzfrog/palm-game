@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Connects } from '../store';
-import autoBind from 'auto-bind';
-import MenuIcon from './menu-icon';
-import { IconSvgPaths } from '../svg-path';
-import Info from './info';
+import React from "react";
+import styled from "styled-components";
+import { Connects } from "../store";
+import autoBind from "auto-bind";
+import MenuIcon from "./menu-icon";
+import { IconSvgPaths } from "../svg-path";
+import Info from "./info";
 
 export interface MenuStateProps {
   audioEnabled: boolean;
@@ -26,8 +26,8 @@ const Container = styled.div`
   flex-direction: column;
   position: fixed;
   z-index: 100;
-  width: ${(props: State) => props.infoExpanded ? '100%' : '0'};
-  height: ${(props: State) => props.infoExpanded ? '100%' : '0'};
+  width: ${(props: State) => props.infoExpanded ? "100%" : "0"};
+  height: ${(props: State) => props.infoExpanded ? "100%" : "0"};
   margin: 0;
   padding: 0;
   top:2px;
@@ -43,8 +43,9 @@ const IconContainer = styled.div`
   top:0;
 `;
 
-type Props = MenuStateProps & MenuActionProps;
+const repoUrl = process.env.REPOSITORY_URL as string;
 
+type Props = MenuStateProps & MenuActionProps;
 class Menu extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -57,7 +58,7 @@ class Menu extends React.PureComponent<Props, State> {
     return (
       <Container infoExpanded={this.state.infoExpanded} onClick={this.closeInfo}>
         <IconContainer>
-          <MenuIcon svgPath={IconSvgPaths.github} onClickHandler={this.openGithub} />
+          <a href={repoUrl} target={"_blank"}><MenuIcon svgPath={IconSvgPaths.github} /></a>
           <MenuIcon svgPath={audioSvnPath} onClickHandler={this.toggleAudio} size={22} />
           <MenuIcon svgPath={IconSvgPaths.question} onClickHandler={this.toggleInfo} />
         </IconContainer>
@@ -75,10 +76,6 @@ class Menu extends React.PureComponent<Props, State> {
     if (this.state.infoExpanded) {
       this.setState(DEFAULT_STATE);
     }
-  }
-
-  private openGithub() {
-    window.open('https://github.com/cuzfrog/palm-game');
   }
 
   private toggleAudio() {

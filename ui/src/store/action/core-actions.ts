@@ -1,5 +1,5 @@
-import { createAction, createActionWithPayload } from './types-utils';
-import { ActionType } from './actions';
+import { createAction, createActionWithPayload } from "./types-utils";
+import { ActionType } from "./actions";
 
 const soundEnable = createAction(ActionType.ENABLE_SOUND);
 const soundDisable = createAction(ActionType.DISABLE_SOUND);
@@ -13,12 +13,15 @@ const togglePause = createAction(ActionType.TOGGLE_PAUSE);
 const toggleGame = createAction(ActionType.TOGGLE_GAME);
 const dummyAction = createAction(ActionType.DUMMY_ACTION);
 
+const nextLevel = createAction(ActionType.GAME_NEXT_LEVEL);
+const win = createAction(ActionType.GAME_WIN);
+
 export const CoreActions = Object.freeze({
   soundEnable: () => soundEnable,
   soundDisable: () => soundDisable,
   consoleStart: () => consoleStart,
   consoleAnimate: () => consoleAnimate,
-  addScore: (score: number) => createActionWithPayload(ActionType.ADD_SCORE, score),
+  addScore: (score: number, count: number) => createActionWithPayload(ActionType.ADD_SCORE, { score, count }),
   increaseLevel: () => increaseLevel,
   decreaseLevel: () => decreaseLevel,
   enterGame: () => enterGame,
@@ -27,6 +30,9 @@ export const CoreActions = Object.freeze({
   toggleGame: () => toggleGame,
   quitGame: (confirm: boolean) => createActionWithPayload(ActionType.QUIT_GAME, confirm),
   dummy: () => dummyAction,
+
+  nextLevel: () => nextLevel,
+  win: () => win,
 });
 
-export type CoreAction = import('./types-utils').ActionUnion<typeof CoreActions>;
+export type CoreAction = import("./types-utils").ActionUnion<typeof CoreActions>;

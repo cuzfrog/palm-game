@@ -1,8 +1,8 @@
-import React from 'react';
-import {Specs} from '../../../specs';
-import styled from 'styled-components';
-import {ScreenColors} from '../screen-colors';
-import DigitFont from './sa-digital-number.ttf';
+import React from "react";
+import {Specs} from "src/specs";
+import styled from "styled-components";
+import {ScreenColors} from "../screen-colors";
+import DigitFont from "./sa-digital-number.ttf";
 
 interface Props {
     value: number;

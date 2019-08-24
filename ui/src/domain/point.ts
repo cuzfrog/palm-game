@@ -1,4 +1,4 @@
-type ValueObject = import('immutable').ValueObject;
+type ValueObject = import("immutable").ValueObject;
 
 export interface Point extends ValueObject {
     readonly x: number;

@@ -1,49 +1,52 @@
-import React from 'react';
-import Pixel from './pixel';
-import { Specs } from '../../specs';
-import { Connects } from '../../store';
-import styled from 'styled-components';
-import autoBind from 'auto-bind';
+import autoBind from "auto-bind";
+import { Range } from "immutable";
+import React from "react";
+import styled from "styled-components";
+import Pixel from "./pixel";
 
-const MATRIX_WIDTH = Specs.screen.graphicWidth;
-const MATRIX_HEIGHT = Specs.screen.graphicHeight;
-const ROWS_START_ARRAY: ReadonlyArray<number> = [...Array(MATRIX_HEIGHT).keys()];
+interface Style {
+  readonly width: number;
+  readonly hasBorder: boolean;
+}
 
-export interface MatrixProps {
+export interface MatrixProps extends Style {
+  readonly width: number;
+  readonly height: number;
+  readonly pixelSize: import("./pixel").PixelSize;
   readonly frame: Frame;
 }
 
 const MatrixTable = styled.table`
-  width: 230px;
-  border:2px solid #000;
+  width: ${(props: Style) => 22 * props.width + 10}px;
+  ${(props: Style) => props.hasBorder ? "border:2px solid #000" : ""};
   padding:1px;
+  line-height: 1px;
 `;
 
-class Matrix extends React.PureComponent<MatrixProps, {}> {
+export default class Matrix extends React.PureComponent<MatrixProps, {}> {
+
   constructor(props: Readonly<MatrixProps>) {
     super(props);
-    if (props.frame.size !== MATRIX_WIDTH * MATRIX_HEIGHT) {
-      throw RangeError(`Invalid size, width=${MATRIX_WIDTH}, height=${MATRIX_HEIGHT}, pixelCnt=${props.frame.size}`);
+    if (props.frame.size !== props.width * props.height) {
+      throw RangeError(`Invalid size, width=${props.width}, height=${props.height}, pixelCnt=${props.frame.size}`);
     }
     autoBind.react(this);
   }
 
   public render() {
-    const rows = ROWS_START_ARRAY.map(rowIdx => (<tr key={rowIdx}>{this.Row(rowIdx)}</tr>));
+    const rows = Range(0, this.props.height).map(rowIdx => (<tr key={rowIdx}>{this.Row(rowIdx)}</tr>));
     return (
-      <MatrixTable>
+      <MatrixTable width={this.props.width} hasBorder={this.props.hasBorder}>
         <tbody>{rows}</tbody>
       </MatrixTable>
     );
   }
 
   private Row(rowIdx: number) {
-    const colIdxBegin = rowIdx * MATRIX_WIDTH;
-    const colIdxEndExclusive = colIdxBegin + MATRIX_WIDTH;
+    const colIdxBegin = rowIdx * this.props.width;
+    const colIdxEndExclusive = colIdxBegin + this.props.width;
     return this.props.frame.toSeq().slice(colIdxBegin, colIdxEndExclusive).map((a, ci) => (
-      <Pixel value={a} key={ci} />
+      <Pixel value={a} key={ci} size={this.props.pixelSize} />
     ));
   }
 }
-
-export default Connects.connectToMatrix(Matrix);

@@ -4,27 +4,39 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/82590dbed2e848e9aecc381d7cf054fb)](https://www.codacy.com/app/cuzfrog1/palm-game?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=cuzfrog/palm-game&amp;utm_campaign=Badge_Grade)
 # palm-game
 
-A palm game console built on Typescript + React + RxJS.
+A palm game console built on Typescript + React + Redux + RxJS.
 
 ## Todo list
 
-- [x] MVP
+- [x] Snake
+- [x] Tetris
 - [ ] more games
 - [ ] optimize on mobile client
-- [ ] better appearance
+- [ ] better appearance/css
 
 ## Games
 
-* Change game: `select` or `J`
-* Start game: `start` or `K`
-* Increase level: `A`
-* Decrease level: `D`
-* Pause game: during game `start` or `K`
-* Quit game: when game paused `select` or `J` 2 times
+* Change game: `select` or <img src="./doc/keyboard/1.png" width="16" height="16">
+* Start game: `start` or <img src="./doc/keyboard/2.png" width="16" height="16">
+* Increase level: <img src="./doc/keyboard/A.png" width="16" height="16">
+* Decrease level: <img src="./doc/keyboard/D.png" width="16" height="16">
+* Pause game: during game `start` or <img src="./doc/keyboard/2.png" width="16" height="16">
+* Quit game: when game paused `select` or <img src="./doc/keyboard/1.png" width="16" height="16"> 2 times
+
+### Tetris
+
+* Move: <img src="./doc/keyboard/A.png" width="16" height="16"> <img src="./doc/keyboard/D.png" width="16" height="16"> <img src="./doc/keyboard/S.png" width="16" height="16">
+* Rotate: <img src="./doc/keyboard/J.png" width="16" height="16">
+* Hard drop: <img src="./doc/keyboard/K.png" width="16" height="16">
 
 ### Snake
 
-* Change direction: `A`, `W`, `S`, `D`
+* Change direction: <img src="./doc/keyboard/A.png" width="16" height="16"> <img src="./doc/keyboard/D.png" width="16" height="16"> <img src="./doc/keyboard/S.png" width="16" height="16"> <img src="./doc/keyboard/W.png" width="16" height="16">
+
+## Performance
+
+Prod build:
+* Snake - per frame <10ms 
 
 ## Build & Run
 

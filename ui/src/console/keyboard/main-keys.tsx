@@ -1,9 +1,9 @@
-import React from 'react';
-import Button from './action-button';
-import { BtnType } from './button-styles';
-import styled from 'styled-components';
-import KeysContainer from './keys-container';
-import { Key } from './key-code';
+import React from "react";
+import Button from "./action-button";
+import { BtnType } from "./button-styles";
+import styled from "styled-components";
+import KeysContainer from "./keys-container";
+import { Key } from "./key-code";
 
 interface Props {
   actionA: () => void;
@@ -24,19 +24,19 @@ class MainKeys extends React.PureComponent<Props, {}> {
         <KeyAContainer>
           <Button
             type={BtnType.MAIN}
-            caption={'A'}
+            caption={"A"}
             action={this.props.actionA}
-            throttleIntervalMs={200}
-            keyboardCode={Key.BracketLeft}
+            throttleIntervalMs={100}
+            keyboardCode={Key.K}
           />
         </KeyAContainer>
         <KeyBContainer>
           <Button
             type={BtnType.MAIN}
-            caption={'B'}
+            caption={"B"}
             action={this.props.actionB}
-            throttleIntervalMs={200}
-            keyboardCode={Key.BracketRight}
+            throttleIntervalMs={100}
+            keyboardCode={Key.J}
           />
         </KeyBContainer>
       </KeysContainer>

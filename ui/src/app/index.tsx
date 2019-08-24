@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './app';
-import { Provider } from 'react-redux';
-import { store, initiateConsole } from '../store';
-import { createGlobalStyle } from 'styled-components';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./app";
+import { Provider } from "react-redux";
+import { store, initiateConsole } from "../store";
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -18,6 +18,6 @@ const GlobalStyle = createGlobalStyle`
 
 ReactDOM.render(
   <Provider store={store}><GlobalStyle /><App /></Provider>,
-  (document.getElementById('root') as HTMLElement)
+  (document.getElementById("root") as HTMLElement)
 );
 initiateConsole();

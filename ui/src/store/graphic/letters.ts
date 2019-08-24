@@ -1,5 +1,5 @@
 const A = {
-    value: `
+  value: `
 III
 I I
 III
@@ -9,7 +9,7 @@ I I
 };
 
 const E = {
-    value: `
+  value: `
 III
 I
 III
@@ -18,8 +18,18 @@ III
 `, width: 3
 };
 
+const I = {
+  value: `
+I
+I
+I
+I
+I
+`, width: 1
+};
+
 const N = {
-    value: `
+  value: `
 I  I
 II I
 IIII
@@ -29,7 +39,7 @@ I  I
 };
 
 const K = {
-    value: `
+  value: `
 I  I
 I I
 II
@@ -48,18 +58,18 @@ I  I
 // `, width: 3
 // };
 
-// const R = {
-//     value: `
-// III
-// I I
-// III
-// II
-// I I
-// `, width: 3
-// };
+const R = {
+  value: `
+III
+I I
+III
+II
+I I
+`, width: 3
+};
 
 const S = {
-    value: `
+  value: `
 III
 I
 III
@@ -68,18 +78,18 @@ III
 `, width: 3
 };
 
-// const T = {
-//     value: `
-// III
-//  I
-//  I
-//  I
-//  I
-// `, width: 3
-// };
+const T = {
+  value: `
+III
+ I
+ I
+ I
+ I
+`, width: 3
+};
 
 const SPACE = {
-    value: `
+  value: `
 O
 O
 O
@@ -91,14 +101,15 @@ O
 const SPACE8 = spaceN(8);
 
 function spaceN(n: number) {
-    return {
-        value: SPACE.value.split(/\n/g).map(l => l.repeat(n)).join('\n'),
-        width: n
-    };
+  return {
+    value: SPACE.value.split(/\n/g).map(l => l.repeat(n)).join("\n"),
+    width: n
+  };
 }
 
 const SNAKE: ReadonlyArray<Letter> = [SPACE8, S, N, A, K, E, SPACE8];
+const TETRIS: ReadonlyArray<Letter> = [SPACE8, T, E, R, E, T, R, I, S, SPACE8];
 
 export const Letters = Object.freeze({
-    SNAKE
+  SNAKE, TETRIS
 });

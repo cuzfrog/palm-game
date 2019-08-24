@@ -1,8 +1,8 @@
 export const enum Direction {
-    NORTH = 'NORTH',
-    EAST = 'EAST',
-    SOUTH = 'SOUTH',
-    WEST = 'WEST'
+    NORTH = "NORTH",
+    EAST = "EAST",
+    SOUTH = "SOUTH",
+    WEST = "WEST"
 }
 
 export function isOppositeDirection(d1: Direction, d2: Direction): boolean {
@@ -16,6 +16,6 @@ export function isOppositeDirection(d1: Direction, d2: Direction): boolean {
         case Direction.WEST:
             return d2 === Direction.WEST;
         default:
-            throw new TypeError('UnknownDirection:' + d1);
+            throw new TypeError("UnknownDirection:" + d1);
     }
 }

@@ -1,7 +1,7 @@
-import React from 'react';
-import Console from '../console';
-import Menu from '../menu/menu';
-import styled from 'styled-components';
+import React from "react";
+import Console from "../console";
+import Menu from "../menu/menu";
+import styled from "styled-components";
 
 const StyledAppWrapper = styled.div`
   text-align: center;

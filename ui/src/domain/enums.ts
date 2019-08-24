@@ -1,15 +1,15 @@
 export const enum SystemStatus {
-  STARTING = 'STARTING', MENU = 'MENU', IN_GAME = 'IN_GAME'
+  STARTING = "STARTING", MENU = "MENU", IN_GAME = "IN_GAME"
 }
 
 export const enum GameStatus {
-  STOPPED = 'stopped', RUNNING = 'running', PAUSED = 'paused', TO_QUIT = 'to_quit'
+  STOPPED = "stopped", RUNNING = "running", PAUSED = "paused", TO_QUIT = "to_quit"
 }
 
 export enum GameType {
-  SNAKE = 'snake', BOXER = 'boxer'
+  SNAKE = "snake", TETRIS = "tetris"
 }
 
 export const enum PixelState {
-  ON, OFF, TWINKLE
+  OFF, ON, TWINKLE, BLINK
 }

@@ -17,7 +17,7 @@
     ]
   },
   "rules": {
-    "quotemark": [true,"single"],
+    "quotemark": [true,"double"],
     "trailing-comma": [false],
     "object-literal-sort-keys": false,
     "ordered-imports": false,
@@ -33,6 +33,9 @@
     "variable-name": false,
     "interface-over-type-literal": false,
     "member-access": false,
-    "jsx-alignment": false
+    "jsx-alignment": false,
+    "curly": false,
+    "one-variable-per-declaration": false,
+    "member-ordering": false
   }
 }

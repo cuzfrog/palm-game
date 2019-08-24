@@ -1,9 +1,10 @@
-import { Observable } from 'rxjs';
-import { ofType, StateObservable } from 'redux-observable';
-import { filter, map } from 'rxjs/operators';
-import { Direction, GameType, SystemStatus, GameStatus } from '../../domain';
-import { ActionType, SnakeActions } from '../action';
-import { CoreActions } from '../core';
+import { Observable } from "rxjs";
+import { ofType, StateObservable } from "redux-observable";
+import { filter, map } from "rxjs/operators";
+import { Direction, GameType, SystemStatus, GameStatus } from "src/domain";
+import { ActionType, SnakeActions } from "../action";
+import { CoreActions } from "../core";
+import { TetrisActions } from "../action/tetris-actions";
 
 function dummyLayout(): AppAction {
   return CoreActions.dummy();
@@ -37,8 +38,6 @@ function mapToPausedLayout(action: KeyboardAction, state: CoreState): AppAction 
 
 function mapToSnakeLayout(action: KeyboardAction): AppAction {
   switch (action.type) {
-    case ActionType.START:
-      return CoreActions.togglePause();
     case ActionType.UP:
       return SnakeActions.setDirection(Direction.NORTH);
     case ActionType.RIGHT:
@@ -47,6 +46,27 @@ function mapToSnakeLayout(action: KeyboardAction): AppAction {
       return SnakeActions.setDirection(Direction.SOUTH);
     case ActionType.LEFT:
       return SnakeActions.setDirection(Direction.WEST);
+    case ActionType.START:
+      return CoreActions.togglePause();
+    default:
+      return CoreActions.dummy();
+  }
+}
+
+function mapToTetrisLayout(action: KeyboardAction): AppAction {
+  switch (action.type) {
+    case ActionType.RIGHT:
+      return TetrisActions.move(1);
+    case ActionType.DOWN:
+      return TetrisActions.descend("manual");
+    case ActionType.LEFT:
+      return TetrisActions.move(-1);
+    case ActionType.A:
+      return TetrisActions.hardDrop();
+    case ActionType.B:
+      return TetrisActions.rotate();
+    case ActionType.START:
+      return CoreActions.togglePause();
     default:
       return CoreActions.dummy();
   }
@@ -61,7 +81,7 @@ function chooseKeyboardLayout(state: CoreState): (action: AppAction, state: Core
   } else if (state.status === SystemStatus.IN_GAME) {
     keyboard = state.isPaused() ? mapToPausedLayout : getGameKeyboard(state.gameType);
   } else {
-    throw new TypeError('Unknown system status:' + state.status);
+    throw new TypeError("Unknown system status:" + state.status);
   }
   return keyboard;
 }
@@ -70,8 +90,10 @@ function getGameKeyboard(gameType: GameType): (action: AppAction) => AppAction {
   switch (gameType) {
     case GameType.SNAKE:
       return mapToSnakeLayout;
+    case GameType.TETRIS:
+      return mapToTetrisLayout;
     default:
-      throw new TypeError('Unknown enum type:' + gameType);
+      throw new TypeError("Unknown enum type:" + gameType);
   }
 }
 
