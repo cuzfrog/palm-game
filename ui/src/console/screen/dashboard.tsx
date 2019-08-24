@@ -8,11 +8,13 @@ import styled from "styled-components";
 import {ScreenColors} from "./screen-colors";
 
 const SCORE_WIDTH = 7;
+const COUNT_WIDTH = 5;
 const LEVEL_WIDTH = 1;
 const LIFE_HEART_COUNT = 10;
 
 export interface DashboardProps {
     readonly score: number;
+    readonly count: number;
     readonly level: number;
     readonly life: Life;
     readonly enemyLife: Life;
@@ -39,17 +41,14 @@ const DashboardWrapper = styled.div`
   }
 `;
 
-const ScorePanel = styled.div`
+const Panel = styled.div`
   margin-top: 10px;
-`;
-
-const LevelPanel = styled.div`
-  margin-top: 40px;
+  margin-bottom: 10px;
 `;
 
 const LifePanel = styled.div`
   width: ${lifeWidth}px;
-  margin-top: 40px;
+  margin-top: 10px;
   margin-left: ${indiWidth - lifeWidth}px;
   color: ${(props: PanelProps) => props.isActive ? ScreenColors.active : ScreenColors.deactivated};
   > div {
@@ -68,14 +67,18 @@ class Dashboard extends React.PureComponent<DashboardProps, {}> {
 
         return (
             <DashboardWrapper>
-                <ScorePanel>
+                <Panel>
                     <p>Scores</p>
                     <Digit value={this.props.score} width={SCORE_WIDTH} fontSize={FontSize.NORMAL}/>
-                </ScorePanel>
-                <LevelPanel>
+                </Panel>
+                <Panel>
+                    <p>Counts</p>
+                    <Digit value={this.props.count} width={COUNT_WIDTH} fontSize={FontSize.NORMAL}/>
+                </Panel>
+                <Panel>
                     <p>Level</p>
                     <Digit value={this.props.level} width={LEVEL_WIDTH} fontSize={FontSize.LARGE}/>
-                </LevelPanel>
+                </Panel>
 
                 <LifePanel isActive={enemyLife.maxHp > 0}>
                     <p>Enemy</p>

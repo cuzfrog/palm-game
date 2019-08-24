@@ -14,11 +14,13 @@ function mapStateToProps(state: AppState): P {
   let life: Life = Life.Minimal;
   let enemyLife: Life = Life.Minimal;
   let score = state.core.getScore();
+  let count = state.core.getCount();
   let level = state.core.getLevel();
   if (state.core.status === SystemStatus.STARTING) {
     life = Life.Full;
     enemyLife = Life.Full;
     score = all8digit(Specs.screen.scoreDigitMaxWidth);
+    count = all8digit(Specs.screen.countDigitMaxWidth);
     level = 8;
   } else if (state.core.status === SystemStatus.IN_GAME) {
     switch (state.core.gameType) {
@@ -35,6 +37,7 @@ function mapStateToProps(state: AppState): P {
 
   return {
     score,
+    count,
     level,
     life,
     enemyLife,

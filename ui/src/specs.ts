@@ -4,6 +4,7 @@ const screen = Object.freeze({
   graphicWidth: 10,
   graphicHeight: 16,
   scoreDigitMaxWidth: 8,
+  countDigitMaxWidth: 5,
 });
 
 const core = Object.freeze({
