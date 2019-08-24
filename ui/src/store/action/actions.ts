@@ -26,6 +26,7 @@ export const enum ActionType {
     INCREASE_LEVEL = "[game] increase level",
     DECREASE_LEVEL = "[game] decrease level",
     ADD_SCORE = "[game] add score",
+    ADD_COUNT = "[game] add count",
     SET_DIRECTION = "[game] set direction",
 
     SNAKE_CREEP = "[game snake] creep",

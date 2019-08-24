@@ -1,9 +1,9 @@
 import { combineEpics, ofType, StateObservable } from "redux-observable";
-import { Observable } from "rxjs";
-import { mapTo, tap, filter, map, delay } from "rxjs/operators";
+import { Observable, of } from "rxjs";
+import { mapTo, tap, filter, map, delay, concatMap } from "rxjs/operators";
 import { GameType } from "src/domain";
 import { Specs } from "src/specs";
-import { ActionType } from "../action";
+import { ActionType, CoreActions } from "../action";
 import { TetrisActions } from "../action/tetris-actions";
 import { heartbeatFunc } from "./common-epic";
 
@@ -73,6 +73,19 @@ const lineClearEpic = (action$: Observable<AppAction>, state$: StateObservable<A
   );
 };
 
+const SCORE_BASE = Specs.tetrisGame.baseScore;
+const scoreEpic = (action$: Observable<AppAction>, state$: Observable<AppState>) => {
+  const t = ActionType.TETRIS_LINE_CLEAR;
+  return action$.pipe(
+    ofType(t),
+    concatMap(a => {
+      const lineCnt = a.type === t && a.payload.length || 0;
+      const score = SCORE_BASE * Math.pow(lineCnt, 1.5);
+      return of(CoreActions.addScore(score), CoreActions.addCount(lineCnt));
+    }),
+  );
+};
+
 export const tetrisEpic = Object.freeze({
-  epic: combineEpics(descendEpic, descendCheckEpic, hardDropEpic, lockDownEpic, lineMarkEpic, lineClearEpic),
+  epic: combineEpics(descendEpic, descendCheckEpic, hardDropEpic, lockDownEpic, lineMarkEpic, lineClearEpic, scoreEpic),
 });

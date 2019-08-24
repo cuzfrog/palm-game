@@ -12,7 +12,10 @@ export function coreReducer(state: CoreState = CoreState.Default, action: CoreAc
   return produce(state, draft => {
     switch (action.type) {
       case ActionType.ADD_SCORE:
-        draft.scores = state.scores.update(state.gameType, prevScore => scoreUpdater(prevScore, action.payload));
+        draft.scores = state.scores.update(state.gameType, prev => add(prev, action.payload));
+        break;
+      case ActionType.ADD_COUNT:
+        draft.counts = state.counts.update(state.gameType, prev => add(prev, action.payload));
         break;
       case ActionType.INCREASE_LEVEL:
         const li = state.getLevel();
@@ -70,9 +73,9 @@ export function coreReducer(state: CoreState = CoreState.Default, action: CoreAc
   );
 }
 
-function scoreUpdater(prevScore: number | undefined, payload: number): number {
+function add(prevScore: number | undefined, payload: number): number {
   const base = prevScore ? prevScore : 0;
-  return base + payload;
+  return base + Math.round(payload);
 }
 
 function maxFunc(s1: number | undefined, s2: number | undefined) {

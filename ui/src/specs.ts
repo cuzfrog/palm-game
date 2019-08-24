@@ -3,8 +3,8 @@ const isProd = process.env.NODE_ENV === "production";
 const screen = Object.freeze({
   graphicWidth: 10,
   graphicHeight: 16,
-  scoreDigitMaxWidth: 8,
-  countDigitMaxWidth: 5,
+  scoreDigitMaxWidth: 7,
+  countDigitMaxWidth: 4,
 });
 
 const core = Object.freeze({
@@ -25,8 +25,9 @@ const tetrisGame = Object.freeze({
   },
   initialX: screen.graphicWidth / 2,
   initialY: screen.graphicHeight - 1,
-  baseDescendIntervalMs: 1000,
+  baseDescendIntervalMs: 1500,
   markClearPauseDurationMs: 400,
+  baseScore: 5,
 });
 
 const constants = Object.freeze({ screen, core, snakeGame, tetrisGame });

@@ -6,9 +6,10 @@ import {Connects} from "src/store";
 import {VolumeMuteIcon} from "./icon/volume-mute-icon";
 import styled from "styled-components";
 import {ScreenColors} from "./screen-colors";
+import { Specs } from "src/specs";
 
-const SCORE_WIDTH = 7;
-const COUNT_WIDTH = 5;
+const SCORE_WIDTH = Specs.screen.scoreDigitMaxWidth;
+const COUNT_WIDTH = Specs.screen.countDigitMaxWidth;
 const LEVEL_WIDTH = 1;
 const LIFE_HEART_COUNT = 10;
 
