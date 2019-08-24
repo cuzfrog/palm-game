@@ -43,8 +43,9 @@ const IconContainer = styled.div`
   top:0;
 `;
 
-type Props = MenuStateProps & MenuActionProps;
+const repoUrl = process.env.REPOSITORY_URL as string;
 
+type Props = MenuStateProps & MenuActionProps;
 class Menu extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -57,7 +58,7 @@ class Menu extends React.PureComponent<Props, State> {
     return (
       <Container infoExpanded={this.state.infoExpanded} onClick={this.closeInfo}>
         <IconContainer>
-          <MenuIcon svgPath={IconSvgPaths.github} onClickHandler={this.openGithub} />
+          <a href={repoUrl} target={"_blank"}><MenuIcon svgPath={IconSvgPaths.github} /></a>
           <MenuIcon svgPath={audioSvnPath} onClickHandler={this.toggleAudio} size={22} />
           <MenuIcon svgPath={IconSvgPaths.question} onClickHandler={this.toggleInfo} />
         </IconContainer>
@@ -75,10 +76,6 @@ class Menu extends React.PureComponent<Props, State> {
     if (this.state.infoExpanded) {
       this.setState(DEFAULT_STATE);
     }
-  }
-
-  private openGithub() {
-    window.open("https://github.com/cuzfrog/palm-game");
   }
 
   private toggleAudio() {

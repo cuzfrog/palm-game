@@ -9,7 +9,7 @@ interface StyleProps {
 
 interface Props {
   svgPath: string;
-  onClickHandler: () => void;
+  onClickHandler?: () => void;
 }
 
 const StyledSvg = styled.svg`

@@ -42,7 +42,8 @@ const config = {
     new IgnoreNotFoundExportPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        PACKAGE_VERSION: JSON.stringify(packageJson.version)
+        PACKAGE_VERSION: JSON.stringify(packageJson.version),
+        REPOSITORY_URL: JSON.stringify(packageJson.repository),
       }
     }),
     new HtmlWebpackPlugin({
