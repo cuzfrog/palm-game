@@ -108,7 +108,7 @@ function spaceN(n: number) {
 }
 
 const SNAKE: ReadonlyArray<Letter> = [SPACE8, S, N, A, K, E, SPACE8];
-const TETRIS: ReadonlyArray<Letter> = [SPACE8, T, R, E, T, R, I, S, SPACE8];
+const TETRIS: ReadonlyArray<Letter> = [SPACE8, T, E, R, E, T, R, I, S, SPACE8];
 
 export const Letters = Object.freeze({
   SNAKE, TETRIS

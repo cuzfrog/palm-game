@@ -23,7 +23,6 @@ const TetrominoLayouts: ReadonlyArray<Layout> = Object.freeze([
 ]);
 
 class TetrisAnimation implements Anim {
-  private rendered: boolean = false;
   isCompleted(): boolean {
     return false;
   }
@@ -31,12 +30,11 @@ class TetrisAnimation implements Anim {
     return new TetrisAnimation();
   }
   currentFrame(frameBuffer: Uint8Array): Frame {
-    if (!this.rendered) {
+    if (this === InitialTetrisAnimation) {
       frameBuffer.fill(O);
       TetrominoLayouts.map(l => Tetromino.new(l.t, l.o, l.x, l.y)).forEach(t => {
         t.render().forEach(p => frameBuffer[toIndex2(p)] = I);
       });
-      this.rendered = true;
     }
     BackgroundAnims.tetris.setBackgroundFrame(frameBuffer, WORDS_OFFSET);
     return List(frameBuffer);
