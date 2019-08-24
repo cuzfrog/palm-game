@@ -9,7 +9,9 @@ export const SoundEffects = Object.freeze({
     sfxPauseOut: new Audio("audio/sfx_core_pause_out.mp3"),
     sfxSnakeEatBean: new Audio("audio/sfx_snake_eat_bean.mp3"),
     sfxSnakeDamage: new Audio("audio/sfx_snake_damage.mp3"),
-    sfxSnakeEscape: new Audio("audio/sfx_snake_escape.mp3")
+    sfxSnakeEscape: new Audio("audio/sfx_snake_escape.mp3"),
+    sfxTetrisLockdown: new Audio("audio/sfx_tetris_lockdown2.mp3"),
+    sfxTetrisLineclear: new Audio("audio/sfx_tetris_lineclear.mp3"),
 });
 
 type ActionType = import("../action").ActionType;
@@ -17,7 +19,7 @@ type SO = import("redux-observable").StateObservable<AppState>;
 type O = import("rxjs").Observable<AppAction>;
 
 export function createAudioEpic(audio: HTMLAudioElement,
-                                actionFilter: Predicate<AppAction> | ActionType[],
+                                actionFilter: Predicate<AppAction> | ReadonlyArray<ActionType>,
                                 statePredicate: Predicate<AppState> = () => true) {
     const actionFilterOp = typeof actionFilter === "function" ?
         filter(actionFilter) : filter((a: AppAction) => actionFilter.includes(a.type));
