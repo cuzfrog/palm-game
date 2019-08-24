@@ -4,7 +4,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/82590dbed2e848e9aecc381d7cf054fb)](https://www.codacy.com/app/cuzfrog1/palm-game?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=cuzfrog/palm-game&amp;utm_campaign=Badge_Grade)
 # palm-game
 
-A palm game console built on Typescript + React + RxJS.
+A palm game console built on Typescript + React + Redux + RxJS.
 
 ## Todo list
 
@@ -12,7 +12,7 @@ A palm game console built on Typescript + React + RxJS.
 - [x] Tetris
 - [ ] more games
 - [ ] optimize on mobile client
-- [ ] better appearance
+- [ ] better appearance/css
 
 ## Games
 
@@ -32,6 +32,10 @@ A palm game console built on Typescript + React + RxJS.
 ### Snake
 
 * Change direction: <img src="./doc/keyboard/A.png" width="16" height="16"> <img src="./doc/keyboard/D.png" width="16" height="16"> <img src="./doc/keyboard/S.png" width="16" height="16"> <img src="./doc/keyboard/W.png" width="16" height="16">
+
+## Performance
+
+* Snake - per frame <10ms 
 
 ## Build & Run
 
