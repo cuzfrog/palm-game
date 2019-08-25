@@ -11,12 +11,12 @@ const screen = Object.freeze({
 
 const core = Object.freeze({
   defaultButtonThrottleIntervalMs: 120,
-  maxLevel: 8,
+  maxLevel: 9,
 });
 
 const snakeGame = Object.freeze({
   beanProduceChance: 0.5,
-  baseCreepIntervalMs: 900,
+  baseCreepIntervalMs: 1000,
   winBodyLength: isProd ? 15 : 7,
   baseScore: 5,
   escapeAnimationIntervalMs: 100,
@@ -28,7 +28,7 @@ const tetrisGame = Object.freeze({
   },
   initialX: screen.graphicWidth / 2,
   initialY: screen.graphicHeight - 1,
-  baseDescendIntervalMs: isProd ? 1200 : 2000,
+  baseDescendIntervalMs: 1000,
   hardDropThrottleIntervalMs: 600,
   markClearPauseDurationMs: 400,
   baseScore: 5,
