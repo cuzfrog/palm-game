@@ -5,9 +5,7 @@
 # palm-game
 A palm game console built on Typescript + React + Redux + RxJS.
 
-
 <p align="center"><img src="./doc/QR_code.png"></p>
-<p align="center">Grab your phone, scan and play!</p>
 
 ## Todo list
 
@@ -27,12 +25,14 @@ A palm game console built on Typescript + React + Redux + RxJS.
 * Quit game: when game paused `select` or <img src="./doc/keyboard/1.png" width="16" height="16"> 2 times
 
 ### Tetris
+<img src="./doc/tetris-capture.gif" width=150>
 
 * Move: <img src="./doc/keyboard/A.png" width="16" height="16"> <img src="./doc/keyboard/D.png" width="16" height="16"> <img src="./doc/keyboard/S.png" width="16" height="16">
 * Rotate: <img src="./doc/keyboard/J.png" width="16" height="16">
 * Hard drop: <img src="./doc/keyboard/K.png" width="16" height="16">
 
 ### Snake
+<img src="./doc/snake-capture.gif" width=150>
 
 * Change direction: <img src="./doc/keyboard/A.png" width="16" height="16"> <img src="./doc/keyboard/D.png" width="16" height="16"> <img src="./doc/keyboard/S.png" width="16" height="16"> <img src="./doc/keyboard/W.png" width="16" height="16">
 
