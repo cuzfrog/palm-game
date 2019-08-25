@@ -1,7 +1,7 @@
 {
   "name": "palm-games",
   "description": "Palm game console based on React",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "private": false,
   "keywords": [
     "redux",

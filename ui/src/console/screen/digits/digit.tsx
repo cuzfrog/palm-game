@@ -66,7 +66,7 @@ export default class Digit extends React.PureComponent<Props, {}> {
     public render() {
         return (
             <FontWrapper fontSize={this.props.fontSize}>
-                <FontForeground>{Math.min(this.props.value, this.backgroundDigits)}</FontForeground>
+                <FontForeground>{this.props.value}</FontForeground>
                 <FontBackground>{this.backgroundDigits}</FontBackground>
             </FontWrapper>
         );

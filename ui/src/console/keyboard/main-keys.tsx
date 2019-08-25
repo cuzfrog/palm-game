@@ -8,6 +8,8 @@ import { Key } from "./key-code";
 interface Props {
   actionA: () => void;
   actionB: () => void;
+  throttleIntervalA?: number;
+  throttleIntervalB?: number;
 }
 
 const KeyAContainer = styled.div`
@@ -26,7 +28,7 @@ class MainKeys extends React.PureComponent<Props, {}> {
             type={BtnType.MAIN}
             caption={"A"}
             action={this.props.actionA}
-            throttleIntervalMs={100}
+            throttleIntervalMs={this.props.throttleIntervalA}
             keyboardCode={Key.K}
           />
         </KeyAContainer>
@@ -35,7 +37,7 @@ class MainKeys extends React.PureComponent<Props, {}> {
             type={BtnType.MAIN}
             caption={"B"}
             action={this.props.actionB}
-            throttleIntervalMs={100}
+            throttleIntervalMs={this.props.throttleIntervalB}
             keyboardCode={Key.J}
           />
         </KeyBContainer>

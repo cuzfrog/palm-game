@@ -18,6 +18,11 @@ export interface KeyboardProps {
   readonly actionB: () => void;
 }
 
+export interface KeyboardThrottleProps {
+  readonly mainAThrottleInterval?: number;
+  readonly mainBThrottleInterval?: number;
+}
+
 const KeyboardWrapper = styled.div`
   position: relative;
   > div {
@@ -38,7 +43,7 @@ const MainKeysContainer = styled.div`
   top: 30px;
 `;
 
-class Keyboard extends React.PureComponent<KeyboardProps, {}> {
+class Keyboard extends React.PureComponent<KeyboardProps & KeyboardThrottleProps, {}> {
   constructor(props: KeyboardProps) {
     super(props);
   }
@@ -50,8 +55,16 @@ class Keyboard extends React.PureComponent<KeyboardProps, {}> {
         <ArrowKeysContainer>
           <ArrowKeys upAction={p.upAction} rightAction={p.rightAction} downAction={p.downAction} leftAction={p.leftAction} />
         </ArrowKeysContainer>
-        <FuncKeysContainer><FunctionKeys selectAction={p.selectAction} startAction={p.startAction} /></FuncKeysContainer>
-        <MainKeysContainer><MainKeys actionA={p.actionA} actionB={p.actionB} /></MainKeysContainer>
+        <FuncKeysContainer>
+          <FunctionKeys selectAction={p.selectAction} startAction={p.startAction} />
+        </FuncKeysContainer>
+        <MainKeysContainer>
+          <MainKeys
+            actionA={p.actionA} actionB={p.actionB}
+            throttleIntervalA={this.props.mainAThrottleInterval}
+            throttleIntervalB={this.props.mainBThrottleInterval}
+          />
+        </MainKeysContainer>
       </KeyboardWrapper>
     );
   }
