@@ -14,15 +14,15 @@ interface Props {
   keyboardCode?: string;
 }
 
-interface State {
-  active: boolean;
-}
-
 const StyledButton = styled.div`
   ${(props: Props) => mapStyledButton(props.type)};
 `;
 
-export default class Button extends React.PureComponent<Props, State> {
+export default class Button extends React.Component<Props, {}> {
+  shouldComponentUpdate() {
+    return false;
+  }
+
   constructor(props: Props) {
     super(props);
     if (typeof props.downHandler !== typeof props.upHandler) {
@@ -30,9 +30,8 @@ export default class Button extends React.PureComponent<Props, State> {
     }
     autoBind.react(this);
     if (props.keyboardCode && props.actionHandler) {
-      handleKeyboardEvent(props.keyboardCode, props.actionHandler);
+      addKeyboardEventListener(props.keyboardCode, props.actionHandler);
     }
-    this.state = { active: false }; // todo: use state to control css
   }
 
   public render() {
@@ -79,7 +78,7 @@ export default class Button extends React.PureComponent<Props, State> {
   }
 }
 
-function handleKeyboardEvent(code: string, keypressHandler: () => void) {
+function addKeyboardEventListener(code: string, keypressHandler: () => void) {
   document.addEventListener("keypress", (ev: KeyboardEvent) => {
     if (ev.code === code) { keypressHandler(); }
   });

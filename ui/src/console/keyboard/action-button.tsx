@@ -20,7 +20,7 @@ interface State {
   handles: List<number>;
 }
 
-export default class ActionButton extends React.PureComponent<Props, State> {
+export default class ActionButton extends React.Component<Props, State> {
 
   private readonly throttleInterval: number;
   private readonly throttledDispatch: () => void;
@@ -31,6 +31,10 @@ export default class ActionButton extends React.PureComponent<Props, State> {
     this.state = { handles: List() };
     this.throttledDispatch = throttle(this.props.action, this.throttleInterval, { trailing: false });
     autoBind.react(this);
+  }
+
+  shouldComponentUpdate() {
+    return false;
   }
 
   render(): React.ReactNode {
