@@ -1,5 +1,5 @@
 import Console from "./console";
 
 export default Console;
-export {KeyboardProps} from "./keyboard";
-export {DashboardProps, MatrixProps} from "./screen";
+export { KeyboardProps, KeyboardThrottleProps } from "./keyboard";
+export { DashboardProps, MatrixProps } from "./screen";

@@ -29,6 +29,7 @@ const tetrisGame = Object.freeze({
   initialX: screen.graphicWidth / 2,
   initialY: screen.graphicHeight - 1,
   baseDescendIntervalMs: isProd ? 1200 : 2000,
+  hardDropThrottleIntervalMs: 600,
   markClearPauseDurationMs: 400,
   baseScore: 5,
   winFloorCountPerLevel: isProd ? 50 : 3,
