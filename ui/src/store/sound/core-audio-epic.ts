@@ -34,6 +34,18 @@ const inGameKeypressAudioEpic = createAudioEpic(
     s => s.core.status === SystemStatus.IN_GAME
 );
 
+const inGamePausedMainkeyAudioEpic = createAudioEpic(
+  SoundEffects.sfxKeypress,
+  ActionGroups.mainKeys,
+  s => s.core.status === SystemStatus.IN_GAME && s.core.gameStatus === GameStatus.PAUSED
+);
+
+const inGameQuitGameSelectKeyAudioEpic = createAudioEpic(
+  SoundEffects.sfxCoreMenu,
+  [ActionType.SELECT],
+  s => s.core.status === SystemStatus.IN_GAME
+);
+
 export const coreAudioEpic = combineEpics(
     menuAudioEpic,
     selectGameAudioEpic,
@@ -41,4 +53,6 @@ export const coreAudioEpic = combineEpics(
     pauseInAudioEpic,
     pauseOutAudioEpic,
     inGameKeypressAudioEpic,
+    inGamePausedMainkeyAudioEpic,
+    inGameQuitGameSelectKeyAudioEpic,
 );
