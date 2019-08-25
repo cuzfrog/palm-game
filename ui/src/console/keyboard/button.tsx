@@ -10,7 +10,7 @@ interface Props {
   caption?: string;
   downHandler?: () => void;
   upHandler?: () => void;
-  clickHandler?: () => void;
+  actionHandler?: () => void;
   keyboardCode?: string;
 }
 
@@ -29,25 +29,43 @@ export default class Button extends React.PureComponent<Props, State> {
       throw ReferenceError("downHandler and upHandler must be both absent or both present.");
     }
     autoBind.react(this);
-    if (props.keyboardCode && props.clickHandler) {
-      handleKeyboardEvent(props.keyboardCode, props.clickHandler);
+    if (props.keyboardCode && props.actionHandler) {
+      handleKeyboardEvent(props.keyboardCode, props.actionHandler);
     }
     this.state = { active: false }; // todo: use state to control css
   }
 
   public render() {
     return (
-      <StyledButton type={this.props.type}
-        onMouseDown={this.handleDown} onMouseUp={this.handleUp} onClick={this.props.clickHandler}
-        onTouchStart={this.props.clickHandler}
+      <StyledButton
+        type={this.props.type}
+        onMouseDown={this.handleDown}
+        onMouseUp={this.handleUp}
+        onClick={this.props.actionHandler}
+        onTouchStart={this.handleTouch}
+        onTouchEnd={this.preventTouchend}
       >
         {this.props.caption}
       </StyledButton>
     );
   }
 
-  private handleDown() {
+  private preventTouchend(e: React.TouchEvent) {
+    e.preventDefault();
+    this.handleUp();
+  }
+
+  private handleTouch(e: React.TouchEvent) {
+    if (this.props.actionHandler) {
+      e.preventDefault();
+      this.props.actionHandler();
+      this.handleDown(e);
+    }
+  }
+
+  private handleDown(e: React.SyntheticEvent) {
     if (this.props.downHandler) {
+      e.preventDefault();
       this.props.downHandler();
       document.addEventListener("mouseup", this.handleUp);
     }

@@ -10,6 +10,7 @@ const screen = Object.freeze({
 });
 
 const core = Object.freeze({
+  defaultButtonThrottleIntervalMs: 120,
   maxLevel: 8,
 });
 
